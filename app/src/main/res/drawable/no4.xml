@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:drawable="@drawable/n4"/>
+    <item android:state_pressed="false"
+        android:drawable="@drawable/n4" /> <!-- pressed -->
+    <item android:state_pressed="true"
+        android:drawable="@drawable/n4_select" /> <!-- focused -->
+    <item android:state_enabled="true" android:drawable="@drawable/n4"/> <!-- idle state -->
+
+</selector>

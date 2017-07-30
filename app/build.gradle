@@ -40,6 +40,14 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     //bottomnavigation
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.2'
+    //
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    //carousel
+    compile 'com.synnapps:carouselview:0.1.4'
+    //lazy load image
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+
+
 
 
 }
