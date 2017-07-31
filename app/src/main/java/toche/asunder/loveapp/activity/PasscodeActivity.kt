@@ -19,7 +19,7 @@ class PasscodeActivity :AppCompatActivity(){
         setContentView(R.layout.passcode)
 
         delete.setOnClickListener {
-            startActivity(Intent().setClass(this, HomeActivity::class.java))
+            startActivity(Intent().setClass(this@PasscodeActivity, LoginActivity::class.java))
             finish()
         }
 

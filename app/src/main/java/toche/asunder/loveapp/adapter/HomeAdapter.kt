@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.R
 import toche.asunder.loveapp.activity.ActivityMain
 
@@ -34,9 +35,13 @@ class HomeAdapter(var context: Context) : RecyclerView.Adapter<HomeAdapter.HomeH
 
     inner class HomeHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(items: Int) {
-            val cardView = itemView.findViewById<View>(R.id.home_item) as CardView
+            val cardView = itemView.findViewById<View>(R.id.home_item)
+            val title = itemView.findViewById<TextView>(R.id.title)
+            val desc = itemView.findViewById<TextView>(R.id.desc)
+            title.typeface = MyApp.typeFace.heavy
+            desc.typeface = MyApp.typeFace.medium
             cardView.setOnClickListener {
-                Toast.makeText(context,"Click position $items",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context,"Click position $items",Toast.LENGTH_SHORT).show()
                 context.startActivity(Intent().setClass(context, ActivityMain::class.java))
                 val activity = context as Activity
                 activity.finish()

@@ -22,7 +22,7 @@ class GenderActivity : AppCompatActivity(){
 
         rv_gender.layoutManager = LinearLayoutManager(this) 
         rv_gender.setHasFixedSize(true)
-        rv_gender.adapter = GenderAdapter(this)
+        rv_gender.adapter = GenderAdapter(this@GenderActivity)
 
     }
 
