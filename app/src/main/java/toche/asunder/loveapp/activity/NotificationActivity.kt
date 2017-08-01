@@ -15,11 +15,7 @@ import toche.asunder.loveapp.adapter.NotiAdapter
  */
 class NotificationActivity : AppCompatActivity() {
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        startActivity(Intent().setClass(this@NotificationActivity, HomeActivity::class.java))
-        finish()
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

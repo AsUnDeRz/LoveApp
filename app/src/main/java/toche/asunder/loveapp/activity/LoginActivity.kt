@@ -29,7 +29,7 @@ class LoginActivity :AppCompatActivity(){
         forgetpassword.typeface = MyApp.typeFace.heavy
 
         login_btn.setOnClickListener {
-            startActivity(Intent().setClass(this@LoginActivity, HomeActivity::class.java))
+            startActivity(Intent().setClass(this@LoginActivity, ActivityMain::class.java))
             finish()
         }
 
