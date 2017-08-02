@@ -39,6 +39,7 @@
         <activity android:name=".activity.ClinicInfo" />
         <activity android:name=".activity.BookingActivity" />
         <activity android:name=".activity.PillReminderActivity" />
+        <activity android:name=".activity.ChangePasscodeActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

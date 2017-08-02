@@ -20,7 +20,7 @@ class ChangePasscodeActivity: AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.booking_layout)
+        setContentView(R.layout.change_passcode)
         txt_title.typeface = MyApp.typeFace.heavy
         txt_changepass.typeface = MyApp.typeFace.heavy
 
