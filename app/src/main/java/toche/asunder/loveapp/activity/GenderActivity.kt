@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import kotlinx.android.synthetic.main.gender_list.*
+import kotlinx.android.synthetic.main.header_logo_white_back.*
+import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.R
 import toche.asunder.loveapp.adapter.GenderAdapter
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -20,6 +22,8 @@ class GenderActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gender_list)
 
+        title_header.typeface = MyApp.typeFace.heavy
+
         rv_gender.layoutManager = LinearLayoutManager(this) 
         rv_gender.setHasFixedSize(true)
         rv_gender.adapter = GenderAdapter(this@GenderActivity)
@@ -27,7 +31,5 @@ class GenderActivity : AppCompatActivity(){
     }
 
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }
+
 }

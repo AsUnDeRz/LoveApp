@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.lab.*
 import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.PermissionUtils
 import toche.asunder.loveapp.R
+import toche.asunder.loveapp.activity.ActivityMain
 
 /**
  * Created by admin on 8/1/2017 AD.
@@ -78,10 +79,10 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(currentLatitude, currentLongitude)
 
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
+        //add Marker
         options = MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.icon_account)))
+                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
 
 
         //googleMap?.setOnMarkerClickListener(this)
@@ -154,8 +155,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapView.onCreate(savedInstanceState)
+
+        //Custom wording and font
         title_app.typeface =MyApp.typeFace.heavy
         title_app.text ="NEAR\nBY PLACE"
+        txt_search.typeface = MyApp.typeFace.medium
+        txt_search.hint = "Search..."
+        btn_showlist.setOnClickListener {
+            ActivityMain.vp_main.setCurrentItem(5,false)
+        }
 
 
     }
@@ -185,7 +193,6 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     override fun onPause() {
         super.onPause()
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
-
         mapView.onPause()
 
     }
@@ -216,9 +223,10 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             //googleMap!!.isMyLocationEnabled = true
             if(mGoogleApiClient.isConnected && location != null){
                 val latLng = LatLng(location!!.latitude,location!!.longitude)
+                // add Marker
                 val options =  MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.icon_account)))
+                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
                 googleMap?.addMarker(options)
                 googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,16.0f))
 
@@ -257,28 +265,29 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
      fun getMarkerBitmapFromView(resId :Int) :Bitmap {
 
-        val layout = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+         val layout = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
          val customMarkerView = layout.inflate(R.layout.custom_marker, null)
-        val markerImageView = customMarkerView.findViewById<ImageView>(R.id.profile_image)
+         val markerImageView = customMarkerView.findViewById<ImageView>(R.id.profile_image)
          val nameClinic = customMarkerView.findViewById<TextView>(R.id.txt_name)
          val descClinic = customMarkerView.findViewById<TextView>(R.id.txt_desc)
 
+         // set Text
          nameClinic.typeface = MyApp.typeFace.heavy
          descClinic.typeface = MyApp.typeFace.medium
-
+        // set Image circle
          markerImageView.setImageResource(resId)
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        customMarkerView.layout(0, 0, 500, 200)
-        customMarkerView.buildDrawingCache()
-        val returnedBitmap = Bitmap.createBitmap(500, 200,
+
+         customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+         customMarkerView.layout(0, 0, 550, 200)
+         customMarkerView.buildDrawingCache()
+         val returnedBitmap = Bitmap.createBitmap(550, 200,
                 Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(returnedBitmap)
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
-        val drawable = customMarkerView.background
-        if (drawable != null)
-            drawable.draw(canvas)
-        customMarkerView.draw(canvas)
-        return returnedBitmap
+         val canvas = Canvas(returnedBitmap)
+         canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
+         val drawable = customMarkerView.background
+         drawable?.draw(canvas)
+         customMarkerView.draw(canvas)
+         return returnedBitmap
     }
 
 }

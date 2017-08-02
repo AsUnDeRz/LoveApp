@@ -21,7 +21,7 @@
         layout="@layout/header_logo_white"/>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_showlist"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
@@ -46,10 +46,12 @@
             app:srcCompat="@drawable/search_box" />
 
         <EditText
+            android:id="@+id/txt_search"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:background="@android:color/transparent"
             android:maxLines="1" />
     </RelativeLayout>
 </RelativeLayout>

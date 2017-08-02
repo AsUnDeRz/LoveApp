@@ -36,6 +36,10 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.NotificationActivity" />
         <activity android:name=".activity.ReminderActivity" />
+        <activity android:name=".activity.ClinicInfo" />
+        <activity android:name=".activity.BookingActivity" />
+        <activity android:name=".activity.PillReminderActivity" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

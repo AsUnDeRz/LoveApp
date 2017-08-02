@@ -1,5 +1,6 @@
 package toche.asunder.loveapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import kotlinx.android.synthetic.main.header_logo_blue.*
 import kotlinx.android.synthetic.main.setting_layout.*
 import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.R
+import toche.asunder.loveapp.activity.ChangePasscodeActivity
+import toche.asunder.loveapp.activity.PillReminderActivity
 
 /**
  * Created by admin on 8/1/2017 AD.
@@ -34,6 +37,15 @@ class SettingFragment : Fragment() {
         txt_acc_setting.typeface = MyApp.typeFace.heavy
         txt_passcode.typeface = MyApp.typeFace.heavy
         txt_reminder.typeface = MyApp.typeFace.heavy
+
+        btn_passcode.setOnClickListener {
+            context.startActivity(Intent().setClass(context,ChangePasscodeActivity::class.java))
+        }
+
+        btn_reminder.setOnClickListener {
+            context.startActivity(Intent().setClass(context,PillReminderActivity::class.java))
+
+        }
 
     }
 }

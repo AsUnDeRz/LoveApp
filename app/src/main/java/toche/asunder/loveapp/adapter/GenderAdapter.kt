@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.R
 import toche.asunder.loveapp.activity.ActivityMain
 import toche.asunder.loveapp.activity.GenderActivity
@@ -37,6 +38,7 @@ class GenderAdapter(var context: Context) : RecyclerView.Adapter<GenderAdapter.G
     inner class GenderHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(items: String) {
             val textViewName = itemView.findViewById<View>(R.id.txt_gender) as TextView
+            textViewName.typeface = MyApp.typeFace.heavy
             textViewName.text = items
             textViewName.setOnClickListener {
                     context.startActivity(Intent().setClass(context, PasscodeActivity::class.java))

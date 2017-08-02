@@ -9,6 +9,7 @@
         layout="@layout/header_logo_blue"/>
 
     <RelativeLayout
+        android:id="@+id/btn_passcode"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginLeft="30dp"
@@ -37,11 +38,13 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="20dp"
             app:srcCompat="@drawable/arrow_white" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_reminder"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginLeft="30dp"
@@ -70,11 +73,13 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="20dp"
             app:srcCompat="@drawable/arrow_white" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_acc_setting"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginLeft="30dp"
@@ -103,11 +108,13 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="20dp"
             app:srcCompat="@drawable/arrow_white" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_test_hiv"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginLeft="30dp"
@@ -136,6 +143,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="20dp"
             app:srcCompat="@drawable/arrow_white" />
     </RelativeLayout>

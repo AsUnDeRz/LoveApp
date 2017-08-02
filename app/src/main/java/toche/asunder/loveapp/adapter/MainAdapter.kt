@@ -26,6 +26,8 @@ class MainAdapter(fragmentManager: FragmentManager, var context: Context) : Frag
             2 -> return IamFragment.newInstance()
             3 -> return LearnAndGameFragment.newInstance()
             4 -> return SettingFragment.newInstance()
+            5 -> return ClinicFragment.newInstance()
+            //6 -> return ClinicInfoFragment.newInstance()
             else -> return null
         }
     }
@@ -36,7 +38,7 @@ class MainAdapter(fragmentManager: FragmentManager, var context: Context) : Frag
     }
 
     companion object {
-        private val NUM_ITEMS = 5
+        private val NUM_ITEMS = 6
     }
 
 }

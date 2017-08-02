@@ -16,7 +16,7 @@ import android.media.session.PlaybackState
 import android.support.design.widget.BottomNavigationView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.activity_main.*
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import toche.asunder.loveapp.CustomViewpager
 import toche.asunder.loveapp.R
 import toche.asunder.loveapp.adapter.MainAdapter
@@ -27,11 +27,17 @@ class ActivityMain : AppCompatActivity() {
 
 
 
+    companion object {
+        lateinit var vp_main : CustomViewpager
+        lateinit var bnve : BottomNavigationViewEx
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        vp_main = findViewById(R.id.vp_main)
+        bnve = findViewById(R.id.bnve)
 
         setUpBottomBar()
 
