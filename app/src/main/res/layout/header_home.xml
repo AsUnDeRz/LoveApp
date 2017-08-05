@@ -25,9 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="false"
-            android:gravity="center"
+            android:gravity="left|center"
             android:paddingStart="10dp"
-            android:text="WEL\n COME"
+            android:text="WEL\nCOME"
             android:textColor="@android:color/white"
             android:textSize="24dp" />
     </LinearLayout>

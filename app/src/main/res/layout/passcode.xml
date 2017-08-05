@@ -191,7 +191,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/no9" />
+                app:srcCompat="@drawable/no0" />
 
             <TextView
                 android:id="@+id/delete"

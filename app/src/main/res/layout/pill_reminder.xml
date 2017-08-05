@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/btn_change_passcode"
+            android:id="@+id/btn_take_pill"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_below="@+id/header_change_passcode"
@@ -46,13 +46,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btn_change_passcode"
+            android:id="@+id/btn_noti_reminder"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_below="@+id/header_change_passcode"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/fill_box">
 
             <TextView
@@ -68,8 +68,8 @@
 
             <com.kyleduo.switchbutton.SwitchButton
                 android:id="@+id/sb_ios"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 app:kswAnimationDuration="300"
@@ -77,8 +77,8 @@
                 app:kswBackMeasureRatio="1.4"
                 app:kswThumbDrawable="@drawable/ios_thumb_selector"
                 app:kswThumbMarginBottom="-20dp"
-                app:kswThumbMarginLeft="-10dp"
-                app:kswThumbMarginRight="-10dp"
+                app:kswThumbMarginLeft="-12dp"
+                app:kswThumbMarginRight="-12dp"
                 app:kswThumbMarginTop="-15dp" />
             <!--
             <com.kyleduo.switchbutton.SwitchButton
@@ -95,13 +95,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btn_change_passcode"
+            android:id="@+id/btn_msn"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_below="@+id/header_change_passcode"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_box">
 
             <TextView

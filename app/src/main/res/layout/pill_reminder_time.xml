@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header_pill_reminder_time"
+        layout="@layout/header_logo_blue_back" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_reminder_time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_pill_reminder_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
+
+</RelativeLayout>

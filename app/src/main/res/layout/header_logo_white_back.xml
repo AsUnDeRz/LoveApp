@@ -8,7 +8,7 @@
         android:id="@+id/btn_back"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:padding="18dp"
         app:srcCompat="@drawable/back_white" />

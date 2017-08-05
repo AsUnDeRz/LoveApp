@@ -21,7 +21,7 @@ class HivStatusActivity: AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.clinic_info)
+        setContentView(R.layout.hiv_status)
         title_header.typeface = MyApp.typeFace.heavy
         txt_positive.typeface = MyApp.typeFace.medium
         txt_negative.typeface = MyApp.typeFace.medium

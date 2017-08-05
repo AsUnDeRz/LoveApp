@@ -10,8 +10,10 @@ import kotlinx.android.synthetic.main.header_logo_blue.*
 import kotlinx.android.synthetic.main.setting_layout.*
 import toche.asunder.loveapp.MyApp
 import toche.asunder.loveapp.R
+import toche.asunder.loveapp.activity.AccountSettingActivity
 import toche.asunder.loveapp.activity.ChangePasscodeActivity
 import toche.asunder.loveapp.activity.PillReminderActivity
+import toche.asunder.loveapp.activity.UniqueIdActivity
 
 /**
  * Created by admin on 8/1/2017 AD.
@@ -44,6 +46,16 @@ class SettingFragment : Fragment() {
 
         btn_reminder.setOnClickListener {
             context.startActivity(Intent().setClass(context,PillReminderActivity::class.java))
+
+        }
+
+        btn_test_hiv.setOnClickListener {
+            context.startActivity(Intent().setClass(context,UniqueIdActivity::class.java))
+
+        }
+
+        btn_acc_setting.setOnClickListener {
+            context.startActivity(Intent().setClass(context,AccountSettingActivity::class.java))
 
         }
 
