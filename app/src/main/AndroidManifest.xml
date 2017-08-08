@@ -30,7 +30,6 @@
         <activity android:name=".LoadingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,6 +51,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".AccountSettingActivity" />
         <activity android:name=".RiskMeterActivity" />
+        <activity android:name=".RiskMeterFinalActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

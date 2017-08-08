@@ -28,8 +28,15 @@ class RiskQuestionFragment5 : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btn_1.typeface = MyApp.typeFace.heavy
+        btn_2.typeface = MyApp.typeFace.heavy
+        btn_3.typeface =MyApp.typeFace.heavy
+        btn_4.typeface = MyApp.typeFace.heavy
+        btn_5.typeface = MyApp.typeFace.heavy
+        btn_6.typeface =MyApp.typeFace.heavy
+        btn_7.typeface = MyApp.typeFace.heavy
         btn_1.setOnClickListener {
-            vp_riskmeter.setCurrentItem(5,false)
+            RiskMeterActivity.vp_riskmeter.setCurrentItem(6,false)
         }
     }
 

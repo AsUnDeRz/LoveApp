@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -28,8 +29,14 @@ class RiskQuestionFragment6 : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btn_1.typeface = MyApp.typeFace.heavy
+        btn_2.typeface = MyApp.typeFace.heavy
+        btn_3.typeface =MyApp.typeFace.heavy
         btn_1.setOnClickListener {
-            vp_riskmeter.setCurrentItem(6,false)
+            //RiskMeterActivity.vp_riskmeter.setCurrentItem(6,false)
+            context.startActivity(Intent().setClass(context,RiskMeterFinalActivity::class.java))
+            val activity = context as Activity
+            activity.finish()
         }
     }
 
