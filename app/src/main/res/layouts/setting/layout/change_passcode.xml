@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/header_change_passcode"
+        layout="@layout/header_logo_blue_back"/>
+
+    <RelativeLayout
+        android:id="@+id/btn_change_passcode"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/header_change_passcode"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_box">
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_changepass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:paddingStart="30dp"
+            android:text="Change Passcode"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="20dp"
+            app:srcCompat="@drawable/arrow_white" />
+    </RelativeLayout>
+
+</RelativeLayout>

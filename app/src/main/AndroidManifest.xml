@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="toche.asunder.loveapp">
+    package="asunder.toche.loveapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA" />
@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -23,33 +24,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ActivityMain">
+        <activity android:name=".ActivityMain">
+
+        </activity>
+        <activity android:name=".LoadingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GenderActivity" />
-        <activity android:name=".activity.SplashActivity" >
-
-        </activity>
-        <activity android:name=".activity.PasscodeActivity" />
-
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.NotificationActivity" />
-        <activity android:name=".activity.ReminderActivity" />
-        <activity android:name=".activity.ClinicInfo" />
-        <activity android:name=".activity.BookingActivity" />
-        <activity android:name=".activity.PillReminderActivity" />
-        <activity android:name=".activity.ChangePasscodeActivity" />
-        <activity android:name=".activity.PillReminderTimeActivity" />
-        <activity android:name=".activity.PointHistriesActivity" />
-        <activity android:name=".activity.UniqueIdActivity" />
-        <activity android:name=".activity.AccountSettingActivity" />
-        <activity android:name=".activity.HivStatusActivity" />
-        <activity android:name=".activity.LearnGameMainActivity" />
-        <activity android:name=".activity.MemoryMasterActivity" />
-        <activity android:name=".activity.LearnNewActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".GenderActivity" />
+        <activity android:name=".HivStatusActivity" />
+        <activity android:name=".PointHistriesActivity" />
+        <activity android:name=".BookingActivity" />
+        <activity android:name=".ClinicInfo" />
+        <activity android:name=".MemoryMasterActivity" />
+        <activity android:name=".LearnGameMainActivity" />
+        <activity android:name=".LearnNewActivity" />
+        <activity android:name=".ChangePasscodeActivity" />
+        <activity android:name=".ReminderActivity" />
+        <activity android:name=".UniqueIdActivity" />
+        <activity android:name=".PillReminderActivity" />
+        <activity android:name=".PillReminderTimeActivity" />
+        <activity android:name=".OldNewUserActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".AccountSettingActivity" />
+        <activity android:name=".RiskMeterActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

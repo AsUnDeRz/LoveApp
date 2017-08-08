@@ -5,6 +5,7 @@ buildscript {
     ext.daggerVersion = '2.9'
     ext.supportVersion = '26.0.0'
     ext.ankoVersion ='0.10.1'
+    ext.playserviceVersion ='11.0.4'
 
 
     repositories {

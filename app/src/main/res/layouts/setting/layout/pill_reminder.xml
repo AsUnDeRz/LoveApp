@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/header_pill_reminder"
+        layout="@layout/header_logo_blue_back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_pill_reminder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/btn_take_pill"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_below="@+id/header_change_passcode"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_box">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_takepill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingStart="30dp"
+                android:text="Take Pill At"
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="20dp"
+                app:srcCompat="@drawable/arrow_white_down" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_noti_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_below="@+id/header_change_passcode"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/fill_box">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingStart="30dp"
+                android:text="Reminder\nNotification"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp" />
+
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_ios"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:kswAnimationDuration="300"
+                app:kswBackDrawable="@drawable/ios_back_drawable"
+                app:kswBackMeasureRatio="1.4"
+                app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                app:kswThumbMarginBottom="-20dp"
+                app:kswThumbMarginLeft="-12dp"
+                app:kswThumbMarginRight="-12dp"
+                app:kswThumbMarginTop="-15dp" />
+            <!--
+            <com.kyleduo.switchbutton.SwitchButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="20dp"
+                app:kswFadeBack="true"
+                app:kswThumbColor="@android:color/white"
+                app:kswThumbHeight="30dp"
+                app:kswThumbWidth="30dp" />
+                -->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_msn"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_below="@+id/header_change_passcode"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_box">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_msn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingStart="30dp"
+                android:text="Message"
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="20dp"
+                app:srcCompat="@drawable/arrow_white" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
