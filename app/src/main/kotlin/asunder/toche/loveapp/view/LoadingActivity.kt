@@ -15,6 +15,8 @@ class LoadingActivity:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_page)
 
+
+
         val intentThis = Intent()
         val splash = Handler()
         splash.postDelayed({

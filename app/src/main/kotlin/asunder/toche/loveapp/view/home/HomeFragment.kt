@@ -1,7 +1,9 @@
 package asunder.toche.loveapp
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.header_home.*
@@ -20,7 +23,19 @@ import kotlinx.android.synthetic.main.home.*
 /**
  * Created by admin on 8/1/2017 AD.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
+
+
+    override fun endCallProgress(data: ObservableList<Model.ImageHome>) {
+        imaHome = data
+        cV.setImageListener(listener)
+        cV.pageCount = imaHome.size
+    }
+
+
+    lateinit var homeViewModel: ViewModel.HomeViewModel
+    lateinit var imaHome : ObservableList<Model.ImageHome>
+
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -37,11 +52,19 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeViewModel = ViewModelProviders.of(this).get(ViewModel.HomeViewModel::class.java)
+
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.home, container, false)
         val cv = view?.findViewById<CarouselView>(R.id.cV)
-        cv?.setImageListener(listener)
-        cv?.pageCount = banner.size
+        homeViewModel.loadImage(this)
+        //cv?.setImageListener(listener)
+        //cv?.pageCount
 
 
 
@@ -53,8 +76,10 @@ class HomeFragment : Fragment() {
 
      var listener: ImageListener = ImageListener { position, imageView ->
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
+         var image = imaHome[position]
         Glide.with(this)
-                .load(banner[position])
+                .load("http://loveapponline.com/"+image.image_byte)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView)
     }
 
@@ -71,5 +96,10 @@ class HomeFragment : Fragment() {
         rv_home.setHasFixedSize(true)
         rv_home.adapter = MasterAdapter.HomeAdapter(homeList,false)
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        homeViewModel.unsubscribe()
     }
 }

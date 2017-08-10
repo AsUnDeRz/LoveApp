@@ -11,6 +11,14 @@ import java.util.*
  */
 object Model{
 
+    /*
+     "id": 40,
+        "image_byte": "uploads/banners/40/o.png",
+        "version": 40,
+        "link": "www.kapook.com
+     */
+    data class ImageHomeResponse(val list:MutableList<ImageHome>)
+    data class ImageHome(val id:String,val image_byte:String,val version:String,val link:String)
     data class HomeContent(var id:Long,var name:String): StableId{
         override val stableId: Long = id
 
