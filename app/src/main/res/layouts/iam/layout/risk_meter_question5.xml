@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/imageView15"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
@@ -47,11 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+        android:layout_centerVertical="false"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp">
+        android:paddingRight="20dp">
 
         <Button
             android:id="@+id/btn_1"
@@ -87,7 +86,7 @@
         android:layout_below="@+id/box1"
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+        android:layout_centerVertical="false"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -127,7 +126,7 @@
         android:layout_below="@+id/box2"
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+        android:layout_centerVertical="false"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -167,7 +166,7 @@
         android:layout_below="@+id/box3"
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+        android:layout_centerVertical="false"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

@@ -17,9 +17,9 @@ class NotificationActivity : AppCompatActivity() {
    // "Forget to take pill for 2 days","You have appointment with a doctor today","Forget to take pill for 5 days"
 
     var notiList = ObservableArrayList<Model.Notification>().apply {
-        add(Model.Notification(1,"Forget to take pill for 2 days","Test", Date()))
-        add(Model.Notification(1,"Forget to take pill for 2 days","Test", Date()))
-        add(Model.Notification(1,"Forget to take pill for 2 days","Test", Date()))
+        add(Model.Notification(1,"Forget to take pill for 2 days","utils.Test", Date()))
+        add(Model.Notification(1,"Forget to take pill for 2 days","utils.Test", Date()))
+        add(Model.Notification(1,"Forget to take pill for 2 days","utils.Test", Date()))
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -44,11 +44,11 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     }
     val banner = arrayOf(R.drawable.silde_img_1,R.drawable.silde_img_1,R.drawable.silde_img_1)
     var homeList = ObservableArrayList<Model.HomeContent>().apply{
-        add(Model.HomeContent(1,"Test"))
-        add(Model.HomeContent(1,"Test"))
-        add(Model.HomeContent(1,"Test"))
-        add(Model.HomeContent(1,"Test"))
-        add(Model.HomeContent(1,"Test"))
+        add(Model.HomeContent(1,"utils.Test"))
+        add(Model.HomeContent(1,"utils.Test"))
+        add(Model.HomeContent(1,"utils.Test"))
+        add(Model.HomeContent(1,"utils.Test"))
+        add(Model.HomeContent(1,"utils.Test"))
 
     }
 

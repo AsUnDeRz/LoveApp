@@ -20,7 +20,7 @@ class ClinicFragment: Fragment() {
 
     val clinicList = ObservableArrayList<Model.Clinic>().apply {
         for(i in 1..6) {
-            add(Model.Clinic(1123, "Bangkok", "HIV Test", "10.00 am - 19.00 pm"))
+            add(Model.Clinic(1123, "Bangkok", "HIV utils.Test", "10.00 am - 19.00 pm"))
         }
     }
     companion object {

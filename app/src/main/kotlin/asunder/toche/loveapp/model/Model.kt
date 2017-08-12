@@ -11,6 +11,7 @@ import java.util.*
  */
 object Model{
 
+
     /*
      "id": 40,
         "image_byte": "uploads/banners/40/o.png",
@@ -23,6 +24,8 @@ object Model{
         override val stableId: Long = id
 
     }
+
+    data class Game1(val id:Int, val icon:Int, var position:Int)
 
     data class Clinic(var id: Long,var name:String,var testName:String,var workTime:String):StableId{
         override val stableId: Long = id
