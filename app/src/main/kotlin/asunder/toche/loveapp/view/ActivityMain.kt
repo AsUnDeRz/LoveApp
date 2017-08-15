@@ -3,7 +3,10 @@ package asunder.toche.loveapp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.view.ViewPager
+import android.widget.Toast
 import asunder.toche.loveapp.R
+import com.github.ajalt.timberkt.Timber.d
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import view.custom_view.CustomViewpager
 
@@ -27,6 +30,19 @@ class ActivityMain : AppCompatActivity() {
             val adapterViewPager = MainAdapter(supportFragmentManager, this)
             vp_main.adapter = adapterViewPager
             vp_main.setAllowedSwipeDirection(CustomViewpager.SwipeDirection.none)
+            /*
+            vp_main.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(state: Int) {
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    Toast.makeText(applicationContext,"Position =$position",Toast.LENGTH_LONG).show()
+                }
+            })
+            */
 
 
 

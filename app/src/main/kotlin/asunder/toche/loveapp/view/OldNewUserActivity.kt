@@ -18,10 +18,12 @@ class OldNewUserActivity : AppCompatActivity(){
 
         btn_signin.setOnClickListener {
             startActivity(Intent().setClass(this@OldNewUserActivity,ActivityMain::class.java))
+            finish()
         }
 
         btn_newaccout.setOnClickListener {
             startActivity(Intent().setClass(this@OldNewUserActivity,ActivityMain::class.java))
+            finish()
         }
     }
 }

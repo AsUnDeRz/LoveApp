@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="topic" type="asunder.toche.loveapp.Model.LearnTopicContent" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/btn_game"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/box_learn"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon_topic"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:imageUrl="@{topic.icon}" />
+
+                <RelativeLayout
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/title_topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingStart="20dp"
+                        android:text="@{topic.title}"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <view.custom_view.TextViewHeavy
+                    android:text="@{topic.point}"
+                    android:id="@+id/txt_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:textColor="@android:color/white" />
+
+                <view.custom_view.TextViewHeavy
+                    android:text="@{topic.size}"
+                    android:id="@+id/txt_topics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+

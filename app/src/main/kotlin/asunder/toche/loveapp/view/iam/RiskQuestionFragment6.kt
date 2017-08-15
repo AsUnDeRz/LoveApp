@@ -33,10 +33,19 @@ class RiskQuestionFragment6 : Fragment() {
         btn_2.typeface = MyApp.typeFace.heavy
         btn_3.typeface =MyApp.typeFace.heavy
         btn_1.setOnClickListener {
-            //RiskMeterActivity.vp_riskmeter.setCurrentItem(6,false)
-            context.startActivity(Intent().setClass(context,RiskMeterFinalActivity::class.java))
-            val activity = context as Activity
-            activity.finish()
+            RiskMeterActivity.riskAnswer[6] = 1
+            RiskMeterActivity.sendRiskAnswer(context)
+
+        }
+        btn_2.setOnClickListener {
+            RiskMeterActivity.riskAnswer[6] = 2
+            RiskMeterActivity.sendRiskAnswer(context)
+
+        }
+        btn_3.setOnClickListener {
+            RiskMeterActivity.riskAnswer[6] = 3
+            RiskMeterActivity.sendRiskAnswer(context)
+
         }
     }
 

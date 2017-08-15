@@ -1,9 +1,11 @@
 package asunder.toche.loveapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
+import asunder.toche.loveapp.databinding.LearnGameItemBinding
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.learn_game_list.*
 
@@ -53,7 +55,7 @@ class LearnGameMainActivity: AppCompatActivity(){
         rv_learngame.layoutManager = LinearLayoutManager(this@LearnGameMainActivity)
         rv_learngame.setHasFixedSize(true)
         //rv_learngame.adapter = LearnGameListAdapter(this@LearnGameMainActivity,intent.extras.getInt("key"))
-        rv_learngame.adapter = MasterAdapter.LearnGameAdapter(LearnGameList,false)
+        rv_learngame.adapter = LearnGameAdapter(LearnGameList,false)
         //set title
         btn_back.setOnClickListener {
             onBackPressed()
@@ -62,4 +64,29 @@ class LearnGameMainActivity: AppCompatActivity(){
 
 
     }
+
+    fun LearnGameAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
+        return LastAdapter(item,BR.learnGameItem,stableIds).type{ item, position ->
+            when(item){
+                is Model.LearnGameContent -> LearnGameType
+                else -> null
+            }
+        }
+    }
+
+    private val LearnGameType = Type<LearnGameItemBinding>(R.layout.learn_game_item)
+            .onCreate { println("Created ${it.binding.learnGameItem} at #${it.adapterPosition}") }
+            .onBind { println("Bound ${it.binding.learnGameItem} at #${it.adapterPosition}") }
+            .onRecycle { println("Recycled ${it.binding.learnGameItem} at #${it.adapterPosition}") }
+            .onClick {
+                if(it.binding.titleGame.text == "Memory Master #1"){
+                    startActivity(Intent().setClass(this,MemoryMasterActivity::class.java))
+                }
+                if(it.binding.titleGame.text == "Memory Master #2"){
+                    startActivity(Intent().setClass(this,MemoryMaster2Activity::class.java))
+
+                }
+
+            }
+            .onLongClick {}
 }

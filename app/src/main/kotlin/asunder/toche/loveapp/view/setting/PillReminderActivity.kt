@@ -29,7 +29,7 @@ class PillReminderActivity: AppCompatActivity(){
         }
 
         btn_msn.setOnClickListener {
-            //startActivity(Intent().setClass(this@PillReminderActivity, PointHistriesActivity::class.java))
+            startActivity(Intent().setClass(this@PillReminderActivity, NotiMessageActivity::class.java))
         }
 
 

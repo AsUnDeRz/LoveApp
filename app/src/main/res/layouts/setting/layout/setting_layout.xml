@@ -7,6 +7,13 @@
     <include
         android:id="@+id/header_setting"
         layout="@layout/header_logo_blue"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/btn_passcode"
@@ -21,6 +28,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:padding="10dp"
             app:srcCompat="@drawable/icon_passcode" />
 
@@ -56,6 +64,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:padding="10dp"
             app:srcCompat="@drawable/icon_reminder" />
 
@@ -91,6 +100,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:padding="10dp"
             app:srcCompat="@drawable/icon_test" />
 
@@ -100,7 +110,7 @@
             android:layout_height="match_parent"
             android:gravity="left|center"
             android:paddingStart="65dp"
-            android:text="Test HIV \n &amp; Check in"
+            android:text="Insert Lab"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -126,6 +136,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:padding="10dp"
             app:srcCompat="@drawable/icon_account" />
 
@@ -148,6 +159,42 @@
             app:srcCompat="@drawable/arrow_white" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/btn_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_box">
 
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            app:srcCompat="@drawable/icon_feedback" />
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:paddingStart="65dp"
+            android:text="Feedback"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="20dp"
+            app:srcCompat="@drawable/arrow_white" />
+    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

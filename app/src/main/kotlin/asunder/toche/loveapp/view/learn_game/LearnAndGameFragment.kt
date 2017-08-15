@@ -53,9 +53,9 @@ class LearnAndGameFragment : Fragment() {
         }
         btn_learn.setOnClickListener {
             val data = Intent()
-            data.putExtra("title","LEARNS")
-            data.putExtra("key",2)
-            startActivity(data.setClass(context, LearnGameMainActivity::class.java))
+            //data.putExtra("title","LEARNS")
+            //data.putExtra("key",2)
+            startActivity(data.setClass(context, LearnTopicActivity::class.java))
         }
 
     }

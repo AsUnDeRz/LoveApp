@@ -22,13 +22,19 @@ import io.reactivex.schedulers.Schedulers
  */
 object ViewModel{
 
+    class Game2ViewModel(val context: Context,val model: Model.Game1){
+        object GameBindingAdapter {
+            @BindingAdapter("bind:imageUrl")
+            @JvmStatic
+            fun loadImage(view: ImageView, url: String) {
+                Glide.with(view.context).load(url).into(view)
+            }
+        }
+    }
     class Game1ViewModel(val context: Context,val model:Model.Game1) {
-
-
         interface  updateData{
             fun updateList(positionClick:Int)
         }
-
         object GameBindingAdapter {
             @BindingAdapter("bind:imageUrl")
             @JvmStatic
@@ -45,7 +51,6 @@ object ViewModel{
 
             }
         }
-
         fun actionItem(from:Float,to:Float,p1:ImageButton,p2:ImageButton,isFirst: Boolean) {
             // Find the center of image
             val centerX = p1.width / 2.0f

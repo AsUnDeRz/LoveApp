@@ -49,5 +49,10 @@ class SettingFragment : Fragment() {
 
         }
 
+        btn_feedback.setOnClickListener {
+            context.startActivity(Intent().setClass(context, FeedbackActivity::class.java))
+
+        }
+
     }
 }

@@ -47,14 +47,7 @@ object MasterAdapter{
         }
     }
 
-    fun LearnGameAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.learnGameItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.LearnGameContent -> LearnGameType
-                else -> null
-            }
-        }
-    }
+
 
     fun NotificationAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.notiItem,stableIds).type{ item, position ->
@@ -81,10 +74,14 @@ object MasterAdapter{
         }
     }
 
-
-
-
-
+    fun NotiMessageAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
+        return LastAdapter(item,BR.msnItem,stableIds).type{ item, position ->
+            when(item){
+                is Model.NotiMessage -> NotiMessageType
+                else -> null
+            }
+        }
+    }
 
 
 
@@ -141,12 +138,15 @@ object MasterAdapter{
             .onClick {}
             .onLongClick {}
 
-    private val LearnGameType = Type<LearnGameItemBinding>(R.layout.learn_game_item)
-            .onCreate { println("Created ${it.binding.learnGameItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.learnGameItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.learnGameItem} at #${it.adapterPosition}") }
+
+
+    private val NotiMessageType = Type<NotiMessageItemBinding>(R.layout.noti_message_item)
+            .onCreate { println("Created ${it.binding.msnItem} at #${it.adapterPosition}") }
+            .onBind { println("Bound ${it.binding.msnItem} at #${it.adapterPosition}") }
+            .onRecycle { println("Recycled ${it.binding.msnItem} at #${it.adapterPosition}") }
             .onClick {}
             .onLongClick {}
+
 
 
 }

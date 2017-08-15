@@ -19,7 +19,7 @@ class MyApp:Application(){
 
     override  fun onCreate() {
         super.onCreate()
-
+        DatabaseCreator.createDb(this)
         //utils typeface
         typeFace = Utils(applicationContext)
         if (BuildConfig.DEBUG) {

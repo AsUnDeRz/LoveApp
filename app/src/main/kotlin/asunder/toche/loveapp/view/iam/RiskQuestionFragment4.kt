@@ -31,6 +31,11 @@ class RiskQuestionFragment4 : Fragment() {
         btn_1.typeface = MyApp.typeFace.heavy
         btn_2.typeface = MyApp.typeFace.heavy
         btn_1.setOnClickListener {
+            RiskMeterActivity.riskAnswer[4] = 1
+            RiskMeterActivity.vp_riskmeter.setCurrentItem(5,false)
+        }
+        btn_2.setOnClickListener {
+            RiskMeterActivity.riskAnswer[4] = 2
             RiskMeterActivity.vp_riskmeter.setCurrentItem(5,false)
         }
     }

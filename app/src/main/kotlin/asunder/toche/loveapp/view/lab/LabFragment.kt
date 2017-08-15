@@ -76,7 +76,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(currentLatitude, currentLongitude)
 
-        //add Marker
+        //add_blue Marker
         options = MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
@@ -220,7 +220,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             //googleMap!!.isMyLocationEnabled = true
             if(mGoogleApiClient.isConnected && location != null){
                 val latLng = LatLng(location!!.latitude,location!!.longitude)
-                // add Marker
+                // add_blue Marker
                 val options =  MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))

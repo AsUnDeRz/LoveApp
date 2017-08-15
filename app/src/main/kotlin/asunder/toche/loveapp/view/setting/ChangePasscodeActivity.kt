@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import asunder.toche.loveapp.R
@@ -22,9 +23,8 @@ class ChangePasscodeActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.change_passcode)
 
-
-
-
-
+        btn_change_passcode.setOnClickListener {
+            startActivity(Intent().setClass(this@ChangePasscodeActivity,PassCodeActivity::class.java))
+        }
     }
 }

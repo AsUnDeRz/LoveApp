@@ -11,14 +11,14 @@
         layout="@layout/header_logo_blue_back" />
 
     <ImageView
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_add"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:padding="18dp"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/add_blue" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_reminder_time"

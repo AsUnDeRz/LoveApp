@@ -30,6 +30,10 @@ class PillReminderTimeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pill_reminder_time)
 
+        btn_back.setOnClickListener {
+            onBackPressed()
+        }
+
 
         rv_reminder_time.layoutManager = LinearLayoutManager(this)
         rv_reminder_time.setHasFixedSize(true)

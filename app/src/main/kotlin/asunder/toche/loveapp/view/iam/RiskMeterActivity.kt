@@ -1,7 +1,13 @@
 package asunder.toche.loveapp
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import com.github.ajalt.timberkt.Timber.d
 import view.custom_view.CustomViewpager
 
 /**
@@ -11,6 +17,17 @@ class RiskMeterActivity:AppCompatActivity(){
 
     companion object {
         lateinit var vp_riskmeter : CustomViewpager
+        var riskAnswer = arrayOfNulls<Int>(7)
+        fun sendRiskAnswer(context:Context){
+            var answer =""
+          for(i in riskAnswer){
+             answer +=i
+          }
+            Toast.makeText(context,answer,Toast.LENGTH_LONG).show()
+            context.startActivity(Intent().setClass(context,RiskMeterFinalActivity::class.java))
+            val activity = context as Activity
+            activity.finish()
+        }
     }
 
 

@@ -35,7 +35,7 @@ interface LoveAppService{
             //loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             //val client: OkHttpClient = OkHttpClient()
-            //client.interceptors().add(loggingInterceptor)
+            //client.interceptors().add_blue(loggingInterceptor)
 
             val restAdapter = Retrofit.Builder()
                     .baseUrl(BASE_URL)

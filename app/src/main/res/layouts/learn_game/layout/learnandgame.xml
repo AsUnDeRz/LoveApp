@@ -62,7 +62,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/box_learn">
+        android:background="@drawable/box_learn_main">
 
         <ImageView
             android:layout_width="40dp"

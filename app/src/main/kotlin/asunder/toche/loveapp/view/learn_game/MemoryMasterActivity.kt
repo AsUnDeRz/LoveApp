@@ -17,6 +17,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.CountDownTimer
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.github.ajalt.timberkt.Timber.d
@@ -29,14 +30,15 @@ import kotlinx.android.synthetic.main.learn_game_list.*
 class MemoryMasterActivity:AppCompatActivity(){
 
     enum class Chapter{
-        one,two,three,finish
+        one,two,three,four,five,finish
     }
     var totalPoint:Int =0
-    var chapterPoint = arrayListOf(0,0,0)
-    var timeInChapter : Long =0
+    var chapterPoint = arrayListOf(0,0,0,0,0,0)
+    var timeInChapter : Long =31000
     lateinit var utils : Utils
     lateinit var chapterGame : Chapter
     lateinit var adapter : Game1Adapter
+    lateinit var countDown :CountDownTimer
 
 
     override fun onBackPressed() {
@@ -54,38 +56,12 @@ class MemoryMasterActivity:AppCompatActivity(){
         txt_title.text = "MEMORY\nMASTER"
         txt_time.typeface = MyApp.typeFace.heavy
 
-        initStageGame(chapterGame)
 
         btn_back.setOnClickListener {
             onBackPressed()
         }
 
-
-
-
-
-        txt_time.text = "Start!"
-        btn_time.setOnClickListener {
-            object : CountDownTimer(timeInChapter, 1000) { //Sets 10 second remaining
-                override fun onTick(millisUntilFinished: Long) {
-                    txt_time.text = ": "+(millisUntilFinished/1000).toString() +" Sec"
-                    if(adapter.currnetPointInChapter == adapter.maxPointInChapter){
-                        this.cancel()
-                        this.onFinish()
-                        adapter.currnetPointInChapter =0
-                    }
-                }
-                override fun onFinish() {
-                    btn_time.isClickable = true
-                    txt_time.text = "Start!"
-                    ChangeState(chapterGame,adapter.currnetPointInChapter)
-                    initStageGame(chapterGame)
-                }
-
-            }.start()
-            btn_time.isClickable = false
-        }
-
+        initStageGame(chapterGame)
     }
 
 
@@ -102,47 +78,91 @@ class MemoryMasterActivity:AppCompatActivity(){
             }
             Chapter.three -> {
                 chapterPoint[2] = point
+                chapterGame = Chapter.four
+            }
+            Chapter.four -> {
+                chapterPoint[3] = point
+                chapterGame = Chapter.five
+            }
+            Chapter.five -> {
+                chapterPoint[4] = point
                 chapterGame = Chapter.finish
             }
         }
     }
 
     fun initStageGame(chapter:Chapter){
+        countDown = object : CountDownTimer(timeInChapter, 1000) { //Sets 10 second remaining
+            override fun onTick(millisUntilFinished: Long) {
+                txt_time.text = ": "+(millisUntilFinished/1000).toString() +" Sec"
+                if(adapter.currnetPointInChapter == adapter.maxPointInChapter){
+                    this.cancel()
+                    this.onFinish()
+                    adapter.currnetPointInChapter =0
+                }
+            }
+            override fun onFinish() {
+                btn_time.isClickable = true
+                txt_time.text = "Start!"
+                ChangeState(chapterGame,adapter.currnetPointInChapter)
+                initStageGame(chapterGame)
+            }
+        }
 
+        //4-8-10-12-16-20
         when (chapter){
             Chapter.one -> {
-                timeInChapter = 5000
-                adapter = Game1Adapter(utils.getDataGame1Chapter1(),1)
+                timeInChapter = 31000
+                adapter = Game1Adapter(utils.getDataGame1(2),2)
                 linearLayout4.layoutManager = GridLayoutManager(this,2)
                 linearLayout4.adapter = adapter
+                countDown.start()
             }
             Chapter.two ->{
-                timeInChapter = 10000
-                adapter = Game1Adapter(utils.getDataGame1Chapter2(),2)
+                timeInChapter = 31000
+                adapter = Game1Adapter(utils.getDataGame1(4),4)
                 linearLayout4.layoutManager = GridLayoutManager(this,2)
                 linearLayout4.adapter = adapter
+                countDown.start()
             }
-            Chapter.three ->{
-                timeInChapter = 30000
-                adapter = Game1Adapter(utils.getDataGame1Chapter3(),8)
+            Chapter.three -> {
+                timeInChapter = 31000
+                adapter = Game1Adapter(utils.getDataGame1(6),6)
+                linearLayout4.layoutManager = GridLayoutManager(this,3)
+                linearLayout4.adapter = adapter
+                countDown.start()
+            }
+            Chapter.four ->{
+                timeInChapter = 31000
+                adapter = Game1Adapter(utils.getDataGame1(8),8)
                 linearLayout4.layoutManager = GridLayoutManager(this,4)
                 linearLayout4.adapter = adapter
+                countDown.start()
+            }
+            Chapter.five ->{
+                timeInChapter = 31000
+                adapter = Game1Adapter(utils.getDataGame1(10),10)
+                linearLayout4.layoutManager = GridLayoutManager(this,4)
+                linearLayout4.adapter = adapter
+                countDown.start()
             }
             Chapter.finish -> {
                 for(point in chapterPoint){
                     totalPoint+=point
                 }
                 d{totalPoint.toString()}
-                Toast.makeText(applicationContext,"Finish Point = "+totalPoint,Toast.LENGTH_LONG).show()
-                adapter = Game1Adapter(utils.getDataGame1Chapter3(),8)
+                adapter = Game1Adapter(utils.getDataGame1(10),10)
                 linearLayout4.layoutManager = GridLayoutManager(this,4)
                 linearLayout4.adapter = adapter
+                txt_time.text ="$totalPoint Point"
             }
         }
         linearLayout4.setHasFixedSize(true)
     }
 
 
+    override fun onPause() {
+        super.onPause()
 
-
+    }
 }

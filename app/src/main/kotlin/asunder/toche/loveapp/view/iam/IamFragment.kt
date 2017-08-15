@@ -81,7 +81,7 @@ class IamFragment : Fragment() {
 
         //sxAxis.enableGridDashedLine(10f, 10f, 0f)
         //xAxis.setValueFormatter(new MyCustomXAxisValueFormatter());
-        //xAxis.addLimitLine(llXAxis) // add x-axis limit line
+        //xAxis.addLimitLine(llXAxis) // add_blue x-axis limit line
 
 
 
@@ -103,7 +103,7 @@ class IamFragment : Fragment() {
         //mChart.getViewPortHandler().setMaximumScaleY(2f);
         //mChart.getViewPortHandler().setMaximumScaleX(2f);
 
-        // add data
+        // add_blue data
         setData(5, 100f)
 
 //        mChart.setVisibleXRange(20);
@@ -194,7 +194,7 @@ class IamFragment : Fragment() {
             */
 
             val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the datasets
+            dataSets.add(set1) // add_blue the datasets
 
             // create a data object with the datasets
             val data = LineData(dataSets)
