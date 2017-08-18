@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import asunder.toche.loveapp.R
+import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
@@ -33,6 +34,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.header_logo_white.*
 import kotlinx.android.synthetic.main.lab.*
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
 
 
 /**
@@ -76,15 +81,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(currentLatitude, currentLongitude)
 
-        //add_blue Marker
-        options = MarkerOptions()
-                .position(latLng)
-                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
-
-
-        //googleMap?.setOnMarkerClickListener(this)
-        googleMap?.addMarker(options)
-        googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+        async(UI){
+            val data: Deferred<MarkerOptions> = bg {
+                MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
+            }
+            googleMap?.addMarker(data.await())
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+        }
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
@@ -144,6 +149,10 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        d{"Visible to user =$isVisibleToUser"}
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.lab, container, false)
         return view
@@ -159,7 +168,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         txt_search.typeface = MyApp.typeFace.medium
         txt_search.hint = "Search..."
         btn_showlist.setOnClickListener {
-            ActivityMain.vp_main.setCurrentItem(5,false)
+            ActivityMain.vp_main.setCurrentItem(KEYPREFER.CLINIC,false)
         }
 
 
@@ -221,11 +230,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             if(mGoogleApiClient.isConnected && location != null){
                 val latLng = LatLng(location!!.latitude,location!!.longitude)
                 // add_blue Marker
-                val options =  MarkerOptions()
-                        .position(latLng)
-                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
-                googleMap?.addMarker(options)
-                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,16.0f))
+                async(UI){
+                    val data: Deferred<MarkerOptions> = bg {
+                        MarkerOptions()
+                                .position(latLng)
+                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.clinic_img)))
+                    }
+                    googleMap?.addMarker(data.await())
+                    googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,16.0f))
+                }
 
             }
 

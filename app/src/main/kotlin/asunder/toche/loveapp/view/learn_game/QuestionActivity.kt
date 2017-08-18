@@ -10,6 +10,7 @@ import asunder.toche.loveapp.IndicatorAdapter
 import asunder.toche.loveapp.MyApp
 import asunder.toche.loveapp.NotificationActivity
 import asunder.toche.loveapp.R
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.question.*
 
@@ -23,7 +24,6 @@ class QuestionActivity: AppCompatActivity() {
     var maxQuestionSize:Int=5
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent().setClass(this@QuestionActivity, NotificationActivity::class.java))
         finish()
     }
 
@@ -31,6 +31,9 @@ class QuestionActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.question)
 
+        Glide.with(this)
+                .load(R.drawable.bg_question)
+                .into(bg_root)
         btn_yes.typeface = MyApp.typeFace.heavy
         btn_no.typeface = MyApp.typeFace.heavy
         btn_back.setOnClickListener {

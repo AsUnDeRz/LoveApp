@@ -44,7 +44,7 @@ class ClinicFragment: Fragment() {
 
 
         btn_map.setOnClickListener {
-            ActivityMain.vp_main.setCurrentItem(1,false)
+            ActivityMain.vp_main.setCurrentItem(KEYPREFER.LAB,false)
         }
 
 

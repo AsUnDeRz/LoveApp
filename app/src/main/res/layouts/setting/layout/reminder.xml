@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_white"
     android:orientation="vertical">
 
     <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/bg_root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
+    <ImageView
+        android:id="@+id/bg_top"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/bg_guy"
-        android:id="@+id/imageView8" />
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -49,7 +52,7 @@
         android:id="@+id/btn_yes"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_below="@+id/imageView8"
+        android:layout_below="@+id/bg_top"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

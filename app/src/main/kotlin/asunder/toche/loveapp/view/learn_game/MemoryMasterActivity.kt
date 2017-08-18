@@ -21,7 +21,6 @@ import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.github.ajalt.timberkt.Timber.d
-import kotlinx.android.synthetic.main.learn_game_list.*
 
 
 /**
@@ -50,6 +49,9 @@ class MemoryMasterActivity:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.memory_master)
 
+        Glide.with(this)
+                .load(R.drawable.bg_white)
+                .into(bg_root)
         utils = Utils(this)
         chapterGame = Chapter.one
         txt_title.typeface = MyApp.typeFace.heavy
@@ -92,12 +94,12 @@ class MemoryMasterActivity:AppCompatActivity(){
     }
 
     fun initStageGame(chapter:Chapter){
-        countDown = object : CountDownTimer(timeInChapter, 1000) { //Sets 10 second remaining
+        countDown = object :CountDownTimer(timeInChapter, 1000) { //Sets 10 second remaining
             override fun onTick(millisUntilFinished: Long) {
                 txt_time.text = ": "+(millisUntilFinished/1000).toString() +" Sec"
                 if(adapter.currnetPointInChapter == adapter.maxPointInChapter){
-                    this.cancel()
-                    this.onFinish()
+                    countDown.cancel()
+                    countDown.onFinish()
                     adapter.currnetPointInChapter =0
                 }
             }

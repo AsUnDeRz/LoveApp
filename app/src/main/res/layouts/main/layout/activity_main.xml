@@ -5,14 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/bg_root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
     <view.custom_view.CustomViewpager
-        android:id="@+id/vp_main"
+        android:id="@+id/vp_main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp" />
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:id="@+id/bnve"
+        android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

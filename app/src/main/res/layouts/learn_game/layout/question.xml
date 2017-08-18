@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/bg_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/bg_question" />
+        android:layout_height="match_parent" />
 
     <ImageView
         android:layout_width="match_parent"

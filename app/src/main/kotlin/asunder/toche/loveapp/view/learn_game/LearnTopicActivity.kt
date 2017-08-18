@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnTopicItemBinding
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_logo_white.*
 import kotlinx.android.synthetic.main.learn_topic.*
 
@@ -34,6 +35,9 @@ class LearnTopicActivity : AppCompatActivity() {
             rv_learn_topic.layoutManager = LinearLayoutManager(this)
             rv_learn_topic.adapter =LearnTopicAdapter(data,false)
 
+            Glide.with(this)
+                    .load(R.drawable.bg_blue)
+                    .into(bg_root)
 
         }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import asunder.toche.loveapp.R
 import android.support.v7.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.pill_reminder_time.*
 import java.sql.Timestamp
@@ -30,6 +31,9 @@ class PillReminderTimeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pill_reminder_time)
 
+        Glide.with(this)
+                .load(R.drawable.bg_white)
+                .into(bg_root)
         btn_back.setOnClickListener {
             onBackPressed()
         }

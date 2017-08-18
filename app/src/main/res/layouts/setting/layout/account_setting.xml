@@ -4,9 +4,12 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/bg_white"
     android:orientation="vertical">
-
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/bg_root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
     <include
         android:id="@+id/header_account_setting"
         layout="@layout/header_logo_blue_back" />

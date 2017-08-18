@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_blue">
+    android:layout_height="match_parent">
+
     <include
         android:id="@+id/appBarLayout"
         layout="@layout/header_iam" />
@@ -20,168 +20,166 @@
             android:layout_height="match_parent">
 
 
+            <LinearLayout
+                android:id="@+id/btn_riskmeter"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_box"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    app:srcCompat="@drawable/icon_riskmeter" />
+
                 <LinearLayout
-                    android:id="@+id/btn_riskmeter"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_box"
-                    android:orientation="horizontal">
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        app:srcCompat="@drawable/icon_riskmeter" />
-
-                    <LinearLayout
-                        android:layout_width="150dp"
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/title_riskmeter"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="Risk Meter"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
-                        <view.custom_view.TextViewHeavy
-                            android:id="@+id/title_riskmeter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Risk Meter"
-                            android:textColor="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <view.custom_view.TextViewMedium
-                            android:id="@+id/date_riskmeter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Last Risk 20/07/2017"
-                            android:textColor="@android:color/white" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="28dp"
-                        app:srcCompat="@drawable/arrow_white" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/date_riskmeter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Last Risk 20/07/2017"
+                        android:textColor="@android:color/white" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="28dp"
+                    app:srcCompat="@drawable/arrow_white" />
+
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/btn_point"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/btn_riskmeter"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_box"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    app:srcCompat="@drawable/icon_point" />
 
                 <LinearLayout
-                    android:id="@+id/btn_point"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_below="@+id/btn_riskmeter"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_box"
-                    android:orientation="horizontal">
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        app:srcCompat="@drawable/icon_point" />
-
-                    <LinearLayout
-                        android:layout_width="150dp"
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_point"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="Point"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
-                        <view.custom_view.TextViewHeavy
-                            android:id="@+id/txt_point"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Point"
-                            android:textColor="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <view.custom_view.TextViewMedium
-                            android:id="@+id/values_point"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="3,534 Points"
-                            android:textColor="@android:color/white" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="28dp"
-                        app:srcCompat="@drawable/arrow_white" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/values_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3,534 Points"
+                        android:textColor="@android:color/white" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="28dp"
+                    app:srcCompat="@drawable/arrow_white" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_pill"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/btn_point"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_box"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    app:srcCompat="@drawable/icon_pill" />
 
                 <LinearLayout
-                    android:id="@+id/btn_pill"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_below="@+id/btn_point"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_box"
-                    android:orientation="horizontal">
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        app:srcCompat="@drawable/icon_pill" />
-
-                    <LinearLayout
-                        android:layout_width="150dp"
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_pill_tracking"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="Pill Tracking"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
-                        <view.custom_view.TextViewHeavy
-                            android:id="@+id/txt_pill_tracking"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Pill Tracking"
-                            android:textColor="@android:color/white"
-                            android:textSize="18sp" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_tracked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="78 % Tracked"
+                        android:textColor="@android:color/white" />
 
-                        <view.custom_view.TextViewMedium
-                            android:id="@+id/txt_tracked"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="78 % Tracked"
-                            android:textColor="@android:color/white" />
-
-                        <view.custom_view.TextViewMedium
-                            android:id="@+id/txt_missed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="22 % Missed"
-                            android:textColor="@android:color/white" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="28dp"
-                        app:srcCompat="@drawable/arrow_white" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_missed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22 % Missed"
+                        android:textColor="@android:color/white" />
 
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="28dp"
+                    app:srcCompat="@drawable/arrow_white" />
+
+            </LinearLayout>
 
 
             <RelativeLayout

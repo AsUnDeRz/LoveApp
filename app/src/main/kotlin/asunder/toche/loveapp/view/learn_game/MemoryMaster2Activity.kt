@@ -65,6 +65,9 @@ class MemoryMaster2Activity:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.memory_master_2)
 
+        Glide.with(this)
+                .load(R.drawable.bg_white)
+                .into(bg_root)
         utils = Utils(this)
         txt_title.typeface = MyApp.typeFace.heavy
         txt_title.text = "MEMORY\nMASTER"

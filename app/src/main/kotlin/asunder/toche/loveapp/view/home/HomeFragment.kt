@@ -13,11 +13,19 @@ import android.view.ViewGroup
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.target.Target
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.MarkerOptions
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.header_home.*
 import kotlinx.android.synthetic.main.home.*
-
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
 
 
 /**
@@ -77,10 +85,12 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
      var listener: ImageListener = ImageListener { position, imageView ->
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
          var image = imaHome[position]
-        Glide.with(this)
-                .load("http://loveapponline.com/"+image.image_byte)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imageView)
+                 Glide.with(activity)
+                         .load("http://loveapponline.com/"+image.image_byte)
+                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                         .into(imageView)
+
+
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

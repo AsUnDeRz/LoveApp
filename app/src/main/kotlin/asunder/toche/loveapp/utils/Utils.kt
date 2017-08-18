@@ -2,7 +2,18 @@ package asunder.toche.loveapp
 
 import android.content.Context
 import android.databinding.ObservableArrayList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
+import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -10,16 +21,16 @@ import kotlin.collections.ArrayList
 /**
  * Created by admin on 8/7/2017 AD.
  */
-class Utils(private var context: Context) {
+class Utils(val contex: Context) {
 
     val heavy: Typeface
-        get() = Typeface.createFromAsset(context.assets, "fonts/AvenirLTStd-Heavy.otf")
+        get() = Typeface.createFromAsset(contex.assets, "fonts/AvenirLTStd-Heavy.otf")
 
     val medium: Typeface
-        get() = Typeface.createFromAsset(context.assets, "fonts/AvenirLTStd-Medium.otf")
+        get() = Typeface.createFromAsset(contex.assets, "fonts/AvenirLTStd-Medium.otf")
 
     fun px2dp(f: Float): Int {
-        val metrics = context.resources.displayMetrics
+        val metrics = contex.resources.displayMetrics
         val dp = f
         val fpixels = metrics.density * dp
         return (fpixels + 0.5f).toInt()

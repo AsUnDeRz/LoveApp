@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnGameItemBinding
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.learn_game_list.*
 
@@ -29,6 +30,9 @@ class LearnGameMainActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.learn_game_list)
         title_header.text = intent.extras.getString("title")
+        Glide.with(this)
+                .load(R.drawable.bg_blue)
+                .into(bg_root)
 
         when(intent.extras.getInt("key")){
             1 ->{
@@ -84,6 +88,10 @@ class LearnGameMainActivity: AppCompatActivity(){
                 }
                 if(it.binding.titleGame.text == "Memory Master #2"){
                     startActivity(Intent().setClass(this,MemoryMaster2Activity::class.java))
+
+                }
+                if(it.binding.titleGame.text == "Safe Sex"){
+                    startActivity(Intent().setClass(this,QuestionActivity::class.java))
 
                 }
 
