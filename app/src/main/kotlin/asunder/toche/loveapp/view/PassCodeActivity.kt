@@ -1,10 +1,13 @@
 package asunder.toche.loveapp
 
+import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import asunder.toche.loveapp.R
+import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import kotlinx.android.synthetic.main.passcode.*
 
@@ -20,6 +23,8 @@ class PassCodeActivity: AppCompatActivity(){
 
     lateinit var statePasscode : StatePC
     var passcode = arrayOf("","","","")
+    var iconId = arrayOf(R.drawable.no0,R.drawable.no1,R.drawable.no2,R.drawable.no3,R.drawable.no4,R.drawable.no5,
+            R.drawable.no6,R.drawable.no7,R.drawable.no8,R.drawable.no9)
     var isChecked = false
     var numClick =0
     var pcInStateAdd =""
@@ -32,10 +37,15 @@ class PassCodeActivity: AppCompatActivity(){
         finish()
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.passcode)
 
+        Glide.with(this)
+                .load(R.drawable.bg_blue_only)
+                .into(bg_root)
         statePasscode = StatePC.add
         delete.setOnClickListener {
             deleteValues()

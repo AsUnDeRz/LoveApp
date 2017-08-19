@@ -54,7 +54,7 @@ object  Notification {
                     .setContentText("This notification has been triggered by Notification Service")
                     .setSmallIcon(R.drawable.icon_app)
 
-            val mainIntent = Intent(this, NotificationActivity::class.java)
+            val mainIntent = Intent(this, ReminderActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this,
                     NOTIFICATION_ID,
                     mainIntent,

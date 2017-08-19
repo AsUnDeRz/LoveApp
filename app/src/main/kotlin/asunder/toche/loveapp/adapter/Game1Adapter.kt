@@ -37,6 +37,16 @@ class Game1Adapter(var data:ObservableList<Model.Game1>,maxPoint:Int): RecyclerV
 
     }
 
+
+    fun openItem(image1:ImageButton,image2:ImageButton){
+            image1.visibility = View.INVISIBLE
+            image2.visibility = View.VISIBLE
+    }
+    fun closeItem(image1:ImageButton,image2:ImageButton){
+        image1.visibility = View.VISIBLE
+        image2.visibility = View.INVISIBLE
+    }
+
     fun actionItem(from:Float,to:Float,p1:ImageButton,p2:ImageButton,isFirst: Boolean) {
         // Find the center of image
         val centerX = p1.width / 2.0f
@@ -76,20 +86,29 @@ class Game1Adapter(var data:ObservableList<Model.Game1>,maxPoint:Int): RecyclerV
                 //plus point
                 currnetPointInChapter+=1
             }else{
+                    val pos= Handler()
+                    pos.postDelayed({
+                        closeItem(item1.pos1,item1.pos2)
+                        closeItem(item2.pos1,item2.pos2)
+                    },200)
+
+
+                /*
                 if (isFirst) {
                     d{"Is First close it?"}
-                    actionItem(0f,90f,item1.pos1,item1.pos2,isFirst)
-                    actionItem(0f,90f,item2.pos1,item2.pos2,isFirst)
+                    //actionItem(0f,90f,item1.pos1,item1.pos2,isFirst)
+                    //actionItem(0f,90f,item2.pos1,item2.pos2,isFirst)
 
                 } else {
                     d{"don't Is First close it?"}
                     val splash = Handler()
                     splash.postDelayed({
-                        actionItem(0f,-90f,item1.pos1,item1.pos2,isFirst)
-                        actionItem(0f,-90f,item2.pos1,item2.pos2,isFirst)
+                        //actionItem(0f,-90f,item1.pos1,item1.pos2,isFirst)
+                        //actionItem(0f,-90f,item2.pos1,item2.pos2,isFirst)
                     },200)
-
                 }
+                */
+
             }
 
         }
@@ -103,14 +122,9 @@ class Game1Adapter(var data:ObservableList<Model.Game1>,maxPoint:Int): RecyclerV
             val viewModel = ViewModel.Game1ViewModel(itemView.context,gameItem)
             binding.pos1.setOnClickListener({
                 num++
-                viewModel.onClickImage(binding.pos1,binding.pos2,isFrist)
+                openItem(binding.pos1,binding.pos2)
+                //viewModel.onClickImage(binding.pos1,binding.pos2,isFrist)
                 isFrist = !isFrist
-                checkNum(num,binding,gameItem,isFrist)
-
-            })
-            binding.pos2.setOnClickListener({
-                num++
-                viewModel.onClickImage(binding.pos1,binding.pos2,!isFrist)
                 checkNum(num,binding,gameItem,isFrist)
 
             })

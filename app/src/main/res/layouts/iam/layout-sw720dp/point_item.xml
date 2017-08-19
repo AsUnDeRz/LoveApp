@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pointItem" type="asunder.toche.loveapp.Model.Point" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/btn_point"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/fill_box">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="80dp"
+                android:orientation="vertical"
+                android:paddingLeft="30dp">
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2017 - 04 -22"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp" />
+
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="HIV &amp; Safe Sex 1"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/blue_cycle" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="false"
+                        android:layout_gravity="center"
+                        android:text="300"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_name_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="Points"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

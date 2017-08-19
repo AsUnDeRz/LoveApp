@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/bg_root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <include
+        android:id="@+id/header_noti_message"
+        layout="@layout/header_logo_blue_back"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_noti_msn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_msn"
+        android:layout_below="@+id/header_noti_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/btn_msn"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_box">
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_msn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:text="Add New Message"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="false"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:padding="20dp"
+            app:srcCompat="@drawable/ic_add_white_48dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

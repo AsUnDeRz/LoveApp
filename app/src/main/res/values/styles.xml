@@ -10,7 +10,9 @@
 
     <style name="StarRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
-
+    </style>
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
     </style>
 
 </resources>

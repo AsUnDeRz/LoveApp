@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_blue"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header_clinic_info"
+        layout="@layout/header_logo_white_back"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView9"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/header_clinic_info"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/clinic_img"
+        app:civ_border_color="#0e51a4"
+        app:civ_border_width="4dp" />
+
+    <view.custom_view.TextViewHeavy
+        android:id="@+id/title_clinic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Bangkok Clinic"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_below="@+id/title_clinic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_white_info">
+
+        <LinearLayout
+            android:id="@+id/info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_infomation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Information"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="18sp" />
+
+            <view.custom_view.TextViewMedium
+                android:id="@+id/txt_nametest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="HIV test,STD PrER" />
+
+            <view.custom_view.TextViewMedium
+                android:id="@+id/txt_worktime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="open 10.00 am - 18.00 pm" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Contact"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_title"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/home" />
+
+            <view.custom_view.TextViewMedium
+                android:id="@+id/txt_web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="www.bangkokclinic.com" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_web"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/home" />
+
+            <TextView
+                android:id="@+id/txt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="8(800) 123-456-789" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_phone"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/home" />
+
+            <view.custom_view.TextViewMedium
+                android:id="@+id/txt_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="213/11 m4 Meachan \nMuang Chiangmai 57333" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_booknow"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_below="@+id/relativeLayout4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button_info"
+        android:text="Book Now!"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp" />
+
+</RelativeLayout>

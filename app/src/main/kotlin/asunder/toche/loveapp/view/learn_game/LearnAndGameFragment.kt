@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.R
+import asunder.toche.loveapp.databinding.LearnNewItemBinding
 import kotlinx.android.synthetic.main.header_logo_blue.*
 import kotlinx.android.synthetic.main.learnandgame.*
 
@@ -43,7 +44,7 @@ class LearnAndGameFragment : Fragment() {
 
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
-        rv_learn_game.adapter = MasterAdapter.LearnNewAdapter(learnList,false)
+        rv_learn_game.adapter = LearnNewAdapter(learnList,false)
 
         btn_game.setOnClickListener {
             val data = Intent()
@@ -58,5 +59,24 @@ class LearnAndGameFragment : Fragment() {
             startActivity(data.setClass(context, LearnTopicActivity::class.java))
         }
 
+    }
+
+    private val LearnNewType = Type<LearnNewItemBinding>(R.layout.learn_new_item)
+            .onCreate { println("Created ${it.binding.learnNewItem} at #${it.adapterPosition}") }
+            .onBind { println("Bound ${it.binding.learnNewItem} at #${it.adapterPosition}") }
+            .onRecycle { println("Recycled ${it.binding.learnNewItem} at #${it.adapterPosition}") }
+            .onClick {
+                val data = Intent()
+                startActivity(data.setClass(context, LearnNewsActivity::class.java))
+
+            }
+            .onLongClick {}
+    fun LearnNewAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
+        return LastAdapter(item,BR.learnNewItem,stableIds).type{ item, position ->
+            when(item){
+                is Model.LearnNewContent -> LearnNewType
+                else -> null
+            }
+        }
     }
 }

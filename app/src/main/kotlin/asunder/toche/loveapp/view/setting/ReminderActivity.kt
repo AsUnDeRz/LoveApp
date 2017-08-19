@@ -15,8 +15,8 @@ class ReminderActivity: AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent().setClass(this@ReminderActivity, NotificationActivity::class.java))
-        finish()
+        //startActivity(Intent().setClass(this@ReminderActivity, NotificationActivity::class.java))
+        //finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

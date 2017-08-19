@@ -38,14 +38,7 @@ object MasterAdapter{
         }
     }
 
-    fun LearnNewAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.learnNewItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.LearnNewContent -> LearnNewType
-                else -> null
-            }
-        }
-    }
+
 
 
 
@@ -110,12 +103,7 @@ object MasterAdapter{
             .onClick {}
             .onLongClick {}
 
-    private val LearnNewType = Type<LearnNewItemBinding>(R.layout.learn_new_item)
-            .onCreate { println("Created ${it.binding.learnNewItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.learnNewItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.learnNewItem} at #${it.adapterPosition}") }
-            .onClick {}
-            .onLongClick {}
+
 
     private val NotificationType = Type<NotificationItemBinding>(R.layout.notification_item)
             .onCreate { println("Created ${it.binding.notiItem} at #${it.adapterPosition}") }

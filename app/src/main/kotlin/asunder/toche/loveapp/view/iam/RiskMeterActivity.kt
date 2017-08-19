@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import kotlinx.android.synthetic.main.risk_meter.*
 import view.custom_view.CustomViewpager
 
 /**
@@ -34,9 +36,12 @@ class RiskMeterActivity:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.risk_meter)
+        Glide.with(this)
+                .load(R.drawable.bg_white)
+                .into(bg_root)
 
         val adapterViewPager = RiskMeterAdapter(supportFragmentManager, this)
-        vp_riskmeter = findViewById(R.id.vp_riskmeter)
+        vp_riskmeter = findViewById(R.id.vpriskmeter)
         vp_riskmeter.adapter = adapterViewPager
         vp_riskmeter.setAllowedSwipeDirection(CustomViewpager.SwipeDirection.none)
 

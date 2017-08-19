@@ -42,7 +42,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                 KEY_NOTI_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_NOTI_TITLE + " TEXT," + // Define a foreign key
                 KEY_NOTI_DESC + " TEXT," +
-                KEY_NOTI_TIME + " TIMESTAMP"+
+                KEY_NOTI_TIME + " DATE"+
                 ")"
         db.execSQL(CREATE_NOTIFICATION_TABLE)
     }
@@ -81,6 +81,9 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         }
     }
 
+    fun updateUser(){
+
+    }
     fun deleteAllUser() {
         val db = writableDatabase
         db.beginTransaction()
@@ -97,7 +100,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
     }
 
 
-    fun haveUserLogin(): String {
+    fun haveUser(): String {
         var mobile = "empty"
         // SELECT * FROM POSTS
         // LEFT OUTER JOIN USERS
@@ -129,6 +132,20 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         }
         return mobile
     }
+
+
+
+    fun addNotification(){
+
+    }
+    fun updateNotification(){
+
+    }
+    fun deleteNotification(){
+
+    }
+
+    fun getNotificationList(){}
 
     companion object {
         // Database Info

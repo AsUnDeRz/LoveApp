@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.Manifest
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -11,6 +12,9 @@ import com.github.ajalt.timberkt.Timber.d
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import kotlinx.android.synthetic.main.activity_main.*
 import view.custom_view.CustomViewpager
+import android.content.Intent
+
+
 
 class ActivityMain : AppCompatActivity() {
 
@@ -22,6 +26,8 @@ class ActivityMain : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
+            d{"onCreate"}
+
 
             vp_main = findViewById(R.id.vp_main_fragment)
             bnve = findViewById(R.id.bottom_nav)
@@ -90,5 +96,22 @@ class ActivityMain : AppCompatActivity() {
             }
 
         }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        d{"onSaveSate"}
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val setIntent = Intent(Intent.ACTION_MAIN)
+        setIntent.addCategory(Intent.CATEGORY_HOME)
+        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(setIntent)
+    }
+
+
+
 
 }

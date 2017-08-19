@@ -39,8 +39,6 @@ class Game2Adapter(var data: ObservableList<Model.Game1>, maxPoint:Int): Recycle
                 if(gameItem.icon == MemoryMaster2Activity.randomPick[MemoryMaster2Activity.posPick].icon && MemoryMaster2Activity.isTimeRunner){
                     MemoryMaster2Activity.posPick++
                     MemoryMaster2Activity.nextPic(itemView.context)
-
-
                     //Toast.makeText(itemView.context,"Yes i'm",Toast.LENGTH_LONG).show()
                 }
             }
