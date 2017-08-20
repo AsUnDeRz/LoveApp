@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="marginBottomBarMain">30</integer>
+    <integer name="bottomBarIconSize">30</integer>
+
+</resources>

@@ -23,16 +23,17 @@
             <LinearLayout
                 android:id="@+id/btn_riskmeter"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_box"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="30dp"
                     android:layout_weight="1"
                     android:padding="15dp"
                     app:srcCompat="@drawable/icon_riskmeter" />
@@ -50,14 +51,15 @@
                         android:layout_height="wrap_content"
                         android:text="Risk Meter"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        android:textSize="22sp" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/date_riskmeter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Last Risk 20/07/2017"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -65,7 +67,7 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="28dp"
+                    android:padding="35dp"
                     app:srcCompat="@drawable/arrow_white" />
 
             </LinearLayout>
@@ -74,17 +76,18 @@
             <LinearLayout
                 android:id="@+id/btn_point"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/btn_riskmeter"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="30dp"
                     android:layout_weight="1"
                     android:padding="15dp"
                     app:srcCompat="@drawable/icon_point" />
@@ -102,14 +105,15 @@
                         android:layout_height="wrap_content"
                         android:text="Point"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        android:textSize="22sp" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/values_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="3,534 Points"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -117,7 +121,7 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="28dp"
+                    android:padding="35dp"
                     app:srcCompat="@drawable/arrow_white" />
 
             </LinearLayout>
@@ -126,17 +130,18 @@
             <LinearLayout
                 android:id="@+id/btn_pill"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/btn_point"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="30dp"
                     android:layout_weight="1"
                     android:padding="15dp"
                     app:srcCompat="@drawable/icon_pill" />
@@ -154,21 +159,23 @@
                         android:layout_height="wrap_content"
                         android:text="Pill Tracking"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        android:textSize="22sp" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_tracked"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="78 % Tracked"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_missed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="22 % Missed"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -176,7 +183,7 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="28dp"
+                    android:padding="35dp"
                     app:srcCompat="@drawable/arrow_white" />
 
             </LinearLayout>

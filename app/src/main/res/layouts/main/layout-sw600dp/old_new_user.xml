@@ -56,13 +56,13 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:paddingLeft="55dp"
+            android:paddingRight="55dp"
             android:text="This is your first time here? "
             android:textColor="@color/colorPrimary"
-            android:textSize="28sp" />
+            android:textSize="30sp" />
 
         <view.custom_view.TextViewMedium
             android:id="@+id/txt"
@@ -74,7 +74,7 @@
             android:paddingRight="45dp"
             android:text="The human immunodeficiency virus is a lentivirus that causes HIV infection and over time acquired immunodeficiency syndrome."
             android:textColor="@color/colorGrey"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <RelativeLayout

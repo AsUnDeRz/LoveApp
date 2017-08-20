@@ -62,13 +62,13 @@
 
         </activity>
         <activity android:screenOrientation="portrait" android:name=".NotiMessageActivity" />
-        <activity android:name=".PassCodeActivity" >
+        <activity android:screenOrientation="portrait" android:name=".PassCodeActivity" >
 
         </activity>
-        <activity android:name=".FeedbackActivity" />
-        <activity android:name=".QuestionActivity" >
+        <activity android:screenOrientation="portrait" android:name=".FeedbackActivity" />
+        <activity android:screenOrientation="portrait" android:name=".QuestionActivity" >
         </activity>
-        <activity android:name=".LearnTopicActivity" />
+        <activity android:screenOrientation="portrait" android:name=".LearnTopicActivity" />
 
    
         <meta-data

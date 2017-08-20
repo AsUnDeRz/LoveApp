@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/imageView15"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="550dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
@@ -17,7 +17,7 @@
     <ImageView
         android:id="@+id/imageView16"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
         android:paddingRight="30dp"
         android:text="5. What type of activity did you do?"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="38sp" />
 
     <LinearLayout
         android:id="@+id/box1"
@@ -50,18 +50,19 @@
         android:layout_centerVertical="false"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingTop="50dp">
 
         <Button
             android:id="@+id/btn_1"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Touching"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -69,14 +70,14 @@
 
         <Button
             android:id="@+id/btn_2"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Kissing"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,14 +95,14 @@
 
         <Button
             android:id="@+id/btn_3"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Hand Job"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -109,14 +110,14 @@
 
         <Button
             android:id="@+id/btn_4"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Oral Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -134,14 +135,14 @@
 
         <Button
             android:id="@+id/btn_5"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Vaginal Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -149,14 +150,14 @@
 
         <Button
             android:id="@+id/btn_6"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Anal Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -174,22 +175,22 @@
 
         <Button
             android:id="@+id/btn_7"
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="Sharing Needles"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
 
         <android.support.v4.widget.Space
-            android:layout_width="200dp"
-            android:layout_height="65dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>

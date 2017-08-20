@@ -6,21 +6,22 @@
     android:orientation="vertical">
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/bg_root"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop" />
 
     <include
         android:id="@+id/header_riskmeter"
-        layout="@layout/header_logo_white_back"/>
+        layout="@layout/header_logo_white_back" />
 
     <ImageView
         android:id="@+id/meter_bar"
         android:layout_width="wrap_content"
         android:layout_height="210dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/header_riskmeter" />
+        android:layout_below="@+id/header_riskmeter"
+        android:layout_marginTop="50dp" />
 
     <ImageView
         android:id="@+id/meter_pin"
@@ -40,7 +41,7 @@
         android:layout_marginTop="36dp"
         android:text="Normal risk"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="28sp" />
 
     <view.custom_view.TextViewMedium
         android:id="@+id/textView5"
@@ -49,21 +50,21 @@
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
         android:text="This site contains HIV, STI, and prevention messages that may not be appropriate for all audiences. HIV and STIs are spread primarily through sexual practices or by sharing syringes. Prevention messages and programs may address these topics. If you are not seeking this type of information or may be offended by such materials, please exit this site."
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:id="@+id/btn_findtest"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="false"
         android:layout_below="@+id/textView5"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/button_box"
         android:orientation="horizontal">
 
@@ -72,16 +73,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left|center"
-            android:paddingLeft="20dp"
+            android:paddingLeft="50dp"
             android:text="find a test place near by"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:padding="24dp"
+            android:padding="26dp"
             app:srcCompat="@drawable/arrow_white" />
 
     </RelativeLayout>

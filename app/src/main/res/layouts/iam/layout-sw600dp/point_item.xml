@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:paddingTop="20dp">
 
         <RelativeLayout
             android:id="@+id/btn_point"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="95dp"
             android:background="@drawable/fill_box">
 
             <LinearLayout
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="2017 - 04 -22"
                     android:textColor="@color/colorDarkGrey"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
                 <view.custom_view.TextViewHeavy
                     android:id="@+id/txt_title"
@@ -42,15 +42,16 @@
                     android:layout_height="match_parent"
                     android:text="HIV &amp; Safe Sex 1"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
                 android:padding="5dp">
 
                 <ImageView
@@ -72,7 +73,7 @@
                         android:layout_gravity="center"
                         android:text="300"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        android:textSize="20sp" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_name_point"
@@ -82,7 +83,7 @@
                         android:layout_centerHorizontal="true"
                         android:text="Points"
                         android:textColor="@android:color/white"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>

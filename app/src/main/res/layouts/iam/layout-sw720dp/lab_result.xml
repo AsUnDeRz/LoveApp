@@ -19,32 +19,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         android:orientation="horizontal"
         android:padding="20dp">
 
         <Button
             android:id="@+id/btn_viral_load"
             android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_height="100dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_box_white"
             android:text="Viral load"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="26sp" />
 
 
         <Button
             android:id="@+id/btn_cd4"
             android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_box"
             android:text="CD4"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="26sp" />
     </LinearLayout>
 
     <!--

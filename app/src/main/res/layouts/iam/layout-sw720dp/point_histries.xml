@@ -20,11 +20,11 @@
     <RelativeLayout
         android:id="@+id/btn_redeem"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="85dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:background="@drawable/button_box"
         android:orientation="horizontal">
 
@@ -33,16 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left|center"
-            android:paddingLeft="30dp"
+            android:paddingLeft="60dp"
             android:text="Redeem point"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <ImageView
             android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:padding="20dp"
+            android:padding="25dp"
             app:srcCompat="@drawable/arrow_white" />
 
     </RelativeLayout>

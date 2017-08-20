@@ -14,23 +14,23 @@
         layout="@layout/header_logo_blue_back" />
 
     <RelativeLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_below="@+id/include"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/relativeLayout2">
+        android:layout_marginTop="100dp">
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_centerHorizontal="false"
             app:srcCompat="@drawable/noti_green_circle" />
 
         <FrameLayout
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="15dp">
@@ -46,9 +46,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:paddingBottom="10dp"
                 android:text="1"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
         </FrameLayout>
     </RelativeLayout>
 
@@ -58,10 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
         android:text="Notifications"
         android:textColor="@color/colorPrimary"
-        android:textSize="36sp" />
+        android:textSize="40sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_notification"

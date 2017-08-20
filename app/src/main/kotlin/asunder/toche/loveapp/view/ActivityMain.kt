@@ -79,8 +79,9 @@ class ActivityMain : AppCompatActivity() {
             bnve.enableAnimation(false)
             bnve.enableShiftingMode(false)
             bnve.enableItemShiftingMode(false)
-            bnve.setIconsMarginTop(30)
-            bnve.setIconSize(30f,30f)
+            bnve.setIconsMarginTop(resources.getInteger(R.integer.marginBottomBarMain))
+            bnve.setIconSize(resources.getInteger(R.integer.bottomBarIconSize).toFloat()
+                    ,resources.getInteger(R.integer.bottomBarIconSize).toFloat())
 
             bnve.onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 

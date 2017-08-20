@@ -12,8 +12,8 @@
         android:layout_marginTop="20dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/logo_blue" />
@@ -27,6 +27,6 @@
             android:paddingStart="10dp"
             android:text="LOVE\nAPP"
             android:textColor="@color/colorPrimary"
-            android:textSize="24dp" />
+            android:textSize="32sp" />
     </LinearLayout>
 </RelativeLayout>

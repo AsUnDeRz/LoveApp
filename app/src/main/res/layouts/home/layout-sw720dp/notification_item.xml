@@ -13,9 +13,9 @@
     <RelativeLayout
         android:id="@+id/noti_btn"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="115dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_box"
         android:orientation="horizontal">
@@ -26,15 +26,15 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="false"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="80dp"
             android:gravity="left|center"
             android:text="txt"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="26sp" />
 
         <ImageView
             android:layout_width="60dp"
-            android:layout_height="75dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:padding="22dp"
             app:srcCompat="@drawable/arrow_white" />
