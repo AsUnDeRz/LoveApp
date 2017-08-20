@@ -9,22 +9,22 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="350dp"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/expandedImage"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_2guy"
                 app:layout_collapseMode="parallax"
@@ -50,11 +50,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/imageView11">
+
         <LinearLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/colunm_1"
@@ -63,16 +67,16 @@
                 android:lineSpacingExtra="8sp"
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="50dp"
                 android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom. Condoms are easy to use, cheap to buy and extremely efficient at preventing HIV transmission. Condoms come in all shapes, sizes, textures, tastes and materials. If you or a partner doesn’t like one type, try another – the possibilities are endless!"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20dp">
+                android:paddingTop="40dp">
 
                 <View
                     android:layout_width="3dp"
@@ -89,7 +93,7 @@
                     android:paddingRight="10dp"
                     android:text="Remember: All condom packages should carry an expiry date"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="22sp" />
+                    android:textSize="28sp" />
 
             </LinearLayout>
 
@@ -101,16 +105,16 @@
                 android:lineSpacingExtra="8sp"
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="50dp"
                 android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom. Condoms are easy to use, cheap to buy and extremely efficient at preventing HIV transmission. Condoms come in all shapes, sizes, textures, tastes and materials. If you or a partner doesn’t like one type, try another – the possibilities are endless!"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20dp">
+                android:paddingTop="40dp">
 
                 <View
                     android:layout_width="3dp"
@@ -127,7 +131,7 @@
                     android:paddingRight="10dp"
                     android:text="Remember: All condom packages should carry an expiry date"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="22sp" />
+                    android:textSize="28sp" />
 
             </LinearLayout>
 
@@ -139,14 +143,14 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
-                android:paddingTop="30dp"
+                android:paddingTop="50dp"
                 android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom."
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <include
                 android:id="@+id/final_layout"
-                layout="@layout/learn_new_finish"/>
+                layout="@layout/learn_new_finish" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

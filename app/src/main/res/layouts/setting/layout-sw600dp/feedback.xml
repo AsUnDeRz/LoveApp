@@ -15,12 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop" />
+
     <ImageView
+        android:id="@+id/imageView17"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/shade_top"
-        android:id="@+id/imageView17" />
+        app:srcCompat="@drawable/shade_top" />
 
     <include
         android:id="@+id/header_feedback"
@@ -32,9 +33,9 @@
         android:layout_height="250dp"
         android:layout_below="@+id/ratingBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_feedback_box"
         android:ems="10"
         android:gravity="left"
@@ -42,17 +43,19 @@
         android:minLines="6"
         android:padding="20dp"
         android:text="What is your opinion?"
-        android:textColor="@color/colorDarkGrey" />
+        android:textColor="@color/colorDarkGrey"
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:id="@+id/btn_send"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/editText"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_box">
+
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_send"
             android:layout_width="match_parent"
@@ -60,7 +63,7 @@
             android:gravity="center"
             android:text="Send"
             android:textColor="@android:color/white"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
     </RelativeLayout>
 
@@ -70,9 +73,9 @@
         android:layout_height="65dp"
         android:layout_alignParentTop="false"
         android:layout_below="@+id/header_feedback"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/bg_rate"
         app:halfStars="false"
         app:maxStars="5"

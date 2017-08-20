@@ -19,8 +19,9 @@
         android:id="@+id/meter_bar"
         android:layout_width="wrap_content"
         android:layout_height="350dp"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="false"
         android:layout_below="@+id/header_riskmeter"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp" />
 
     <ImageView

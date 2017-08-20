@@ -11,11 +11,11 @@
         android:layout_height="match_parent" />
 
     <ImageView
+        android:id="@+id/imageView18"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="250dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/shade_top"
-        android:id="@+id/imageView18" />
+        app:srcCompat="@drawable/shade_top" />
 
     <include
         android:id="@+id/header_question"
@@ -28,7 +28,7 @@
         android:layout_below="@+id/header_question"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="false"
-        android:paddingTop="50dp"
+        android:layout_marginTop="100dp"
         android:text="3"
         android:textColor="@color/colorPrimary"
         android:textSize="90dp"
@@ -44,37 +44,37 @@
         android:gravity="left|center"
         android:lineSpacingExtra="8sp"
         android:paddingLeft="50dp"
-        android:paddingRight="40dp"
+        android:paddingRight="50dp"
         android:text="Hug with a HIV guy is risk to get HIV?"
         android:textColor="@color/colorPrimary"
-        android:textSize="28sp" />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btn_yes"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/txt_question"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/button_box"
         android:text="Yes"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/btn_no"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/btn_yes"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_box"
         android:text="No"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
 
 
     <LinearLayout

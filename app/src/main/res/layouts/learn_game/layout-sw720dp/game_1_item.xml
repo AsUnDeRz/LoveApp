@@ -7,29 +7,29 @@
             type="asunder.toche.loveapp.ViewModel.Game1ViewModel"/>
     </data>
 
-        <FrameLayout
-            android:id="@+id/frame"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:background="@android:color/transparent">
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@android:color/transparent">
 
-            <ImageButton
-                android:id="@+id/pos1"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:background="@android:color/transparent"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/cycle_back" />
+        <ImageButton
+            android:id="@+id/pos1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{game1.model.iconFront}" />
 
-            <ImageButton
-                android:id="@+id/pos2"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:background="@drawable/cycle_front"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:imageUrl="@{game1.model.icon}" />
-        </FrameLayout>
+        <ImageButton
+            android:id="@+id/pos2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cycle_front"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            app:imageUrl="@{game1.model.icon}" />
+    </FrameLayout>
 </layout>
 

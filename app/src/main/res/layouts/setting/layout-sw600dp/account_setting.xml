@@ -23,10 +23,10 @@
             android:id="@+id/root_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_name"
@@ -36,7 +36,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Name"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edt_name"
@@ -48,7 +48,7 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_phone"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Telephone"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edt_phone"
@@ -70,7 +70,7 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <!-- 2 box in 1 line -->
             <LinearLayout
@@ -87,7 +87,7 @@
                     android:layout_weight="1"
                     android:text="My Code"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
@@ -100,7 +100,7 @@
                     android:layout_weight="1"
                     android:text="Fried Code"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -120,7 +120,7 @@
                     android:maxLines="1"
                     android:paddingLeft="20dp"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
@@ -137,7 +137,7 @@
                     android:maxLines="1"
                     android:paddingLeft="20dp"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Email"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edt_email"
@@ -162,7 +162,7 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_password"
@@ -172,7 +172,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Password"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edt_password"
@@ -184,7 +184,7 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <!-- 2 box in 1 line -->
             <LinearLayout
@@ -202,7 +202,7 @@
                     android:layout_weight="1"
                     android:text="Unique Identifie"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
@@ -215,7 +215,7 @@
                     android:layout_weight="1"
                     android:text="Province"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -236,7 +236,7 @@
                     android:maxLines="1"
                     android:paddingLeft="20dp"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
@@ -253,7 +253,7 @@
                     android:maxLines="1"
                     android:paddingLeft="20dp"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -266,19 +266,19 @@
                 android:layout_weight="1"
                 android:text="HIV status"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_hiv_status"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="70dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/button_box"
                 android:gravity="left|center_vertical"
-                android:paddingStart="20dp"
+                android:paddingStart="40dp"
                 android:text="Positive"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
     </ScrollView>

@@ -19,7 +19,7 @@
                 android:layout_height="90dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/cycle_back" />
+                app:imageUrl="@{game1.model.iconFront}"/>
 
             <ImageButton
                 android:id="@+id/pos2"

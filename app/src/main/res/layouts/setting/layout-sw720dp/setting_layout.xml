@@ -16,23 +16,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/btn_passcode"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_passcode" />
 
@@ -41,10 +43,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="65dp"
+                    android:paddingStart="120dp"
                     android:text="Passcode"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -58,17 +60,18 @@
             <RelativeLayout
                 android:id="@+id/btn_reminder"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_reminder" />
 
@@ -77,16 +80,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="65dp"
+                    android:paddingStart="120dp"
                     android:text="Pill Reminders"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="20dp"
                     app:srcCompat="@drawable/arrow_white" />
             </RelativeLayout>
@@ -94,17 +98,18 @@
             <RelativeLayout
                 android:id="@+id/btn_test_hiv"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_test" />
 
@@ -113,10 +118,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="65dp"
+                    android:paddingStart="120dp"
                     android:text="Insert Lab"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -130,17 +135,18 @@
             <RelativeLayout
                 android:id="@+id/btn_acc_setting"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_account" />
 
@@ -149,10 +155,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="65dp"
+                    android:paddingStart="120dp"
                     android:text="Account Settings"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -166,17 +172,18 @@
             <RelativeLayout
                 android:id="@+id/btn_feedback"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_feedback" />
 
@@ -185,10 +192,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="65dp"
+                    android:paddingStart="120dp"
                     android:text="Feedback"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:layout_width="65dp"

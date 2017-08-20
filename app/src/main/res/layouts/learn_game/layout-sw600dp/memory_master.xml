@@ -214,17 +214,17 @@
         android:layout_alignParentBottom="false"
         android:layout_below="@+id/linearLayout4"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
+            android:layout_width="280dp"
+            android:layout_height="85dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/bg_counting" />
 
-        <TextView
+        <view.custom_view.TextViewHeavy
             android:id="@+id/txt_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
             android:layout_centerVertical="false"
             android:paddingStart="50dp"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="26sp" />
     </RelativeLayout>
 
 </RelativeLayout>

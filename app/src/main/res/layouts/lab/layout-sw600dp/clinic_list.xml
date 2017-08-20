@@ -11,8 +11,8 @@
 
     <ImageButton
         android:id="@+id/btn_map"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
@@ -21,14 +21,14 @@
         app:srcCompat="@drawable/button_map" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/header_clinic_list"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/relativeLayout3">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="70dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -38,9 +38,10 @@
         <EditText
             android:id="@+id/txt_search"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
             android:background="@android:color/transparent"
             android:hint="Search..."
             android:maxLines="1" />
@@ -55,7 +56,7 @@
         android:layout_marginTop="20dp"
         android:text="Bangkok"
         android:textColor="@color/colorDarkGrey"
-        android:textSize="36sp" />
+        android:textSize="40sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
             android:layout_weight="1"
             android:text="Wipawadee, muang Bangkok"
             android:textColor="@color/colorGrey"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

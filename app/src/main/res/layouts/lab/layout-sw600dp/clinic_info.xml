@@ -12,8 +12,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView9"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/header_clinic_info"
         android:layout_centerHorizontal="true"
         android:src="@drawable/clinic_img"
@@ -26,19 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView9"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:text="Bangkok Clinic"
         android:textColor="@android:color/white"
-        android:textSize="26sp" />
+        android:textSize="30sp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="350dp"
         android:layout_below="@+id/title_clinic"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_white_info">
 
         <LinearLayout
@@ -58,29 +58,32 @@
                 android:layout_height="wrap_content"
                 android:text="Information"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/txt_nametest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="HIV test,STD PrER" />
+                android:text="HIV test,STD PrER"
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/txt_worktime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="open 10.00 am - 18.00 pm" />
+                android:layout_marginTop="8dp"
+                android:text="open 10.00 am - 18.00 pm"
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Contact"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,8 +97,8 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:srcCompat="@drawable/home" />
 
             <view.custom_view.TextViewMedium
@@ -104,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text="www.bangkokclinic.com" />
+                android:text="www.bangkokclinic.com"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,8 +122,8 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:srcCompat="@drawable/home" />
 
             <TextView
@@ -128,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text="8(800) 123-456-789" />
+                android:text="8(800) 123-456-789"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -142,8 +147,8 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:srcCompat="@drawable/home" />
 
             <view.custom_view.TextViewMedium
@@ -152,7 +157,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text="213/11 m4 Meachan \nMuang Chiangmai 57333" />
+                android:text="213/11 m4 Meachan \nMuang Chiangmai 57333"
+                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -162,8 +168,8 @@
         android:layout_height="65dp"
         android:layout_below="@+id/relativeLayout4"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_button_info"
         android:text="Book Now!"
         android:textAllCaps="false"

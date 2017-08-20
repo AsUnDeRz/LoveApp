@@ -26,19 +26,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="The First Alphabet Of Name"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/fill_box"
             android:orientation="horizontal">
 
@@ -54,7 +54,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="70dp"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="65dp"
@@ -71,19 +71,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="The First Alphabet Of SureName"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/fill_box"
             android:orientation="horizontal">
 
@@ -99,7 +99,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="70dp"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="65dp"
@@ -116,19 +116,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="Birth Day"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/fill_box"
             android:orientation="horizontal">
 
@@ -144,7 +144,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="70dp"
                 android:textColor="@color/colorDarkGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="65dp"
@@ -160,16 +160,16 @@
     <Button
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="false"
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/button_box"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="26sp" />
 
 </RelativeLayout>

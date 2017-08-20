@@ -11,8 +11,8 @@
 
     <ImageButton
         android:id="@+id/btn_map"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
@@ -21,14 +21,14 @@
         app:srcCompat="@drawable/button_map" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/header_clinic_list"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/relativeLayout3">
+        android:layout_marginTop="90dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -38,12 +38,15 @@
         <EditText
             android:id="@+id/txt_search"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
             android:background="@android:color/transparent"
             android:hint="Search..."
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:textSize="24sp" />
     </RelativeLayout>
 
     <view.custom_view.TextViewHeavy
@@ -52,10 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Bangkok"
         android:textColor="@color/colorDarkGrey"
-        android:textSize="36sp" />
+        android:textSize="44sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -80,7 +83,7 @@
             android:layout_weight="1"
             android:text="Wipawadee, muang Bangkok"
             android:textColor="@color/colorGrey"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

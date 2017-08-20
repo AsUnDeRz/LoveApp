@@ -10,19 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="20dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="20dp">
 
         <view.custom_view.TextViewHeavy
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="90dp"
             android:background="@drawable/fill_box"
             android:gravity="center"
             android:text="@{msnItem.title}"
             android:textColor="@color/colorGrey"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 </layout>

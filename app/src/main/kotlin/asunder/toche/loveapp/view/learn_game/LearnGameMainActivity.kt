@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnGameItemBinding
 import com.bumptech.glide.Glide
@@ -83,7 +84,8 @@ class LearnGameMainActivity: AppCompatActivity(){
             .onBind { println("Bound ${it.binding.learnGameItem} at #${it.adapterPosition}") }
             .onRecycle { println("Recycled ${it.binding.learnGameItem} at #${it.adapterPosition}") }
             .onClick {
-                if(it.binding.titleGame.text == "Memory Master #1"){
+                it.binding.titleGame as TextView
+                if(it.binding.titleGame.text  == "Memory Master #1"){
                     startActivity(Intent().setClass(this,MemoryMasterActivity::class.java))
                 }
                 if(it.binding.titleGame.text == "Memory Master #2"){

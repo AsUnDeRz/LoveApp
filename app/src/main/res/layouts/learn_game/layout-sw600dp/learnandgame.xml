@@ -12,11 +12,11 @@
     <RelativeLayout
         android:id="@+id/btn_game"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/header_learn_game"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/box_games">
 
         <ImageView
@@ -58,11 +58,11 @@
     <RelativeLayout
         android:id="@+id/btn_learn"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/btn_game"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/box_learn_main">
 
         <ImageView

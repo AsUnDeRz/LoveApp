@@ -8,7 +8,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
+        android:paddingStart="100dp"
         android:text="Lab Result"
         android:textColor="@android:color/white"
         android:textSize="24sp" />

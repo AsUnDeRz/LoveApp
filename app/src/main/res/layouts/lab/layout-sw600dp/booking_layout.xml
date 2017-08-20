@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_booking"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Bangkok Clinic"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="34sp" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_clinic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp">
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
 
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_date"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="5dp"
             android:text="Date"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,9 +63,9 @@
                 android:hint="Test"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="55dp"
@@ -81,44 +81,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
             android:text="Time"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@drawable/fill_box"
-        android:orientation="horizontal">
-        <EditText
-            android:layout_weight="1"
-            android:id="@+id/edt_time"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginBottom="5dp"
             android:background="@drawable/fill_box"
-            android:hint="Test"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorGrey"
-            android:textSize="16sp" />
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/arrow_blue_down" />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_time"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/fill_box"
+                android:hint="Test"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="30dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/arrow_blue_down" />
+        </LinearLayout>
 
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
             android:text="Phone"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edt_phone"
@@ -129,18 +133,19 @@
             android:hint="Test"
             android:inputType="text"
             android:maxLines="1"
-            android:paddingLeft="20dp"
+            android:paddingLeft="30dp"
             android:textColor="@color/colorGrey"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
             android:text="Email"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edt_email"
@@ -150,23 +155,23 @@
             android:hint="Test"
             android:inputType="text"
             android:maxLines="1"
-            android:paddingLeft="20dp"
+            android:paddingLeft="30dp"
             android:textColor="@color/colorGrey"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/linearLayout3"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button_box"
         android:text="Submit"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="26sp" />
 
 </RelativeLayout>

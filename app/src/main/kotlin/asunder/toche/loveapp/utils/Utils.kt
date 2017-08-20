@@ -42,8 +42,8 @@ class Utils(val contex: Context) {
         var idRandom = getRandom(69,duo)
         val data1= ObservableArrayList<Model.Game1>().apply{
             for(i in 0..duoSize){
-                add(Model.Game1(i, DataSimple.iconGame1[idRandom[i]], 1))
-                add(Model.Game1(i, DataSimple.iconGame1[idRandom[i]], 1))
+                add(Model.Game1(i, DataSimple.iconGame1[idRandom[i]], 1,R.drawable.cycle_back))
+                add(Model.Game1(i, DataSimple.iconGame1[idRandom[i]], 1,R.drawable.cycle_back))
             }
         }
         shuffleArray(data1)
@@ -55,14 +55,14 @@ class Utils(val contex: Context) {
         var idRandom = getRandom(79,30)
         val dataGame2 = ObservableArrayList<Model.Game1>().apply {
             for(i in 0..29){
-                add(Model.Game1(i, DataSimple.iconGame2[idRandom[i]], 1))
+                add(Model.Game1(i, DataSimple.iconGame2[idRandom[i]], 1,R.drawable.cycle_back))
             }
         }
         shuffleArray(dataGame2)
         shuffleList(idRandom)
         val randomPick = ObservableArrayList<Model.Game1>().apply {
             for(i in 0..29){
-                add(Model.Game1(i, DataSimple.iconGame2[idRandom[i]], 1))
+                add(Model.Game1(i, DataSimple.iconGame2[idRandom[i]], 1,R.drawable.cycle_back))
             }
         }
 

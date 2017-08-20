@@ -12,43 +12,43 @@
         android:background="@android:color/transparent"
         android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:paddingTop="10dp">
 
         <LinearLayout
             android:id="@+id/btn_game"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             android:background="@drawable/box_learn"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginStart="20dp">
+                android:layout_height="120dp"
+                android:layout_marginStart="40dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/icon_topic"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     app:imageUrl="@{topic.icon}" />
 
                 <RelativeLayout
-                    android:layout_width="165dp"
+                    android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1">
 
                     <view.custom_view.TextViewHeavy
+                        android:text="@{topic.title}"
                         android:id="@+id/title_topic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:paddingStart="20dp"
-                        android:text="@{topic.title}"
                         android:textColor="@android:color/white"
                         android:textSize="22sp" />
 

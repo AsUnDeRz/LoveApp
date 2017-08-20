@@ -13,16 +13,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/header_pill_reminder"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/btn_take_pill"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/header_change_passcode"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_box">
 
@@ -31,10 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
-                android:paddingStart="30dp"
+                android:paddingStart="50dp"
                 android:text="Take Pill At"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="30sp" />
 
             <ImageView
                 android:layout_width="65dp"
@@ -48,11 +48,11 @@
         <RelativeLayout
             android:id="@+id/btn_noti_reminder"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/header_change_passcode"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/fill_box">
 
             <view.custom_view.TextViewHeavy
@@ -60,10 +60,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
-                android:paddingStart="30dp"
+                android:paddingStart="50dp"
                 android:text="Reminder\nNotification"
                 android:textColor="@color/colorPrimary"
-                android:textSize="22sp" />
+                android:textSize="30sp" />
 
 
             <com.kyleduo.switchbutton.SwitchButton
@@ -114,11 +114,11 @@
         <RelativeLayout
             android:id="@+id/btn_msn"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/header_change_passcode"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/button_box">
 
             <view.custom_view.TextViewHeavy
@@ -126,10 +126,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
-                android:paddingStart="30dp"
+                android:paddingStart="50dp"
                 android:text="Message"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="30sp" />
 
             <ImageView
                 android:layout_width="65dp"

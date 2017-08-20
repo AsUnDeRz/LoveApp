@@ -28,7 +28,7 @@ object Model{
     }
 
     data class Game2(val itemGame:ObservableArrayList<Model.Game1>,val randomPick:ObservableArrayList<Game1>)
-    data class Game1(val id:Int, val icon:Int, var position:Int)
+    data class Game1(val id:Int, val icon:Int, var position:Int,var iconFront:Int)
 
     data class Clinic(var id: Long,var name:String,var testName:String,var workTime:String,var icon:Int):StableId{
         override val stableId: Long = id

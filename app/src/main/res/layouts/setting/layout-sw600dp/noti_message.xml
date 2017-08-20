@@ -26,7 +26,7 @@
     <RelativeLayout
         android:id="@+id/btn_msn"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="90dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="30dp"
@@ -42,11 +42,11 @@
             android:paddingStart="30dp"
             android:text="Add New Message"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
         <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="false"
             android:layout_centerVertical="true"

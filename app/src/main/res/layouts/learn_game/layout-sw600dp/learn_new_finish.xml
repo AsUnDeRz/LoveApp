@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="570dp"
         android:background="@drawable/bg_guy_fade"
         android:orientation="vertical">
 
@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="Well done!"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_f2"
@@ -27,7 +27,7 @@
             android:gravity="center"
             android:text="You have already read"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_f3"
@@ -36,15 +36,15 @@
             android:gravity="center"
             android:text="Earned +53 points."
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <LinearLayout
             android:id="@+id/btn_readmore"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/button_box"
             android:gravity="center"
@@ -55,33 +55,33 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingStart="30dp">
+                android:paddingStart="50dp">
 
                 <view.custom_view.TextViewHeavy
                     android:id="@+id/txt_readmore"
-                    android:layout_width="230dp"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:text="Read more"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
             <ImageView
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:layout_weight="1"
-                android:padding="20dp"
+                android:padding="25dp"
                 app:srcCompat="@drawable/arrow_white" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:id="@+id/btn_facebook"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="8dp">
@@ -96,10 +96,10 @@
         <LinearLayout
             android:id="@+id/btn_getmore"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_box"
             android:gravity="center"
@@ -110,23 +110,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingStart="30dp">
+                android:paddingStart="50dp">
 
                 <view.custom_view.TextViewHeavy
                     android:id="@+id/txt_getmore"
-                    android:layout_width="230dp"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:text="Get more points"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
             <ImageView
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:layout_weight="1"
-                android:padding="20dp"
+                android:padding="25dp"
                 app:srcCompat="@drawable/arrow_white" />
         </LinearLayout>
 
