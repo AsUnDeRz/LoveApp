@@ -13,13 +13,17 @@ import java.util.*
  */
 object Model{
 
+    data class RiskResult(val risk_id:String,val risk_status:String,val status:String,val details_th:String,val details_eng:String,
+                          val topic_th:String,val topic_eng:String)
+    data class RiskQuestion(val choice_id:String,val title_th:String,val title_eng:String,
+                            val question1_th:String,val question1_eng:String,
+                            val question2_th:String,val question2_eng:String,
+                            val question3_th:String,val question3_eng:String,
+                            val question4_th:String,val question4_eng:String,
+                            val question5_th:String,val question5_eng:String,
+                            val question6_th:String,val question6_eng:String,
+                            val question7_th:String,val question7_eng:String)
 
-    /*
-     "id": 40,
-        "image_byte": "uploads/banners/40/o.png",
-        "version": 40,
-        "link": "www.kapook.com
-     */
     data class ImageHomeResponse(val list:MutableList<ImageHome>)
     data class ImageHome(val id:String,val image_byte:String,val version:String,val link:String)
     data class HomeContent(var id:Long,var name:String): StableId{

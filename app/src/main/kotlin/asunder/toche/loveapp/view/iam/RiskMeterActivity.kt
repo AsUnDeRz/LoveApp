@@ -1,14 +1,21 @@
 package asunder.toche.loveapp
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.risk_meter.*
 import view.custom_view.CustomViewpager
 
@@ -25,13 +32,18 @@ class RiskMeterActivity:AppCompatActivity(){
           for(i in riskAnswer){
              answer +=i
           }
+
+
             Toast.makeText(context,answer,Toast.LENGTH_LONG).show()
-            context.startActivity(Intent().setClass(context,RiskMeterFinalActivity::class.java))
+            val intent = Intent()
+            intent.putExtra("answer",answer)
+            context.startActivity(intent.setClass(context,RiskMeterFinalActivity::class.java))
             val activity = context as Activity
             activity.finish()
         }
-    }
 
+        //data
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +52,7 @@ class RiskMeterActivity:AppCompatActivity(){
                 .load(R.drawable.bg_white)
                 .into(bg_root)
 
+
         val adapterViewPager = RiskMeterAdapter(supportFragmentManager, this)
         vp_riskmeter = findViewById(R.id.vpriskmeter)
         vp_riskmeter.adapter = adapterViewPager
@@ -47,4 +60,5 @@ class RiskMeterActivity:AppCompatActivity(){
 
 
     }
+
 }

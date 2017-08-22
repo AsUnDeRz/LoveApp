@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.d
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -70,6 +71,46 @@ object ViewModel{
             }
         }
 
+
+    }
+
+
+    class MainViewModel :ViewModel(){
+        var service : LoveAppService = LoveAppService.create()
+        interface RiskQInterface { fun endCallProgress(data: ObservableList<Model.RiskQuestion>) }
+
+        private var _compoSub = CompositeDisposable()
+        private val compoSub: CompositeDisposable
+            get() {
+                if (_compoSub.isDisposed) {
+                    _compoSub = CompositeDisposable()
+                }
+                return _compoSub
+            }
+
+        protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+        fun unsubscribe() { compoSub.dispose() }
+
+        fun loadRiskQuestion(callback:RiskQInterface){
+            manageSub(
+                    service.getRiskQuestions()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data = ObservableArrayList<Model.RiskQuestion>().apply {
+                                    c.forEach {
+                                        item -> add(item)
+                                        Timber.d { "Test api Risk quesiton show title eng[" + item.title_eng + "]" }
+                                    }
+                                }
+                                callback.endCallProgress(data)
+                                d { "check response [" + c.size + "]" }
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+        }
 
     }
 

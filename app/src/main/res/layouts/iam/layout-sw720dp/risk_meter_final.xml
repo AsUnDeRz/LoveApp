@@ -34,7 +34,7 @@
         android:scaleType="fitXY" />
 
     <view.custom_view.TextViewHeavy
-        android:id="@+id/textView4"
+        android:id="@+id/txt_risk_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/meter_bar"
@@ -45,10 +45,10 @@
         android:textSize="38sp" />
 
     <view.custom_view.TextViewMedium
-        android:id="@+id/textView5"
+        android:id="@+id/txt_risk_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/txt_risk_status"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:paddingLeft="100dp"
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:layout_alignParentBottom="false"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/txt_risk_detail"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginTop="100dp"

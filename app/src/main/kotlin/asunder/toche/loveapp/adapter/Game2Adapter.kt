@@ -12,6 +12,7 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.Toast
 import asunder.toche.loveapp.databinding.Game2ItemBinding
+import java.util.*
 
 /**
  * Created by admin on 8/13/2017 AD.
@@ -29,6 +30,18 @@ class Game2Adapter(var data: ObservableList<Model.Game1>, maxPoint:Int): Recycle
     override fun onBindViewHolder(holder: ItemHolder?, position: Int) {
         holder?.bindItemGame(data[position], position)
 
+    }
+
+    fun randomPosition(){
+        val rnd = Random()
+        for (i in data.size - 1 downTo 1) {
+            val index = rnd.nextInt(i + 1)
+            // Simple swap
+            val a = data[index]
+            data[index] = data[i]
+            data[i] = a
+        }
+        notifyDataSetChanged()
     }
 
 

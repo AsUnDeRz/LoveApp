@@ -31,6 +31,7 @@ class OldNewUserActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.old_new_user)
 
+
         btn_signin.setOnClickListener {
             startActivity(Intent().setClass(this@OldNewUserActivity,ActivityMain::class.java))
             finish()

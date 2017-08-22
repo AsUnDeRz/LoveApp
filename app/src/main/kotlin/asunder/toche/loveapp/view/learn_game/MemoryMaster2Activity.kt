@@ -37,14 +37,17 @@ class MemoryMaster2Activity:AppCompatActivity(){
         fun nextPic(context:Context){
             //change data and randomPick
             if(posPick <= 15 && isTimeRunner) {
+                adapter.randomPosition()
+                /*
                 data = utils.getDataGame2()
                 randomPick = data.randomPick
                 adapter = Game2Adapter(data.itemGame,15)
                 rv_game2.adapter = adapter
-
+                */
                 Glide.with(context)
                         .load(randomPick[posPick].icon)
                         .into(iconGame)
+
             }else{
                 countDown.cancel()
                 countDown.onFinish()
@@ -97,6 +100,7 @@ class MemoryMaster2Activity:AppCompatActivity(){
             override fun onFinish() {
                 txt_time.text = "Finish!"
                 isTimeRunner = false
+                posPick = 0
             }
 
             override fun onTick(millisUntilFinished: Long) {

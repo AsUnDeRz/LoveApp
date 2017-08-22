@@ -1,6 +1,7 @@
 package asunder.toche.loveapp
 
 import android.Manifest
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -13,20 +14,27 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import kotlinx.android.synthetic.main.activity_main.*
 import view.custom_view.CustomViewpager
 import android.content.Intent
+import android.databinding.ObservableList
+
+
+class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface {
 
 
 
-class ActivityMain : AppCompatActivity() {
-
-        companion object {
+    lateinit var MainViewModel : ViewModel.MainViewModel
+    companion object {
             lateinit var vp_main : CustomViewpager
             lateinit var bnve : BottomNavigationViewEx
-        }
+            lateinit var questions : ObservableList<Model.RiskQuestion>
+
+    }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
             d{"onCreate"}
+            MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
+            MainViewModel.loadRiskQuestion(this)
 
 
             vp_main = findViewById(R.id.vp_main_fragment)
@@ -98,11 +106,19 @@ class ActivityMain : AppCompatActivity() {
 
         }
 
+    override fun endCallProgress(data: ObservableList<Model.RiskQuestion>) {
+        questions = data
+    }
+
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         d{"onSaveSate"}
     }
 
+    override fun onPause() {
+        super.onPause()
+        MainViewModel.unsubscribe()
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()

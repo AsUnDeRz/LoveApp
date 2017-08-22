@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
 import kotlinx.android.synthetic.main.risk_meter.*
 import kotlinx.android.synthetic.main.risk_meter_question2.*
 
@@ -28,6 +30,7 @@ class RiskQuestionFragment2 : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setQuestion(ActivityMain.questions[1])
         btn_1.typeface = MyApp.typeFace.heavy
         btn_2.typeface = MyApp.typeFace.heavy
         btn_3.typeface =MyApp.typeFace.heavy
@@ -43,6 +46,15 @@ class RiskQuestionFragment2 : Fragment() {
             RiskMeterActivity.riskAnswer[1] = 3
             RiskMeterActivity.vp_riskmeter.setCurrentItem(2,false)
         }
+    }
+
+    fun setQuestion(question:Model.RiskQuestion){
+        val utils = Utils(activity)
+        d { "Check null" + question.title_eng }
+        txt_question.text = "2. "+question.title_eng
+        btn_1.text = utils.txtLocale(question.question1_th,question.question1_eng)
+        btn_2.text = utils.txtLocale(question.question2_th,question.question2_eng)
+        btn_3.text = utils.txtLocale(question.question3_th,question.question3_eng)
     }
 
 }

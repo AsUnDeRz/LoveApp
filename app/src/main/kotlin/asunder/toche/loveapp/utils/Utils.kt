@@ -36,6 +36,23 @@ class Utils(val contex: Context) {
         return (fpixels + 0.5f).toInt()
     }
 
+    fun clearString(data:String):String{
+        d{"clear String [$data]"}
+        var newStr = data.replace("\r", "")
+        d{"clear String backsplash R [$newStr]"}
+        return newStr.replace("\n", "")
+    }
+
+    fun txtLocale(th:String,eng:String):String{
+        var txt =""
+        when(LocalUtil.getLanguage(contex)){
+            KEYPREFER.EN -> txt=eng
+            KEYPREFER.TH -> txt=th
+        }
+        d{"Show txtLocale =$txt"}
+        return txt
+    }
+
     fun getDataGame1(duo:Int):ObservableArrayList<Model.Game1>{
         var duoSize = duo
         duoSize--
