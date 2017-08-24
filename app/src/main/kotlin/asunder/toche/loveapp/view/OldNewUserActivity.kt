@@ -33,16 +33,16 @@ class OldNewUserActivity : AppCompatActivity(){
 
 
         btn_signin.setOnClickListener {
-            startActivity(Intent().setClass(this@OldNewUserActivity,ActivityMain::class.java))
+            startActivity(Intent().setClass(this@OldNewUserActivity,LoginActivity::class.java))
             finish()
         }
 
         btn_newaccout.setOnClickListener {
-            showTimePickerDialog(btn_newaccout)
+            //showTimePickerDialog(btn_newaccout) use it
             //Notification.EventReceiver.setupAlarm(applicationContext)
 
-            //startActivity(Intent().setClass(this@OldNewUserActivity,ActivityMain::class.java))
-            //finish()
+            startActivity(Intent().setClass(this@OldNewUserActivity,GenderActivity::class.java))
+            finish()
         }
     }
 

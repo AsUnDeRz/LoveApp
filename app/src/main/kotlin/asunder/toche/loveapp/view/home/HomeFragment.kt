@@ -70,7 +70,9 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.home, container, false)
         val cv = view?.findViewById<CarouselView>(R.id.cV)
-        homeViewModel.loadImage(this)
+        //homeViewModel.loadImage(this)
+        cv?.setImageListener(listener)
+        cv?.pageCount = DataSimple.imageHome.size
         //cv?.setImageListener(listener)
         //cv?.pageCount
 
@@ -84,12 +86,17 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
      var listener: ImageListener = ImageListener { position, imageView ->
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
+         Glide.with(activity)
+                 .load(DataSimple.imageHome[position])
+                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .into(imageView)
+         /*
          var image = imaHome[position]
                  Glide.with(activity)
-                         .load("http://loveapponline.com/"+image.image_byte)
+                         .load("http://backend.loveapponline.com/"+image.image_byte)
                          .diskCacheStrategy(DiskCacheStrategy.ALL)
                          .into(imageView)
-
+        */
 
     }
 

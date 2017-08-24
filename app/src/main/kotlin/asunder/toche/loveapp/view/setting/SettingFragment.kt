@@ -35,7 +35,7 @@ class SettingFragment : Fragment() {
         }
 
         btn_reminder.setOnClickListener {
-            context.startActivity(Intent().setClass(context,PillReminderActivity::class.java))
+            context.startActivity(Intent().setClass(context,PillReminderTimeActivity::class.java))
 
         }
 

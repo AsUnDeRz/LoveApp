@@ -13,7 +13,7 @@
 
     <include
         android:id="@+id/header_hiv_status"
-        layout="@layout/header_logo_white_back" />
+        layout="@layout/header_logo_white" />
 
     <ImageView
         android:id="@+id/circle_icon"

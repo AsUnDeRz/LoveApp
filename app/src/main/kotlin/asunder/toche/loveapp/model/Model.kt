@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import java.sql.Timestamp
 import java.util.*
@@ -38,7 +39,11 @@ object Model{
         override val stableId: Long = id
     }
 
-    data class Gender(var id:Long,var gender:String):StableId{
+
+    data class UserId(var user_id:String)
+    data class HivStatus(var status_id:String,var status_eng:String, var status_th:String)
+    data class RepositoryGender(var gender_id:Long,var gender_type_th:String,var gender_type_eng:String)
+    data class Gender(var id:Long,var title:String):StableId{
         override val stableId : Long = id
     }
     data class LearnNewContent(var id:Long,var title:String,var point:String):StableId{

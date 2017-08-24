@@ -5,6 +5,9 @@ package asunder.toche.loveapp
  */
 object KEYPREFER{
 
+    val PASSCODE = "PASSCODE"
+    val UserId = "USERID"
+    val isFirst = "isFirst"
     val language = "language"
     val TH = "th"
     val EN = "en"

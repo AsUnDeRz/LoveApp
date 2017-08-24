@@ -33,7 +33,7 @@ class MemoryMasterActivity:AppCompatActivity(){
     }
     var totalPoint:Int =0
     var chapterPoint = arrayListOf(0,0,0,0,0,0)
-    var timeInChapter : Long =31000
+    var timeInChapter : Long =46000
     lateinit var utils : Utils
     lateinit var chapterGame : Chapter
     lateinit var adapter : Game1Adapter
@@ -98,55 +98,53 @@ class MemoryMasterActivity:AppCompatActivity(){
             override fun onTick(millisUntilFinished: Long) {
                 txt_time.text = ": "+(millisUntilFinished/1000).toString() +" Sec"
                 if(adapter.currnetPointInChapter == adapter.maxPointInChapter){
-                    countDown.cancel()
-                    countDown.onFinish()
+                    //countDown.cancel()
+                    //countDown.onFinish()
+                    ChangeState(chapterGame,adapter.currnetPointInChapter)
+                    initStageGame(chapterGame)
                     adapter.currnetPointInChapter =0
+
                 }
             }
             override fun onFinish() {
+                for(point in chapterPoint){
+                    totalPoint+=point
+                }
+                d{totalPoint.toString()}
                 btn_time.isClickable = true
-                txt_time.text = "Start!"
-                ChangeState(chapterGame,adapter.currnetPointInChapter)
-                initStageGame(chapterGame)
+                txt_time.text ="$totalPoint Point"
+                //ChangeState(chapterGame,adapter.currnetPointInChapter)
+                //initStageGame(chapterGame)
             }
         }
 
         //4-8-10-12-16-20
         when (chapter){
             Chapter.one -> {
-                timeInChapter = 31000
                 adapter = Game1Adapter(utils.getDataGame1(2),2)
                 linearLayout4.layoutManager = GridLayoutManager(this,2)
                 linearLayout4.adapter = adapter
                 countDown.start()
             }
             Chapter.two ->{
-                timeInChapter = 31000
                 adapter = Game1Adapter(utils.getDataGame1(4),4)
                 linearLayout4.layoutManager = GridLayoutManager(this,2)
                 linearLayout4.adapter = adapter
-                countDown.start()
             }
             Chapter.three -> {
-                timeInChapter = 31000
                 adapter = Game1Adapter(utils.getDataGame1(6),6)
                 linearLayout4.layoutManager = GridLayoutManager(this,3)
                 linearLayout4.adapter = adapter
-                countDown.start()
             }
             Chapter.four ->{
-                timeInChapter = 31000
                 adapter = Game1Adapter(utils.getDataGame1(8),8)
                 linearLayout4.layoutManager = GridLayoutManager(this,4)
                 linearLayout4.adapter = adapter
-                countDown.start()
             }
             Chapter.five ->{
-                timeInChapter = 31000
                 adapter = Game1Adapter(utils.getDataGame1(10),10)
                 linearLayout4.layoutManager = GridLayoutManager(this,4)
                 linearLayout4.adapter = adapter
-                countDown.start()
             }
             Chapter.finish -> {
                 for(point in chapterPoint){
@@ -156,7 +154,6 @@ class MemoryMasterActivity:AppCompatActivity(){
                 adapter = Game1Adapter(utils.getDataGame1(10),10)
                 linearLayout4.layoutManager = GridLayoutManager(this,4)
                 linearLayout4.adapter = adapter
-                txt_time.text ="$totalPoint Point"
             }
         }
         linearLayout4.setHasFixedSize(true)

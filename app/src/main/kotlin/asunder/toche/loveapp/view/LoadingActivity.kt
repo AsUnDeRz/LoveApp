@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import kotlinx.android.synthetic.main.loading_page.*
+import android.graphics.drawable.AnimationDrawable
+import android.preference.PreferenceManager
+
 
 /**
  * Created by admin on 8/7/2017 AD.
@@ -31,6 +34,7 @@ class LoadingActivity:AppCompatActivity(){
         }
 
 
+
         Glide.with(this)
                 .load(R.drawable.bg_blue_only)
                 .into(bg_root)
@@ -40,17 +44,69 @@ class LoadingActivity:AppCompatActivity(){
                 .into(bg_logo)
 
 
+        //root_animation.post(Starter())
 
 
+
+
+    }
+
+    internal inner class Starter : Runnable {
+        override fun run() {
+            //val animation = root_animation.background as AnimationDrawable
+            //animation.start()
+        }
+    }
+
+    fun checkFirstTime():Boolean{
+        var isFirst = false
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoadingActivity)
+        if(preferences.getBoolean(KEYPREFER.isFirst,true)){
+            isFirst = true
+            d{"user open app isFirst"}
+            val editor = preferences.edit()
+            editor.putBoolean(KEYPREFER.isFirst, true)
+            editor.apply()
+            // gen user id
+        }else{
+           d{"user open app normal"}
+            d{"Check user ID ["+preferences.getString(KEYPREFER.UserId,"")+"]"}
+            checkPasscode()
+        }
+
+        return isFirst
+    }
+
+    fun checkPasscode():Boolean{
+        var havePasscode = false
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoadingActivity)
+        if(preferences.getString(KEYPREFER.PASSCODE,"") != ""){
+            havePasscode = true
+        }
+
+
+        return havePasscode
     }
 
     fun postDelayed(){
         val intentThis = Intent()
         val splash = Handler()
-        splash.postDelayed({
-            startActivity(intentThis.setClass(this, OldNewUserActivity::class.java))
-            finish()
-        },3000)
+        if(checkFirstTime()){
+            splash.postDelayed({
+                startActivity(intentThis.setClass(this, OldNewUserActivity::class.java))
+                finish()
+            },3000)
+        }else{
+            if(checkPasscode()){
+                startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
+                finish()
+            }else{
+                startActivity(intentThis.setClass(this, ActivityMain::class.java))
+                finish()
+            }
+
+        }
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

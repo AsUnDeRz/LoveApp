@@ -27,10 +27,19 @@ class LoginActivity :AppCompatActivity(){
         forgetpassword.typeface = MyApp.typeFace.heavy
 
         login_btn.setOnClickListener {
+            //check login
             startActivity(Intent().setClass(this@LoginActivity, ActivityMain::class.java))
             finish()
         }
+        btn_back.setOnClickListener {
+            onBackPressed()
+        }
+    }
 
+     override fun onBackPressed() {
+        super.onBackPressed()
+         startActivity(Intent().setClass(this@LoginActivity, OldNewUserActivity::class.java))
+         finish()
 
     }
 

@@ -29,17 +29,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:screenOrientation="portrait" android:name=".ActivityMain">
-
-        </activity>
-        <activity android:screenOrientation="portrait" android:name=".LoadingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:screenOrientation="portrait" android:name=".LoadingActivity" >
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".NotificationActivity" />
         <activity android:screenOrientation="portrait" android:name=".GenderActivity" />
-        <activity android:screenOrientation="portrait" android:name=".HivStatusActivity" />
+        <activity android:screenOrientation="portrait" android:name=".HivStatusActivity" >
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".PointHistriesActivity" />
         <activity android:screenOrientation="portrait" android:name=".BookingActivity" />
         <activity android:screenOrientation="portrait" android:name=".ClinicInfo" />

@@ -1,10 +1,13 @@
 package asunder.toche.loveapp
 
+import android.databinding.ObservableList
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -13,6 +16,23 @@ import retrofit2.http.*
  * Created by admin on 8/9/2017 AD.
  */
 interface LoveAppService{
+
+
+//http://loveapp1.herokuapp.com/api/user/
+
+    @FormUrlEncoded
+    @POST("api/user/")
+    fun updateHivStatus(@Field("status_id") status:String,@Field("user_id") userId:String) : Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/user/")
+    fun genUserID(@Field("gender_id") genderId:String) :Observable<ArrayList<Model.UserId>>
+
+    @GET("api/hiv_status")
+    fun getHivStatus() :Observable<ArrayList<Model.HivStatus>>
+
+    @GET("api/genders")
+    fun getGenders() : Observable<ArrayList<Model.RepositoryGender>>
 
     @GET("api/images")
     fun getImageHome() : Observable<ArrayList<Model.ImageHome>>

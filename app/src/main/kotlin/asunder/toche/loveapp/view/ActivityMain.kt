@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import view.custom_view.CustomViewpager
 import android.content.Intent
 import android.databinding.ObservableList
+import android.preference.PreferenceManager
 
 
 class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface {
@@ -96,7 +97,14 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
                 when (item.itemId){
                     R.id.setting -> vp_main.setCurrentItem(KEYPREFER.SETTING,false)
                     R.id.learnandgame -> vp_main.setCurrentItem(KEYPREFER.LEARNGAME,false)
-                    R.id.iam -> vp_main.setCurrentItem(KEYPREFER.IAM,false)
+                    R.id.iam -> {
+                        val preferences = PreferenceManager.getDefaultSharedPreferences(this@ActivityMain)
+                        if(preferences.getBoolean(KEYPREFER.isFirst,true)){
+                            startActivity(Intent().setClass(this@ActivityMain,HivStatusActivity::class.java))
+                        }else {
+                            vp_main.setCurrentItem(KEYPREFER.IAM, false)
+                        }
+                    }
                     R.id.lab -> vp_main.setCurrentItem(KEYPREFER.LAB,false)
                     R.id.home -> vp_main.setCurrentItem(KEYPREFER.HOME,false)
                 }

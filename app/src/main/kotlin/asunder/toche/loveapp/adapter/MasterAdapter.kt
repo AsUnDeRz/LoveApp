@@ -29,14 +29,7 @@ object MasterAdapter{
         }
     }
 
-    fun GenderAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.genderItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.Gender -> GenderType
-                else -> null
-            }
-        }
-    }
+
 
 
 
@@ -50,14 +43,7 @@ object MasterAdapter{
             }
         }
     }
-    fun PillReminderAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.pillItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.PillReminder -> PillReminderType
-                else -> null
-            }
-        }
-    }
+
     fun PointsAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.pointItem,stableIds).type{ item, position ->
             when(item){
@@ -96,12 +82,7 @@ object MasterAdapter{
             }
             .onLongClick {}
 
-    private val GenderType = Type<GenderItemBinding>(R.layout.gender_item)
-            .onCreate { println("Created ${it.binding.genderItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.genderItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.genderItem} at #${it.adapterPosition}") }
-            .onClick {}
-            .onLongClick {}
+
 
 
 
@@ -112,12 +93,6 @@ object MasterAdapter{
             .onClick {}
             .onLongClick {}
 
-    private val PillReminderType = Type<PillReminderItemBinding>(R.layout.pill_reminder_item)
-            .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.pillItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.pillItem} at #${it.adapterPosition}") }
-            .onClick {}
-            .onLongClick {}
 
     private val PointType = Type<PointItemBinding>(R.layout.point_item)
             .onCreate { println("Created ${it.binding.pointItem} at #${it.adapterPosition}") }

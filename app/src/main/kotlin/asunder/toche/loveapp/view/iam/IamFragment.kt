@@ -35,7 +35,29 @@ class IamFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.iam, container, false)
-        /*
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //btn_viral_load.typeface = MyApp.typeFace.heavy
+        //btn_cd4.typeface = MyApp.typeFace.heavy
+
+        btn_point.setOnClickListener {
+            context.startActivity(Intent().setClass(context,PointHistriesActivity::class.java))
+        }
+        btn_riskmeter.setOnClickListener {
+            context.startActivity(Intent().setClass(context,RiskMeterActivity::class.java))
+
+        }
+
+        //labresult.inflate()
+        iamnonhiv.inflate()
+
+    }
+
+    fun initGraph(view :View){
+
         mChart = view!!.findViewById(R.id.mChart)
 
         //mChart.setOnChartGestureListener(this)
@@ -123,24 +145,6 @@ class IamFragment : Fragment() {
 
         // // dont forget to refresh the drawing
         // mChart.invalidate();
-        */
-
-
-        return view
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        btn_viral_load.typeface = MyApp.typeFace.heavy
-        btn_cd4.typeface = MyApp.typeFace.heavy
-
-        btn_point.setOnClickListener {
-            context.startActivity(Intent().setClass(context,PointHistriesActivity::class.java))
-        }
-        btn_riskmeter.setOnClickListener {
-            context.startActivity(Intent().setClass(context,RiskMeterActivity::class.java))
-
-        }
 
     }
 

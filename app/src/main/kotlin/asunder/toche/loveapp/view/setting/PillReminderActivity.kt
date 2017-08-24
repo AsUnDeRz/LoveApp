@@ -25,7 +25,7 @@ class PillReminderActivity: AppCompatActivity(){
         txt_title.text ="PILL\nREMINDER"
 
         btn_take_pill.setOnClickListener {
-            startActivity(Intent().setClass(this@PillReminderActivity, PillReminderTimeActivity::class.java))
+            //startActivity(Intent().setClass(this@PillReminderActivity, PillReminderTimeActivity::class.java))
         }
 
         btn_msn.setOnClickListener {
