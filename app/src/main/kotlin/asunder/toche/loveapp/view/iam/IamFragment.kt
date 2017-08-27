@@ -31,10 +31,13 @@ class IamFragment : Fragment() {
         }
     }
 
+    lateinit var appDb :AppDatabase
     lateinit var mChart : LineChart
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.iam, container, false)
+        appDb = AppDatabase(activity)
+
         return view
     }
 
@@ -53,6 +56,20 @@ class IamFragment : Fragment() {
 
         //labresult.inflate()
         iamnonhiv.inflate()
+
+
+        ///set Tracked missing
+        val data = appDb.getCountNoti()
+        if(data.totalNoti != "0") {
+            val total = Integer.parseInt(data.tracked) + Integer.parseInt(data.missing)
+            val tracked = (data.tracked.toInt() / total) * 100
+            val missing = (data.missing.toInt() / total) * 100
+            txt_tracked.text = "$tracked % Tracked"
+            txt_missed.text = "$missing % Missed"
+        }else{
+            txt_tracked.text = "0 % Tracked"
+            txt_missed.text = "0 % Missed"
+        }
 
     }
 
