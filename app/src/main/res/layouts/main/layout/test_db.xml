@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="Delete"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/edt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="ID"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/delete"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Add"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/add"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Update"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/delete_all"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/update"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Delete all "
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/get_id"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/delete_all"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Get with id"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/waiting"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/get_id"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Get Noti waiting"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/missing"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/waiting"
+        android:layout_alignStart="@+id/waiting"
+        android:background="@color/colorPrimary"
+        android:text="Get noti Missing"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/tracked"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/missing"
+        android:layout_alignEnd="@+id/missing"
+        android:background="@color/colorPrimary"
+        android:text="Get Noti Tracked"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/counting"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@+id/tracked"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Get Count"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

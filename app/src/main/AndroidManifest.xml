@@ -29,10 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:screenOrientation="portrait" android:name=".ActivityMain">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:screenOrientation="portrait" android:name=".LoadingActivity" >
 
@@ -49,15 +46,26 @@
 
         </activity>
         <activity android:screenOrientation="portrait" android:name=".LearnGameMainActivity" />
-        <activity android:screenOrientation="portrait" android:name=".LearnNewsActivity" />
+        <activity android:screenOrientation="portrait" android:name=".LearnNewsActivity" >
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".ChangePasscodeActivity" />
         <activity android:screenOrientation="portrait" android:name=".ReminderActivity" />
         <activity android:screenOrientation="portrait" android:name=".UniqueIdActivity" />
         <activity android:screenOrientation="portrait" android:name=".PillReminderActivity" />
-        <activity android:screenOrientation="portrait" android:name=".PillReminderTimeActivity" />
-        <activity android:screenOrientation="portrait" android:name=".OldNewUserActivity" />
+        <activity android:screenOrientation="portrait" android:name=".PillReminderTimeActivity" >
+
+        </activity>
+        <activity android:screenOrientation="portrait" android:name=".OldNewUserActivity" >
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".LoginActivity" />
-        <activity android:screenOrientation="portrait" android:name=".AccountSettingActivity" />
+        <activity android:screenOrientation="portrait" android:name=".AccountSettingActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".RiskMeterActivity" />
         <activity android:screenOrientation="portrait" android:name=".RiskMeterFinalActivity" />
         <activity android:screenOrientation="portrait" android:name=".MemoryMaster2Activity" >
@@ -71,8 +79,11 @@
         <activity android:screenOrientation="portrait" android:name=".QuestionActivity" >
         </activity>
         <activity android:screenOrientation="portrait" android:name=".LearnTopicActivity" />
+        <activity android:name=".TestDb" >
 
-   
+        </activity>
+
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

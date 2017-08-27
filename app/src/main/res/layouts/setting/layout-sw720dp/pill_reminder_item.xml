@@ -33,7 +33,7 @@
                 android:id="@+id/txt_time"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:text="10.30 pm"
+                android:text="@{pillItem.getTimeShort}"
                 android:textColor="@android:color/white"
                 android:textSize="38sp" />
 
@@ -41,7 +41,7 @@
                 android:id="@+id/txt_pill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3 Notification"
+                android:text="Notification"
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
         </LinearLayout>

@@ -5,6 +5,10 @@ package asunder.toche.loveapp
  */
 object KEYPREFER{
 
+    val POSITION= "position"
+    val NOTIID ="notificationID"
+    val RESULT = "result"
+    val CONTENT = "content"
     val PASSCODE = "PASSCODE"
     val UserId = "USERID"
     val isFirst = "isFirst"
@@ -17,4 +21,9 @@ object KEYPREFER{
     val LEARNGAME =3
     val SETTING = 4
     val CLINIC =5
+
+    //waiting  missing tracked
+    val WAITING = 0
+    val MISSING = 1
+    val TRACKED = 2
 }

@@ -1,7 +1,11 @@
 package asunder.toche.loveapp
 
+import android.content.Intent
 import android.databinding.ObservableArrayList
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
@@ -9,6 +13,7 @@ import android.widget.Toast
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.passcode.*
 
 /**
@@ -46,7 +51,16 @@ class PassCodeActivity: AppCompatActivity(){
         Glide.with(this)
                 .load(R.drawable.bg_blue_only)
                 .into(bg_root)
-        statePasscode = StatePC.add
+        if(intent.getStringExtra(KEYPREFER.PASSCODE) == "check"){
+            val preferences = PreferenceManager.getDefaultSharedPreferences(this@PassCodeActivity)
+            txt_passcode.text = "Enter Passcode"
+            statePasscode = StatePC.check
+            pcInStateAdd = preferences.getString(KEYPREFER.PASSCODE,"")
+
+        }else {
+            statePasscode = StatePC.add
+            txt_passcode.text = "New Passcode"
+        }
         delete.setOnClickListener {
             deleteValues()
         }
@@ -137,11 +151,11 @@ class PassCodeActivity: AppCompatActivity(){
         if(r4.isChecked){
             //check state
             if(statePasscode == StatePC.add){
+                txt_passcode.text = "Confirm Passcode"
                 statePasscode = StatePC.check
                 var pc=""
                 for(i in passcode)  pc+=i
                 pcInStateAdd = pc
-                Toast.makeText(this,pc,Toast.LENGTH_LONG).show()
                 //clear state
                 passcode = arrayOf("","","","")
                 r1.isChecked = false
@@ -153,7 +167,44 @@ class PassCodeActivity: AppCompatActivity(){
                 var pc=""
                 for(i in passcode)  pc+=i
                 if(pc == pcInStateAdd){
-                    Toast.makeText(this,"Passcode Macthing Save in db",Toast.LENGTH_LONG).show()
+                    if(intent.getStringExtra(KEYPREFER.PASSCODE) == "check"){
+                        val post = Handler()
+                        post.postDelayed({
+                            startActivity(Intent().setClass(this@PassCodeActivity,ActivityMain::class.java))
+                            finish()
+                        },500)
+                    }else{
+                        Alerter.create(this)
+                                .setText("Your passcode have saved")
+                                .setOnHideListener {
+                                    finish()
+                                }
+                                .setTitleTypeface(Utils(this).heavy)
+                                .setTextTypeface(Utils(this).heavy)
+                                .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
+                                .show()
+                        //save passcode to preference
+                        val preferences = PreferenceManager.getDefaultSharedPreferences(this@PassCodeActivity)
+                        d{"save passcode user [$pc]"}
+                        val editor = preferences.edit()
+                        editor.putString(KEYPREFER.PASSCODE, pc)
+                        editor.apply()
+                    }
+
+
+                }else{
+                    Alerter.create(this)
+                            .setText("Please check passcode again")
+                            .setTitleTypeface(Utils(this).heavy)
+                            .setTextTypeface(Utils(this).heavy)
+                            .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
+                            .show()
+                    passcode = arrayOf("","","","")
+                    r1.isChecked = false
+                    r2.isChecked = false
+                    r3.isChecked = false
+                    r4.isChecked = false
+                    numClick =0
                 }
 
             }

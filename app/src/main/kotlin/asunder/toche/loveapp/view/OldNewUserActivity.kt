@@ -38,7 +38,7 @@ class OldNewUserActivity : AppCompatActivity(){
         }
 
         btn_newaccout.setOnClickListener {
-            //showTimePickerDialog(btn_newaccout) use it
+            //showTimePickerDialog(btn_newaccout) //use it
             //Notification.EventReceiver.setupAlarm(applicationContext)
 
             startActivity(Intent().setClass(this@OldNewUserActivity,GenderActivity::class.java))
@@ -74,7 +74,7 @@ class OldNewUserActivity : AppCompatActivity(){
                 val cal = Calendar.getInstance()
                 cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 cal.set(Calendar.MINUTE, minute)
-                Notification.EventReceiver.setupAlarm(activity,cal)
+                Notification.EventReceiver.setupAlarm(activity,cal,0)
                 d{"calendat set "+cal.time.toString()}
             }
             callCount++

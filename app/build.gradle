@@ -113,6 +113,10 @@ dependencies {
 
     //indicator
     implementation 'com.romandanylyk:pageindicatorview:0.2.0@aar'
+
+    //alerter
+    implementation 'com.tapadoo.android:alerter:2.0.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
 }
 
 repositories {

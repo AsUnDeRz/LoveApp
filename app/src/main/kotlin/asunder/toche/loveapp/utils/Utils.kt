@@ -14,6 +14,7 @@ import org.jetbrains.anko.coroutines.experimental.bg
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,6 +23,13 @@ import kotlin.collections.ArrayList
  * Created by admin on 8/7/2017 AD.
  */
 class Utils(val contex: Context) {
+
+
+
+    fun getDate(date:Date):String{
+        val fmtOut = SimpleDateFormat("dd-MM-yyyy")
+        return fmtOut.format(date)
+    }
 
     val heavy: Typeface
         get() = Typeface.createFromAsset(contex.assets, "fonts/AvenirLTStd-Heavy.otf")

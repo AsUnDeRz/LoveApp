@@ -17,8 +17,20 @@ import retrofit2.http.*
  */
 interface LoveAppService{
 
+    //http://loveapp1.herokuapp.com/api/provinces
+    @GET("api/provinces")
+    fun getProvinces() : Observable<ArrayList<Model.Province>>
 
-//http://loveapp1.herokuapp.com/api/user/
+
+    @GET("api/hospitals/locx/{long}/locy/{lat}/distance/{dis}")
+    fun getHospitalsOnMap(@Path("long") lng:String,@Path("lat") lat:String,@Path("dis")distance:String) :
+            Observable<ArrayList<Model.RepositoryHospital>>
+
+    @GET("api/knowledges/user_id/{userid}/limit/5")
+    fun getContentInHome(@Path("userid") userId:String) : Observable<ArrayList<Model.RepositoryContentHome>>
+
+    @GET("api/notifications")
+    fun getNotiMessage() :Observable<ArrayList<Model.RepositoryNotiMsn>>
 
     @FormUrlEncoded
     @POST("api/user/")

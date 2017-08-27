@@ -71,7 +71,7 @@ class LoadingActivity:AppCompatActivity(){
         }else{
            d{"user open app normal"}
             d{"Check user ID ["+preferences.getString(KEYPREFER.UserId,"")+"]"}
-            checkPasscode()
+
         }
 
         return isFirst
@@ -98,6 +98,7 @@ class LoadingActivity:AppCompatActivity(){
             },3000)
         }else{
             if(checkPasscode()){
+                intentThis.putExtra(KEYPREFER.PASSCODE,"check")
                 startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
                 finish()
             }else{

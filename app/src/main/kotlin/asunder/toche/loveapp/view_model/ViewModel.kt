@@ -121,7 +121,7 @@ object ViewModel{
             service = LoveAppService.create()
         }
 
-        interface HomeInterface { fun endCallProgress(data: ObservableList<Model.ImageHome>) }
+        interface HomeInterface { fun endCallProgress(any:Any) }
 
         private var _compoSub = CompositeDisposable()
         private val compoSub: CompositeDisposable
@@ -152,6 +152,26 @@ object ViewModel{
                                 d{"check response ["+c.size+"]"}
                             }},{
                                 d{ it.message!! }
+                            })
+            )
+        }
+
+        fun loadContentHome(callback :HomeInterface,user_id:String){
+            manageSub(
+                    service.getContentInHome(user_id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data = ObservableArrayList<Model.RepositoryContentHome>().apply {
+                                    c.forEach {
+                                        item -> add(item)
+                                        d{"add contentId ["+item.id+"]"}
+                                    }
+                                }
+                                callback.endCallProgress(data)
+                                d { "check response [" + c.size + "]" }
+                            }},{
+                                d { it.message!! }
                             })
             )
         }

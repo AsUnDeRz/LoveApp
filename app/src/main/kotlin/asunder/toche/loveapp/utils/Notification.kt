@@ -31,8 +31,10 @@ object  Notification {
             Log.d(javaClass.simpleName, "onHandleIntent, started handling a notification event")
             try {
                 val action = intent!!.action
+                val id = intent.getIntExtra(KEYPREFER.NOTIID,0)
+                d{"check id [$id]"}
                 if (ACTION_START == action) {
-                    processStartNotification()
+                    processStartNotification(id)
                 }
             } finally {
                 WakefulBroadcastReceiver.completeWakefulIntent(intent!!)
@@ -43,27 +45,31 @@ object  Notification {
             // Log something?
         }
 
-        private fun processStartNotification() {
+        private fun processStartNotification(id:Int) {
+            d{"StartNotification"}
+            val appDb = AppDatabase(this)
+            val noti = appDb.getNotiWithState(id.toString())
+            appDb.updateNotification(noti,KEYPREFER.MISSING)
             // Do something. For example, fetch fresh data from backend to create a rich notification?
-
             val builder = NotificationCompat.Builder(this)
-            builder.setContentTitle("Scheduled Notification")
+            builder.setContentTitle(noti.title)
                     .setAutoCancel(true)
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setColor(resources.getColor(R.color.colorAccent))
-                    .setContentText("This notification has been triggered by Notification Service")
+                    .setContentText(noti.message)
                     .setSmallIcon(R.drawable.icon_app)
 
             val mainIntent = Intent(this, ReminderActivity::class.java)
+            mainIntent.putExtra(KEYPREFER.NOTIID,id)
             val pendingIntent = PendingIntent.getActivity(this,
-                    NOTIFICATION_ID,
+                    id,
                     mainIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT)
             builder.setContentIntent(pendingIntent)
-            builder.setDeleteIntent(EventReceiver.getDeleteIntent(this))
+            builder.setDeleteIntent(EventReceiver.getDeleteIntent(this,id))
 
             val manager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.notify(NOTIFICATION_ID, builder.build())
+            manager.notify(id, builder.build())
             playNotificationSound()
 
         }
@@ -82,19 +88,20 @@ object  Notification {
 
         companion object {
 
-            private val NOTIFICATION_ID = 1
             private val ACTION_START = "ACTION_START"
             private val ACTION_DELETE = "ACTION_DELETE"
 
-            fun createIntentStartNotificationService(context: Context): Intent {
+            fun createIntentStartNotificationService(context: Context,id: Int): Intent {
                 val intent = Intent(context, Service::class.java)
                 intent.action = ACTION_START
+                intent.putExtra(KEYPREFER.NOTIID,id)
                 return intent
             }
 
-            fun createIntentDeleteNotification(context: Context): Intent {
+            fun createIntentDeleteNotification(context: Context,id: Int): Intent {
                 val intent = Intent(context, Service::class.java)
                 intent.action = ACTION_DELETE
+                intent.putExtra(KEYPREFER.NOTIID,id)
                 return intent
             }
         }
@@ -104,7 +111,8 @@ object  Notification {
     class ServiceStarterReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            EventReceiver.setupAlarm(context, Calendar.getInstance())
+            d{"onReceive with ServiceStarterReceiver"}
+            EventReceiver.setupAlarm(context, Calendar.getInstance(),intent.getIntExtra(KEYPREFER.NOTIID,0))
         }
     }
 
@@ -112,13 +120,14 @@ object  Notification {
 
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
+            val id = intent.getIntExtra(KEYPREFER.NOTIID,0)
             var serviceIntent: Intent? = null
             if (ACTION_START_NOTIFICATION_SERVICE == action) {
-                Log.i(javaClass.simpleName, "onReceive from alarm, starting notification service")
-                serviceIntent = Service.createIntentStartNotificationService(context)
+                d{"onReceive from alarm, starting notification service with id [$id]"}
+                serviceIntent = Service.createIntentStartNotificationService(context,id)
             } else if (ACTION_DELETE_NOTIFICATION == action) {
-                Log.i(javaClass.simpleName, "onReceive delete notification action, starting notification service to handle delete")
-                serviceIntent = Service.createIntentDeleteNotification(context)
+               d{"onReceive delete notification action, starting notification service to handle delete with id [$id]"}
+                serviceIntent = Service.createIntentDeleteNotification(context,id)
             }
 
             if (serviceIntent != null) {
@@ -134,29 +143,27 @@ object  Notification {
 
             private val NOTIFICATIONS_INTERVAL_IN_HOURS = 2
 
-            fun setupAlarm(context: Context,cal:Calendar) {
+            fun setupAlarm(context: Context,cal:Calendar,id:Int) {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val alarmIntent = getStartPendingIntent(context)
-                /*
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                        getTriggerAt(Date()),
-                        setNextTimeAlert(),
-                        alarmIntent)
-                        */
-                d{"setDate ["+ setNextTimeAlert()+"]"}
+                val alarmIntent = getStartPendingIntent(context,id)
+                d{"on set Alarm notification with ID [$id]"}
+                d{"on set Alarm ["+cal.time.toString()+"]"}
                 alarmManager.set(AlarmManager.RTC_WAKEUP, cal.timeInMillis,alarmIntent)
             }
 
-            fun cancelAlarm(context: Context) {
+
+            fun cancelAlarm(context: Context,id: Int) {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val alarmIntent = getStartPendingIntent(context)
+                val alarmIntent = getStartPendingIntent(context,id)
+                d{"on Cancel Alarm notification with ID [$id]"}
                 alarmManager.cancel(alarmIntent)
             }
 
+
             private fun setNextTimeAlert() :Long{
-                var sdf = SimpleDateFormat("dd-M-yyyy hh:mm:ss")
-                var dateInString = "18-08-2017 16:50:00"
-                var date = sdf.parse(dateInString)
+                val sdf = SimpleDateFormat("dd-M-yyyy hh:mm:ss")
+                val dateInString = "18-08-2017 16:50:00"
+                val date = sdf.parse(dateInString)
                 var calendar = Calendar.getInstance()
                 calendar.time = date
                 return calendar.timeInMillis
@@ -170,16 +177,20 @@ object  Notification {
                 return calendar.timeInMillis
             }
 
-            private fun getStartPendingIntent(context: Context): PendingIntent {
+            private fun getStartPendingIntent(context: Context,id:Int): PendingIntent {
                 val intent = Intent(context, EventReceiver::class.java)
+                intent.putExtra(KEYPREFER.NOTIID,id)
                 intent.action = ACTION_START_NOTIFICATION_SERVICE
-                return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                d{"StartPendingIntent with ID [$id]"}
+                return PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             }
 
-            fun getDeleteIntent(context: Context): PendingIntent {
+            fun getDeleteIntent(context: Context,id: Int): PendingIntent {
                 val intent = Intent(context, EventReceiver::class.java)
+                intent.putExtra(KEYPREFER.NOTIID,id)
                 intent.action = ACTION_DELETE_NOTIFICATION
-                return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                d{"DeletePendingIntent with ID [$id]"}
+                return PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             }
         }
     }

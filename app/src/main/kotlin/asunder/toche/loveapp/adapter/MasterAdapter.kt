@@ -11,14 +11,6 @@ import asunder.toche.loveapp.databinding.*
  */
 object MasterAdapter{
 
-    fun HomeAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.homeItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.HomeContent -> HomeType
-                else -> null
-            }
-        }
-    }
 
     fun ClinicAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.clinicItem,stableIds).type{ item, position ->
@@ -35,14 +27,7 @@ object MasterAdapter{
 
 
 
-    fun NotificationAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.notiItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.Notification -> NotificationType
-                else -> null
-            }
-        }
-    }
+
 
     fun PointsAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.pointItem,stableIds).type{ item, position ->
@@ -53,14 +38,7 @@ object MasterAdapter{
         }
     }
 
-    fun NotiMessageAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
-        return LastAdapter(item,BR.msnItem,stableIds).type{ item, position ->
-            when(item){
-                is Model.NotiMessage -> NotiMessageType
-                else -> null
-            }
-        }
-    }
+
 
 
 
@@ -86,12 +64,6 @@ object MasterAdapter{
 
 
 
-    private val NotificationType = Type<NotificationItemBinding>(R.layout.notification_item)
-            .onCreate { println("Created ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onClick {}
-            .onLongClick {}
 
 
     private val PointType = Type<PointItemBinding>(R.layout.point_item)
@@ -103,12 +75,7 @@ object MasterAdapter{
 
 
 
-    private val NotiMessageType = Type<NotiMessageItemBinding>(R.layout.noti_message_item)
-            .onCreate { println("Created ${it.binding.msnItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.msnItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.msnItem} at #${it.adapterPosition}") }
-            .onClick {}
-            .onLongClick {}
+
 
 
 

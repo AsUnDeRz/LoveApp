@@ -3,16 +3,28 @@ package asunder.toche.loveapp
 import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by admin on 8/7/2017 AD.
  */
 object Model{
+
+    data class Province(val province_id:String,val province_th: String,val province_eng:String,val locx:Double,val locy:Double)
+    data class RepositoryHospital(val id: String, val name_th: String, val name_eng: String, val address_th: String,
+                                  val address_eng: String, val service_th: String, val service_eng: String, var logo: String,
+                                  var icon: String, val open_hour_th: String, val phone: String, val email: String, val province: String,
+                                  val locx: Double, val locy: Double, val version: String, var isbooking: String, var isBook: String,
+                                  val open_hour_eng: String, val hospital_id: String, val file_name: String, val file_path: String)
+
 
     data class RiskResult(val risk_id:String,val risk_status:String,val status:String,val details_th:String,val details_eng:String,
                           val topic_th:String,val topic_eng:String)
@@ -27,7 +39,7 @@ object Model{
 
     data class ImageHomeResponse(val list:MutableList<ImageHome>)
     data class ImageHome(val id:String,val image_byte:String,val version:String,val link:String)
-    data class HomeContent(var id:Long,var name:String): StableId{
+    data class HomeContent(var id:Long,var name:String,var point:String,var data:RepositoryContentHome): StableId{
         override val stableId: Long = id
 
     }
@@ -74,20 +86,81 @@ object Model{
         }
     }
 
-    data class Notification(var id:Long,var message:String,var title:String,var time:Date):StableId{
-        override val stableId : Long = id
+    data class Notification(var id:String,var title:String,var message:String,var time:Date):StableId{
+        override val stableId : Long = id.toLong()
     }
+    data class NotiPercent(val tracked:String,val missing:String,val waiting:String,val totalNoti:String)
 
     data class PillReminder(var id:Long,var message: String,var time: Date):StableId{
         override val stableId : Long = id
+
+        fun getTimeShort():String{
+            val formatter = SimpleDateFormat("hh:mm a")
+            val dateString = formatter.format(time)
+            return dateString
+        }
     }
 
     data class Point(var id:Long,var title:String,var points:String):StableId{
         override val stableId : Long = id
     }
 
+    data class RepositoryNotiMsn(var notification_id:String,var title_th:String,var title_eng:String)
     data class NotiMessage(var id:Long,var title:String):StableId{
         override val stableId :Long = id
     }
+
+    data class User(val user_id:String,val gender:String,val name:String,val first_name:String,val first_surename:String,
+                    val status_id: String,val friend_id:String,val phone:String,val email:String,val password:String,
+                    val province:String,val job:String,val iden_id:String,val birth:String,val point:String,
+                    val password_hash:String,val remember_token:String,val updated_at:String)
+
+    data class RepositoryContentHome(val id: String, val group_id: String, val title_th: String, val title_eng: String,
+                                     val content_th: String, val content_eng: String, val image_byte: String, val point: String,
+                                     val gender_id: ArrayList<String>, val version: String, val content_th_long: String,
+                                     val content_eng_long: String, val link: String) : Parcelable {
+        constructor(source: Parcel) : this(
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.createStringArrayList(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeString(id)
+            writeString(group_id)
+            writeString(title_th)
+            writeString(title_eng)
+            writeString(content_th)
+            writeString(content_eng)
+            writeString(image_byte)
+            writeString(point)
+            writeStringList(gender_id)
+            writeString(version)
+            writeString(content_th_long)
+            writeString(content_eng_long)
+            writeString(link)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<RepositoryContentHome> = object : Parcelable.Creator<RepositoryContentHome> {
+                override fun createFromParcel(source: Parcel): RepositoryContentHome = RepositoryContentHome(source)
+                override fun newArray(size: Int): Array<RepositoryContentHome?> = arrayOfNulls(size)
+            }
+        }
+    }
+
 
 }

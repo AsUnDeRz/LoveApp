@@ -24,7 +24,9 @@ class ChangePasscodeActivity: AppCompatActivity(){
         setContentView(R.layout.change_passcode)
 
         btn_change_passcode.setOnClickListener {
-            startActivity(Intent().setClass(this@ChangePasscodeActivity,PassCodeActivity::class.java))
+            val data = Intent()
+            data.putExtra(KEYPREFER.PASSCODE,"change")
+            startActivity(data.setClass(this@ChangePasscodeActivity,PassCodeActivity::class.java))
         }
     }
 }

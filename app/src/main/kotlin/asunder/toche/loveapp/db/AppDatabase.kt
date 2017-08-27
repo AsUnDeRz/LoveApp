@@ -7,6 +7,9 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteCursor
 import android.database.sqlite.SQLiteOpenHelper
 import com.github.ajalt.timberkt.Timber.d
+import android.databinding.adapters.TextViewBindingAdapter.setPhoneNumber
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -42,7 +45,8 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                 KEY_NOTI_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_NOTI_TITLE + " TEXT," + // Define a foreign key
                 KEY_NOTI_DESC + " TEXT," +
-                KEY_NOTI_TIME + " DATE"+
+                KEY_NOTI_TIME + " DATE,"+
+                KEY_NOTI_STATUS + " INTEGER"+
                 ")"
         db.execSQL(CREATE_NOTIFICATION_TABLE)
     }
@@ -135,17 +139,176 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
 
 
 
-    fun addNotification(){
+    fun addNotification(data:Model.Notification){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            val values = ContentValues()
+            values.put(KEY_NOTI_TITLE, data.title)
+            values.put(KEY_NOTI_DESC, data.message)
+            values.put(KEY_NOTI_TIME,data.time.time)
+            values.put(KEY_NOTI_STATUS,KEYPREFER.WAITING)
+            // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
+            db.insertOrThrow(TABLE_NOTIFICATION, null, values)
+            db.setTransactionSuccessful()
+            d{"Insert ["+data.title+"] ["+data.message+"] ["+data.time.toString()+"][Status["+KEYPREFER.WAITING+"]]"}
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
 
     }
-    fun updateNotification(){
+    fun updateNotification(data:Model.Notification,status:Int){
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put(KEY_NOTI_TITLE, data.title)
+        values.put(KEY_NOTI_DESC, data.message)
+        values.put(KEY_NOTI_TIME,data.time.time)
+        values.put(KEY_NOTI_STATUS,status)
+
+        d{"update notification with id ["+data.id+"] status [$status]"}
+        // updating row
+        db.update(TABLE_NOTIFICATION, values, KEY_NOTI_ID + " = ?", arrayOf(data.id))
+        db.close()
 
     }
-    fun deleteNotification(){
+    fun deleteNotification(id:String){
+        val db = writableDatabase
+        d{ "Delete notification with id[$id]" }
+        db.delete(TABLE_NOTIFICATION, KEY_NOTI_ID + " = ?", arrayOf(id))
+        db.close()
+    }
+
+    fun deleteAllNoti(){
+        val db = writableDatabase
+        d{"Delete all record notification"}
+        db.delete(TABLE_NOTIFICATION,null,null)
+        db.close()
 
     }
 
-    fun getNotificationList(){}
+    fun getNotificationList() : ArrayList<Model.Notification>{
+        val notiList = ArrayList<Model.Notification>()
+        // Select All Query
+        val selectQuery = "SELECT  * FROM " + TABLE_NOTIFICATION
+
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+
+        // looping through all rows and adding to list
+        try{
+            if (cursor.moveToFirst()) {
+                do {
+                    notiList.apply {
+                        add(Model.Notification(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                Date(cursor.getLong(3))
+                        ))
+                    }
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+        d{"Error while trying to get posts from database"}
+        } finally {
+        if (cursor != null && !cursor.isClosed) {
+            cursor.close()
+        }
+        db.close()
+        }
+        // return contact list
+        return notiList
+    }
+
+
+    fun getCountNoti(): Model.NotiPercent{
+        val tracked = getNotiTracked().size.toString()
+        val missing = getNotiMissing().size.toString()
+        val waiting = getNotiWaiting().size.toString()
+        val totalNoti = getNotificationList().size.toString()
+
+        d{"tracked [$tracked] Missing [$missing] Waiting [$waiting] Total [$totalNoti]"}
+        return Model.NotiPercent(tracked,missing,waiting,totalNoti)
+    }
+
+
+    fun getNotiWaiting():ArrayList<Model.Notification>{
+        d{"Select with Status Waiting"}
+        return getNotisWithStatus(KEYPREFER.WAITING)
+    }
+    fun getNotiMissing():ArrayList<Model.Notification>{
+        d{"Select with Status Missing"}
+        return getNotisWithStatus(KEYPREFER.MISSING)
+    }
+    fun getNotiTracked():ArrayList<Model.Notification>{
+        d{"Select with Status Tracked"}
+        return getNotisWithStatus(KEYPREFER.TRACKED)
+
+    }
+    fun getNotisWithStatus(status:Int) : ArrayList<Model.Notification> {
+        val notiList = ArrayList<Model.Notification>()
+        // Select All Query
+        val selectQuery = "SELECT  * FROM $TABLE_NOTIFICATION WHERE $KEY_NOTI_STATUS =?"
+
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectQuery, arrayOf(status.toString()))
+
+        // looping through all rows and adding to list
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    notiList.apply {
+                        add(Model.Notification(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                Date(cursor.getLong(3))
+                        ))
+                    }
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+
+        // return contact list
+        return notiList
+    }
+
+    fun getNotiWithState(id:String) : Model.Notification{
+        var notification = Model.Notification("123","123","123", Date())
+        val db = readableDatabase
+        val cursor = db.query(TABLE_NOTIFICATION, arrayOf(KEY_NOTI_ID, KEY_NOTI_TITLE, KEY_NOTI_DESC, KEY_NOTI_TIME),
+                KEY_NOTI_ID +"=?", arrayOf(id),null,null,null,null)
+        try{
+            cursor?.moveToFirst()
+            notification = Model.Notification(cursor.getString(0),cursor.getString(1),cursor.getString(2),
+                    Date(cursor.getLong(3)))
+        }catch (e: Exception) {
+            d{"Error while trying to get posts from database"}
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+
+        return notification
+    }
 
     companion object {
         // Database Info
@@ -166,6 +329,9 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val KEY_NOTI_TITLE ="title"
         private val KEY_NOTI_TIME = "time"
         private val KEY_NOTI_DESC ="desc"
+        private val KEY_NOTI_STATUS = "status"
+        //status notification
+        //waiting  missing tracked
 
 
     }

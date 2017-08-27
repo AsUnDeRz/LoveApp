@@ -33,6 +33,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_white.*
 import kotlinx.android.synthetic.main.lab.*
 import kotlinx.coroutines.experimental.Deferred
@@ -54,6 +58,45 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowCloseListener,
         GoogleMap.OnInfoWindowClickListener {
+
+
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
+
+    val hospitalList = ObservableArrayList<Model.RepositoryHospital>()
+    lateinit var utils : Utils
+
+    fun loadHospital(){
+        manageSub(
+                service.getHospitalsOnMap("18.793276","91.0172","8")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            hospitalList.apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d { "Add ["+item.name_th+"] to arraylist" }
+                                }
+                            }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
 
     val dataClinic = ObservableArrayList<Model.Clinic>().apply {
         add(Model.Clinic(123213, "Test 1", "Test snippet", "10-20", R.drawable.clinic_img))
@@ -94,10 +137,14 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000) // 1 second, in milliseconds
+        loadHospital()
+        utils = Utils(activity)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         d { "Visible to user =$isVisibleToUser" }
+        //addmarker
+
 
     }
 
@@ -157,6 +204,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         }
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
         mapView.onPause()
+        unsubscribe()
 
     }
 
@@ -188,11 +236,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         enableMyLocation()
     }
     override fun onInfoWindowClose(marker: Marker?) {
-        Toast.makeText(context, "I'am close " + marker?.title, Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "I'am close " + marker?.title, Toast.LENGTH_LONG).show()
     }
 
     override fun onInfoWindowClick(marker: Marker?) {
-        Toast.makeText(context, "I'am click " + marker?.title, Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "I'am click " + marker?.title, Toast.LENGTH_LONG).show()
     }
 
     override fun onLocationChanged(location: Location?) {
@@ -249,6 +297,9 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         for(i in 0..1){
             addMarker(location!!.latitude+i,location!!.longitude+i,i)
         }
+        for(dt in hospitalList){
+            addMarker(dt)
+        }
     }
 
     private fun showMissingPermissionError() {
@@ -270,6 +321,9 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 for(i in 0..1){
                     addMarker(location!!.latitude+i,location!!.longitude+i,i)
                 }
+                for(dt in hospitalList){
+                    addMarker(dt)
+                }
             }
 
 
@@ -279,7 +333,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
     fun addMarker(lat:Double,lng:Double,position:Int){
         d{"addMarker from data position[$position]"}
-        val zoomLevel = 16.0f //This goes up to 21
+       // val zoomLevel = 16.0f //This goes up to 21
+        val zoomLevel = 10f
         val latLng = LatLng(lat, lng)
         async(UI){
             val data: Deferred<MarkerOptions> = bg {
@@ -287,6 +342,24 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                         .position(latLng)
                         .snippet(dataClinic[position].testName)
                         .title(dataClinic[position].name)
+                        .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
+            }
+            googleMap?.addMarker(data.await())
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+        }
+    }
+
+    fun addMarker(dat:Model.RepositoryHospital){
+        d{"Add marker hospital lat["+dat.locy+"] lng["+dat.locx+"]"}
+        //val zoomLevel = 16.0f //This goes up to 21
+        val latLng = LatLng(dat.locx, dat.locy)
+        val zoomLevel = 10f
+        async(UI){
+            val data: Deferred<MarkerOptions> = bg {
+                MarkerOptions()
+                        .position(latLng)
+                        .snippet(dat.service_eng)
+                        .title(dat.name_eng)
                         .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
             }
             googleMap?.addMarker(data.await())

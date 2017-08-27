@@ -22,11 +22,10 @@
         android:layout_marginTop="100dp">
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/noti_color"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_centerHorizontal="false"
-            app:srcCompat="@drawable/noti_green_circle" />
+            android:layout_centerHorizontal="false" />
 
         <FrameLayout
             android:layout_width="60dp"
@@ -47,7 +46,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="10dp"
-                android:text="1"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="24sp" />
         </FrameLayout>
