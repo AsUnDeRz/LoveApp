@@ -1,14 +1,18 @@
 package asunder.toche.loveapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.os.Bundle
+import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.R
+import com.github.ajalt.timberkt.Timber.d
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LimitLine
@@ -33,13 +37,17 @@ class IamFragment : Fragment() {
 
     lateinit var appDb :AppDatabase
     lateinit var mChart : LineChart
+    lateinit var preference : SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.iam, container, false)
         appDb = AppDatabase(activity)
+        preference = PreferenceManager.getDefaultSharedPreferences(activity)
 
         return view
     }
+
+
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,9 +61,19 @@ class IamFragment : Fragment() {
             context.startActivity(Intent().setClass(context,RiskMeterActivity::class.java))
 
         }
+        labresult.setOnInflateListener { viewStub, view ->
+            initGraph(view)
+        }
+        iamnonhiv.setOnInflateListener { viewStub, view ->
+            d{"i am non hiv inflate"}
+        }
 
-        //labresult.inflate()
-        iamnonhiv.inflate()
+        when(preference.getInt(KEYPREFER.HIVSTAT,0)){
+            KEYPREFER.POSITIVE -> labresult.inflate()
+            KEYPREFER.NEGATIVE -> iamnonhiv.inflate()
+            KEYPREFER.IDONTKNOW -> iamnonhiv.inflate()
+        }
+
 
 
         ///set Tracked missing
@@ -70,6 +88,7 @@ class IamFragment : Fragment() {
             txt_tracked.text = "0 % Tracked"
             txt_missed.text = "0 % Missed"
         }
+        //
 
     }
 

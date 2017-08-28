@@ -17,6 +17,12 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.SpannableString
+import android.text.InputFilter
+
+
 
 
 /**
@@ -25,6 +31,37 @@ import kotlin.collections.ArrayList
 class Utils(val contex: Context) {
 
 
+    fun getInputFilter():InputFilter{
+        return object :InputFilter {
+            override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
+                var keepOriginal = true
+                val sb = StringBuilder(end - start)
+                (start until end)
+                        .map { source[it] }
+                        .forEach {
+                            if (isCharAllowed(it))
+                            // put your condition here
+                                sb.append(it)
+                            else
+                                keepOriginal = false
+                        }
+                if (keepOriginal)
+                    return null
+                else {
+                    return if (source is Spanned) {
+                        val sp = SpannableString(sb)
+                        TextUtils.copySpansFrom(source, start, sb.length, null, sp, 0)
+                        sp
+                    } else {
+                        sb
+                    }
+                }
+            }
+
+            private fun isCharAllowed(c: Char): Boolean =
+                    Character.isLetterOrDigit(c) || Character.isSpaceChar(c)
+        }
+    }
 
     fun getDate(date:Date):String{
         val fmtOut = SimpleDateFormat("dd-MM-yyyy")

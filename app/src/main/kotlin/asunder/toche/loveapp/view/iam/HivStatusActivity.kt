@@ -98,9 +98,11 @@ class HivStatusActivity: AppCompatActivity(){
                         //change state user
                         val editor = preferences.edit()
                         editor.putBoolean(KEYPREFER.isFirst, false)
+                        editor.putInt(KEYPREFER.HIVSTAT,data.status_id.toInt())
                         editor.apply()
                         d{"Response [Success]"}
                         d{ "update status HIV user and Change isFirst ="+preferences.getBoolean(KEYPREFER.isFirst,true) }
+                        ActivityMain.vp_main.setCurrentItem(0,false)
                         ActivityMain.vp_main.setCurrentItem(2,false)
                         finish()
                     }

@@ -345,7 +345,9 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                         .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
             }
             googleMap?.addMarker(data.await())
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+            if(position == 0) {
+                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+            }
         }
     }
 
@@ -363,7 +365,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                         .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
             }
             googleMap?.addMarker(data.await())
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+            //googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
         }
     }
 

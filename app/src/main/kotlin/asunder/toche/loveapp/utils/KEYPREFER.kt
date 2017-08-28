@@ -26,4 +26,9 @@ object KEYPREFER{
     val WAITING = 0
     val MISSING = 1
     val TRACKED = 2
+    //HIV status
+    val HIVSTAT = "hivstatus"
+    val POSITIVE = 1
+    val NEGATIVE = 2
+    val IDONTKNOW = 3
 }

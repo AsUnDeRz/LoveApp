@@ -19,6 +19,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gender_list.*
 import kotlinx.android.synthetic.main.header_logo_white_back.*
+import com.afollestad.materialdialogs.MaterialDialog
+
+
 
 
 /**
@@ -129,5 +132,15 @@ class GenderActivity : AppCompatActivity(){
     override fun onPause() {
         super.onPause()
         unsubscribe()
+    }
+
+    fun showProgress(){
+        val dialog =MaterialDialog.Builder(this)
+                .title("")
+                .content("Please wait...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)
+                .show()
+
     }
 }

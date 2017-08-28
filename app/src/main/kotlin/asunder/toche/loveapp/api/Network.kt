@@ -11,13 +11,23 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.util.*
 
 /**
  * Created by admin on 8/9/2017 AD.
  */
 interface LoveAppService{
 
-    //http://loveapp1.herokuapp.com/api/provinces
+
+    @FormUrlEncoded
+    @POST("api/user/point")
+    fun addUserPoint(@Field("user_id")userId: String,@Field("point") point:String): Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/risk_test")
+    fun addRiskTest(@Field("user_id") userId:String,@Field("risk_id") riskResult:String,
+                    @Field("test_date") date:Date)  : Call<Void>
+
     @GET("api/provinces")
     fun getProvinces() : Observable<ArrayList<Model.Province>>
 

@@ -3,6 +3,7 @@ package asunder.toche.loveapp
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.RotateAnimation
 import com.bumptech.glide.Glide
@@ -13,6 +14,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.risk_meter_final.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 /**
@@ -41,11 +46,47 @@ class RiskMeterFinalActivity:AppCompatActivity(){
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {
                             loadAnimation(c[0])
+                            addRiskTestAndUpdatePoint(code)
                             d { "check response [" + c.size + "]" }
                         }},{
                             Timber.d { it.message!! }
                         })
         )
+    }
+
+    fun addRiskTestAndUpdatePoint(riskCode:String){
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@RiskMeterFinalActivity)
+        if(preferences.getString(KEYPREFER.UserId,"") != "") {
+            val addTest = service.addRiskTest(preferences.getString(KEYPREFER.UserId,""),riskCode, Date())
+            val addPoint = service.addUserPoint(preferences.getString(KEYPREFER.UserId,""),"20")
+            addTest.enqueue(object : Callback<Void>{
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    d{ t?.message.toString() }
+                }
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if(response!!.isSuccessful){
+                        d{"addRiskTest successful"}
+                        addPoint.enqueue(object :Callback<Void>{
+                            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                                d{ t?.message.toString() }
+                            }
+
+                            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                                if(response!!.isSuccessful){
+                                    d{"addPoint Successful"}
+                                }
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+
+
+
+        }
     }
 
 

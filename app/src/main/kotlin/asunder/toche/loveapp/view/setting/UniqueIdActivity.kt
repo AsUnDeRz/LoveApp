@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.unique_id_code.*
 import java.util.*
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.text.InputFilter
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
@@ -58,6 +59,7 @@ class UniqueIdActivity: AppCompatActivity() {
         edt_fname.typeface = MyApp.typeFace.heavy
         edt_lname.typeface = MyApp.typeFace.heavy
         edtHbd.typeface = MyApp.typeFace.heavy
+
 
         btn_back.setOnClickListener {
             onBackPressed()

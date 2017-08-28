@@ -16,12 +16,14 @@ import view.custom_view.CustomViewpager
 import android.content.Intent
 import android.databinding.ObservableList
 import android.preference.PreferenceManager
+import com.tapadoo.alerter.Alerter
 
 
 class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface {
 
 
 
+    var finis = 0
     lateinit var MainViewModel : ViewModel.MainViewModel
     companion object {
             lateinit var vp_main : CustomViewpager
@@ -129,11 +131,44 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val setIntent = Intent(Intent.ACTION_MAIN)
-        setIntent.addCategory(Intent.CATEGORY_HOME)
-        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(setIntent)
+        if(vp_main.currentItem == 0){
+            showAlerter()
+
+        }else if(vp_main.currentItem >= 1){
+            vp_main.setCurrentItem(0,false)
+            bnve.currentItem = 0
+            return
+
+        }
+    }
+
+    fun alerter(){
+
+    }
+    fun showAlerter(){
+        d{"$finis  show Alerter"}
+        when (finis) {
+            0 -> {
+
+            }
+            1 -> {
+                Alerter.create(this)
+                        .setText("Click again to return to your home screen")
+                        .setTitleTypeface(Utils(this).heavy)
+                        .setTextTypeface(Utils(this).heavy)
+                        .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
+                        .show()
+
+            }
+            else -> {
+                finis =0
+                val setIntent = Intent(Intent.ACTION_MAIN)
+                setIntent.addCategory(Intent.CATEGORY_HOME)
+                setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(setIntent)
+            }
+        }
+        finis++
     }
 
 
