@@ -18,15 +18,37 @@ import android.view.View
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.CountDownTimer
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.github.ajalt.timberkt.Timber.d
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 /**
  * Created by admin on 8/5/2017 AD.
  */
 class MemoryMasterActivity:AppCompatActivity(){
+
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
 
     enum class Chapter{
         one,two,three,four,five,finish
@@ -113,6 +135,9 @@ class MemoryMasterActivity:AppCompatActivity(){
                 d{totalPoint.toString()}
                 btn_time.isClickable = true
                 txt_time.text ="$totalPoint Point"
+                //update point and input point history
+                updatePoint(totalPoint.toString())
+
                 //ChangeState(chapterGame,adapter.currnetPointInChapter)
                 //initStageGame(chapterGame)
             }
@@ -160,8 +185,58 @@ class MemoryMasterActivity:AppCompatActivity(){
     }
 
 
+
+
+    fun updatePoint(point:String) {
+        d{"Update point user"}
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@MemoryMasterActivity)
+        if (preferences.getString(KEYPREFER.UserId, "") != "") {
+            d{"point [$point] user_id["+preferences.getString(KEYPREFER.UserId,"")+"]"}
+            val addPoint = service.addUserPoint(preferences.getString(KEYPREFER.UserId, ""), point)
+            addPoint.enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    d { t?.message.toString() }
+                }
+
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if (response!!.isSuccessful) {
+                        d { "addPoint successful" }
+                        inputPointHistory(point)
+                    }
+                }
+            })
+        }
+    }
+
+    fun inputPointHistory(point:String){
+        d{"input point history"}
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@MemoryMasterActivity)
+        if (preferences.getString(KEYPREFER.UserId, "") != "") {
+            d{"point [$point] user_id["+preferences.getString(KEYPREFER.UserId,"")+"]"}
+            val addPointHistory = service.addPointHistory("0",preferences.getString(KEYPREFER.UserId,""),
+                    "1",point,Date())
+            addPointHistory.enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    d { t?.message.toString() }
+                }
+
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if (response!!.isSuccessful) {
+                        d { "addPointHistory successful" }
+                    }
+                }
+            })
+        }
+    }
+
+
+
+
+
+
     override fun onPause() {
         super.onPause()
+        unsubscribe()
 
     }
 }

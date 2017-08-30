@@ -21,20 +21,25 @@ import android.preference.PreferenceManager
  */
 class LoadingActivity:AppCompatActivity(){
 
+    private val mTapScreenTextAnimDuration = 20
+    private val mTapScreenTextAnimBreak = 500L
     lateinit var utilDb :AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_page)
+        SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak)
+
         utilDb = AppDatabase(this@LoadingActivity)
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
             PermissionUtils.requestPermission(this@LoadingActivity, 123, Manifest.permission.ACCESS_FINE_LOCATION, true)
         }else{
-            postDelayed()
+           postDelayed()
         }
 
 
 
+        /*
         Glide.with(this)
                 .load(R.drawable.bg_blue_only)
                 .into(bg_root)
@@ -42,21 +47,15 @@ class LoadingActivity:AppCompatActivity(){
         Glide.with(this)
                 .load(R.drawable.logo)
                 .into(bg_logo)
+                */
 
 
-        //root_animation.post(Starter())
 
 
 
 
     }
 
-    internal inner class Starter : Runnable {
-        override fun run() {
-            //val animation = root_animation.background as AnimationDrawable
-            //animation.start()
-        }
-    }
 
     fun checkFirstTime():Boolean{
         var isFirst = false
@@ -98,12 +97,18 @@ class LoadingActivity:AppCompatActivity(){
             },3000)
         }else{
             if(checkPasscode()){
-                intentThis.putExtra(KEYPREFER.PASSCODE,"check")
-                startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
-                finish()
+                splash.postDelayed({
+                    intentThis.putExtra(KEYPREFER.PASSCODE,"check")
+                    startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
+                    finish()
+                },3000)
+
             }else{
-                startActivity(intentThis.setClass(this, ActivityMain::class.java))
-                finish()
+                splash.postDelayed({
+                    startActivity(intentThis.setClass(this, ActivityMain::class.java))
+                    finish()
+                },3000)
+
             }
 
         }

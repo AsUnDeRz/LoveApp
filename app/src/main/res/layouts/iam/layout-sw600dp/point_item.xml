@@ -32,7 +32,7 @@
                     android:id="@+id/txt_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2017 - 04 -22"
+                    android:text="@{pointItem.getTimeShort}"
                     android:textColor="@color/colorDarkGrey"
                     android:textSize="22sp" />
 
@@ -40,7 +40,7 @@
                     android:id="@+id/txt_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="HIV &amp; Safe Sex 1"
+                    android:text="@{pointItem.title}"
                     android:textColor="@android:color/black"
                     android:textSize="22sp" />
 
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="false"
                         android:layout_gravity="center"
-                        android:text="300"
+                        android:text="@{pointItem.point}"
                         android:textColor="@android:color/white"
                         android:textSize="20sp" />
 

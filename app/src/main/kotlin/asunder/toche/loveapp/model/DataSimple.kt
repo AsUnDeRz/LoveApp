@@ -6,6 +6,20 @@ package asunder.toche.loveapp
 object DataSimple {
 
 
+    val imgAnimation = arrayListOf(R.drawable.loading000,R.drawable.loading001,R.drawable.loading002,
+            R.drawable.loading003,R.drawable.loading004,R.drawable.loading005,R.drawable.loading006,
+            R.drawable.loading007,R.drawable.loading008,R.drawable.loading009,R.drawable.loading010,
+            R.drawable.loading011,R.drawable.loading012,R.drawable.loading013,R.drawable.loading014,
+            R.drawable.loading015,R.drawable.loading016,R.drawable.loading017,R.drawable.loading018,
+            R.drawable.loading019,R.drawable.loading020,R.drawable.loading021,R.drawable.loading022,
+            R.drawable.loading023,R.drawable.loading024,R.drawable.loading025,R.drawable.loading026,
+            R.drawable.loading027,R.drawable.loading028,R.drawable.loading029,R.drawable.loading030,
+            R.drawable.loading031,R.drawable.loading032,R.drawable.loading033,R.drawable.loading034,
+            R.drawable.loading035,R.drawable.loading036,R.drawable.loading037,R.drawable.loading038,
+            R.drawable.loading039,R.drawable.loading040,R.drawable.loading041,R.drawable.loading042,
+            R.drawable.loading043,R.drawable.loading044,R.drawable.loading045,R.drawable.loading046,
+            R.drawable.loading047)
+
     val imageHome = arrayListOf(R.drawable.icon_40,R.drawable.icon_36,R.drawable.icon_41)
     val iconGame1 = arrayListOf(
             R.drawable.mm1,R.drawable.mm2,R.drawable.mm3,R.drawable.mm4,R.drawable.mm5,

@@ -49,8 +49,5 @@
     <item android:duration="50" android:drawable="@drawable/loading045"/>
     <item android:duration="50" android:drawable="@drawable/loading046"/>
     <item android:duration="50" android:drawable="@drawable/loading047"/>
-    <item android:duration="50" android:drawable="@drawable/loading048"/>
-    <item android:duration="50" android:drawable="@drawable/loading049"/>
-    <item android:duration="50" android:drawable="@drawable/loading050"/>
 
 </animation-list>

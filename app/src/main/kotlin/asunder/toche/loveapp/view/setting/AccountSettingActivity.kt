@@ -101,6 +101,8 @@ class AccountSettingActivity: AppCompatActivity() {
         edt_password.typeface = MyApp.typeFace.heavy
         edt_unique.typeface = MyApp.typeFace.heavy
         edt_province.typeface = MyApp.typeFace.heavy
+        edt_work.typeface = MyApp.typeFace.heavy
+        edt_number_id.typeface = MyApp.typeFace.heavy
         edtUniId = findViewById(R.id.edt_unique)
         loadProvince()
 

@@ -57,10 +57,70 @@ class TestDb:AppCompatActivity(){
         )
     }
 
+    fun loadPointHistoryKnowledge(){
+        manageSub(
+                service.getPointHistoryKnowledge("1")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                           val data = ObservableArrayList<Model.RepoPointHistoryKnowledge>().apply {
+                               c.forEach {
+                                   item -> add(item)
+                                   d{"add ["+item.title_eng+"] to array"}
+                               }
+                           }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+    fun loadPointHistoryGame(){
+        manageSub(
+                service.getPointHistoryGame("1")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data = ObservableArrayList<Model.RepoPointHistoryGame>().apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d{"add ["+item.game_name_eng+"] to array"}
+                                }
+                            }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+    fun loadPointHistoryRiskMeter(){
+        manageSub(
+                service.getPointHistoryRiskMeter("1")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data = ObservableArrayList<Model.RepoPointHistoryRiskMeter>().apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d{"add ["+item.risk_status+"] to array"}
+                                }
+                            }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test_db)
-        loadTest()
+        //loadTest()
+        loadPointHistoryKnowledge()
+        loadPointHistoryGame()
+        loadPointHistoryRiskMeter()
 
         val appDb = AppDatabase(this)
 

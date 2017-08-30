@@ -42,7 +42,9 @@
         <activity android:screenOrientation="portrait" android:name=".HivStatusActivity" >
 
         </activity>
-        <activity android:screenOrientation="portrait" android:name=".PointHistriesActivity" />
+        <activity android:screenOrientation="portrait" android:name=".PointHistriesActivity" >
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".BookingActivity" />
         <activity android:screenOrientation="portrait" android:name=".ClinicInfo" />
         <activity android:screenOrientation="portrait" android:name=".MemoryMasterActivity" >

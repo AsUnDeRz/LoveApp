@@ -295,7 +295,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     fun handleNewLocation(location: Location?) {
         d { "handle New location [Current location]" }
         for(i in 0..1){
-            addMarker(location!!.latitude+i,location!!.longitude+i,i)
+            //addMarker(location!!.latitude+i,location!!.longitude+i,i)
         }
         for(dt in hospitalList){
             addMarker(dt)
@@ -319,7 +319,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             //googleMap!!.isMyLocationEnabled = true
             if (mGoogleApiClient.isConnected && location != null) {
                 for(i in 0..1){
-                    addMarker(location!!.latitude+i,location!!.longitude+i,i)
+                    //addMarker(location!!.latitude+i,location!!.longitude+i,i)
                 }
                 for(dt in hospitalList){
                     addMarker(dt)

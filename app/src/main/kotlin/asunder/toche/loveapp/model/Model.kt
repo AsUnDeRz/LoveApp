@@ -101,14 +101,25 @@ object Model{
         }
     }
 
-    data class Point(var id:Long,var title:String,var points:String):StableId{
-        override val stableId : Long = id
+    data class Point(var time:Long,var title:String,var point:String):StableId{
+        override val stableId : Long = time
+
+        fun getTimeShort():String{
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val dateString = formatter.format(Date(time))
+            return dateString
+        }
     }
 
     data class RepositoryNotiMsn(var notification_id:String,var title_th:String,var title_eng:String)
     data class NotiMessage(var id:Long,var title:String):StableId{
         override val stableId :Long = id
     }
+
+
+    data class RepoPointHistoryRiskMeter(val risk_status: String,val date: Date,val point: String)
+    data class RepoPointHistoryGame(val game_name_th:String,val game_name_eng:String,val date:Date,val point:String)
+    data class RepoPointHistoryKnowledge(val title_th:String,val title_eng: String,val date:Date,val point:String)
 
     data class User(val user_id:String,val gender:String,val name:String,val first_name:String,val first_surename:String,
                     val status_id: String,val friend_id:String,val phone:String,val email:String,val password:String,

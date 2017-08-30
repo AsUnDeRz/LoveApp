@@ -12,12 +12,31 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by admin on 8/9/2017 AD.
  */
 interface LoveAppService{
 
+    @GET("api/user/email/{email_user}/password/{pass_user}")
+    fun login(@Path("email_user") email:String,@Path("pass_user") password:String) :Observable<ArrayList<Model.User>>
+
+    @GET("api/point_history/knowledge/user_id/{id}")
+    fun getPointHistoryKnowledge(@Path("id") userId: String) : Observable<ArrayList<Model.RepoPointHistoryKnowledge>>
+
+    @GET("api/point_history/game/user_id/{id}")
+    fun getPointHistoryGame(@Path("id") userId: String) :Observable<ArrayList<Model.RepoPointHistoryGame>>
+
+    @GET("api/point_history/risk_meter/user_id/{id}")
+    fun getPointHistoryRiskMeter(@Path("id") userId: String) :Observable<ArrayList<Model.RepoPointHistoryRiskMeter>>
+
+    //pointTypeID 2=knowledge 1=game Question 3= resultRiskmeter
+    @FormUrlEncoded
+    @PUT("api/point_history")
+    fun addPointHistory(@Field("point_history_id") referID:String,@Field("user_id") userID:String,
+                        @Field("point_type_id") pointTypeId:String,@Field("point") point:String,
+                        @Field("date") date:Date) : Call<Void>
 
     @FormUrlEncoded
     @POST("api/user/point")

@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--
     <ImageView
         android:id="@+id/root_animation"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/loading_animation" />
-        -->
+        android:scaleType="centerCrop" />
+    <!--
     <ImageView
         android:scaleType="centerCrop"
         android:id="@+id/bg_root"
@@ -22,6 +21,7 @@
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_centerInParent="true" />
+        -->
 
 
 </RelativeLayout>

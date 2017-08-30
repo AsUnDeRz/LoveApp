@@ -70,10 +70,10 @@ class RiskMeterFinalActivity:AppCompatActivity(){
                             override fun onFailure(call: Call<Void>?, t: Throwable?) {
                                 d{ t?.message.toString() }
                             }
-
                             override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                                 if(response!!.isSuccessful){
                                     d{"addPoint Successful"}
+                                    inputPointHistory(riskCode)
                                 }
                             }
                         })
@@ -82,10 +82,26 @@ class RiskMeterFinalActivity:AppCompatActivity(){
                 }
             })
 
+        }
+    }
+    fun inputPointHistory(code:String){
+        d{"input point history"}
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@RiskMeterFinalActivity)
+        if (preferences.getString(KEYPREFER.UserId, "") != "") {
+            d{"code [$code] user_id["+preferences.getString(KEYPREFER.UserId,"")+"]"}
+            val addPointHistory = service.addPointHistory(code,preferences.getString(KEYPREFER.UserId,""),
+                    "3","20",Date())
+            addPointHistory.enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    d { t?.message.toString() }
+                }
 
-
-
-
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if (response!!.isSuccessful) {
+                        d { "addPointHistory successful" }
+                    }
+                }
+            })
         }
     }
 
@@ -98,6 +114,11 @@ class RiskMeterFinalActivity:AppCompatActivity(){
         setContentView(R.layout.risk_meter_final)
         loadRiskResult(intent.extras.getString("answer"))
         loadImage()
+
+        btn_findtest.setOnClickListener {
+            ActivityMain.vp_main.setCurrentItem(1,false)
+            finish()
+        }
 
     }
 
