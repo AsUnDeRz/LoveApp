@@ -2,6 +2,7 @@ package asunder.toche.loveapp
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.databinding.ObservableArrayList
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.os.Bundle
@@ -11,7 +12,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import asunder.toche.loveapp.R
+import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
@@ -21,14 +24,39 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.cd4_vl.*
 import kotlinx.android.synthetic.main.iam.*
 import kotlinx.android.synthetic.main.lab_result.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import view.custom_view.TextViewHeavy
+import java.util.*
 
 /**
  * Created by admin on 8/1/2017 AD.
  */
 class IamFragment : Fragment() {
 
+
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
     companion object {
         fun newInstance(): IamFragment {
             return IamFragment()
@@ -38,11 +66,13 @@ class IamFragment : Fragment() {
     lateinit var appDb :AppDatabase
     lateinit var mChart : LineChart
     lateinit var preference : SharedPreferences
+    var dataUser = ObservableArrayList<Model.User>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.iam, container, false)
         appDb = AppDatabase(activity)
         preference = PreferenceManager.getDefaultSharedPreferences(activity)
+        loadUser(preference.getString(KEYPREFER.UserId,"0"))
 
         return view
     }
@@ -66,6 +96,13 @@ class IamFragment : Fragment() {
         }
         iamnonhiv.setOnInflateListener { viewStub, view ->
             d{"i am non hiv inflate"}
+            val btnLastTest = view.findViewById<LinearLayout>(R.id.btn_last_test)
+            val btnNextTest = view.findViewById<LinearLayout>(R.id.btn_next_test)
+            val txtLastTest = view.findViewById<TextViewHeavy>(R.id.txt_last_test)
+            val txtNextTest = view.findViewById<TextViewHeavy>(R.id.txt_next_test)
+            checkHivTest(txtLastTest,txtNextTest)
+
+
         }
 
         when(preference.getInt(KEYPREFER.HIVSTAT,0)){
@@ -90,6 +127,30 @@ class IamFragment : Fragment() {
         }
         //
 
+        //display last risk
+        if(preference.getLong(KEYPREFER.LASTRISK,0L) != 0L){
+            date_riskmeter.text = "Last Risk "+Utils(activity).getDateSlash(Date(preference.getLong(KEYPREFER.LASTRISK,0L)))
+        }
+
+
+    }
+
+    fun checkHivTest(txtLast:TextViewHeavy,txtNext:TextViewHeavy){
+        Timber.d { "check HIV test" }
+        if (preference.getLong(KEYPREFER.HIVTEST, 0L) != 0L) {
+            val currentDate = Date().time
+            val hivTestDate = preference.getLong(KEYPREFER.HIVTEST,0L)
+            val hivLastTest = preference.getLong(KEYPREFER.HIVLASTTEST,0L)
+            if(hivTestDate <= currentDate){
+                txtLast.text = Utils(txtLast.context).getDateFormal(Date(hivTestDate))
+                val editor = preference.edit()
+                editor.putLong(KEYPREFER.HIVLASTTEST, hivTestDate)
+                editor.apply()
+            }else{
+                txtNext.text = Utils(txtNext.context).getDateFormal(Date(hivTestDate))
+                txtLast.text = Utils(txtLast.context).getDateFormal(Date(hivLastTest))
+            }
+        }
     }
 
     fun initGraph(view :View){
@@ -244,5 +305,33 @@ class IamFragment : Fragment() {
             // set data
             mChart.data = data
         }
+    }
+
+
+
+    fun loadUser(id:String){
+        manageSub(
+                service.getUser(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            dataUser.apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d { "Add ["+item.name+"] to arraylist" }
+                                }
+                            }
+                            values_point.text = dataUser[0].point+" Points"
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unsubscribe()
     }
 }

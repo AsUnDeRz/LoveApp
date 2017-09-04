@@ -37,7 +37,7 @@ class NotificationActivity : AppCompatActivity() {
         number_noti.text = notiList.size.toString()
         when {
             notiList.size >= 3 -> loadNotiColor(R.drawable.noti_red_circle)
-            notiList.size <=2 -> loadNotiColor(R.drawable.noti_yellow_circle)
+            notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow_circle)
             else -> loadNotiColor(R.drawable.noti_green_circle)
         }
 

@@ -28,26 +28,7 @@
             android:paddingLeft="100dp"
             android:paddingRight="100dp">
 
-            <view.custom_view.TextViewHeavy
-                android:id="@+id/txt_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="8dp"
-                android:text="Name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edt_name"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/fill_box"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="20dp"
-                android:textColor="@color/colorGrey"
-                android:textSize="20sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_phone"
@@ -251,6 +232,49 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="Work"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edt_work"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="20sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_number_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="Identifie ID"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edt_number_id"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="number"
+                android:maxLength="13"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="20sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_title_hiv_status"

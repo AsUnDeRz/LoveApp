@@ -2,14 +2,12 @@ package asunder.toche.loveapp
 
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import android.content.Intent
 import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.d
@@ -162,7 +160,7 @@ object ViewModel{
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ c -> run {
-                                val data = ObservableArrayList<Model.RepositoryContentHome>().apply {
+                                val data = ObservableArrayList<Model.RepositoryKnowledge>().apply {
                                     c.forEach {
                                         item -> add(item)
                                         d{"add contentId ["+item.id+"]"}

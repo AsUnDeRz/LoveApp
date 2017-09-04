@@ -3,6 +3,7 @@ package asunder.toche.loveapp
 import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -10,6 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnNewItemBinding
+import com.github.ajalt.timberkt.Timber.d
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_blue.*
 import kotlinx.android.synthetic.main.learnandgame.*
 
@@ -19,18 +25,38 @@ import kotlinx.android.synthetic.main.learnandgame.*
  */
 class LearnAndGameFragment : Fragment() {
 
-    val learnList = ObservableArrayList<Model.LearnNewContent>().apply {
-        add(Model.LearnNewContent(23,"title","20"))
-        add(Model.LearnNewContent(23,"title","20"))
-        add(Model.LearnNewContent(23,"title","20"))
 
-    }
+    var homeList = ObservableArrayList<Model.HomeContent>()
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
+
+    lateinit var utils :Utils
 
     companion object {
         fun newInstance(): LearnAndGameFragment {
             return LearnAndGameFragment()
         }
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        utils = Utils(activity)
+        val prefer = PreferenceManager.getDefaultSharedPreferences(activity)
+        loadContentHome(prefer.getString(KEYPREFER.UserId,""))
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.learnandgame, container, false)
@@ -44,7 +70,6 @@ class LearnAndGameFragment : Fragment() {
 
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
-        rv_learn_game.adapter = LearnNewAdapter(learnList,false)
 
         btn_game.setOnClickListener {
             val data = Intent()
@@ -66,17 +91,48 @@ class LearnAndGameFragment : Fragment() {
             .onBind { println("Bound ${it.binding.learnNewItem} at #${it.adapterPosition}") }
             .onRecycle { println("Recycled ${it.binding.learnNewItem} at #${it.adapterPosition}") }
             .onClick {
-                val data = Intent()
-                startActivity(data.setClass(context, LearnNewsActivity::class.java))
+                val item = it.binding.learnNewItem.data
+                val model = Model.RepositoryKnowledge("1","1","title_th",item.title_eng,"content_th",item.content_eng,
+                        "image",item.point, arrayListOf("2","3"),"1","content_th_long",item.content_eng_long,item.link)
+
+                var data = Intent()
+                data.putExtra(KEYPREFER.CONTENT,model)
+                startActivity(data.setClass(activity,LearnNewsActivity::class.java))
 
             }
             .onLongClick {}
     fun LearnNewAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.learnNewItem,stableIds).type{ item, position ->
             when(item){
-                is Model.LearnNewContent -> LearnNewType
+                is Model.HomeContent -> LearnNewType
                 else -> null
             }
         }
+    }
+
+    fun loadContentHome(user_id:String){
+        manageSub(
+                service.getContentInHome(user_id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data = ObservableArrayList<Model.HomeContent>().apply {
+                                c.forEach {
+                                    a -> add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
+                                    d{"add contentId ["+a.id+"]"}
+                                }
+                            }
+                            homeList = data
+                            rv_learn_game.adapter = LearnNewAdapter(homeList,false)
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unsubscribe()
     }
 }

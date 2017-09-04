@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
 import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -143,9 +144,16 @@ class PointHistriesActivity: AppCompatActivity() {
     fun sortDate(master:ObservableArrayList<Model.Point>,dataLong:ArrayList<Long>):ObservableArrayList<Model.Point>{
         Collections.sort(dataLong)
         var result = ObservableArrayList<Model.Point>()
+
         for (long in dataLong){
-            master.filterTo(result) { long == it.time }
+            for(data in master){
+                if(data.time == long){
+                    d{"add [$long] ["+data.title+"]["+data.time+"] to result"}
+                    result.add(data)
+                }
+            }
         }
+
 
         return result
     }

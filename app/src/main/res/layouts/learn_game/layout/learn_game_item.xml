@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            app:imageUrl="@{learnGameItem.id}"
+            app:imageUrl="@{learnGameItem.icon}"
             android:id="@+id/icon_game"
             android:layout_width="75dp"
             android:layout_height="75dp"

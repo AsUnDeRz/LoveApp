@@ -113,14 +113,73 @@ class TestDb:AppCompatActivity(){
     }
 
 
+    fun loadYesNoQuestion(){
+        manageSub(
+                service.getYesNoQuestion("1")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                                c.forEach {
+                                    item ->
+                                    d{"add ["+item.question_eng+"] to array"}
+                                }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
+    fun loadKnowledgeGroup(){
+        manageSub(
+                service.getKnowledgeGroup("1")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                                c.forEach {
+                                    item ->
+                                    d{"add ["+item.group_name_eng+"] to array"}
+                                }
+
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
+    fun loadKnowLedgeInGroup(){
+        manageSub(
+                service.getKnowledgeInGroup("1","5")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                                c.forEach {
+                                    item ->
+                                    d{"add ["+item.title_eng+"] to array"}
+                                }
+
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test_db)
         //loadTest()
-        loadPointHistoryKnowledge()
-        loadPointHistoryGame()
-        loadPointHistoryRiskMeter()
+        //loadPointHistoryKnowledge()
+        //loadPointHistoryGame()
+        //loadPointHistoryRiskMeter()
+
+        loadKnowledgeGroup()
+        loadKnowLedgeInGroup()
+        loadYesNoQuestion()
 
         val appDb = AppDatabase(this)
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.ajalt.timberkt.Timber.d
+import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.risk_meter.*
 import kotlinx.android.synthetic.main.risk_meter_question5.*
 
@@ -69,6 +70,10 @@ class RiskQuestionFragment5 : Fragment() {
             RiskMeterActivity.riskAnswer[5] = 7
             RiskMeterActivity.riskAnswer[6] = 0
             RiskMeterActivity.sendRiskAnswer(context)
+        }
+
+        btn_back.setOnClickListener {
+            activity.finish()
         }
     }
 

@@ -53,7 +53,6 @@
         android:layout_below="@+id/relativeLayout3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Bangkok"
         android:textColor="@color/colorDarkGrey"
         android:textSize="36sp" />
 
@@ -78,7 +77,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Wipawadee, muang Bangkok"
             android:textColor="@color/colorGrey"
             android:textSize="14sp" />
     </LinearLayout>

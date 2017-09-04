@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
+import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.risk_meter.*
 import kotlinx.android.synthetic.main.risk_meter_question2.*
 
@@ -45,6 +46,9 @@ class RiskQuestionFragment2 : Fragment() {
         btn_3.setOnClickListener {
             RiskMeterActivity.riskAnswer[1] = 3
             RiskMeterActivity.vp_riskmeter.setCurrentItem(2,false)
+        }
+        btn_back.setOnClickListener {
+            activity.finish()
         }
     }
 

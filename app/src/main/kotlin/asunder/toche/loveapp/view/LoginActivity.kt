@@ -48,6 +48,7 @@ class LoginActivity :AppCompatActivity(){
                                 editor.putString(KEYPREFER.UserId, c[0].user_id)
                                 editor.putBoolean(KEYPREFER.isFirst, false)
                                 editor.putInt(KEYPREFER.HIVSTAT,c[0].status_id.toInt())
+                                editor.putString(KEYPREFER.GENDER,c[0].gender)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
                             }

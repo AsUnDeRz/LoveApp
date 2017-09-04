@@ -63,8 +63,17 @@ class Utils(val contex: Context) {
         }
     }
 
+    fun getDateFormal(date: Date):String{
+        val fmtOut = SimpleDateFormat("dd MMM yyyy")
+        return fmtOut.format(date)
+    }
+
     fun getDate(date:Date):String{
         val fmtOut = SimpleDateFormat("dd-MM-yyyy")
+        return fmtOut.format(date)
+    }
+    fun getDateSlash(date:Date):String{
+        val fmtOut = SimpleDateFormat("dd/MM/yyyy")
         return fmtOut.format(date)
     }
 

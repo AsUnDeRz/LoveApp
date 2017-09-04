@@ -60,93 +60,16 @@
             android:paddingTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <view.custom_view.TextViewMedium
+
+            <WebView
                 android:id="@+id/colunm_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8sp"
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
-                android:paddingTop="50dp"
-                android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom. Condoms are easy to use, cheap to buy and extremely efficient at preventing HIV transmission. Condoms come in all shapes, sizes, textures, tastes and materials. If you or a partner doesn’t like one type, try another – the possibilities are endless!"
-                android:textColor="@color/colorGrey"
-                android:textSize="24sp" />
+                android:paddingTop="30dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="40dp">
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:background="@color/colorPrimary" />
-
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/high_light_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
-                    android:text="Remember: All condom packages should carry an expiry date"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="28sp" />
-
-            </LinearLayout>
-
-
-            <view.custom_view.TextViewMedium
-                android:id="@+id/colunm_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="8sp"
-                android:paddingEnd="10dp"
-                android:paddingStart="20dp"
-                android:paddingTop="50dp"
-                android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom. Condoms are easy to use, cheap to buy and extremely efficient at preventing HIV transmission. Condoms come in all shapes, sizes, textures, tastes and materials. If you or a partner doesn’t like one type, try another – the possibilities are endless!"
-                android:textColor="@color/colorGrey"
-                android:textSize="24sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="40dp">
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:background="@color/colorPrimary" />
-
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/high_light_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
-                    android:text="Remember: All condom packages should carry an expiry date"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="28sp" />
-
-            </LinearLayout>
-
-            <view.custom_view.TextViewMedium
-                android:id="@+id/colunm_final"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="8sp"
-                android:paddingBottom="20dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="20dp"
-                android:paddingTop="50dp"
-                android:text="One of the most effective tools to fight against sexually transmitted HIV is the male condom."
-                android:textColor="@color/colorGrey"
-                android:textSize="24sp" />
 
             <include
                 android:id="@+id/final_layout"

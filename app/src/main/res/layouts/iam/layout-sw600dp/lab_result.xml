@@ -50,12 +50,10 @@
             android:textSize="24sp" />
     </LinearLayout>
 
-    <!--
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/mChart"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_below="@+id/bottom_view"
         android:layout_margin="30dp" />
-        -->
 </RelativeLayout>

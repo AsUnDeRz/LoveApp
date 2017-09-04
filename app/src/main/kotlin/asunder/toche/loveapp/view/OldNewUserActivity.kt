@@ -38,46 +38,10 @@ class OldNewUserActivity : AppCompatActivity(){
         }
 
         btn_newaccout.setOnClickListener {
-            //showTimePickerDialog(btn_newaccout) //use it
-            //Notification.EventReceiver.setupAlarm(applicationContext)
-
             startActivity(Intent().setClass(this@OldNewUserActivity,GenderActivity::class.java))
             finish()
         }
     }
 
-    fun showTimePickerDialog(v: View) {
-        val newFragment = TimePickerFragment()
-        newFragment.show(fragmentManager, "timePicker")
-    }
 
-    class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-
-        var callCount = 0
-
-
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-            val c = Calendar.getInstance()
-            val hour = c.get(Calendar.HOUR_OF_DAY)
-            val minute = c.get(Calendar.MINUTE)
-
-            return TimePickerDialog(activity, this, hour, minute,
-                    DateFormat.is24HourFormat(activity))
-        }
-
-
-        override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-
-            if (callCount == 0) {
-                // Do something with the time chosen by the user
-                val cal = Calendar.getInstance()
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                cal.set(Calendar.MINUTE, minute)
-                Notification.EventReceiver.setupAlarm(activity,cal,0)
-                d{"calendat set "+cal.time.toString()}
-            }
-            callCount++
-        }
-    }
 }

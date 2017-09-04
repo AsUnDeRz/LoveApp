@@ -16,35 +16,36 @@
         android:layout_width="210dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/clinic_img" />
+        app:imageUrl="@{clinicItem.img_detail}"
+        />
 
-    <TextView
+    <view.custom_view.TextViewHeavy
         android:id="@+id/clinic_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:paddingStart="10dp"
-        android:text="TextView"
+        android:text="@{clinicItem.name}"
         android:textColor="@color/colorDarkGrey"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/test_name"
+    <view.custom_view.TextViewMedium
+        android:id="@+id/service_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingStart="10dp"
-        android:text="TextView"
+        android:text="@{clinicItem.service}"
         android:textSize="12sp"
         android:textColor="@color/colorGrey" />
 
-    <TextView
+    <view.custom_view.TextViewMedium
         android:id="@+id/worktime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:paddingStart="10dp"
-        android:text="TextView"
+        android:text="@{clinicItem.open_hour}"
         android:textColor="@color/colorGrey"
         android:textSize="12sp" />
 </LinearLayout>

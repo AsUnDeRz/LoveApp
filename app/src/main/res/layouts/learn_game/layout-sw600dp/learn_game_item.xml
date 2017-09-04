@@ -29,7 +29,7 @@
                 android:layout_height="90dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                app:imageUrl="@{learnGameItem.id}" />
+                app:imageUrl="@{learnGameItem.icon}" />
 
             <RelativeLayout
                 android:layout_width="140dp"

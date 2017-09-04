@@ -48,6 +48,12 @@ class RiskMeterFinalActivity:AppCompatActivity(){
                             loadAnimation(c[0])
                             addRiskTestAndUpdatePoint(code)
                             d { "check response [" + c.size + "]" }
+                            //update last risk
+                            val preferences = PreferenceManager.getDefaultSharedPreferences(this@RiskMeterFinalActivity)
+                            val editor = preferences.edit()
+                            editor.putLong(KEYPREFER.LASTRISK, Date().time)
+                            editor.apply()
+                            d{ "check Last risk in preference ="+Date(preferences.getLong(KEYPREFER.LASTRISK,0))}
                         }},{
                             Timber.d { it.message!! }
                         })

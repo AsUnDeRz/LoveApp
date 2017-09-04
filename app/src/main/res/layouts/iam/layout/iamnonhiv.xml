@@ -23,6 +23,7 @@
         android:padding="20dp">
 
         <LinearLayout
+            android:id="@+id/btn_last_test"
             android:layout_width="200dp"
             android:layout_height="75dp"
             android:layout_marginRight="10dp"
@@ -42,18 +43,19 @@
                 android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_last_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="top"
                 android:paddingStart="15dp"
-                android:text="11 Jan 2017"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/btn_next_test"
             android:layout_width="200dp"
             android:layout_height="75dp"
             android:layout_marginRight="10dp"
@@ -73,12 +75,12 @@
                 android:textSize="18sp" />
 
             <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_next_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="top"
                 android:paddingStart="15dp"
-                android:text="11 Jan 2017"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>

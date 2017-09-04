@@ -98,12 +98,13 @@ class PillReminderTimeActivity : AppCompatActivity(){
         rvReminder = findViewById(R.id.rv_reminder_time)
         appDb = AppDatabase(this)
 
-        pillList.apply {
+        val data =ObservableArrayList<Model.PillReminder>().apply {
             val data =appDb.getNotiWaiting()
             for(i in data){
                 add(Model.PillReminder(i.id.toLong(),i.message,i.time))
             }
         }
+        pillList = data
 
         Glide.with(this)
                 .load(R.drawable.bg_white)

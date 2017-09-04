@@ -54,8 +54,10 @@ object MasterAdapter{
             .onBind { println("Bound ${it.binding.clinicItem} at #${it.adapterPosition}") }
             .onRecycle { println("Recycled ${it.binding.clinicItem} at #${it.adapterPosition}") }
             .onClick {
+                val intent = Intent()
                 val context = it.binding.clinicRoot.context
-                context.startActivity(Intent().setClass(context,ClinicInfo::class.java))
+                intent.putExtra(KEYPREFER.CLINICMODEL,it.binding.clinicItem)
+                context.startActivity(intent.setClass(context,ClinicInfo::class.java))
 
             }
             .onLongClick {}

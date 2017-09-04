@@ -2,13 +2,10 @@ package asunder.toche.loveapp
 
 import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
-import android.databinding.ObservableList
 import android.os.Parcel
 import android.os.Parcelable
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,7 +15,78 @@ import kotlin.collections.ArrayList
  */
 object Model{
 
+
+
+
+
+    data class KnowledgeGroup(val group_id: String,val group_name_eng:String,val group_name_th:String,
+                              val version:String,val sumpoint:String)
+    data class QuestionYesNo(val question_id:String,val knowledge_id:String,val question_th:String,val question_eng:String,val answer:Boolean,val point:String)
+
     data class Province(val province_id:String,val province_th: String,val province_eng:String,val locx:Double,val locy:Double)
+
+    data class Clinic(var id: Long, var name: String, var address: String, var service: String, var open_hour: String, var phone: String,
+                      var email: String, var province: String, var locx: Double, var locy: Double, var version: String, var isbooking: String,
+                      var isBook: String, var hospital_id: String, var img_icon: String, var img_detail: String) : StableId, Parcelable {
+        override val stableId: Long = id
+
+        object ImageViewBindingAdapter {
+            @BindingAdapter("bind:imageUrl")
+            @JvmStatic
+            fun loadImage(view: ImageView, url: String) {
+                Glide.with(view.context).load(url).into(view)
+            }
+        }
+
+        constructor(source: Parcel) : this(
+                source.readLong(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readDouble(),
+                source.readDouble(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeLong(id)
+            writeString(name)
+            writeString(address)
+            writeString(service)
+            writeString(open_hour)
+            writeString(phone)
+            writeString(email)
+            writeString(province)
+            writeDouble(locx)
+            writeDouble(locy)
+            writeString(version)
+            writeString(isbooking)
+            writeString(isBook)
+            writeString(hospital_id)
+            writeString(img_icon)
+            writeString(img_detail)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<Clinic> = object : Parcelable.Creator<Clinic> {
+                override fun createFromParcel(source: Parcel): Clinic = Clinic(source)
+                override fun newArray(size: Int): Array<Clinic?> = arrayOfNulls(size)
+            }
+        }
+    }
+
     data class RepositoryHospital(val id: String, val name_th: String, val name_eng: String, val address_th: String,
                                   val address_eng: String, val service_th: String, val service_eng: String, var logo: String,
                                   var icon: String, val open_hour_th: String, val phone: String, val email: String, val province: String,
@@ -39,7 +107,7 @@ object Model{
 
     data class ImageHomeResponse(val list:MutableList<ImageHome>)
     data class ImageHome(val id:String,val image_byte:String,val version:String,val link:String)
-    data class HomeContent(var id:Long,var name:String,var point:String,var data:RepositoryContentHome): StableId{
+    data class HomeContent(var id:Long,var name:String,var point:String,var data: RepositoryKnowledge): StableId{
         override val stableId: Long = id
 
     }
@@ -47,9 +115,7 @@ object Model{
     data class Game2(val itemGame:ObservableArrayList<Model.Game1>,val randomPick:ObservableArrayList<Game1>)
     data class Game1(val id:Int, val icon:Int, var position:Int,var iconFront:Int)
 
-    data class Clinic(var id: Long,var name:String,var testName:String,var workTime:String,var icon:Int):StableId{
-        override val stableId: Long = id
-    }
+
 
 
     data class UserId(var user_id:String)
@@ -61,7 +127,7 @@ object Model{
     data class LearnNewContent(var id:Long,var title:String,var point:String):StableId{
         override val stableId : Long = id
     }
-    data class LearnGameContent(var id:Int,var title:String,var desc:String,var percent:String):StableId{
+    data class LearnGameContent(var id:Int,var title:String,var desc:String,var percent:String,var icon:Int):StableId{
         override val stableId : Long = id.toLong()
 
         object ImageViewBindingAdapter {
@@ -126,10 +192,10 @@ object Model{
                     val province:String,val job:String,val iden_id:String,val birth:String,val point:String,
                     val password_hash:String,val remember_token:String,val updated_at:String)
 
-    data class RepositoryContentHome(val id: String, val group_id: String, val title_th: String, val title_eng: String,
-                                     val content_th: String, val content_eng: String, val image_byte: String, val point: String,
-                                     val gender_id: ArrayList<String>, val version: String, val content_th_long: String,
-                                     val content_eng_long: String, val link: String) : Parcelable {
+    data class RepositoryKnowledge(val id: String, val group_id: String, val title_th: String, val title_eng: String,
+                                   val content_th: String, val content_eng: String, val image_byte: String, val point: String,
+                                   val gender_id: ArrayList<String>, val version: String, val content_th_long: String,
+                                   val content_eng_long: String, val link: String) : Parcelable {
         constructor(source: Parcel) : this(
                 source.readString(),
                 source.readString(),
@@ -166,9 +232,9 @@ object Model{
 
         companion object {
             @JvmField
-            val CREATOR: Parcelable.Creator<RepositoryContentHome> = object : Parcelable.Creator<RepositoryContentHome> {
-                override fun createFromParcel(source: Parcel): RepositoryContentHome = RepositoryContentHome(source)
-                override fun newArray(size: Int): Array<RepositoryContentHome?> = arrayOfNulls(size)
+            val CREATOR: Parcelable.Creator<RepositoryKnowledge> = object : Parcelable.Creator<RepositoryKnowledge> {
+                override fun createFromParcel(source: Parcel): RepositoryKnowledge = RepositoryKnowledge(source)
+                override fun newArray(size: Int): Array<RepositoryKnowledge?> = arrayOfNulls(size)
             }
         }
     }

@@ -128,6 +128,43 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/btn_cd4"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_box">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/icon_account" />
+
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_cd4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:paddingStart="65dp"
+                    android:text="CD4 &amp; VL."
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/arrow_white" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/btn_acc_setting"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"

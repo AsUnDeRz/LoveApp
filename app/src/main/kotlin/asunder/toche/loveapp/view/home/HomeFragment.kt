@@ -3,7 +3,6 @@ package asunder.toche.loveapp
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.ObservableArrayList
-import android.databinding.ObservableList
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -11,24 +10,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.HomeItemBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.target.Target
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.MarkerOptions
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.header_home.*
 import kotlinx.android.synthetic.main.home.*
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
 
 
 /**
@@ -41,7 +29,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         val data = any as ObservableArrayList<*>
         homeList.apply {
             for (a in data){
-                if (a is Model.RepositoryContentHome){
+                if (a is Model.RepositoryKnowledge){
                     add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
                 }
             }
@@ -136,7 +124,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
         when {
             notiList.size >= 3 -> loadNotiColor(R.drawable.noti_red)
-            notiList.size <=2 -> loadNotiColor(R.drawable.noti_yellow)
+            notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow)
             else -> loadNotiColor(R.drawable.noti_green)
         }
 
@@ -164,8 +152,8 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             .onClick {
 
                 val item = it.binding.getHomeItem().data
-                val model = Model.RepositoryContentHome("1","1","title_th",item.title_eng,"content_th",item.content_eng,
-                        "image","100", arrayListOf("2","3"),"1","content_th_long",item.content_eng_long,"link")
+                val model = Model.RepositoryKnowledge("1","1","title_th",item.title_eng,"content_th",item.content_eng,
+                        "image",item.point, arrayListOf("2","3"),"1","content_th_long",item.content_eng_long,item.link)
 
                 var data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,model)

@@ -93,7 +93,6 @@ class AccountSettingActivity: AppCompatActivity() {
                 .load(R.drawable.bg_white)
                 .into(bg_root)
         txt_title.text = "SETTING"
-        edt_name.typeface = MyApp.typeFace.heavy
         edt_phone.typeface = MyApp.typeFace.heavy
         edt_mcode.typeface = MyApp.typeFace.heavy
         edt_fcode.typeface = MyApp.typeFace.heavy

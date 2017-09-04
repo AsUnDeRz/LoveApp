@@ -1,11 +1,9 @@
 package asunder.toche.loveapp
 
-import android.databinding.ObservableList
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -18,6 +16,28 @@ import kotlin.collections.ArrayList
  * Created by admin on 8/9/2017 AD.
  */
 interface LoveAppService{
+
+
+    @GET("api/knowledges/gender_id/{genderid}/group_id/{groupid}")
+    fun getKnowledgeInGroup(@Path("genderid") gender_id: String,@Path("groupid") group_id:String) :Observable<ArrayList<Model.RepositoryKnowledge>>
+
+    @GET("api/knowledge_groups/user_ids/{gender_id}/limit/3")
+    fun getKnowledgeGroup(@Path("gender_id") gender_id:String) :Observable<ArrayList<Model.KnowledgeGroup>>
+
+
+    @GET("api/yes_no_question/knowledge_id/{know_id}")
+    fun getYesNoQuestion(@Path("know_id") know_id:String) : Observable<ArrayList<Model.QuestionYesNo>>
+
+    @FormUrlEncoded
+    @PUT("api/lab_result/")
+    fun addLabResult(@Field("user_id") userID: String,@Field("viral") vl:String,@Field("cd4") cd4:String,@Field("test_date")testDate: Date): Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/hiv_test/")
+    fun addHivTest(@Field("user_id") userID: String,@Field("test_date") testDate:Date) : Call<Void>
+
+    @GET("api/user/user_id/{id}")
+    fun getUser(@Path("id") userId: String) : Observable<ArrayList<Model.User>>
 
     @GET("api/user/email/{email_user}/password/{pass_user}")
     fun login(@Path("email_user") email:String,@Path("pass_user") password:String) :Observable<ArrayList<Model.User>>
@@ -56,7 +76,7 @@ interface LoveAppService{
             Observable<ArrayList<Model.RepositoryHospital>>
 
     @GET("api/knowledges/user_id/{userid}/limit/5")
-    fun getContentInHome(@Path("userid") userId:String) : Observable<ArrayList<Model.RepositoryContentHome>>
+    fun getContentInHome(@Path("userid") userId:String) : Observable<ArrayList<Model.RepositoryKnowledge>>
 
     @GET("api/notifications")
     fun getNotiMessage() :Observable<ArrayList<Model.RepositoryNotiMsn>>

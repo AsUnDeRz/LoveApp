@@ -79,6 +79,7 @@ class GenderActivity : AppCompatActivity(){
                                 val preferences = PreferenceManager.getDefaultSharedPreferences(this@GenderActivity)
                                 val editor = preferences.edit()
                                 editor.putString(KEYPREFER.UserId, c[0].user_id)
+                                editor.putString(KEYPREFER.GENDER, genderID)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
                             }

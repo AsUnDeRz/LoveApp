@@ -8,10 +8,13 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +46,8 @@ import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
+import java.io.IOException
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -75,7 +80,6 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
     fun unsubscribe() { compoSub.dispose() }
 
-    val hospitalList = ObservableArrayList<Model.RepositoryHospital>()
     lateinit var utils : Utils
 
     fun loadHospital(){
@@ -84,12 +88,20 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {
-                            hospitalList.apply {
+                           val data = ObservableArrayList<Model.Clinic>().apply{
                                 c.forEach {
-                                    item -> add(item)
+                                    item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
+                                        utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
+                                        utils.txtLocale(item.open_hour_th,item.open_hour_eng),item.phone,item.email,item.province,
+                                        item.locx,item.locy,item.version,"","",item.hospital_id,
+                                        "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
+                                        "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png"))
                                     d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }
+
+                            hospitalList = data
+
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }
@@ -98,11 +110,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     }
 
 
-    val dataClinic = ObservableArrayList<Model.Clinic>().apply {
-        add(Model.Clinic(123213, "Test 1", "Test snippet", "10-20", R.drawable.clinic_img))
-        add(Model.Clinic(123213, "Test 2", "Test snippet", "10-20", R.drawable.clinic_img))
 
-    }
 
 
     //override activity/fragment
@@ -118,6 +126,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         fun newInstance(): LabFragment {
             return LabFragment()
         }
+
+        var hospitalList = ObservableArrayList<Model.Clinic>()
+        var city : String=""
+        var subCity : String =""
+
     }
 
 
@@ -137,7 +150,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000) // 1 second, in milliseconds
-        loadHospital()
+            loadHospital()
+
         utils = Utils(activity)
     }
 
@@ -229,7 +243,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     override fun onMapReady(map: GoogleMap?) {
         d { "onMap Ready" }
         googleMap = map
-        googleMap?.setInfoWindowAdapter(InfoMapAdapter(dataClinic, activity))
+        googleMap?.setInfoWindowAdapter(InfoMapAdapter(hospitalList, activity))
         googleMap?.setOnMyLocationButtonClickListener(this)
         googleMap?.setOnInfoWindowClickListener(this)
         googleMap?.setOnInfoWindowCloseListener(this)
@@ -293,10 +307,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     //function
 
     fun handleNewLocation(location: Location?) {
-        d { "handle New location [Current location]" }
-        for(i in 0..1){
-            //addMarker(location!!.latitude+i,location!!.longitude+i,i)
-        }
+        d { "handle New location ["+location?.provider+"]" }
+        d{"get current location ["+getAddress(location?.latitude,location?.longitude)+"]"}
+        val zoomLevel = 10f
+        val latLng = LatLng(location!!.latitude, location!!.longitude)
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
         for(dt in hospitalList){
             addMarker(dt)
         }
@@ -318,9 +333,10 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             // Access to the location has been granted to the app.
             //googleMap!!.isMyLocationEnabled = true
             if (mGoogleApiClient.isConnected && location != null) {
-                for(i in 0..1){
-                    //addMarker(location!!.latitude+i,location!!.longitude+i,i)
-                }
+                val zoomLevel = 10f
+                val latLng = LatLng(location!!.latitude, location!!.longitude)
+                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+
                 for(dt in hospitalList){
                     addMarker(dt)
                 }
@@ -340,8 +356,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             val data: Deferred<MarkerOptions> = bg {
                 MarkerOptions()
                         .position(latLng)
-                        .snippet(dataClinic[position].testName)
-                        .title(dataClinic[position].name)
+                        .snippet(hospitalList[position].service)
+                        .title(hospitalList[position].name)
                         .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
             }
             googleMap?.addMarker(data.await())
@@ -351,7 +367,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         }
     }
 
-    fun addMarker(dat:Model.RepositoryHospital){
+    fun addMarker(dat:Model.Clinic){
         d{"Add marker hospital lat["+dat.locy+"] lng["+dat.locx+"]"}
         //val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(dat.locx, dat.locy)
@@ -360,8 +376,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             val data: Deferred<MarkerOptions> = bg {
                 MarkerOptions()
                         .position(latLng)
-                        .snippet(dat.service_eng)
-                        .title(dat.name_eng)
+                        .snippet(dat.service)
+                        .title(dat.name)
                         .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
             }
             googleMap?.addMarker(data.await())
@@ -410,6 +426,31 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
          drawable?.draw(canvas)
          customMarkerView.draw(canvas)
          return returnedBitmap
+    }
+
+    fun getAddress(latitude:Double?, longitude:Double?):String {
+        var result = StringBuilder()
+        try {
+            val geocoder = Geocoder(activity, Locale.getDefault())
+            var  addresses = geocoder.getFromLocation(latitude!!, longitude!!, 1)
+            if (addresses.size > 0) {
+                var data = addresses[0]
+                result.append(data.locality).append("\n")
+                result.append(data.featureName).append("\n")
+                result.append(data.subAdminArea).append("\n")
+                result.append(data.subLocality).append("\n")
+                result.append(data.thoroughfare).append("\n")
+                result.append(data.countryName)
+
+                city = data.locality
+                subCity = data.subLocality+","+data.subAdminArea
+
+            }
+        } catch (e:IOException) {
+            d{e.toString()}
+        }
+
+        return result.toString()
     }
 
 }

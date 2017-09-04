@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.MemoryMaster2Activity.Companion.data
 import com.github.ajalt.timberkt.Timber.d
+import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.risk_meter.*
 import kotlinx.android.synthetic.main.risk_meter_question.*
 import kotlinx.coroutines.experimental.Deferred
@@ -55,6 +56,10 @@ class RiskQuestionFragment : Fragment() {
             RiskMeterActivity.riskAnswer[0] = 2
             RiskMeterActivity.vp_riskmeter.setCurrentItem(1,false)
 
+        }
+
+        btn_back.setOnClickListener {
+            activity.finish()
         }
     }
 

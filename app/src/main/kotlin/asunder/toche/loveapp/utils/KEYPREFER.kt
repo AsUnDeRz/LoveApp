@@ -5,11 +5,16 @@ package asunder.toche.loveapp
  */
 object KEYPREFER{
 
+    val HIVLASTTEST = "hivlasttest"
+    val HIVTEST = "histest"
+    val CLINICMODEL ="clinic"
+    val LASTRISK = "lastrisk"
     val POSITION= "position"
     val NOTIID ="notificationID"
     val RESULT = "result"
     val CONTENT = "content"
     val PASSCODE = "PASSCODE"
+    val GENDER ="gender"
     val UserId = "USERID"
     val isFirst = "isFirst"
     val language = "language"

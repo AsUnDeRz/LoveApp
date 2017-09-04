@@ -6,13 +6,13 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.text.Html
-import asunder.toche.loveapp.R
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.learn_new.*
 import kotlinx.android.synthetic.main.learn_new_finish.*
-import android.widget.TextView
+import com.github.ajalt.timberkt.Timber.d
+import android.text.Spanned
+import android.webkit.WebView
 
 
 
@@ -50,7 +50,7 @@ class LearnNewsActivity : AppCompatActivity() {
         toolbar_layout.setExpandedTitleTypeface(MyApp.typeFace.heavy)
 
         title_header.text = "LEARNS\nAND GAMES"
-        var content = intent.getParcelableExtra<Model.RepositoryContentHome>(KEYPREFER.CONTENT)
+        var content = intent.getParcelableExtra<Model.RepositoryKnowledge>(KEYPREFER.CONTENT)
         val data  = utils.txtLocale(content.content_th,content.content_eng)
         toolbar_layout.title = utils.txtLocale(content.title_th,content.title_eng)
         txt_f3.text ="Earned +"+content.point+" points."
@@ -60,18 +60,24 @@ class LearnNewsActivity : AppCompatActivity() {
         val deleteR = deleteN.replace("\r","")
         val deleteT = deleteR.replace("\t","")
 
+        val htmlAsSpanned :Spanned
+
+        d{ data }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            colunm_1.text = Html.fromHtml(data, Html.FROM_HTML_MODE_COMPACT)
+            htmlAsSpanned = Html.fromHtml(data, Html.FROM_HTML_MODE_LEGACY)
         }else{
-            colunm_1.text = Html.fromHtml(data)
+            htmlAsSpanned = Html.fromHtml(data)
         }
+        val webview = findViewById<WebView>(R.id.colunm_1)
+        webview.settings.javaScriptEnabled = true
+        webview.loadDataWithBaseURL("", data, "text/html", "UTF-8", "")
 
         btn_back.setOnClickListener {
             onBackPressed()
         }
 
         btn_readmore.setOnClickListener {
-            val uri = Uri.parse("https://www.google.com")
+            val uri = Uri.parse(content.link)
             val intent = Intent()
             intent.action = Intent.ACTION_VIEW
             intent.data = uri

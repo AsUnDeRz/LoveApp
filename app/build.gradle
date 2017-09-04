@@ -75,6 +75,7 @@ dependencies {
 
     //lazy load image
     implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //swicth
     implementation 'com.kyleduo.switchbutton:library:1.4.6'
@@ -117,6 +118,8 @@ dependencies {
     //alerter
     implementation 'com.tapadoo.android:alerter:2.0.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
+    implementation 'org.sufficientlysecure:html-textview:3.4'
+
 }
 
 repositories {

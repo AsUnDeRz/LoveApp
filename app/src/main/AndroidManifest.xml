@@ -84,6 +84,8 @@
         <activity android:name=".TestDb" >
 
         </activity>
+        <activity android:screenOrientation="portrait" android:name=".HivTestActivity" />
+        <activity android:screenOrientation="portrait" android:name=".Cd4VLActivity" />
 
 
         <meta-data

@@ -20,7 +20,7 @@ class ClinicFragment: Fragment() {
 
     val clinicList = ObservableArrayList<Model.Clinic>().apply {
         for(i in 1..6) {
-            add(Model.Clinic(1123, "Bangkok", "HIV utils.Test", "10.00 am - 19.00 pm",R.drawable.clinic_img))
+            //add(Model.Clinic(1123, "Bangkok", "HIV utils.Test", "10.00 am - 19.00 pm",R.drawable.clinic_img))
         }
     }
     companion object {
@@ -40,6 +40,8 @@ class ClinicFragment: Fragment() {
 
         //set title
         title_app.text ="BOOK\nA TEST"
+        txt_location.text = LabFragment.city
+        txt_location_desc.text = LabFragment.subCity
 
 
 
@@ -50,7 +52,7 @@ class ClinicFragment: Fragment() {
 
         rv_clinic_list.layoutManager = GridLayoutManager(context,2)
         rv_clinic_list.setHasFixedSize(true)
-        rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(clinicList,false)
+        rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(LabFragment.hospitalList,false)
 
     }
 }

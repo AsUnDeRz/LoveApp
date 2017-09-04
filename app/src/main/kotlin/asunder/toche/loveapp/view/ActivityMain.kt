@@ -54,6 +54,7 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             val adapterViewPager = MainAdapter(supportFragmentManager, this)
             vp_main.adapter = adapterViewPager
             vp_main.setAllowedSwipeDirection(CustomViewpager.SwipeDirection.none)
+            vp_main.offscreenPageLimit = 1
 
             vp_main.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
                 override fun onPageScrollStateChanged(state: Int) {

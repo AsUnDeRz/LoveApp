@@ -93,6 +93,8 @@ class LoadingActivity:AppCompatActivity(){
         if(checkFirstTime()){
             splash.postDelayed({
                 startActivity(intentThis.setClass(this, OldNewUserActivity::class.java))
+                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
+
                 finish()
             },3000)
         }else{
@@ -100,12 +102,14 @@ class LoadingActivity:AppCompatActivity(){
                 splash.postDelayed({
                     intentThis.putExtra(KEYPREFER.PASSCODE,"check")
                     startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
+                    overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
                 },3000)
 
             }else{
                 splash.postDelayed({
                     startActivity(intentThis.setClass(this, ActivityMain::class.java))
+                    overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
                 },3000)
 

@@ -34,7 +34,7 @@ class RiskMeterActivity:AppCompatActivity(){
           }
 
 
-            Toast.makeText(context,answer,Toast.LENGTH_LONG).show()
+            //Toast.makeText(context,answer,Toast.LENGTH_LONG).show()
             val intent = Intent()
             intent.putExtra("answer",answer)
             context.startActivity(intent.setClass(context,RiskMeterFinalActivity::class.java))

@@ -40,8 +40,12 @@ class SettingFragment : Fragment() {
         }
 
         btn_test_hiv.setOnClickListener {
-            context.startActivity(Intent().setClass(context,UniqueIdActivity::class.java))
+            context.startActivity(Intent().setClass(context,HivTestActivity::class.java))
 
+        }
+
+        btn_cd4.setOnClickListener {
+            context.startActivity(Intent().setClass(context,Cd4VLActivity::class.java))
         }
 
         btn_acc_setting.setOnClickListener {
