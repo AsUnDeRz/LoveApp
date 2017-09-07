@@ -43,6 +43,7 @@ class LearnAndGameFragment : Fragment() {
     fun unsubscribe() { compoSub.dispose() }
 
     lateinit var utils :Utils
+    lateinit var appDb :AppDatabase
 
     companion object {
         fun newInstance(): LearnAndGameFragment {
@@ -53,8 +54,7 @@ class LearnAndGameFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         utils = Utils(activity)
-        val prefer = PreferenceManager.getDefaultSharedPreferences(activity)
-        loadContentHome(prefer.getString(KEYPREFER.UserId,""))
+        appDb = AppDatabase(activity)
     }
 
 
@@ -66,8 +66,8 @@ class LearnAndGameFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "LEARNS\nAND GAMES"
-
-
+        val prefer = PreferenceManager.getDefaultSharedPreferences(activity)
+        loadContentHome(prefer.getString(KEYPREFER.UserId,""),appDb)
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
 
@@ -110,25 +110,39 @@ class LearnAndGameFragment : Fragment() {
         }
     }
 
-    fun loadContentHome(user_id:String){
-        manageSub(
-                service.getContentInHome(user_id)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ c -> run {
-                            val data = ObservableArrayList<Model.HomeContent>().apply {
-                                c.forEach {
-                                    a -> add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
-                                    d{"add contentId ["+a.id+"]"}
+    fun loadContentHome(user_id:String,appDatabase: AppDatabase) {
+        if (appDatabase.getKnowledgeContent().size != 0) {
+            val c = appDatabase.getKnowledgeContent()
+            val data = ObservableArrayList<Model.HomeContent>().apply {
+                c.forEach { a ->
+                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                    d { "add contentId [" + a.id + "]" }
+                }
+            }
+            homeList = data
+            rv_learn_game.adapter = LearnNewAdapter(homeList, false)
+        } else {
+            manageSub(
+                    service.getContentInHome(user_id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c ->
+                                run {
+                                    val data = ObservableArrayList<Model.HomeContent>().apply {
+                                        c.forEach { a ->
+                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                                            d { "add contentId [" + a.id + "]" }
+                                        }
+                                    }
+                                    homeList = data
+                                    rv_learn_game.adapter = LearnNewAdapter(homeList, false)
+                                    d { "check response [" + c.size + "]" }
                                 }
-                            }
-                            homeList = data
-                            rv_learn_game.adapter = LearnNewAdapter(homeList,false)
-                            d { "check response [" + c.size + "]" }
-                        }},{
-                            d { it.message!! }
-                        })
-        )
+                            }, {
+                                d { it.message!! }
+                            })
+            )
+        }
     }
 
     override fun onPause() {

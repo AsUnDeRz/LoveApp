@@ -44,6 +44,7 @@ class LearnGameMainActivity: AppCompatActivity(){
 
     lateinit var utils:Utils
     lateinit var preference : SharedPreferences
+    lateinit var appDb:AppDatabase
 
 
 
@@ -55,6 +56,7 @@ class LearnGameMainActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.learn_game_list)
+        appDb = AppDatabase(this@LearnGameMainActivity)
         utils = Utils(this@LearnGameMainActivity)
         preference = PreferenceManager.getDefaultSharedPreferences(this@LearnGameMainActivity)
         title_header.text = intent.extras.getString("title")
@@ -75,7 +77,7 @@ class LearnGameMainActivity: AppCompatActivity(){
             }
             2 ->{
                 //loadKnowledge in group
-                loadKnowLedgeInGroup(preference.getString(KEYPREFER.GENDER,"1"),intent.extras.getInt("id").toString())
+                loadKnowLedgeInGroup(preference.getString(KEYPREFER.GENDER,"1"),intent.extras.getInt("id").toString(),appDb)
             }
         }
 
@@ -135,29 +137,50 @@ class LearnGameMainActivity: AppCompatActivity(){
             .onLongClick {}
 
 
-    fun loadKnowLedgeInGroup(genderID:String,groupID:String){
-        manageSub(
-                service.getKnowledgeInGroup(genderID,groupID)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ c -> run {
-                            val content =ObservableArrayList<Model.RepositoryKnowledge>()
-                            val data = ObservableArrayList<Model.LearnGameContent>().apply {
-                                c.forEach { item -> add(Model.LearnGameContent(
-                                        item.id.toInt(),utils.txtLocale(item.title_th,item.title_eng),
-                                        item.point,"20% done",R.drawable.clinic_img))
-                                    content.add(item)
-                                    d { "add [" + item.title_eng + "] to array" }
+    fun loadKnowLedgeInGroup(genderID:String,groupID:String,appDatabase: AppDatabase) {
+        if (appDatabase.getKnowledgeContent(groupID).size != 0) {
+            val c = appDatabase.getKnowledgeContent(groupID)
+            val content = ObservableArrayList<Model.RepositoryKnowledge>()
+            val data = ObservableArrayList<Model.LearnGameContent>().apply {
+                c.forEach { item ->
+                    add(Model.LearnGameContent(
+                            item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
+                            item.point, "20% done", R.drawable.clinic_img))
+                    content.add(item)
+                    d { "add [" + item.title_eng + "] to array" }
+                }
+            }
+            contentList = content
+            LearnGameList = data
+            rv_learngame.adapter = LearnGameAdapter(LearnGameList, false)
+
+        } else {
+            manageSub(
+                    service.getKnowledgeInGroup(genderID, groupID)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c ->
+                                run {
+                                    val content = ObservableArrayList<Model.RepositoryKnowledge>()
+                                    val data = ObservableArrayList<Model.LearnGameContent>().apply {
+                                        c.forEach { item ->
+                                            add(Model.LearnGameContent(
+                                                    item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
+                                                    item.point, "20% done", R.drawable.clinic_img))
+                                            content.add(item)
+                                            d { "add [" + item.title_eng + "] to array" }
+                                        }
+                                    }
+                                    contentList = content
+                                    LearnGameList = data
+                                    rv_learngame.adapter = LearnGameAdapter(LearnGameList, false)
+                                    d { "check response [" + c.size + "]" }
                                 }
-                            }
-                            contentList = content
-                            LearnGameList = data
-                            rv_learngame.adapter = LearnGameAdapter(LearnGameList,false)
-                            d { "check response [" + c.size + "]" }
-                        }},{
-                            d { it.message!! }
-                        })
-        )
+                            }, {
+                                d { it.message!! }
+                            })
+            )
+        }
     }
 
 }

@@ -15,6 +15,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
 
 /**
  * Created by admin on 8/7/2017 AD.
@@ -154,24 +158,42 @@ object ViewModel{
             )
         }
 
-        fun loadContentHome(callback :HomeInterface,user_id:String){
-            manageSub(
-                    service.getContentInHome(user_id)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({ c -> run {
-                                val data = ObservableArrayList<Model.RepositoryKnowledge>().apply {
-                                    c.forEach {
-                                        item -> add(item)
-                                        d{"add contentId ["+item.id+"]"}
+        fun loadContentInLocal(callback: HomeInterface,appDatabase: AppDatabase){
+            async(UI){
+                val data : Deferred<ArrayList<Model.RepositoryKnowledge>> = bg {
+                    appDatabase.getKnowledgeContent()
+                }
+                callback.endCallProgress(data.await())
+            }
+        }
+        fun loadContentHome(callback :HomeInterface,user_id:String,appDatabase: AppDatabase) {
+            if (appDatabase.getKnowledgeContent().size != 0) {
+                d{"load content in local"}
+                val data = appDatabase.getKnowledgeContent()
+                callback.endCallProgress(data)
+            } else {
+                d{"load content on server"}
+                manageSub(
+                        service.getContentInHome(user_id)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ c ->
+                                    run {
+                                        val data = ObservableArrayList<Model.RepositoryKnowledge>().apply {
+                                            c.forEach { item ->
+                                                add(item)
+                                                d { "add contentId [" + item.id + "]" }
+                                            }
+                                        }
+                                        appDatabase.addKnowledgeContent(data)
+                                        callback.endCallProgress(data)
+                                        d { "check response [" + c.size + "]" }
                                     }
-                                }
-                                callback.endCallProgress(data)
-                                d { "check response [" + c.size + "]" }
-                            }},{
-                                d { it.message!! }
-                            })
-            )
+                                }, {
+                                    d { it.message!! }
+                                })
+                )
+            }
         }
 
     }

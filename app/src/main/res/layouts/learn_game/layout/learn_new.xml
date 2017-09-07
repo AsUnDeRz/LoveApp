@@ -156,6 +156,7 @@
             -->
 
             <include
+                android:visibility="gone"
                 android:id="@+id/final_layout"
                 layout="@layout/learn_new_finish"/>
         </LinearLayout>

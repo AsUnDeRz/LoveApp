@@ -36,10 +36,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
             d{"onCreate"}
-            MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
-            MainViewModel.loadRiskQuestion(this)
-
-
             vp_main = findViewById(R.id.vp_main_fragment)
             bnve = findViewById(R.id.bottom_nav)
 
@@ -47,7 +43,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             Glide.with(this)
                     .load(R.drawable.bg_white)
                     .into(bg_root)
-
 
 
 
@@ -62,15 +57,15 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
 
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 }
-
                 override fun onPageSelected(position: Int) {
                     //Toast.makeText(applicationContext,"Position =$position",Toast.LENGTH_LONG).show()
+
                     when(position){
                         2 -> {
                             Glide.with(this@ActivityMain)
                                     .load(R.drawable.bg_blue)
                                     .into(bg_root)
-                            }
+                        }
                         1 -> {}
                         else ->{
                             Glide.with(this@ActivityMain)
@@ -78,13 +73,18 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
                                     .into(bg_root)
                         }
                     }
+
                 }
             })
-
-
-
-
         }
+
+
+    override fun onResume() {
+        super.onResume()
+        d{"onResume"}
+        MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
+        MainViewModel.loadRiskQuestion(this)
+    }
 
         fun setUpBottomBar(){
 
@@ -123,7 +123,16 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        d{"onSaveSate"}
+        outState?.putInt("viewpager", vp_main.currentItem)
+        d{"onSaveSate viewpager =["+ vp_main.currentItem+"]"}
+    }
+
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        d{"onRestore viewpager =["+savedInstanceState?.getInt("viewpager",0)!!+"]"}
+        vp_main.currentItem = savedInstanceState?.getInt("viewpager",0)!!
     }
 
     override fun onPause() {
@@ -141,6 +150,7 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             return
 
         }
+
     }
 
     fun alerter(){

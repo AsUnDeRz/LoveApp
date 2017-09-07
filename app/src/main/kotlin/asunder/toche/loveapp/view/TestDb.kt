@@ -177,11 +177,14 @@ class TestDb:AppCompatActivity(){
         //loadPointHistoryGame()
         //loadPointHistoryRiskMeter()
 
-        loadKnowledgeGroup()
-        loadKnowLedgeInGroup()
-        loadYesNoQuestion()
+        //loadKnowledgeGroup()
+        //loadKnowLedgeInGroup()
+        //loadYesNoQuestion()
 
         val appDb = AppDatabase(this)
+
+        val data =appDb.getKnowledgeGroup()
+        d{"Check group size ="+data.size}
 
 
 
@@ -197,11 +200,13 @@ class TestDb:AppCompatActivity(){
 
 
 
+        /*
         val notiList = appDb.getNotificationList()
         d{"Check data in array"}
         for(i in notiList){
             d{"["+i.id+"]["+i.title+"]["+i.message+"]["+i.time.toString()+"]"}
         }
+        */
 
         delete.setOnClickListener {
             //appDb.deleteNotification(Model.Notification(edt_id.text.toString(),"","",Date()))
@@ -233,7 +238,7 @@ class TestDb:AppCompatActivity(){
         }
 
         get_id.setOnClickListener {
-            val test = appDb.getNotiWithState(edt_id.text.toString())
+            val test = appDb.getNotiWithState(edt_id.text.toString())!!
             d{"Check record ["+test.id+"] ["+test.message+"]"}
 
         }

@@ -18,6 +18,22 @@ import kotlin.collections.ArrayList
 interface LoveAppService{
 
 
+    @FormUrlEncoded
+    @PUT("api/pill_tracking/")
+    fun addTracking(@Field("date") date:String,@Field("user_id") userID: String,@Field("status") status: String) : Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/feedback/")
+    fun addFeedback(@Field("user_id") userID: String,@Field("datetime") date:Date,@Field("comment") comment:String): Call<Void>
+
+    @FormUrlEncoded
+    @POST("api/user")
+    fun updateUser(@Field("user_id") userID: String,@Field("gender_id") genderID:String,@Field("name") name:String,
+                   @Field("first_name") fname:String,@Field("first_surname") lname:String,@Field("status_id") statusID:String,
+                   @Field("friend_id") fcode:String,@Field("phone") phone:String,@Field("email") email:String,
+                   @Field("password") password:String,@Field("province") province:String,@Field("job") job:String,
+                   @Field("iden_id") idCard:String,@Field("birth") birthDay:String,@Field("point") point:String): Call<Void>
+
     @GET("api/knowledges/gender_id/{genderid}/group_id/{groupid}")
     fun getKnowledgeInGroup(@Path("genderid") gender_id: String,@Path("groupid") group_id:String) :Observable<ArrayList<Model.RepositoryKnowledge>>
 

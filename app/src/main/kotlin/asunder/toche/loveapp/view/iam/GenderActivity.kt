@@ -46,7 +46,7 @@ class GenderActivity : AppCompatActivity(){
     fun unsubscribe() { compoSub.dispose() }
 
     val genderList = ObservableArrayList<Model.Gender>()
-    val utils = Utils(this@GenderActivity)
+    lateinit var utils :Utils
 
     fun loadGender(){
         manageSub(
@@ -95,6 +95,7 @@ class GenderActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gender_list)
+        utils = Utils(this@GenderActivity)
         loadGender()
         Glide.with(this)
                 .load(R.drawable.bg_blue)

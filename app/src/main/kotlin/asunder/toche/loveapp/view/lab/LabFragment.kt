@@ -99,9 +99,9 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                                     d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }
-
                             hospitalList = data
-
+                            //
+                            loadMarker()
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }
@@ -150,13 +150,16 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000) // 1 second, in milliseconds
-            loadHospital()
+
 
         utils = Utils(activity)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         d { "Visible to user =$isVisibleToUser" }
+        if(isVisibleToUser){
+            loadHospital()
+        }
         //addmarker
 
 
@@ -243,7 +246,6 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     override fun onMapReady(map: GoogleMap?) {
         d { "onMap Ready" }
         googleMap = map
-        googleMap?.setInfoWindowAdapter(InfoMapAdapter(hospitalList, activity))
         googleMap?.setOnMyLocationButtonClickListener(this)
         googleMap?.setOnInfoWindowClickListener(this)
         googleMap?.setOnInfoWindowCloseListener(this)
@@ -309,12 +311,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     fun handleNewLocation(location: Location?) {
         d { "handle New location ["+location?.provider+"]" }
         d{"get current location ["+getAddress(location?.latitude,location?.longitude)+"]"}
+
         val zoomLevel = 10f
         val latLng = LatLng(location!!.latitude, location!!.longitude)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+        /*
         for(dt in hospitalList){
             addMarker(dt)
         }
+        */
     }
 
     private fun showMissingPermissionError() {
@@ -337,9 +342,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 val latLng = LatLng(location!!.latitude, location!!.longitude)
                 googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
 
+                /*
                 for(dt in hospitalList){
                     addMarker(dt)
                 }
+                */
             }
 
 
@@ -382,6 +389,22 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             }
             googleMap?.addMarker(data.await())
             //googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+        }
+    }
+
+    fun loadMarker(){
+        if (googleMap != null) {
+            googleMap?.setInfoWindowAdapter(InfoMapAdapter(hospitalList, activity))
+            // Access to the location has been granted to the app.
+            //googleMap!!.isMyLocationEnabled = true
+            if (mGoogleApiClient.isConnected && location != null) {
+                val zoomLevel = 10f
+                val latLng = LatLng(location!!.latitude, location!!.longitude)
+                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+                for(dt in hospitalList){
+                    addMarker(dt)
+                }
+            }
         }
     }
 
@@ -437,13 +460,20 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                 var data = addresses[0]
                 result.append(data.locality).append("\n")
                 result.append(data.featureName).append("\n")
+                result.append(data.adminArea).append("\n")
                 result.append(data.subAdminArea).append("\n")
                 result.append(data.subLocality).append("\n")
                 result.append(data.thoroughfare).append("\n")
                 result.append(data.countryName)
 
                 city = data.locality
-                subCity = data.subLocality+","+data.subAdminArea
+                var subArea :String
+                subArea = if(data.subAdminArea == null){
+                    data.subLocality+","+data.adminArea
+                }else{
+                    data.subLocality+","+data.adminArea
+                }
+                subCity = subArea
 
             }
         } catch (e:IOException) {

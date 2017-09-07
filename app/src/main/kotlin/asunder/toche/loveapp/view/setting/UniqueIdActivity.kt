@@ -34,7 +34,7 @@ class UniqueIdActivity: AppCompatActivity() {
         lname = edt_lname.text.toString().toUpperCase()
         val uniID = fname+lname+"$day$m$y"
         d{"Check uniID before finish $uniID"}
-        AccountSettingActivity.setUnique(uniID)
+        AccountSettingActivity.setUnique(uniID,y,m,day,fname,lname)
         finish()
     }
 

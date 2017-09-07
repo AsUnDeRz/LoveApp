@@ -2,6 +2,7 @@ package asunder.toche.loveapp
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -27,17 +28,14 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
     override fun endCallProgress(any:Any) {
         val data = any as ObservableArrayList<*>
-        homeList.apply {
+        val content =ObservableArrayList<Model.HomeContent>().apply {
             for (a in data){
                 if (a is Model.RepositoryKnowledge){
                     add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
                 }
             }
         }
-        rv_home.adapter = HomeAdapter(homeList, false)
-
-
-
+        homeList = content
 
         /*
         imaHome = data
@@ -51,6 +49,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     //lateinit var imaHome : ObservableList<Model.ImageHome>
     lateinit var utils :Utils
     lateinit var appDb :AppDatabase
+    lateinit var prefer : SharedPreferences
 
 
     companion object {
@@ -60,11 +59,14 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     }
     var homeList = ObservableArrayList<Model.HomeContent>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this).get(ViewModel.HomeViewModel::class.java)
         utils = Utils(activity)
-
+        appDb = AppDatabase(activity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(activity)
+        homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb)
     }
 
 
@@ -72,9 +74,6 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         val view = inflater?.inflate(R.layout.home, container, false)
         val cv = view?.findViewById<CarouselView>(R.id.cV)
         appDb = AppDatabase(activity)
-        //homeViewModel.loadImage(this)
-        val prefer = PreferenceManager.getDefaultSharedPreferences(activity)
-        homeViewModel.loadContentHome(this,prefer.getString(KEYPREFER.UserId,""))
         cv?.setImageListener(listener)
         cv?.pageCount = DataSimple.imageHome.size
         //cv?.setImageListener(listener)
@@ -94,32 +93,24 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
          Glide.with(activity)
                  .load(DataSimple.imageHome[position])
-                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                  .into(imageView)
-         /*
-         var image = imaHome[position]
-                 Glide.with(activity)
-                         .load("http://backend.loveapponline.com/"+image.image_byte)
-                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                         .into(imageView)
-        */
+
 
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         button_noti.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, NotificationActivity::class.java))
         }
-
-
         rv_home.layoutManager = LinearLayoutManager(context)
         rv_home.setHasFixedSize(true)
+        rv_home.adapter = HomeAdapter(homeList, false)
 
 
 
+
+        /*
         var notiList = appDb.getNotiMissing()
 
         when {
@@ -127,12 +118,23 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow)
             else -> loadNotiColor(R.drawable.noti_green)
         }
+        */
 
     }
 
     override fun onPause() {
         super.onPause()
         homeViewModel.unsubscribe()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var notiList = appDb.getNotiMissing()
+        when {
+            notiList.size >= 3 -> loadNotiColor(R.drawable.noti_red)
+            notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow)
+            else -> loadNotiColor(R.drawable.noti_green)
+        }
     }
 
 

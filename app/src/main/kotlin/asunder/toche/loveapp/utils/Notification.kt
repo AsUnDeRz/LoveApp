@@ -48,7 +48,7 @@ object  Notification {
         private fun processStartNotification(id:Int) {
             d{"StartNotification"}
             val appDb = AppDatabase(this)
-            val noti = appDb.getNotiWithState(id.toString())
+            val noti = appDb.getNotiWithState(id.toString())!!
             appDb.updateNotification(noti,KEYPREFER.MISSING)
             // Do something. For example, fetch fresh data from backend to create a rich notification?
             val builder = NotificationCompat.Builder(this)

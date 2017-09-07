@@ -6,6 +6,7 @@ import android.content.Context
 import android.database.SQLException
 import android.database.sqlite.SQLiteCursor
 import android.database.sqlite.SQLiteOpenHelper
+import android.databinding.ObservableArrayList
 import com.github.ajalt.timberkt.Timber.d
 import android.databinding.adapters.TextViewBindingAdapter.setPhoneNumber
 import java.util.*
@@ -49,6 +50,31 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                 KEY_NOTI_STATUS + " INTEGER"+
                 ")"
         db.execSQL(CREATE_NOTIFICATION_TABLE)
+        val CREATE_KNOWLEDGE_GROUP_TABLE ="CREATE TABLE "+ TABLE_KNOWLEGDE_GROUP +
+                "("+
+                KEY_KG_ID + " TEXT," +
+                KEY_KG_NAME_TH +" TEXT," +
+                KEY_KG_NAME_EN +" TEXT," +
+                KEY_KG_VERSION +" TEXT," +
+                KEY_KG_POINT +" TEXT" +
+                ")"
+        db.execSQL(CREATE_KNOWLEDGE_GROUP_TABLE)
+        val CREATE_KNOWLEDGE_CONTENT =" CREATE TABLE "+ TABLE_KNOWLEGDE_CONTENT+
+                "("+
+                KEY_KC_ID + " TEXT," +
+                KEY_KC_GROUP_ID + " TEXT," +
+                KEY_KC_TITLE_TH + " TEXT," +
+                KEY_KC_TITLE_EN + " TEXT," +
+                KEY_KC_CONTENT_TH + " TEXT," +
+                KEY_KC_CONTENT_EN + " TEXT," +
+                KEY_KC_CONTENT_LONG_TH + " TEXT," +
+                KEY_KC_CONTENT_LONG_EN + " TEXT," +
+                KEY_KC_IMAGE + " TEXT," +
+                KEY_KC_VERSION + " TEXT," +
+                KEY_KC_POINT + " TEXT," +
+                KEY_KC_LINK + " TEXT" +
+                ")"
+        db.execSQL(CREATE_KNOWLEDGE_CONTENT)
     }
 
 
@@ -56,8 +82,9 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         if (oldVersion != newVersion) {
             // Simplest implementation is to drop all old tables and recreate them
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER)
-            onCreate(db)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATION)
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_KNOWLEGDE_GROUP)
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_KNOWLEGDE_CONTENT)
             onCreate(db)
         }
     }
@@ -289,8 +316,8 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         return notiList
     }
 
-    fun getNotiWithState(id:String) : Model.Notification{
-        var notification = Model.Notification("123","123","123", Date())
+    fun getNotiWithState(id:String) : Model.Notification?{
+        var notification :Model.Notification? = null
         val db = readableDatabase
         val cursor = db.query(TABLE_NOTIFICATION, arrayOf(KEY_NOTI_ID, KEY_NOTI_TITLE, KEY_NOTI_DESC, KEY_NOTI_TIME),
                 KEY_NOTI_ID +"=?", arrayOf(id),null,null,null,null)
@@ -310,6 +337,214 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         return notification
     }
 
+    //function knowledge group
+    fun addKnowledgeGroup(data:ArrayList<Model.KnowledgeGroup>){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            for(group in data){
+                val values = ContentValues()
+                values.put(KEY_KG_ID, group.group_id)
+                values.put(KEY_KG_NAME_TH, group.group_name_th)
+                values.put(KEY_KG_NAME_EN,group.group_name_eng)
+                values.put(KEY_KG_VERSION,group.version)
+                values.put(KEY_KG_POINT,group.sumpoint)
+                db.insertOrThrow(TABLE_KNOWLEGDE_GROUP, null, values)
+                d{"Insert ["+group.group_id+"] ["+group.group_name_eng+"] ["+group.sumpoint+"]"}
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
+
+    fun getKnowledgeGroup() :ObservableArrayList<Model.KnowledgeGroup>{
+        val knowledgeGroupList = ObservableArrayList<Model.KnowledgeGroup>()
+        // Select All Query
+        val selectQuery = "SELECT  * FROM $TABLE_KNOWLEGDE_GROUP"
+
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectQuery,null)
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    knowledgeGroupList.apply {
+                        add(Model.KnowledgeGroup(
+                                cursor.getString(0),
+                                cursor.getString(2),
+                                cursor.getString(1),
+                                cursor.getString(3),
+                                cursor.getString(4)))
+                    }
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+        return knowledgeGroupList
+    }
+
+    fun deleteAllKnowledgeGroup(){
+        val db = writableDatabase
+        d{"Delete all record knowledge group"}
+        db.delete(TABLE_KNOWLEGDE_GROUP,null,null)
+        db.close()
+    }
+
+
+    //function knowledge content
+    fun addKnowledgeContent(data:ArrayList<Model.RepositoryKnowledge>){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            for(content in data){
+                val values = ContentValues()
+                var contentTHlong=""
+                var contentENlong=""
+                var link=""
+                if(content.content_th_long != null){
+                    contentTHlong = content.content_th_long
+                }
+                if(content.content_eng_long != null){
+                    contentENlong = content.content_eng_long
+                }
+                if(content.link != null){
+                    link = content.link
+                }
+                values.put(KEY_KC_ID, content.id)
+                values.put(KEY_KC_GROUP_ID,content.group_id)
+                values.put(KEY_KC_TITLE_TH,content.title_th)
+                values.put(KEY_KC_TITLE_EN,content.title_eng)
+                values.put(KEY_KC_CONTENT_TH,content.content_th)
+                values.put(KEY_KC_CONTENT_EN,content.content_eng)
+                values.put(KEY_KC_CONTENT_LONG_TH,contentTHlong)
+                values.put(KEY_KC_CONTENT_LONG_EN,contentENlong)
+                values.put(KEY_KC_IMAGE,"") // test content must null only
+                values.put(KEY_KC_VERSION,content.version)
+                values.put(KEY_KC_POINT,content.point)
+                values.put(KEY_KC_LINK,link)
+                db.insertOrThrow(TABLE_KNOWLEGDE_CONTENT, null, values)
+                d{"Insert ["+content.id+"] ["+content.title_eng+"] ["+content.point+"]"}
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
+
+    fun getKnowledgeContent() : ObservableArrayList<Model.RepositoryKnowledge> {
+        val contentList = ObservableArrayList<Model.RepositoryKnowledge>()
+        d{"getKnowledgeContent"}
+        // Select All Query
+        val selectQuery = "SELECT * FROM $TABLE_KNOWLEGDE_CONTENT"
+
+        val db = readableDatabase
+        val cursor = db.rawQuery(selectQuery,null)
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    contentList.apply {
+                        add(Model.RepositoryKnowledge(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getString(5),
+                                cursor.getString(9),
+                                cursor.getString(10),
+                                arrayListOf("1","2","3","4","5"),
+                                cursor.getString(9),
+                                cursor.getString(6),
+                                cursor.getString(7),
+                                cursor.getString(11)
+                            )
+                        )
+                    }
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database ["+e.message+"]" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+        return contentList
+    }
+
+    fun getKnowledgeContent(id:String) :ObservableArrayList<Model.RepositoryKnowledge>{
+        val contentList = ObservableArrayList<Model.RepositoryKnowledge>()
+        d{"getKnowledgeContent by $id"}
+        // Select All Query
+        val selectQuery = "SELECT  * FROM $TABLE_KNOWLEGDE_CONTENT WHERE $KEY_KC_GROUP_ID =? "
+
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectQuery,arrayOf(id))
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    contentList.apply {
+                        add(Model.RepositoryKnowledge(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getString(5),
+                                cursor.getString(9),
+                                cursor.getString(10),
+                                arrayListOf("1","2","3","4","5"),
+                                cursor.getString(9),
+                                cursor.getString(6),
+                                cursor.getString(7),
+                                cursor.getString(11)
+                        )
+                        )
+                    }
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+        return contentList
+    }
+
+    fun deleteAllKnowledgeContent(){
+        val db = writableDatabase
+        d{"Delete all record knowledge content"}
+        db.delete(TABLE_KNOWLEGDE_CONTENT,null,null)
+        db.close()
+    }
     companion object {
         // Database Info
         private val DATABASE_NAME = "loveapp"
@@ -318,6 +553,8 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         // Table Names
         private val TABLE_USER = "user"
         private val TABLE_NOTIFICATION ="notification"
+        private val TABLE_KNOWLEGDE_GROUP="knowlegde_group"
+        private val TABLE_KNOWLEGDE_CONTENT="knowlegde_content"
 
         // user Table Columns
         private val KEY_LOGIN_ID = "id"
@@ -332,6 +569,28 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val KEY_NOTI_STATUS = "status"
         //status notification
         //waiting  missing tracked
+
+        //knowledge group
+        private val KEY_KG_ID ="id"
+        private val KEY_KG_NAME_TH ="group_name_th"
+        private val KEY_KG_NAME_EN ="group_name_eng"
+        private val KEY_KG_VERSION ="version"
+        private val KEY_KG_POINT ="point"
+
+        //knowledge content
+        private val KEY_KC_ID ="id"
+        private val KEY_KC_GROUP_ID = "group_id"
+        private val KEY_KC_TITLE_TH ="title_th"
+        private val KEY_KC_TITLE_EN ="title_eng"
+        private val KEY_KC_CONTENT_TH ="content_th"
+        private val KEY_KC_CONTENT_EN ="content_eng"
+        private val KEY_KC_IMAGE ="image_byte"
+        private val KEY_KC_VERSION ="version"
+        private val KEY_KC_POINT ="point"
+        private val KEY_KC_CONTENT_LONG_TH ="content_long_th"
+        private val KEY_KC_CONTENT_LONG_EN ="content_long_eng"
+        private val KEY_KC_LINK ="link"
+
 
 
     }

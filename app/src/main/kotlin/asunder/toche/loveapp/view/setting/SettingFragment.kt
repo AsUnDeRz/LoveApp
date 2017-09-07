@@ -31,30 +31,30 @@ class SettingFragment : Fragment() {
         title_app.text = "SETTING"
 
         btn_passcode.setOnClickListener {
-            context.startActivity(Intent().setClass(context,ChangePasscodeActivity::class.java))
+            activity.startActivity(Intent().setClass(activity,ChangePasscodeActivity::class.java))
         }
 
         btn_reminder.setOnClickListener {
-            context.startActivity(Intent().setClass(context,PillReminderTimeActivity::class.java))
+            activity.startActivity(Intent().setClass(activity,PillReminderTimeActivity::class.java))
 
         }
 
         btn_test_hiv.setOnClickListener {
-            context.startActivity(Intent().setClass(context,HivTestActivity::class.java))
+            activity.startActivity(Intent().setClass(activity,HivTestActivity::class.java))
 
         }
 
         btn_cd4.setOnClickListener {
-            context.startActivity(Intent().setClass(context,Cd4VLActivity::class.java))
+            activity.startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
         }
 
         btn_acc_setting.setOnClickListener {
-            context.startActivity(Intent().setClass(context, AccountSettingActivity::class.java))
+            activity.startActivity(Intent().setClass(activity, AccountSettingActivity::class.java))
 
         }
 
         btn_feedback.setOnClickListener {
-            context.startActivity(Intent().setClass(context, FeedbackActivity::class.java))
+            activity.startActivity(Intent().setClass(activity, FeedbackActivity::class.java))
 
         }
 

@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.learn_new.*
 import kotlinx.android.synthetic.main.learn_new_finish.*
 import com.github.ajalt.timberkt.Timber.d
 import android.text.Spanned
+import android.view.View
 import android.webkit.WebView
 
 
@@ -85,5 +86,10 @@ class LearnNewsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        final_layout.visibility = View.VISIBLE
     }
 }

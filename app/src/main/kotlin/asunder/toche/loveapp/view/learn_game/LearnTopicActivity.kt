@@ -42,6 +42,7 @@ class LearnTopicActivity : AppCompatActivity() {
 
     lateinit var utils:Utils
     lateinit var preference : SharedPreferences
+    lateinit var appDb : AppDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +50,8 @@ class LearnTopicActivity : AppCompatActivity() {
             setContentView(R.layout.learn_topic)
             utils = Utils(this@LearnTopicActivity)
             preference = PreferenceManager.getDefaultSharedPreferences(this@LearnTopicActivity)
-
-            loadKnowledgeGroup(preference.getString(KEYPREFER.GENDER,"1"))
+            appDb = AppDatabase(this@LearnTopicActivity)
+            loadKnowledgeGroup(preference.getString(KEYPREFER.GENDER,"1"),appDb)
             title_app.text = "LEARNS"
 
             rv_learn_topic.setHasFixedSize(true)
@@ -87,8 +88,22 @@ class LearnTopicActivity : AppCompatActivity() {
         }
     }
 
-    fun loadKnowledgeGroup(genderID:String){
-        manageSub(
+    fun loadKnowledgeGroup(genderID:String,appDatabase: AppDatabase){
+        if(appDatabase.getKnowledgeGroup().size != 0){
+            val c = appDatabase.getKnowledgeGroup()
+            val data = ObservableArrayList<Model.LearnTopicContent>().apply {
+                c.forEach {
+                    item -> add(Model.LearnTopicContent(
+                        item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
+                        item.sumpoint+" Points","5 Topics",R.drawable.clinic_img))
+                    d { "add [" + item.group_name_eng + "] to array" }
+                }
+            }
+            knowledgeGroups = data
+            rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
+
+        }else{
+            manageSub(
                 service.getKnowledgeGroup(genderID)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -102,13 +117,15 @@ class LearnTopicActivity : AppCompatActivity() {
                                 }
                             }
                             knowledgeGroups = data
+                            appDatabase.addKnowledgeGroup(c)
                             rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
 
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }
                         })
-        )
+                )
+        }
     }
 
 

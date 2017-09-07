@@ -115,7 +115,7 @@ class IamFragment : Fragment() {
 
         ///set Tracked missing
         val data = appDb.getCountNoti()
-        if(data.totalNoti != "0") {
+        if(data.totalNoti != "0" && data.tracked != "0" && data.missing != "0") {
             val total = Integer.parseInt(data.tracked) + Integer.parseInt(data.missing)
             val tracked = (data.tracked.toInt() / total) * 100
             val missing = (data.missing.toInt() / total) * 100

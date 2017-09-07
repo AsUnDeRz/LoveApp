@@ -289,9 +289,22 @@
                 android:background="@drawable/button_box"
                 android:gravity="left|center_vertical"
                 android:paddingStart="40dp"
-                android:text="Positive"
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
+
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="false"
+                android:layout_marginBottom="70dp"
+                android:background="@drawable/button_box"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="26sp" />
         </LinearLayout>
 
     </ScrollView>

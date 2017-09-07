@@ -21,9 +21,11 @@ import android.preference.PreferenceManager
  */
 class LoadingActivity:AppCompatActivity(){
 
-    private val mTapScreenTextAnimDuration = 20
+    private val mTapScreenTextAnimDuration = 10
     private val mTapScreenTextAnimBreak = 500L
     lateinit var utilDb :AppDatabase
+    lateinit var  handler: Handler
+    lateinit var runnable: Runnable
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_page)
@@ -36,6 +38,7 @@ class LoadingActivity:AppCompatActivity(){
         }else{
            postDelayed()
         }
+
 
 
 
@@ -87,36 +90,46 @@ class LoadingActivity:AppCompatActivity(){
         return havePasscode
     }
 
+
+
     fun postDelayed(){
         val intentThis = Intent()
-        val splash = Handler()
+        handler = Handler()
+        runnable = Runnable({})
         if(checkFirstTime()){
-            splash.postDelayed({
+            runnable = Runnable({
                 startActivity(intentThis.setClass(this, OldNewUserActivity::class.java))
-                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
-
+                //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                 finish()
-            },3000)
+            })
         }else{
             if(checkPasscode()){
-                splash.postDelayed({
+                runnable = Runnable({
                     intentThis.putExtra(KEYPREFER.PASSCODE,"check")
                     startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
-                    overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
+                    //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
-                },3000)
-
+                })
             }else{
-                splash.postDelayed({
+                runnable = Runnable({
                     startActivity(intentThis.setClass(this, ActivityMain::class.java))
-                    overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
+                    //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
-                },3000)
-
+                })
             }
 
         }
 
+        handler.postDelayed(runnable, 3000)
+    }
+
+    public override fun onResume() {
+        super.onResume()
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(runnable)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

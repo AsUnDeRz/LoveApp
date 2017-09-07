@@ -187,7 +187,7 @@ object Model{
     data class RepoPointHistoryGame(val game_name_th:String,val game_name_eng:String,val date:Date,val point:String)
     data class RepoPointHistoryKnowledge(val title_th:String,val title_eng: String,val date:Date,val point:String)
 
-    data class User(val user_id:String,val gender:String,val name:String,val first_name:String,val first_surename:String,
+    data class User(val user_id:String,val gender_id:String,val name:String,val first_name:String,val first_surname:String,
                     val status_id: String,val friend_id:String,val phone:String,val email:String,val password:String,
                     val province:String,val job:String,val iden_id:String,val birth:String,val point:String,
                     val password_hash:String,val remember_token:String,val updated_at:String)

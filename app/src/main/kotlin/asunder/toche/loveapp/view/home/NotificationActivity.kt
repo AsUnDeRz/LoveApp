@@ -75,6 +75,19 @@ class NotificationActivity : AppCompatActivity() {
             .onCreate { println("Created ${it.binding.notiItem} at #${it.adapterPosition}") }
             .onBind { println("Bound ${it.binding.notiItem} at #${it.adapterPosition}") }
             .onRecycle { println("Recycled ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onClick {}
+            .onClick {
+                AppDatabase(it.itemView.context).deleteNotification(it.binding.notiItem.id)
+                notiList.removeAt(it.adapterPosition)
+                rv_notification.adapter.notifyItemRemoved(it.adapterPosition)
+                rv_notification.adapter.notifyItemRangeChanged(it.adapterPosition, notiList.size)
+
+                number_noti.text = notiList.size.toString()
+                when {
+                    notiList.size >= 3 -> loadNotiColor(R.drawable.noti_red_circle)
+                    notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow_circle)
+                    else -> loadNotiColor(R.drawable.noti_green_circle)
+                }
+
+            }
             .onLongClick {}
 }

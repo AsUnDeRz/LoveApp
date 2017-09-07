@@ -78,7 +78,7 @@ class PillReminderActivity: AppCompatActivity(){
         //init
         isStateAdd = intent.getBooleanExtra(KEYPREFER.isFirst,false)
         if(!isStateAdd){
-            notification = appDb.getNotiWithState(intent.getStringExtra(KEYPREFER.NOTIID))
+            notification = appDb.getNotiWithState(intent.getStringExtra(KEYPREFER.NOTIID))!!
             message = notification.message
             dateLong = notification.time.time
             position = intent.getIntExtra(KEYPREFER.POSITION,0)
