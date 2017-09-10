@@ -1,6 +1,7 @@
 package asunder.toche.loveapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnNewItemBinding
+import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,6 +20,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_blue.*
 import kotlinx.android.synthetic.main.learnandgame.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 /**
@@ -44,6 +50,7 @@ class LearnAndGameFragment : Fragment() {
 
     lateinit var utils :Utils
     lateinit var appDb :AppDatabase
+    lateinit var prefer : SharedPreferences
 
     companion object {
         fun newInstance(): LearnAndGameFragment {
@@ -66,10 +73,12 @@ class LearnAndGameFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "LEARNS\nAND GAMES"
-        val prefer = PreferenceManager.getDefaultSharedPreferences(activity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(activity)
         loadContentHome(prefer.getString(KEYPREFER.UserId,""),appDb)
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
+        rv_learn_game.adapter = LearnNewAdapter(homeList, false)
+
 
         btn_game.setOnClickListener {
             val data = Intent()
@@ -86,10 +95,23 @@ class LearnAndGameFragment : Fragment() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == KEYPREFER.LEARNGAME && data != null){
+            Timber.d { "result for knowledge content " }
+            val point = data.getStringExtra(KEYPREFER.POINT)
+            val contentID = data.getStringExtra(KEYPREFER.CONTENT)
+            val userID = prefer.getString(KEYPREFER.UserId,"")
+            d{"check result $point   $contentID"}
+            addUpdatePoint(point,contentID,userID)
+        }
+    }
+
+
     private val LearnNewType = Type<LearnNewItemBinding>(R.layout.learn_new_item)
-            .onCreate { println("Created ${it.binding.learnNewItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.learnNewItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.learnNewItem} at #${it.adapterPosition}") }
+            .onCreate { println("Created") }
+            .onBind { println("Bound") }
+            .onRecycle { println("Recycled") }
             .onClick {
                 val item = it.binding.learnNewItem.data
                 val model = Model.RepositoryKnowledge("1","1","title_th",item.title_eng,"content_th",item.content_eng,
@@ -97,7 +119,7 @@ class LearnAndGameFragment : Fragment() {
 
                 var data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,model)
-                startActivity(data.setClass(activity,LearnNewsActivity::class.java))
+                startActivityForResult(data.setClass(activity,LearnNewsActivity::class.java),KEYPREFER.LEARNGAME)
 
             }
             .onLongClick {}
@@ -111,17 +133,6 @@ class LearnAndGameFragment : Fragment() {
     }
 
     fun loadContentHome(user_id:String,appDatabase: AppDatabase) {
-        if (appDatabase.getKnowledgeContent().size != 0) {
-            val c = appDatabase.getKnowledgeContent()
-            val data = ObservableArrayList<Model.HomeContent>().apply {
-                c.forEach { a ->
-                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
-                    d { "add contentId [" + a.id + "]" }
-                }
-            }
-            homeList = data
-            rv_learn_game.adapter = LearnNewAdapter(homeList, false)
-        } else {
             manageSub(
                     service.getContentInHome(user_id)
                             .subscribeOn(Schedulers.io())
@@ -140,9 +151,55 @@ class LearnAndGameFragment : Fragment() {
                                 }
                             }, {
                                 d { it.message!! }
+                                //load in local
+                                if (appDatabase.getKnowledgeContent().size != 0) {
+                                    val c = appDatabase.getKnowledgeContent()
+                                    val data = ObservableArrayList<Model.HomeContent>().apply {
+                                        c.forEach { a ->
+                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                                            d { "add contentId [" + a.id + "]" }
+                                        }
+                                    }
+                                    homeList = data
+                                    rv_learn_game.adapter = LearnNewAdapter(homeList, false)
+                                }
                             })
             )
-        }
+
+    }
+
+    fun addUpdatePoint(point:String,contentId:String,userId: String){
+        val addPoint = service.addUserPoint(userId,point)
+        addPoint.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                Timber.d { t?.message.toString() }
+            }
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if(response!!.isSuccessful){
+                    Timber.d { "addPoint Successful" }
+                    inputPointHistory(point,contentId,userId)
+                }
+            }
+        })
+
+
+    }
+
+    fun inputPointHistory(point:String,knowledgeID:String,id:String){
+        Timber.d { "input point history" }
+        Timber.d { "point [$point] user_id[$id]" }
+        val addPH = service.addPointHistory(knowledgeID,id,"2",point, Date())
+        addPH.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                Timber.d { t?.message.toString() }
+            }
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if (response!!.isSuccessful) {
+                    Timber.d { "addPointHistory successful" }
+                }
+            }
+        })
+
     }
 
     override fun onPause() {

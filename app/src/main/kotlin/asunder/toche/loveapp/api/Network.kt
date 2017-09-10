@@ -18,13 +18,16 @@ import kotlin.collections.ArrayList
 interface LoveAppService{
 
 
+    @GET("api/lab_result/user_id/{id}")
+    fun getLabResult(@Path("id") userID: String) :Observable<ArrayList<Model.RepositoryLabResult>>
+
     @FormUrlEncoded
     @PUT("api/pill_tracking/")
     fun addTracking(@Field("date") date:String,@Field("user_id") userID: String,@Field("status") status: String) : Call<Void>
 
     @FormUrlEncoded
     @PUT("api/feedback/")
-    fun addFeedback(@Field("user_id") userID: String,@Field("datetime") date:Date,@Field("comment") comment:String): Call<Void>
+    fun addFeedback(@Field("user_id") userID: String,@Field("datetime") date:Date,@Field("comment") comment:String,@Field("rate") rate:String): Call<Void>
 
     @FormUrlEncoded
     @POST("api/user")
@@ -87,8 +90,8 @@ interface LoveAppService{
     fun getProvinces() : Observable<ArrayList<Model.Province>>
 
 
-    @GET("api/hospitals/locx/{long}/locy/{lat}/distance/{dis}")
-    fun getHospitalsOnMap(@Path("long") lng:String,@Path("lat") lat:String,@Path("dis")distance:String) :
+    @GET("api/hospitals/locx/{lat}/locy/{long}/distance/{dis}")
+    fun getHospitalsOnMap(@Path("lat") lat:String,@Path("long") lng:String,@Path("dis")distance:String) :
             Observable<ArrayList<Model.RepositoryHospital>>
 
     @GET("api/knowledges/user_id/{userid}/limit/5")

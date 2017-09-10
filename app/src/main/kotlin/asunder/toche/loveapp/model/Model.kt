@@ -19,9 +19,40 @@ object Model{
 
 
 
+    data class RepositoryLabResult(val user_id:String,val viral :String,val cd4:String,val test_date:Date)
+
     data class KnowledgeGroup(val group_id: String,val group_name_eng:String,val group_name_th:String,
                               val version:String,val sumpoint:String)
-    data class QuestionYesNo(val question_id:String,val knowledge_id:String,val question_th:String,val question_eng:String,val answer:Boolean,val point:String)
+
+    data class QuestionYesNo(val question_id: String, val knowledge_id: String, val question_th: String, val question_eng: String, val answer: Boolean, val point: String) : Parcelable {
+        constructor(source: Parcel) : this(
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                1 == source.readInt(),
+                source.readString()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeString(question_id)
+            writeString(knowledge_id)
+            writeString(question_th)
+            writeString(question_eng)
+            writeInt((if (answer) 1 else 0))
+            writeString(point)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<QuestionYesNo> = object : Parcelable.Creator<QuestionYesNo> {
+                override fun createFromParcel(source: Parcel): QuestionYesNo = QuestionYesNo(source)
+                override fun newArray(size: Int): Array<QuestionYesNo?> = arrayOfNulls(size)
+            }
+        }
+    }
 
     data class Province(val province_id:String,val province_th: String,val province_eng:String,val locx:Double,val locy:Double)
 

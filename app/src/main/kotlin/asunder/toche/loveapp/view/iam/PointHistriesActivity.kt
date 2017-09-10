@@ -1,7 +1,9 @@
 package asunder.toche.loveapp
 
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
@@ -41,6 +43,7 @@ class PointHistriesActivity: AppCompatActivity() {
     val dataList = ObservableArrayList<Model.Point>()
     val dataDate = ArrayList<Long>()
     lateinit var utils :Utils
+    lateinit var prefer : SharedPreferences
 
     val pointList = ObservableArrayList<Model.Point>().apply {
         for(i in 1..5) {
@@ -56,6 +59,7 @@ class PointHistriesActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.point_histries)
         utils = Utils(this@PointHistriesActivity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(this@PointHistriesActivity)
 
         loadPointHistoryKnowledge()
         loadPointHistoryGame()
@@ -78,7 +82,7 @@ class PointHistriesActivity: AppCompatActivity() {
 
     fun loadPointHistoryKnowledge(){
         manageSub(
-                service.getPointHistoryKnowledge("1")
+                service.getPointHistoryKnowledge(prefer.getString(KEYPREFER.UserId,""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {

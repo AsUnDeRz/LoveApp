@@ -56,8 +56,10 @@ class LearnTopicActivity : AppCompatActivity() {
 
             rv_learn_topic.setHasFixedSize(true)
             rv_learn_topic.layoutManager = LinearLayoutManager(this)
+            rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
 
-            Glide.with(this)
+
+        Glide.with(this)
                     .load(R.drawable.bg_blue)
                     .into(bg_root)
 
@@ -89,20 +91,6 @@ class LearnTopicActivity : AppCompatActivity() {
     }
 
     fun loadKnowledgeGroup(genderID:String,appDatabase: AppDatabase){
-        if(appDatabase.getKnowledgeGroup().size != 0){
-            val c = appDatabase.getKnowledgeGroup()
-            val data = ObservableArrayList<Model.LearnTopicContent>().apply {
-                c.forEach {
-                    item -> add(Model.LearnTopicContent(
-                        item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
-                        item.sumpoint+" Points","5 Topics",R.drawable.clinic_img))
-                    d { "add [" + item.group_name_eng + "] to array" }
-                }
-            }
-            knowledgeGroups = data
-            rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
-
-        }else{
             manageSub(
                 service.getKnowledgeGroup(genderID)
                         .subscribeOn(Schedulers.io())
@@ -112,20 +100,35 @@ class LearnTopicActivity : AppCompatActivity() {
                                 c.forEach {
                                     item -> add(Model.LearnTopicContent(
                                         item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
-                                        item.sumpoint+" Points","5 Topics",R.drawable.clinic_img))
+                                        item.sumpoint+" Points","",R.drawable.clinic_img))
                                     d { "add [" + item.group_name_eng + "] to array" }
                                 }
                             }
                             knowledgeGroups = data
+                            appDatabase.deleteAllKnowledgeGroup()
                             appDatabase.addKnowledgeGroup(c)
                             rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
 
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }
+                            if(appDatabase.getKnowledgeGroup().size != 0){
+                                val c = appDatabase.getKnowledgeGroup()
+                                val data = ObservableArrayList<Model.LearnTopicContent>().apply {
+                                    c.forEach {
+                                        item -> add(Model.LearnTopicContent(
+                                            item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
+                                            item.sumpoint+" Points","",R.drawable.clinic_img))
+                                        d { "add [" + item.group_name_eng + "] to array" }
+                                    }
+                                }
+                                knowledgeGroups = data
+                                rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
+
+                            }
                         })
                 )
-        }
+
     }
 
 

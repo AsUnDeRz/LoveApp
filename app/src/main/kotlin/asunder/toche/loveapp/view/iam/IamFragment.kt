@@ -9,20 +9,24 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import asunder.toche.loveapp.R
 import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,7 +39,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import view.custom_view.TextViewHeavy
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by admin on 8/1/2017 AD.
@@ -66,11 +72,14 @@ class IamFragment : Fragment() {
     lateinit var appDb :AppDatabase
     lateinit var mChart : LineChart
     lateinit var preference : SharedPreferences
+    lateinit var utils: Utils
     var dataUser = ObservableArrayList<Model.User>()
+    var labResultList = ObservableArrayList<Model.RepositoryLabResult>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.iam, container, false)
         appDb = AppDatabase(activity)
+        utils = Utils(activity)
         preference = PreferenceManager.getDefaultSharedPreferences(activity)
         loadUser(preference.getString(KEYPREFER.UserId,"0"))
 
@@ -92,7 +101,15 @@ class IamFragment : Fragment() {
 
         }
         labresult.setOnInflateListener { viewStub, view ->
-            initGraph(view)
+            loadLabResult(preference.getString(KEYPREFER.UserId,"0"),view)
+            val btnViral = view.findViewById<Button>(R.id.btn_viral_load)
+            val btnCd4 = view.findViewById<Button>(R.id.btn_cd4)
+            btnViral.setOnClickListener {
+                startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
+            }
+            btnCd4.setOnClickListener {
+                startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
+            }
         }
         iamnonhiv.setOnInflateListener { viewStub, view ->
             d{"i am non hiv inflate"}
@@ -105,6 +122,7 @@ class IamFragment : Fragment() {
 
         }
 
+        // inflate bottom layout
         when(preference.getInt(KEYPREFER.HIVSTAT,0)){
             KEYPREFER.POSITIVE -> labresult.inflate()
             KEYPREFER.NEGATIVE -> iamnonhiv.inflate()
@@ -115,12 +133,22 @@ class IamFragment : Fragment() {
 
         ///set Tracked missing
         val data = appDb.getCountNoti()
-        if(data.totalNoti != "0" && data.tracked != "0" && data.missing != "0") {
+        if(data.totalNoti != "0") {
             val total = Integer.parseInt(data.tracked) + Integer.parseInt(data.missing)
-            val tracked = (data.tracked.toInt() / total) * 100
-            val missing = (data.missing.toInt() / total) * 100
-            txt_tracked.text = "$tracked % Tracked"
-            txt_missed.text = "$missing % Missed"
+            if(data.tracked.toInt() > 0) {
+                val tracked = (data.tracked.toInt() / total) * 100
+                txt_tracked.text = "$tracked % Tracked"
+            }else{
+                txt_tracked.text = "0 % Tracked"
+
+            }
+            if(data.missing.toInt() >0) {
+                val missing = (data.missing.toInt() / total) * 100
+                txt_missed.text = "$missing % Missed"
+            }else{
+                txt_missed.text = "0 % Missed"
+
+            }
         }else{
             txt_tracked.text = "0 % Tracked"
             txt_missed.text = "0 % Missed"
@@ -167,6 +195,7 @@ class IamFragment : Fragment() {
         // enable touch gestures
         mChart.setTouchEnabled(true)
 
+
         // enable scaling and dragging
         mChart.isDragEnabled = true
         mChart.setScaleEnabled(true)
@@ -193,27 +222,34 @@ class IamFragment : Fragment() {
         llXAxis.textSize = 10f
 
         val xAxis = mChart.xAxis
-        xAxis.axisMaximum = 4f
-        xAxis.setLabelCount(5,true)
+        //xAxis.axisMaximum = 4f
+        //xAxis.setLabelCount(5,true)
         xAxis.textColor = Color.WHITE
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawAxisLine(false)
+        xAxis.setDrawAxisLine(true)
+        xAxis.valueFormatter = object  :IAxisValueFormatter{
+            val mFormat = SimpleDateFormat("dd MMM")
+            override fun getFormattedValue(value: Float, axis: AxisBase?): String {
+                //val millis = TimeUnit.HOURS.toMillis(value.toLong())
+                return mFormat.format(Date(value.toLong()))
+            }
+        }
+
 
         //sxAxis.enableGridDashedLine(10f, 10f, 0f)
         //xAxis.setValueFormatter(new MyCustomXAxisValueFormatter());
         //xAxis.addLimitLine(llXAxis) // add_blue x-axis limit line
 
 
-
         val leftAxis = mChart.axisLeft
         leftAxis.removeAllLimitLines() // reset all limit lines to avoid overlapping lines
         leftAxis.textColor = Color.WHITE
-        leftAxis.axisMaximum = 150f
+        //leftAxis.axisMaximum = 150f
         leftAxis.axisMinimum =0f
         leftAxis.setLabelCount(4,true)
         //leftAxis.yOffset = 20f
         //leftAxis.enableGridDashedLine(10f, 10f, 0f)
-        leftAxis.setDrawZeroLine(false)
+        leftAxis.setDrawZeroLine(true)
         leftAxis.setDrawGridLines(false)
 
         // limit lines are drawn behind data (and not on top)
@@ -231,14 +267,16 @@ class IamFragment : Fragment() {
 //        mChart.centerViewTo(20, 50, AxisDependency.LEFT);
 
         mChart.animateX(2500)
-        //mChart.invalidate();
+        //mChart.invalidate()
 
         // get the legend (only possible after setting_layout data)
         val l = mChart.legend
 
         // modify the legend ...
         l.form = Legend.LegendForm.LINE
-        l.isEnabled =false
+        l.isEnabled =true
+        l.textColor = Color.WHITE
+        l.typeface = utils.medium
 
         // // dont forget to refresh the drawing
         // mChart.invalidate();
@@ -248,60 +286,88 @@ class IamFragment : Fragment() {
 
     private fun setData(count: Int, range: Float) {
 
-        val values = ArrayList<Entry>()
+        val viral = ArrayList<Entry>()
+        val cd4 = ArrayList<Entry>()
 
-        for (i in 0 until count) {
-
-            val `val` = (Math.random() * range).toFloat() + 3
-            values.add(Entry(i.toFloat(), `val`))
+        for(data in labResultList){
+            viral.add(Entry(data.test_date.time.toFloat(),data.viral.toFloat()))
+            cd4.add(Entry(data.test_date.time.toFloat(),data.cd4.toFloat()))
         }
 
-        val set1: LineDataSet
+
+        val setViral: LineDataSet
+        val setCd4 : LineDataSet
 
         if (mChart.data != null && mChart.data.dataSetCount > 0) {
-            set1 = mChart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
+            setViral = mChart.data.getDataSetByIndex(0) as LineDataSet
+            setViral.values = viral
+            setCd4 = mChart.data.getDataSetByIndex(1) as LineDataSet
+            setCd4.values = cd4
             mChart.data.notifyDataChanged()
             mChart.notifyDataSetChanged()
         } else {
             // create a dataset and give it a type
-            set1 = LineDataSet(values,"Dataset 1")
-            set1.values = values
+            setViral = LineDataSet(viral,"VIRAL")
+            setViral.values = viral
 
-            set1.setDrawIcons(false)
-
+            setViral.setDrawIcons(false)
             // set the line to be drawn like this "- - - - - -"
-            //set1.enableDashedLine(10f, 5f, 0f)
-            //set1.enableDashedHighlightLine(10f, 5f, 0f)
-            set1.color = Color.WHITE
-            set1.circleRadius = 5f
-            set1.setCircleColor(Color.WHITE)
-            set1.lineWidth = 1f
-            //set1.circleRadius = 3f
-            set1.setDrawCircleHole(false)
-            set1.setDrawValues(false)
-            set1.valueTextSize = 9f
-            set1.setDrawFilled(false)
-            set1.formLineWidth = 1f
-            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
-            set1.formSize = 15f
+            //setViral.enableDashedLine(10f, 5f, 0f)
+            //setViral.enableDashedHighlightLine(10f, 5f, 0f)
+            setViral.color = Color.WHITE
+            setViral.valueTextColor = Color.WHITE
+            setViral.circleRadius = 5f
+            setViral.setCircleColor(Color.WHITE)
+            setViral.lineWidth = 1f
+            //setViral.circleRadius = 3f
+            setViral.setDrawCircleHole(false)
+            setViral.setDrawValues(false)
+            setViral.valueTextSize = 9f
+            setViral.setDrawFilled(false)
+            setViral.formLineWidth = 1f
+            setViral.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
+            setViral.formSize = 15f
+
+            //init cd4
+            setCd4 = LineDataSet(cd4,"CD4")
+            setCd4.values = cd4
+
+            setCd4.setDrawIcons(false)
+            // set the line to be drawn like this "- - - - - -"
+            // setCd4.enableDashedLine(10f, 5f, 0f)
+            // setCd4.enableDashedHighlightLine(10f, 5f, 0f)
+            setCd4.color = ContextCompat.getColor(activity,R.color.orange)
+            setCd4.valueTextColor = Color.WHITE
+            setCd4.circleRadius = 5f
+            setCd4.setCircleColor(ContextCompat.getColor(activity,R.color.orange))
+            setCd4.lineWidth = 1f
+            // setCd4.circleRadius = 3f
+            setCd4.setDrawCircleHole(false)
+            setCd4.setDrawValues(false)
+            setCd4.valueTextSize = 9f
+            setCd4.setDrawFilled(false)
+            setCd4.formLineWidth = 1f
+            setCd4.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
+            setCd4.formSize = 15f
 
             /*
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 val drawable = ContextCompat.getDrawable(this, R.drawable.fade_red)
-                set1.fillDrawable = drawable
+                setViral.fillDrawable = drawable
             } else {
-                set1.fillColor = Color.BLACK
+                setViral.fillColor = Color.BLACK
             }
             */
 
             val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add_blue the datasets
+            dataSets.add(setViral) // add_blue the datasets
+            dataSets.add(setCd4)
 
             // create a data object with the datasets
             val data = LineData(dataSets)
-
+            //data.setValueTextSize(9f)
+            //data.setDrawValues(true)
             // set data
             mChart.data = data
         }
@@ -326,7 +392,29 @@ class IamFragment : Fragment() {
                         }},{
                             d { it.message!! }
                         })
+        )
+    }
 
+    fun loadLabResult(id:String,view:View){
+        manageSub(
+                service.getLabResult(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data =ObservableArrayList<Model.RepositoryLabResult>().apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d { "Add ["+item.user_id+"] to arraylist" }
+                                }
+                            }
+                            labResultList = data
+                            if(labResultList.size != 0) {
+                                initGraph(view)
+                            }
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
         )
     }
 

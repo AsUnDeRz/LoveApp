@@ -11,6 +11,7 @@ import android.widget.TextView
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.LearnGameItemBinding
 import com.bumptech.glide.Glide
+import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,6 +19,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.learn_game_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 /**
@@ -94,6 +99,18 @@ class LearnGameMainActivity: AppCompatActivity(){
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == KEYPREFER.LEARNGAME && data != null){
+            Timber.d { "result for knowledge content " }
+            val point = data.getStringExtra(KEYPREFER.POINT)
+            val contentID = data.getStringExtra(KEYPREFER.CONTENT)
+            val userID = preference.getString(KEYPREFER.UserId,"")
+            d{"check result $point   $contentID"}
+            addUpdatePoint(point,contentID,userID)
+        }
+    }
+
     fun LearnGameAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.learnGameItem,stableIds).type{ item, position ->
             when(item){
@@ -129,7 +146,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                 "image",item.point, arrayListOf("2","3"),"1",item.content_th_long,item.content_eng_long,item.link)
                         var data = Intent()
                         data.putExtra(KEYPREFER.CONTENT,model)
-                        startActivity(data.setClass(this@LearnGameMainActivity,LearnNewsActivity::class.java))
+                        startActivityForResult(data.setClass(this@LearnGameMainActivity,LearnNewsActivity::class.java),KEYPREFER.LEARNGAME)
                     }
                 }
 
@@ -138,23 +155,6 @@ class LearnGameMainActivity: AppCompatActivity(){
 
 
     fun loadKnowLedgeInGroup(genderID:String,groupID:String,appDatabase: AppDatabase) {
-        if (appDatabase.getKnowledgeContent(groupID).size != 0) {
-            val c = appDatabase.getKnowledgeContent(groupID)
-            val content = ObservableArrayList<Model.RepositoryKnowledge>()
-            val data = ObservableArrayList<Model.LearnGameContent>().apply {
-                c.forEach { item ->
-                    add(Model.LearnGameContent(
-                            item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
-                            item.point, "20% done", R.drawable.clinic_img))
-                    content.add(item)
-                    d { "add [" + item.title_eng + "] to array" }
-                }
-            }
-            contentList = content
-            LearnGameList = data
-            rv_learngame.adapter = LearnGameAdapter(LearnGameList, false)
-
-        } else {
             manageSub(
                     service.getKnowledgeInGroup(genderID, groupID)
                             .subscribeOn(Schedulers.io())
@@ -178,9 +178,62 @@ class LearnGameMainActivity: AppCompatActivity(){
                                 }
                             }, {
                                 d { it.message!! }
+                                //load in local
+                                if (appDatabase.getKnowledgeContent(groupID).size != 0) {
+                                    val c = appDatabase.getKnowledgeContent(groupID)
+                                    val content = ObservableArrayList<Model.RepositoryKnowledge>()
+                                    val data = ObservableArrayList<Model.LearnGameContent>().apply {
+                                        c.forEach { item ->
+                                            add(Model.LearnGameContent(
+                                                    item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
+                                                    item.point, "20% done", R.drawable.clinic_img))
+                                            content.add(item)
+                                            d { "add [" + item.title_eng + "] to array" }
+                                        }
+                                    }
+                                    contentList = content
+                                    LearnGameList = data
+                                    rv_learngame.adapter = LearnGameAdapter(LearnGameList, false)
+
+                                }
                             })
             )
-        }
+
     }
+
+    fun addUpdatePoint(point:String,contentId:String,userId: String){
+        val addPoint = service.addUserPoint(userId,point)
+        addPoint.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                Timber.d { t?.message.toString() }
+            }
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if(response!!.isSuccessful){
+                    Timber.d { "addPoint Successful" }
+                    inputPointHistory(point,contentId,userId)
+                }
+            }
+        })
+
+
+    }
+
+    fun inputPointHistory(point:String,knowledgeID:String,id:String){
+        Timber.d { "input point history" }
+        Timber.d { "point [$point] user_id[$id]" }
+        val addPH = service.addPointHistory(knowledgeID,id,"2",point, Date())
+        addPH.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                Timber.d { t?.message.toString() }
+            }
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if (response!!.isSuccessful) {
+                    Timber.d { "addPointHistory successful" }
+                }
+            }
+        })
+
+    }
+
 
 }

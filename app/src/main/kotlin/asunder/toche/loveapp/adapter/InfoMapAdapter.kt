@@ -46,12 +46,18 @@ class InfoMapAdapter(var dataClinic:ObservableArrayList<Model.Clinic>,context: A
 
     override fun getInfoWindow(marker: Marker): View? {
         d{"getInfoWindow"}
+        if(marker.title == "" || marker.title == null){
+            return null
+        }
         render(marker,mContents)
         return mContents
     }
 
     override fun getInfoContents(marker: Marker): View? {
         d{"getInfoContents"}
+        if(marker.title == "" || marker.title == null) {
+            return null
+        }
         render(marker, mContents)
         return mContents
     }

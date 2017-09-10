@@ -2,6 +2,7 @@ package asunder.toche.loveapp
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.ObservableArrayList
 import android.graphics.Bitmap
@@ -32,10 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -84,7 +82,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
     fun loadHospital(){
         manageSub(
-                service.getHospitalsOnMap("18.793276","91.0172","8")
+                service.getHospitalsOnMap(location?.latitude.toString(),location?.longitude.toString(),"8")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {
@@ -116,11 +114,14 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     //override activity/fragment
     lateinit var mGoogleApiClient: GoogleApiClient
     var googleMap: GoogleMap? = null
+    var latlngWhenPause : LatLng? =null
     val PLACE_PICKER_REQUEST = 1
     lateinit var mLocationRequest: LocationRequest
     var location: Location? = null
     lateinit var options: MarkerOptions
     var mPermissionDenied = false
+    val zoomLevel = 14f
+
 
     companion object {
         fun newInstance(): LabFragment {
@@ -157,7 +158,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         d { "Visible to user =$isVisibleToUser" }
-        if(isVisibleToUser){
+        if(isVisibleToUser && location != null && hospitalList.size == 0){
             loadHospital()
         }
         //addmarker
@@ -211,13 +212,12 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         }
 
         mapView.getMapAsync(this)
+
     }
 
     override fun onPause() {
         super.onPause()
-        d {
-            "onPase" +
-                    "mapView onPase"
+        d { "onPause mapView"
         }
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
         mapView.onPause()
@@ -256,7 +256,20 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     }
 
     override fun onInfoWindowClick(marker: Marker?) {
+       var clinic : Model.Clinic? =null
+        val title = marker?.title
+        latlngWhenPause = marker?.position!!
+
+        hospitalList
+                .filter { it.name == title }
+                .forEach { clinic = it }
+
+
+        val intent = Intent()
+        intent.putExtra(KEYPREFER.CLINICMODEL,clinic)
+        activity.startActivity(intent.setClass(activity,ClinicInfo::class.java))
         //Toast.makeText(context, "I'am click " + marker?.title, Toast.LENGTH_LONG).show()
+
     }
 
     override fun onLocationChanged(location: Location?) {
@@ -312,9 +325,20 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         d { "handle New location ["+location?.provider+"]" }
         d{"get current location ["+getAddress(location?.latitude,location?.longitude)+"]"}
 
-        val zoomLevel = 10f
         val latLng = LatLng(location!!.latitude, location!!.longitude)
+        val current =MarkerOptions()
+                .position(latLng)
+                .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
+        googleMap?.addMarker(current)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+        if(hospitalList.size == 0) {
+            loadHospital()
+        }else{
+            loadMarker()
+        }
+        if(latlngWhenPause != null){
+            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlngWhenPause,zoomLevel))
+        }
         /*
         for(dt in hospitalList){
             addMarker(dt)
@@ -338,11 +362,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             // Access to the location has been granted to the app.
             //googleMap!!.isMyLocationEnabled = true
             if (mGoogleApiClient.isConnected && location != null) {
-                val zoomLevel = 10f
                 val latLng = LatLng(location!!.latitude, location!!.longitude)
+                /*
+                val current =MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
+                googleMap?.addMarker(current)
                 googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
 
-                /*
+
                 for(dt in hospitalList){
                     addMarker(dt)
                 }
@@ -357,7 +385,6 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     fun addMarker(lat:Double,lng:Double,position:Int){
         d{"addMarker from data position[$position]"}
        // val zoomLevel = 16.0f //This goes up to 21
-        val zoomLevel = 10f
         val latLng = LatLng(lat, lng)
         async(UI){
             val data: Deferred<MarkerOptions> = bg {
@@ -378,7 +405,6 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         d{"Add marker hospital lat["+dat.locy+"] lng["+dat.locx+"]"}
         //val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(dat.locx, dat.locy)
-        val zoomLevel = 10f
         async(UI){
             val data: Deferred<MarkerOptions> = bg {
                 MarkerOptions()
@@ -398,12 +424,19 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             // Access to the location has been granted to the app.
             //googleMap!!.isMyLocationEnabled = true
             if (mGoogleApiClient.isConnected && location != null) {
-                val zoomLevel = 10f
                 val latLng = LatLng(location!!.latitude, location!!.longitude)
-                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+                //var builder = LatLngBounds.Builder()
                 for(dt in hospitalList){
                     addMarker(dt)
+                    //builder.include(LatLng(dt.locx,dt.locy))
                 }
+                /*
+                val current =MarkerOptions()
+                        .position(latLng)
+                googleMap?.addMarker(current)
+                */
+                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel))
+
             }
         }
     }

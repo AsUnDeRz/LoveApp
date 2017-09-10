@@ -1,10 +1,19 @@
 package asunder.toche.loveapp
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.LabeledIntent
+import android.content.pm.PackageManager
+import android.databinding.ObservableArrayList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import kotlinx.android.synthetic.main.header_logo_white_back.*
@@ -13,9 +22,17 @@ import kotlinx.android.synthetic.main.learn_new_finish.*
 import com.github.ajalt.timberkt.Timber.d
 import android.text.Spanned
 import android.view.View
+import android.webkit.WebSettings
 import android.webkit.WebView
-
-
+import im.delight.android.webview.AdvancedWebView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 /**
@@ -23,15 +40,48 @@ import android.webkit.WebView
  */
 class LearnNewsActivity : AppCompatActivity() {
 
+    var service : LoveAppService = LoveAppService.create()
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
+
+    var questionList = ObservableArrayList<Model.QuestionYesNo>()
+    lateinit var content : Model.RepositoryKnowledge
+    lateinit var utils :Utils
+    lateinit var  handler: Handler
+    lateinit var runnable: Runnable
+    var readFinish = false
+
     override fun onBackPressed() {
-        super.onBackPressed()
+        val data =Intent()
+        if(readFinish) {
+            data.putExtra(KEYPREFER.CONTENT, content.id)
+            data.putExtra(KEYPREFER.POINT, content.point)
+            setResult(Activity.RESULT_OK, data)
+        }
         finish()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.learn_new)
         val utils = Utils(this@LearnNewsActivity)
+
+        handler = Handler()
+        runnable = Runnable {
+            final_layout.visibility = View.VISIBLE
+        }
+
 
         /*
         (0 until toolbar.childCount)
@@ -51,7 +101,7 @@ class LearnNewsActivity : AppCompatActivity() {
         toolbar_layout.setExpandedTitleTypeface(MyApp.typeFace.heavy)
 
         title_header.text = "LEARNS\nAND GAMES"
-        var content = intent.getParcelableExtra<Model.RepositoryKnowledge>(KEYPREFER.CONTENT)
+        content = intent.getParcelableExtra<Model.RepositoryKnowledge>(KEYPREFER.CONTENT)
         val data  = utils.txtLocale(content.content_th,content.content_eng)
         toolbar_layout.title = utils.txtLocale(content.title_th,content.title_eng)
         txt_f3.text ="Earned +"+content.point+" points."
@@ -69,27 +119,115 @@ class LearnNewsActivity : AppCompatActivity() {
         }else{
             htmlAsSpanned = Html.fromHtml(data)
         }
-        val webview = findViewById<WebView>(R.id.colunm_1)
-        webview.settings.javaScriptEnabled = true
+        val webview = findViewById<AdvancedWebView>(R.id.colunm_1)
+        val webSettings = webview.settings
+        webSettings.javaScriptEnabled = true
         webview.loadDataWithBaseURL("", data, "text/html", "UTF-8", "")
-
         btn_back.setOnClickListener {
             onBackPressed()
         }
 
+
+
         btn_readmore.setOnClickListener {
-            val uri = Uri.parse(content.link)
+            val uri = Uri.parse(content.link.trim())
             val intent = Intent()
             intent.action = Intent.ACTION_VIEW
             intent.data = uri
             startActivity(intent)
         }
 
+        btn_facebook.setOnClickListener {
+                onShare(content.link)
+        }
+
+        btn_getmore.setOnClickListener {
+            //load question
+                val data = Intent()
+                data.putExtra(KEYPREFER.CONTENT,content.id)
+                startActivity(data.setClass(this@LearnNewsActivity, QuestionActivity::class.java))
+
+        }
+
+
+        scroller.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if (scrollY > oldScrollY) {
+                //d{ "Scroll DOWN"}
+            }
+            if (scrollY < oldScrollY) {
+                //d{ "Scroll UP"}
+            }
+
+            if (scrollY == 0) {
+                //d{"TOP SCROLL"}
+            }
+
+            if (scrollY == (v!!.getChildAt(0).measuredHeight - v.measuredHeight)) {
+                d{"BOTTOM SCROLL"}
+                readFinish = true
+            }
+
+        }
+
+
+
 
     }
 
+    fun onShare(link:String){
+
+        val emailIntent = Intent()
+        emailIntent.action = Intent.ACTION_SEND
+        // Native email client doesn't currently support HTML, but it doesn't hurt to try in case they fix it
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "test")
+        emailIntent.type = "message/rfc822"
+
+        val pm = packageManager
+        val sendIntent = Intent(Intent.ACTION_SEND)
+        sendIntent.type = "text/plain"
+
+
+        val openInChooser = Intent.createChooser(emailIntent, "Share")
+
+        val resInfo = pm.queryIntentActivities(sendIntent, 0)
+        val intentList = ArrayList<LabeledIntent>()
+        for (ri in resInfo) {
+            // Extract the label, append it, and repackage it in a LabeledIntent
+
+            val packageName = ri.activityInfo.packageName
+           if(packageName.contains("facebook")) {
+                val intent = Intent()
+                intent.component = ComponentName(packageName, ri.activityInfo.name)
+                intent.action = Intent.ACTION_SEND
+                intent.type = "text/plain";
+                if(packageName.contains("facebook")) {
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "data")
+                    intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
+                    d{packageName+"   "+ri.activityInfo.processName}
+
+                }
+                intentList.add(LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon))
+            }
+        }
+
+        // convert intentList to array
+        val extraIntents = intentList.toArray(arrayOfNulls<LabeledIntent>(intentList.size))
+
+
+        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents)
+        startActivity(openInChooser)
+    }
+
+
     override fun onResume() {
         super.onResume()
-        final_layout.visibility = View.VISIBLE
+        handler.postDelayed(runnable,2000)
+        //loadYesNoQuestion()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+        unsubscribe()
     }
 }

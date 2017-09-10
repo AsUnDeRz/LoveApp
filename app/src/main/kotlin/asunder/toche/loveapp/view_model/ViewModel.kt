@@ -5,6 +5,7 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
+import android.preference.PreferenceManager
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +20,10 @@ import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 /**
  * Created by admin on 8/7/2017 AD.
@@ -167,12 +172,6 @@ object ViewModel{
             }
         }
         fun loadContentHome(callback :HomeInterface,user_id:String,appDatabase: AppDatabase) {
-            if (appDatabase.getKnowledgeContent().size != 0) {
-                d{"load content in local"}
-                val data = appDatabase.getKnowledgeContent()
-                callback.endCallProgress(data)
-            } else {
-                d{"load content on server"}
                 manageSub(
                         service.getContentInHome(user_id)
                                 .subscribeOn(Schedulers.io())
@@ -185,15 +184,57 @@ object ViewModel{
                                                 d { "add contentId [" + item.id + "]" }
                                             }
                                         }
+                                        appDatabase.deleteAllKnowledgeContent()
                                         appDatabase.addKnowledgeContent(data)
                                         callback.endCallProgress(data)
                                         d { "check response [" + c.size + "]" }
                                     }
                                 }, {
-                                    d { it.message!! }
+                                    d {"on Error "+ it.message!! }
+                                    //load with local
+                                    d{"load content on server"}
+                                    if (appDatabase.getKnowledgeContent().size != 0) {
+                                        d{"load content in local"}
+                                        val data = appDatabase.getKnowledgeContent()
+                                        callback.endCallProgress(data)
+                                    }
                                 })
                 )
-            }
+            //}
+        }
+
+        fun addUpdatePoint(point:String,contentId:String,userId: String){
+                val addPoint = service.addUserPoint(userId,point)
+                addPoint.enqueue(object : Callback<Void> {
+                    override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                        Timber.d { t?.message.toString() }
+                    }
+                    override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                        if(response!!.isSuccessful){
+                            Timber.d { "addPoint Successful" }
+                            inputPointHistory(point,contentId,userId)
+                        }
+                    }
+                })
+
+
+        }
+
+        fun inputPointHistory(point:String,knowledgeID:String,id:String){
+            Timber.d { "input point history" }
+                Timber.d { "point [$point] user_id[$id]" }
+                val addPH = service.addPointHistory(knowledgeID,id,"2",point, Date())
+                addPH.enqueue(object : Callback<Void> {
+                    override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                        Timber.d { t?.message.toString() }
+                    }
+                    override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                        if (response!!.isSuccessful) {
+                            Timber.d { "addPointHistory successful" }
+                        }
+                    }
+                })
+
         }
 
     }

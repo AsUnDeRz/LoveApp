@@ -5,6 +5,7 @@ package asunder.toche.loveapp
  */
 object KEYPREFER{
 
+    val POINT ="point"
     val HIVLASTTEST = "hivlasttest"
     val HIVTEST = "histest"
     val CLINICMODEL ="clinic"

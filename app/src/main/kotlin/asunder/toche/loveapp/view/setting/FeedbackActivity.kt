@@ -75,13 +75,13 @@ class FeedbackActivity: AppCompatActivity(){
 
     fun inputFeedback(comment:String){
         btn_send.isClickable = false
-        d { "input CD4 VL" }
+        d { "input Feedback with star ["+ratingBar.score.toString()+"]" }
         val preferences = PreferenceManager.getDefaultSharedPreferences(this@FeedbackActivity)
         if (preferences.getString(KEYPREFER.UserId, "") != "") {
             val userID = preferences.getString(KEYPREFER.UserId,"")
             d { " user_id[" + preferences.getString(KEYPREFER.UserId, "") + "]" }
-            val addCD4 = service.addFeedback(userID, Date(),comment)
-            addCD4.enqueue(object : Callback<Void> {
+            val addFeedback = service.addFeedback(userID, Date(),comment,ratingBar.score.toInt().toString())
+            addFeedback.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }
                     btn_send.isClickable = true

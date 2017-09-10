@@ -21,17 +21,19 @@ class NotificationActivity : AppCompatActivity() {
     var notiList = ObservableArrayList<Model.Notification>()
 
     lateinit var appDb :AppDatabase
+    lateinit var utils : Utils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notification)
         appDb = AppDatabase(this)
+        utils = Utils(this)
 
 
 
         notiList.apply {
             val data = appDb.getNotiMissing()
             for(noti in data){
-                add(noti)
+                add(Model.Notification(noti.id,noti.title,utils.getDifDate(noti.time),noti.time))
             }
         }
         number_noti.text = notiList.size.toString()

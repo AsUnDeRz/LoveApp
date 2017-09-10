@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import asunder.toche.loveapp.databinding.HomeItemBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.header_home.*
@@ -36,6 +38,8 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             }
         }
         homeList = content
+        rv_home.adapter = HomeAdapter(homeList, false)
+
 
         /*
         imaHome = data
@@ -89,11 +93,11 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
                 .into(button_noti)
     }
 
-     var listener: ImageListener = ImageListener { position, imageView ->
+    var listener: ImageListener = ImageListener { position, imageView ->
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
-         Glide.with(activity)
-                 .load(DataSimple.imageHome[position])
-                 .into(imageView)
+        Glide.with(activity)
+                .load(DataSimple.imageHome[position])
+                .into(imageView)
 
 
     }
@@ -112,7 +116,6 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
         /*
         var notiList = appDb.getNotiMissing()
-
         when {
             notiList.size >= 3 -> loadNotiColor(R.drawable.noti_red)
             notiList.size >= 1 -> loadNotiColor(R.drawable.noti_yellow)
@@ -120,6 +123,18 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         }
         */
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == KEYPREFER.LEARNGAME && data != null){
+            Timber.d { "result for knowledge content " }
+            val point = data.getStringExtra(KEYPREFER.POINT)
+            val contentID = data.getStringExtra(KEYPREFER.CONTENT)
+            val userID = prefer.getString(KEYPREFER.UserId,"")
+            d{"check result $point   $contentID"}
+            homeViewModel.addUpdatePoint(point,contentID,userID)
+        }
     }
 
     override fun onPause() {
@@ -159,7 +174,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
                 var data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,model)
-                startActivity(data.setClass(activity,LearnNewsActivity::class.java))
+                startActivityForResult(data.setClass(activity,LearnNewsActivity::class.java),KEYPREFER.LEARNGAME)
             }
             .onLongClick {}
 }

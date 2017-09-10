@@ -1,7 +1,9 @@
 package asunder.toche.loveapp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -17,20 +19,25 @@ import android.content.Intent
 import android.databinding.ObservableList
 import android.preference.PreferenceManager
 import com.tapadoo.alerter.Alerter
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface {
 
 
-
     var finis = 0
     lateinit var MainViewModel : ViewModel.MainViewModel
     companion object {
-            lateinit var vp_main : CustomViewpager
+        lateinit var vp_main : CustomViewpager
+            @SuppressLint("StaticFieldLeak")
             lateinit var bnve : BottomNavigationViewEx
             lateinit var questions : ObservableList<Model.RiskQuestion>
-
-    }
+        }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)

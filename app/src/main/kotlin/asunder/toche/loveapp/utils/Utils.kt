@@ -25,6 +25,8 @@ import android.text.InputFilter
 
 
 
+
+
 /**
  * Created by admin on 8/7/2017 AD.
  */
@@ -63,6 +65,20 @@ class Utils(val contex: Context) {
         }
     }
 
+    fun getDifDate(dateNoti:Date) :String{
+        val mills = Date().time - dateNoti.time
+        val Hours = (mills / (1000 * 60 * 60)).toInt()
+        val Mins = ((mills / (1000 * 60)) % 60).toInt()
+
+        if(Hours > 24){
+            return "Forget to take pill for "+(Hours/24).toString()+" days"
+        }
+        if(Hours == 0){
+            return "Forget to take pill for $Mins minute"
+
+        }
+        return "Forget to take pill for $Hours hours $Mins minute"
+    }
     fun getDateFormal(date: Date):String{
         val fmtOut = SimpleDateFormat("dd MMM yyyy")
         return fmtOut.format(date)
