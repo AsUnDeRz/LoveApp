@@ -32,6 +32,7 @@ class LoadingActivity:AppCompatActivity(){
         SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak)
 
         utilDb = AppDatabase(this@LoadingActivity)
+        utilDb.deleteAllKnowledgeContent()
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
             PermissionUtils.requestPermission(this@LoadingActivity, 123, Manifest.permission.ACCESS_FINE_LOCATION, true)

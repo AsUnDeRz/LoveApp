@@ -198,6 +198,7 @@ class Utils(val contex: Context) {
         for (integer in numbers) {
             sb.append("/"+integer)
         }
+        d{sb.toString()}
         return numbers
     }
 

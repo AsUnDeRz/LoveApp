@@ -74,7 +74,6 @@ class LearnAndGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "LEARNS\nAND GAMES"
         prefer = PreferenceManager.getDefaultSharedPreferences(activity)
-        loadContentHome(prefer.getString(KEYPREFER.UserId,""),appDb)
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
         rv_learn_game.adapter = LearnNewAdapter(homeList, false)
@@ -91,6 +90,20 @@ class LearnAndGameFragment : Fragment() {
             //data.putExtra("title","LEARNS")
             //data.putExtra("key",2)
             startActivity(data.setClass(context, LearnTopicActivity::class.java))
+        }
+
+        if (appDb.getKnowledgeContent().size != 0) {
+            val c = appDb.getKnowledgeContent()
+            val data = ObservableArrayList<Model.HomeContent>().apply {
+                c.forEach { a ->
+                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                    d { "add contentId [" + a.id + "]" }
+                }
+            }
+            homeList = data
+            rv_learn_game.adapter = LearnNewAdapter(homeList, false)
+        }else {
+            loadContentHome(prefer.getString(KEYPREFER.UserId, ""), appDb)
         }
 
     }

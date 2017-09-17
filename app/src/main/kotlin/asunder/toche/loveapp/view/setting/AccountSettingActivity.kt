@@ -56,27 +56,45 @@ class AccountSettingActivity: AppCompatActivity() {
     lateinit var utils :Utils
 
     fun loadProvince(){
-        manageSub(
-                service.getProvinces()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ c -> run {
-                            var Title = ""
-                            val data =ObservableArrayList<Model.Province>().apply {
-                                c.forEach {
-                                    item -> run {
-                                    add(item)
-                                    provinTitle.add(utils.txtLocale(item.province_th,item.province_eng))
-                                    if(item.province_id == dataUser[0].province){
-                                        Title =  utils.txtLocale(item.province_th,item.province_eng)
-                                    }}}}
-                            edt_province.setText(Title)
-                            provinces = data
-                            d { "check response [" + c.size + "]" }
-                        }},{
-                            d { it.message!! }
-                        })
-        )
+        if(ActivityMain.provinces.size == 0) {
+            manageSub(
+                    service.getProvinces()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c ->
+                                run {
+                                    var Title = ""
+                                    val data = ObservableArrayList<Model.Province>().apply {
+                                        c.forEach { item ->
+                                            run {
+                                                add(item)
+                                                provinTitle.add(utils.txtLocale(item.province_th, item.province_eng))
+                                                if (item.province_id == dataUser[0].province) {
+                                                    Title = utils.txtLocale(item.province_th, item.province_eng)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    edt_province.setText(Title)
+                                    provinces = data
+                                    d { "check response [" + c.size + "]" }
+                                }
+                            }, {
+                                d { it.message!! }
+                            })
+            )
+        }else{
+            var Title = ""
+            for(item in ActivityMain.provinces){
+                provinTitle.add(utils.txtLocale(item.province_th, item.province_eng))
+                if (item.province_id == dataUser[0].province) {
+                    Title = utils.txtLocale(item.province_th, item.province_eng)
+                }
+            }
+            edt_province.setText(Title)
+            provinces = ActivityMain.provinces
+
+        }
     }
 
 
@@ -216,6 +234,7 @@ class AccountSettingActivity: AppCompatActivity() {
         fname = data.first_name
         lname = data.first_surname
         birth = formatSend.format(date)
+        provinID = data.province
 
 
         var status=""
@@ -238,9 +257,9 @@ class AccountSettingActivity: AppCompatActivity() {
             val userID = prefer.getString(KEYPREFER.UserId,"")
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
             val update = service.updateUser(data.user_id,data.gender_id,data.name, fname,
-                    lname,data.status_id,edt_fcode.text.toString(),edt_phone.text.toString(),
-                    edt_email.text.toString(),edt_password.text.toString(),provinID,edt_work.text.toString(),
-                    edt_number_id.text.toString(), birth,data.point)
+                    lname,data.status_id,edt_fcode.editableText.toString(),edt_phone.editableText.toString(),
+                    edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,edt_work.editableText.toString(),
+                    edt_number_id.editableText.toString(), birth,data.point)
             update.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }

@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_white.*
+import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.learn_topic.*
 
 /**
@@ -52,7 +53,6 @@ class LearnTopicActivity : AppCompatActivity() {
             preference = PreferenceManager.getDefaultSharedPreferences(this@LearnTopicActivity)
             appDb = AppDatabase(this@LearnTopicActivity)
             loadKnowledgeGroup(preference.getString(KEYPREFER.GENDER,"1"),appDb)
-            title_app.text = "LEARNS"
 
             rv_learn_topic.setHasFixedSize(true)
             rv_learn_topic.layoutManager = LinearLayoutManager(this)
@@ -62,6 +62,10 @@ class LearnTopicActivity : AppCompatActivity() {
         Glide.with(this)
                     .load(R.drawable.bg_blue)
                     .into(bg_root)
+        title_header.text = "LEARNS"
+        btn_back.setOnClickListener {
+            onBackPressed()
+        }
 
         }
 

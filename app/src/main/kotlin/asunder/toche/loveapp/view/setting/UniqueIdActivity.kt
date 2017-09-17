@@ -18,7 +18,9 @@ import kotlinx.android.synthetic.main.unique_id_code.*
 import java.util.*
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
@@ -75,6 +77,26 @@ class UniqueIdActivity: AppCompatActivity() {
             }
         }
 
+        edt_fname.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                edt_fname.clearFocus()
+                edt_lname.requestFocus()
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
+        edt_lname.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                edt_lname.clearFocus()
+                edtHbd.requestFocus()
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
         btn_save.setOnClickListener {
             onBackPressed()
         }
@@ -97,9 +119,9 @@ class UniqueIdActivity: AppCompatActivity() {
         override fun onDateSet(p0: DatePicker?, year: Int, mounth: Int, dom: Int) {
             d{"$year  $mounth  $dom"}
             y = year
-            m = mounth
+            m = mounth+1
             day = dom
-            edtHbd.setText("$dom/$mounth/$year")
+            edtHbd.setText("$dom/$m/$year")
         }
 
 
@@ -119,6 +141,7 @@ class UniqueIdActivity: AppCompatActivity() {
             return TimePickerDialog(activity, this, hour, minute,
                     DateFormat.is24HourFormat(activity))
                     */
+
             return DatePickerDialog(activity,this,year,mount,dOfm)
         }
 

@@ -72,13 +72,12 @@ class LearnGameMainActivity: AppCompatActivity(){
         when(intent.extras.getInt("key")){
             1 ->{
                 LearnGameList.apply {
-                    for(i in 1..3) {
-                        add(Model.LearnGameContent(R.drawable.clinic_img, "Memory Master #$i", "1"+i+"0", "20",R.drawable.clinic_img))
-                        add(Model.LearnGameContent(R.drawable.clinic_img, "Co-op Game", "100", "10",R.drawable.clinic_img))
-
+                    for(i in 1..2) {
+                        add(Model.LearnGameContent(R.drawable.clinic_img, "Memory Master #$i", "100 Point", "20% Done",R.drawable.clinic_img))
                     }
                 }
                 rv_learngame.adapter = LearnGameAdapter(LearnGameList,false)
+                loadContentGame()
             }
             2 ->{
                 //loadKnowledge in group
@@ -135,10 +134,6 @@ class LearnGameMainActivity: AppCompatActivity(){
                             startActivity(Intent().setClass(this,MemoryMaster2Activity::class.java))
 
                         }
-                        if(it.binding.titleGame.text == "Safe Sex"){
-                            startActivity(Intent().setClass(this,QuestionActivity::class.java))
-
-                        }
                     }
                     2 ->{
                         val item = contentList[it.adapterPosition]
@@ -154,6 +149,31 @@ class LearnGameMainActivity: AppCompatActivity(){
             .onLongClick {}
 
 
+    fun loadContentGame(){
+        manageSub(
+                service.getGames()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c ->
+                            run {
+                                LearnGameList.apply {
+                                    c.forEach { item ->
+                                        add(Model.LearnGameContent(
+                                                item.game_id.toInt(), utils.txtLocale(item.game_name_th, item.game_name_eng),
+                                                item.sum_point+ " Point", "20% done", R.drawable.clinic_img))
+                                        d { "add [" + item.game_name_th + "] to array" }
+                                    }
+                                }
+
+                                rv_learngame.adapter = LearnGameAdapter(LearnGameList, false)
+                                d { "check response [" + c.size + "]" }
+                            }
+                        }, {
+                            d { it.message!! }
+                        })
+        )
+
+    }
     fun loadKnowLedgeInGroup(genderID:String,groupID:String,appDatabase: AppDatabase) {
             manageSub(
                     service.getKnowledgeInGroup(genderID, groupID)
@@ -166,7 +186,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                         c.forEach { item ->
                                             add(Model.LearnGameContent(
                                                     item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
-                                                    item.point, "20% done", R.drawable.clinic_img))
+                                                    item.point+ " Point", "20% done", R.drawable.clinic_img))
                                             content.add(item)
                                             d { "add [" + item.title_eng + "] to array" }
                                         }

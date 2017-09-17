@@ -20,6 +20,7 @@ import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.header_home.*
 import kotlinx.android.synthetic.main.home.*
+import kotlinx.android.synthetic.main.home_item.view.*
 
 
 /**
@@ -70,14 +71,12 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         utils = Utils(activity)
         appDb = AppDatabase(activity)
         prefer = PreferenceManager.getDefaultSharedPreferences(activity)
-        homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb)
     }
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.home, container, false)
         val cv = view?.findViewById<CarouselView>(R.id.cV)
-        appDb = AppDatabase(activity)
         cv?.setImageListener(listener)
         cv?.pageCount = DataSimple.imageHome.size
         //cv?.setImageListener(listener)
@@ -104,6 +103,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb)
         button_noti.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, NotificationActivity::class.java))
         }
@@ -163,14 +163,13 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     }
 
     private val HomeType = Type<HomeItemBinding>(R.layout.home_item)
-            .onCreate { println("Created ${it.binding.homeItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.homeItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.homeItem} at #${it.adapterPosition}") }
+            .onCreate { }
+            .onBind { }
+            .onRecycle {  }
             .onClick {
-
                 val item = it.binding.getHomeItem().data
-                val model = Model.RepositoryKnowledge("1","1","title_th",item.title_eng,"content_th",item.content_eng,
-                        "image",item.point, arrayListOf("2","3"),"1","content_th_long",item.content_eng_long,item.link)
+                val model = Model.RepositoryKnowledge(item.id,item.group_id,item.title_th,item.title_eng,item.content_th,item.content_eng,
+                        "image",item.point, arrayListOf("2","3"),item.version,item.content_th_long,item.content_eng_long,item.link)
 
                 var data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,model)

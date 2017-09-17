@@ -122,7 +122,12 @@ class LearnNewsActivity : AppCompatActivity() {
         val webview = findViewById<AdvancedWebView>(R.id.colunm_1)
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true
-        webview.loadDataWithBaseURL("", data, "text/html", "UTF-8", "")
+        val display = windowManager.defaultDisplay
+        val width=display.width
+        val header = "<html><head><title>Example</title><meta name=\"viewport\"\"content=\"width=$width, initial-scale=0.65 \" /></head>"
+
+        webview.loadDataWithBaseURL("", header+data, "text/html", "UTF-8", "")
+
         btn_back.setOnClickListener {
             onBackPressed()
         }
@@ -187,34 +192,31 @@ class LearnNewsActivity : AppCompatActivity() {
         sendIntent.type = "text/plain"
 
 
-        val openInChooser = Intent.createChooser(emailIntent, "Share")
 
         val resInfo = pm.queryIntentActivities(sendIntent, 0)
         val intentList = ArrayList<LabeledIntent>()
         for (ri in resInfo) {
             // Extract the label, append it, and repackage it in a LabeledIntent
-
             val packageName = ri.activityInfo.packageName
-           if(packageName.contains("facebook")) {
+           if(packageName.contains("com.facebook.katana")) {
                 val intent = Intent()
                 intent.component = ComponentName(packageName, ri.activityInfo.name)
                 intent.action = Intent.ACTION_SEND
-                intent.type = "text/plain";
-                if(packageName.contains("facebook")) {
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "data")
-                    intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
-                    d{packageName+"   "+ri.activityInfo.processName}
-
-                }
+                intent.type = "text/plain"
+               intent.putExtra(Intent.EXTRA_SUBJECT, "data")
+               intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
+               d{packageName+"   "+ri.activityInfo.processName}
                 intentList.add(LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon))
             }
         }
+
+        val openInChooser = Intent.createChooser(intentList[0], "Share")
 
         // convert intentList to array
         val extraIntents = intentList.toArray(arrayOfNulls<LabeledIntent>(intentList.size))
 
 
-        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents)
+        //openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents)
         startActivity(openInChooser)
     }
 

@@ -5,14 +5,17 @@ import android.content.Context
 import android.databinding.ObservableList
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.AdapterDataObserver
 import android.widget.ImageView
 import android.widget.TextView
 import asunder.toche.loveapp.*
 import asunder.toche.loveapp.R.id.icon_random
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.disposables.CompositeDisposable
@@ -27,7 +30,7 @@ import java.util.*
 /**
  * Created by admin on 8/13/2017 AD.
  */
-class MemoryMaster2Activity:AppCompatActivity(){
+class MemoryMaster2Activity:AppCompatActivity() {
 
     var service : LoveAppService = LoveAppService.create()
 
@@ -107,6 +110,9 @@ class MemoryMaster2Activity:AppCompatActivity(){
         rv_game2.layoutManager = GridLayoutManager(this,5)
         rv_game2.adapter = adapter
         rv_game2.setHasFixedSize(true)
+
+
+
         btn_back.setOnClickListener {
             onBackPressed()
         }
@@ -116,21 +122,6 @@ class MemoryMaster2Activity:AppCompatActivity(){
         }
 
         initRandomPick(randomPick)
-
-        countDown = object : CountDownTimer(31000,1000){
-            override fun onFinish() {
-                updatePoint(posPick.toString())
-                txt_time.text = "Finish!"
-                isTimeRunner = false
-                posPick = 0
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                txt_time.text = (millisUntilFinished/1000).toString() +" Sec"
-                isTimeRunner = true
-            }
-
-        }.start()
 
 
     }
@@ -189,6 +180,40 @@ class MemoryMaster2Activity:AppCompatActivity(){
 
 
 
+
+    fun showDialogFinish(point: String){
+        MaterialDialog.Builder(this@MemoryMaster2Activity)
+                .typeface(utils.medium,utils.heavy)
+                //.title("Congratulation")
+                .content("Your total point is $point Point")
+                .onPositive { dialog, which -> run {
+                    dialog.dismiss()
+                }}
+                .positiveText("Confirm")
+                .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Handler().postDelayed({
+            countDown = object : CountDownTimer(30000,1000){
+                override fun onFinish() {
+                    showDialogFinish(posPick.toString())
+                    updatePoint(posPick.toString())
+                    txt_time.text = "Finish!"
+                    isTimeRunner = false
+                    posPick = 0
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    txt_time.text = (millisUntilFinished/1000).toString() +" Sec"
+                    isTimeRunner = true
+                }
+
+            }.start()
+        },1500)
+
+    }
 
 
 

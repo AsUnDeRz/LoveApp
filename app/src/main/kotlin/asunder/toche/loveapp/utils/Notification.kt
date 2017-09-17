@@ -12,6 +12,7 @@ import android.media.RingtoneManager
 import android.media.Ringtone
 import android.app.NotificationManager
 import android.app.IntentService
+import android.app.Notification
 import android.os.SystemClock
 import android.support.v4.app.NotificationCompat
 import com.github.ajalt.timberkt.Timber.d
@@ -58,15 +59,21 @@ object  Notification {
                     .setColor(resources.getColor(R.color.colorAccent))
                     .setContentText(noti.message)
                     .setSmallIcon(R.drawable.icon_app)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setPriority(Notification.PRIORITY_HIGH)
+
 
             val mainIntent = Intent(this, ReminderActivity::class.java)
             mainIntent.putExtra(KEYPREFER.NOTIID,id)
             val pendingIntent = PendingIntent.getActivity(this,
                     id,
                     mainIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
+                    PendingIntent.FLAG_ONE_SHOT)
             builder.setContentIntent(pendingIntent)
             builder.setDeleteIntent(EventReceiver.getDeleteIntent(this,id))
+
+
+
 
             val manager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.notify(id, builder.build())

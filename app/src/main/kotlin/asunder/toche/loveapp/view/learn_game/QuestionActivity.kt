@@ -12,6 +12,7 @@ import asunder.toche.loveapp.IndicatorAdapter
 import asunder.toche.loveapp.MyApp
 import asunder.toche.loveapp.NotificationActivity
 import asunder.toche.loveapp.R
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -117,13 +118,30 @@ class QuestionActivity: AppCompatActivity() {
                 val data = questionList[currentPosition]
                 addUpdatePoint(point.toString(),data.knowledge_id)
             }else{
-                onBackPressed()
+                //onBackPressed()
             }
+            showDialogFinish(point.toString())
+
 
 
         }
 
 
+    }
+
+    fun showDialogFinish(point: String){
+        MaterialDialog.Builder(this@QuestionActivity)
+                .typeface(utils.medium,utils.heavy)
+                //.title("Congratulation")
+                .content("Your total point is $point Point")
+                .onPositive { dialog, which -> run {
+                    dialog.dismiss()
+                }}
+                .dismissListener {
+                    onBackPressed()
+                }
+                .positiveText("Confirm")
+                .show()
     }
 
 
@@ -191,7 +209,7 @@ class QuestionActivity: AppCompatActivity() {
                 override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                     if (response!!.isSuccessful) {
                         d { "addPointHistory successful" }
-                        onBackPressed()
+                        //onBackPressed()
                     }
                 }
             })

@@ -177,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Unique Identifie"
+                    android:text="Unique Identified"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
 
@@ -260,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Identifie ID"
+                android:text="Identified ID"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 

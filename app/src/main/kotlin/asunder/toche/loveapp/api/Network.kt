@@ -18,6 +18,9 @@ import kotlin.collections.ArrayList
 interface LoveAppService{
 
 
+    @GET("api/games")
+    fun getGames() : Observable<ArrayList<Model.RepositoryGame>>
+
     @GET("api/lab_result/user_id/{id}")
     fun getLabResult(@Path("id") userID: String) :Observable<ArrayList<Model.RepositoryLabResult>>
 

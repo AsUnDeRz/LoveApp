@@ -21,6 +21,7 @@ import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -133,8 +134,11 @@ class MemoryMasterActivity:AppCompatActivity(){
                     totalPoint+=point
                 }
                 d{totalPoint.toString()}
+                adapter.clickAble = false
                 btn_time.isClickable = true
-                txt_time.text ="$totalPoint Point"
+                txt_time.text ="0 Sec"
+                showDialogFinish(totalPoint.toString())
+                //txt_time.text ="$totalPoint Point"
                 //update point and input point history
                 updatePoint(totalPoint.toString())
 
@@ -230,6 +234,17 @@ class MemoryMasterActivity:AppCompatActivity(){
     }
 
 
+
+    fun showDialogFinish(point: String){
+        MaterialDialog.Builder(this@MemoryMasterActivity)
+                .typeface(utils.medium,utils.heavy)
+                .content("Your total point is $point Point")
+                .onPositive { dialog, which -> run {
+                    dialog.dismiss()
+                }}
+                .positiveText("Confirm")
+                .show()
+    }
 
 
 

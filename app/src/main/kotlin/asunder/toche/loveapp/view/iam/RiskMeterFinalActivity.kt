@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.risk_meter_final.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -124,6 +125,10 @@ class RiskMeterFinalActivity:AppCompatActivity(){
         btn_findtest.setOnClickListener {
             ActivityMain.vp_main.setCurrentItem(1,false)
             finish()
+        }
+
+        btn_back.setOnClickListener {
+            onBackPressed()
         }
 
     }

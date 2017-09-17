@@ -142,11 +142,11 @@ class HivTestActivity :AppCompatActivity(){
         override fun onDateSet(p0: DatePicker?, year: Int, mounth: Int, dom: Int) {
             Timber.d { "$year  $mounth  $dom" }
             y = year
-            m = mounth
+            m = mounth+1
             day = dom
             val calendar = Calendar.getInstance()
             calendar.set(year, mounth, dom)
-            edtDate.setText("$dom/$mounth/$year")
+            edtDate.setText("$dom/$m/$year")
             dateVal = calendar.time
         }
 

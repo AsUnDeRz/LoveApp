@@ -19,9 +19,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import asunder.toche.loveapp.ActivityMain.Companion.provinces
 import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -91,9 +94,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                                     item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
                                         utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
                                         utils.txtLocale(item.open_hour_th,item.open_hour_eng),item.phone,item.email,item.province,
-                                        item.locx,item.locy,item.version,"","",item.hospital_id,
+                                        item.locx,item.locy,item.version,"","","item.hospital_id",
                                         "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
-                                        "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png"))
+                                        "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
+                                        "item.promotion_id","utils.txtLocale(item.promotion_th,item.promotion_eng)","utils.getDateSlash(item.start_date)",
+                                        "utils.getDateSlash(item.end_date)"))
                                     d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }
@@ -160,6 +165,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         d { "Visible to user =$isVisibleToUser" }
         if(isVisibleToUser && location != null && hospitalList.size == 0){
             loadHospital()
+
         }
         //addmarker
 
@@ -184,7 +190,27 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             ActivityMain.vp_main.setCurrentItem(KEYPREFER.CLINIC, false)
         }
 
+        txt_search.setOnFocusChangeListener { view, b ->
+            if(b){
+                val proAdapter = ProvinceAdapter(activity,provinces)
+                txt_search.setAdapter(proAdapter)
+                txt_search.setOnItemClickListener { adapterView, view, position, id ->
+                    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val v = activity.currentFocus
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                    provinces
+                            .filter { it.province_id == id.toString() }
+                            .forEach {
+                                d{ it.province_eng+" // "}
+                                val latlng = LatLng(it.locx,it.locy)
+                               googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,10f))
+                            }
 
+
+                    d{ "i == $position///l == $id" }
+                }
+            }
+        }
     }
 
 
@@ -212,6 +238,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         }
 
         mapView.getMapAsync(this)
+
 
     }
 

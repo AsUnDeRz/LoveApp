@@ -25,6 +25,7 @@ class Game1Adapter(var data:ObservableList<Model.Game1>,maxPoint:Int): RecyclerV
     var num :Int=0
     var maxPointInChapter :Int =maxPoint
     var currnetPointInChapter :Int =0
+    var clickAble = true
 
     override fun getItemCount(): Int = data.size
 
@@ -121,12 +122,13 @@ class Game1Adapter(var data:ObservableList<Model.Game1>,maxPoint:Int): RecyclerV
         fun bindItemGame(gameItem: Model.Game1,pos:Int) {
             val viewModel = ViewModel.Game1ViewModel(itemView.context,gameItem)
             binding.pos1.setOnClickListener({
-                num++
-                openItem(binding.pos1,binding.pos2)
-                //viewModel.onClickImage(binding.pos1,binding.pos2,isFrist)
-                isFrist = !isFrist
-                checkNum(num,binding,gameItem,isFrist)
-
+                if(clickAble){
+                    num++
+                    openItem(binding.pos1,binding.pos2)
+                    //viewModel.onClickImage(binding.pos1,binding.pos2,isFrist)
+                    isFrist = !isFrist
+                    checkNum(num,binding,gameItem,isFrist)
+                }
             })
 
 

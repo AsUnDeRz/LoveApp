@@ -30,32 +30,34 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "SETTING"
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_passcode)
         btn_passcode.setOnClickListener {
             activity.startActivity(Intent().setClass(activity,ChangePasscodeActivity::class.java))
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_reminder)
         btn_reminder.setOnClickListener {
             activity.startActivity(Intent().setClass(activity,PillReminderTimeActivity::class.java))
-
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_test_hiv)
         btn_test_hiv.setOnClickListener {
             activity.startActivity(Intent().setClass(activity,HivTestActivity::class.java))
-
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_cd4)
         btn_cd4.setOnClickListener {
             activity.startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_acc_setting)
         btn_acc_setting.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, AccountSettingActivity::class.java))
-
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_feedback)
         btn_feedback.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, FeedbackActivity::class.java))
-
         }
 
     }

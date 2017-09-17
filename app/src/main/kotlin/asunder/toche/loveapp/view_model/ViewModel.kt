@@ -84,7 +84,7 @@ object ViewModel{
 
     class MainViewModel :ViewModel(){
         var service : LoveAppService = LoveAppService.create()
-        interface RiskQInterface { fun endCallProgress(data: ObservableList<Model.RiskQuestion>) }
+        interface RiskQInterface { fun endCallProgress(data: ObservableList<Model.RiskQuestion>,province: ObservableArrayList<Model.Province>) }
 
         private var _compoSub = CompositeDisposable()
         private val compoSub: CompositeDisposable
@@ -111,8 +111,39 @@ object ViewModel{
                                         Timber.d { "Test api Risk quesiton show title eng[" + item.title_eng + "]" }
                                     }
                                 }
-                                callback.endCallProgress(data)
+                                /*
+                                val riskQuestion1 = data[6]
+                                data.removeAt(6)
+                                val rawData = ObservableArrayList<Model.RiskQuestion>().apply {
+                                    add(riskQuestion1)
+                                    data.forEach {
+                                        item -> add(item)
+                                    }
+                                }
+                                */
+                                loadProvince(data,callback)
                                 d { "check response [" + c.size + "]" }
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+        }
+
+        fun loadProvince(riskQustionList : ObservableArrayList<Model.RiskQuestion>,callback:RiskQInterface){
+            manageSub(
+                    service.getProvinces()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data =ObservableArrayList<Model.Province>().apply {
+                                    c.forEach {
+                                        item -> run {
+                                        add(item)
+                                        }}}
+
+                                callback.endCallProgress(riskQustionList,data)
+                                d { "check response [" + c.size + "]" }
+
                             }},{
                                 d { it.message!! }
                             })
@@ -172,6 +203,11 @@ object ViewModel{
             }
         }
         fun loadContentHome(callback :HomeInterface,user_id:String,appDatabase: AppDatabase) {
+            if (appDatabase.getKnowledgeContent().size != 0) {
+                d{"load content in local"}
+                val data = appDatabase.getKnowledgeContent()
+                callback.endCallProgress(data)
+            }else{
                 manageSub(
                         service.getContentInHome(user_id)
                                 .subscribeOn(Schedulers.io())
@@ -184,13 +220,12 @@ object ViewModel{
                                                 d { "add contentId [" + item.id + "]" }
                                             }
                                         }
-                                        appDatabase.deleteAllKnowledgeContent()
                                         appDatabase.addKnowledgeContent(data)
-                                        callback.endCallProgress(data)
+                                        callback.endCallProgress(appDatabase.getKnowledgeContent())
                                         d { "check response [" + c.size + "]" }
                                     }
                                 }, {
-                                    d {"on Error "+ it.message!! }
+                                    d {"on Error "+ it.message }
                                     //load with local
                                     d{"load content on server"}
                                     if (appDatabase.getKnowledgeContent().size != 0) {
@@ -200,7 +235,7 @@ object ViewModel{
                                     }
                                 })
                 )
-            //}
+            }
         }
 
         fun addUpdatePoint(point:String,contentId:String,userId: String){

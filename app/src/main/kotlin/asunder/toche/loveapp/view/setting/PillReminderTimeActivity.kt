@@ -99,7 +99,8 @@ class PillReminderTimeActivity : AppCompatActivity(){
         appDb = AppDatabase(this)
 
         val data =ObservableArrayList<Model.PillReminder>().apply {
-            val data =appDb.getNotiWaiting()
+            //val data =appDb.getNotiWaiting()
+            val data = appDb.getNotificationList()
             for(i in data){
                 add(Model.PillReminder(i.id.toLong(),i.message,i.time))
             }

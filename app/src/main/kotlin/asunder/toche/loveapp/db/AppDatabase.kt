@@ -452,7 +452,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
     }
 
     fun getKnowledgeContent() : ObservableArrayList<Model.RepositoryKnowledge> {
-        val contentList = ObservableArrayList<Model.RepositoryKnowledge>()
+        var contentList = ObservableArrayList<Model.RepositoryKnowledge>()
         d{"getKnowledgeContent"}
         // Select All Query
         val selectQuery = "SELECT * FROM $TABLE_KNOWLEGDE_CONTENT"
@@ -482,6 +482,14 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                     }
                 } while (cursor.moveToNext())
             }
+            if(contentList.size > 0) {
+                val master = ObservableArrayList<Model.RepositoryKnowledge>().apply {
+                    for (i in 0..2) {
+                        add(contentList[i])
+                    }
+                }
+                contentList = master
+            }
 
         } catch (e: Exception) {
             d { "Error while trying to get posts from database ["+e.message+"]" }
@@ -492,6 +500,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
             db.close()
         }
         // return  list
+
         return contentList
     }
 

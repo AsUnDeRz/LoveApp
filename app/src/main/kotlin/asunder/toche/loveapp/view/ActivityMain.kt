@@ -16,11 +16,14 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import kotlinx.android.synthetic.main.activity_main.*
 import view.custom_view.CustomViewpager
 import android.content.Intent
+import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import android.preference.PreferenceManager
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.tapadoo.alerter.Alerter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.lab.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +40,9 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             @SuppressLint("StaticFieldLeak")
             lateinit var bnve : BottomNavigationViewEx
             lateinit var questions : ObservableList<Model.RiskQuestion>
-        }
+            lateinit var provinces : ObservableArrayList<Model.Province>
+
+    }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -124,8 +129,13 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
 
         }
 
-    override fun endCallProgress(data: ObservableList<Model.RiskQuestion>) {
+    override fun endCallProgress(data: ObservableList<Model.RiskQuestion>, province: ObservableArrayList<Model.Province>) {
         questions = data
+        provinces = province
+
+
+
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

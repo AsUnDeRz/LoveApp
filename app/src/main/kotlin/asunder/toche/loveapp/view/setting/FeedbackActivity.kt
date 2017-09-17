@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.content.Context
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -15,6 +16,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by admin on 8/13/2017 AD.
@@ -67,8 +72,11 @@ class FeedbackActivity: AppCompatActivity(){
         }
 
         btn_send.setOnClickListener {
-            inputFeedback(editText.text.toString())
+            inputFeedback(editText.editableText.toString())
         }
+
+        editText.imeOptions = EditorInfo.IME_ACTION_DONE
+
 
 
     }

@@ -2,11 +2,14 @@ package asunder.toche.loveapp
 
 import android.content.Intent
 import android.databinding.ObservableArrayList
+import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import asunder.toche.loveapp.R
+import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import com.tapadoo.alerter.Alerter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -51,9 +54,14 @@ class LoginActivity :AppCompatActivity(){
                                 editor.putString(KEYPREFER.GENDER,c[0].gender_id)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
+
+                                startActivity(Intent().setClass(this@LoginActivity,ActivityMain::class.java))
+                                finish()
+                            }else{
+                                d{"login fail"}
+                                showAlerter()
                             }
-                            startActivity(Intent().setClass(this@LoginActivity,ActivityMain::class.java))
-                            finish()
+
                         }},{
                             d { it.message!! }
                         })
@@ -67,6 +75,9 @@ class LoginActivity :AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+        Glide.with(this)
+                .load(R.drawable.image_cycle)
+                .into(imageView5)
         edit_email.typeface = MyApp.typeFace.heavy
         edit_password.typeface = MyApp.typeFace.heavy
         txt_title.typeface = MyApp.typeFace.heavy
@@ -75,6 +86,8 @@ class LoginActivity :AppCompatActivity(){
         txt_password.typeface = MyApp.typeFace.heavy
         forgetpassword.typeface = MyApp.typeFace.heavy
 
+
+        PushDownAnim.setOnTouchPushDownAnim(login_btn)
         login_btn.setOnClickListener {
             //check login
             if(edit_email.text.toString() != "" && edit_password.text.toString() != ""){
@@ -97,5 +110,17 @@ class LoginActivity :AppCompatActivity(){
     override fun onPause() {
         super.onPause()
         unsubscribe()
+    }
+
+    fun showAlerter(){
+        d{"show Alerter"}
+                Alerter.create(this)
+                        .setText("Email or Password incorrect")
+                        .setTitleTypeface(Utils(this).heavy)
+                        .setTextTypeface(Utils(this).heavy)
+                        //.setBackgroundColorRes(Color.RED) // or setBackgroundColorInt(Color.CYAN)
+                        .setBackgroundColorInt(Color.RED)
+                        .show()
+
     }
 }

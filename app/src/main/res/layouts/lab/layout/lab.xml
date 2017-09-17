@@ -45,13 +45,14 @@
             android:layout_height="match_parent"
             app:srcCompat="@drawable/search_box" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/txt_search"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:background="@android:color/transparent"
+            android:gravity="center_vertical"
             android:maxLines="1" />
     </RelativeLayout>
 </RelativeLayout>

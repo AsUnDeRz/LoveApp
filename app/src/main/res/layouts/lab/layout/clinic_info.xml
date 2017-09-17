@@ -157,6 +157,44 @@
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp" />
         </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_promotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/view_map"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp">
+
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_promotitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Promotion"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="18sp" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promotion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promo_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promo_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

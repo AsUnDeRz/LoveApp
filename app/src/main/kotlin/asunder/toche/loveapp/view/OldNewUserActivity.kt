@@ -31,6 +31,8 @@ class OldNewUserActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.old_new_user)
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_signin)
+        PushDownAnim.setOnTouchPushDownAnim(btn_newaccout)
 
         btn_signin.setOnClickListener {
             startActivity(Intent().setClass(this@OldNewUserActivity,LoginActivity::class.java))

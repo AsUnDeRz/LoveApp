@@ -17,6 +17,7 @@ object Model{
 
 
 
+    data class RepositoryGame(val game_id:String,val game_name_eng: String,val game_name_th: String,val sum_point:String)
 
 
     data class RepositoryLabResult(val user_id:String,val viral :String,val cd4:String,val test_date:Date)
@@ -58,7 +59,8 @@ object Model{
 
     data class Clinic(var id: Long, var name: String, var address: String, var service: String, var open_hour: String, var phone: String,
                       var email: String, var province: String, var locx: Double, var locy: Double, var version: String, var isbooking: String,
-                      var isBook: String, var hospital_id: String, var img_icon: String, var img_detail: String) : StableId, Parcelable {
+                      var isBook: String, var hospital_id: String, var img_icon: String, var img_detail: String, var promo_id: String,
+                      var promo_title: String, var promo_start: String, var promo_end: String) : StableId, Parcelable {
         override val stableId: Long = id
 
         object ImageViewBindingAdapter {
@@ -80,6 +82,10 @@ object Model{
                 source.readString(),
                 source.readDouble(),
                 source.readDouble(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
                 source.readString(),
                 source.readString(),
                 source.readString(),
@@ -107,6 +113,10 @@ object Model{
             writeString(hospital_id)
             writeString(img_icon)
             writeString(img_detail)
+            writeString(promo_id)
+            writeString(promo_title)
+            writeString(promo_start)
+            writeString(promo_end)
         }
 
         companion object {
@@ -118,11 +128,13 @@ object Model{
         }
     }
 
+
     data class RepositoryHospital(val id: String, val name_th: String, val name_eng: String, val address_th: String,
                                   val address_eng: String, val service_th: String, val service_eng: String, var logo: String,
                                   var icon: String, val open_hour_th: String, val phone: String, val email: String, val province: String,
                                   val locx: Double, val locy: Double, val version: String, var isbooking: String, var isBook: String,
-                                  val open_hour_eng: String, val hospital_id: String, val file_name: String, val file_path: String)
+                                  val open_hour_eng: String, val hospital_id: String, val file_name: String, val file_path: String,
+                                  var promotion_id:String,var promotion_th:String,var promotion_eng:String,var start_date:Date,var end_date:Date)
 
 
     data class RiskResult(val risk_id:String,val risk_status:String,val status:String,val details_th:String,val details_eng:String,

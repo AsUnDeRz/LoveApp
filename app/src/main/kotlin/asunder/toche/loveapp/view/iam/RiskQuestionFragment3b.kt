@@ -48,7 +48,7 @@ class RiskQuestionFragment3b : Fragment() {
     fun setQuestion(question:Model.RiskQuestion){
         val utils = Utils(activity)
         d { "Check null" + question.title_eng }
-        txt_question.text = "3b. "+question.title_eng
+        txt_question.text = "3b. "+utils.txtLocale(question.title_th,question.title_eng)
         btn_1.text = utils.txtLocale(question.question1_th,question.question1_eng)
         btn_2.text = utils.txtLocale(question.question2_th,question.question2_eng)
     }

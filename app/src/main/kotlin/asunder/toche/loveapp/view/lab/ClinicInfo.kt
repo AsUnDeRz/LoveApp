@@ -41,6 +41,10 @@ class ClinicInfo:AppCompatActivity(){
         txt_worktime.text = content?.open_hour
         txtPhone.text = content?.phone
         txt_map.text = content?.address
+        txt_promo_start.text = "Start "+content?.promo_start
+        txt_promo_end.text = "End "+content?.promo_end
+        txt_promotion.text = content?.promo_title
+
 
         btn_booknow.setOnClickListener {
             startActivity(Intent().setClass(this@ClinicInfo, BookingActivity::class.java))

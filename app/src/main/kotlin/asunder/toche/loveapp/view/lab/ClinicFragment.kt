@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.content.Context
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,7 +8,16 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import asunder.toche.loveapp.R
+import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.clinic_list.*
 import kotlinx.android.synthetic.main.header_logo_blue.*
 
@@ -18,11 +28,24 @@ import kotlinx.android.synthetic.main.header_logo_blue.*
  */
 class ClinicFragment: Fragment() {
 
-    val clinicList = ObservableArrayList<Model.Clinic>().apply {
-        for(i in 1..6) {
-            //add(Model.Clinic(1123, "Bangkok", "HIV utils.Test", "10.00 am - 19.00 pm",R.drawable.clinic_img))
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
         }
-    }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
+
+    lateinit var utils : Utils
+
+
     companion object {
         fun newInstance(): ClinicFragment {
             return ClinicFragment()
@@ -37,6 +60,7 @@ class ClinicFragment: Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         txt_search.typeface = MyApp.typeFace.medium
+        utils = Utils(activity)
 
         //set title
         title_app.text ="BOOK\nA TEST"
@@ -54,5 +78,56 @@ class ClinicFragment: Fragment() {
         rv_clinic_list.setHasFixedSize(true)
         rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(LabFragment.hospitalList,false)
 
+        txt_search.setOnFocusChangeListener { view, b ->
+            if(b){
+                val proAdapter = ProvinceAdapter(activity, ActivityMain.provinces)
+                txt_search.setAdapter(proAdapter)
+                txt_search.setOnItemClickListener { adapterView, view, position, id ->
+                    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val v = activity.currentFocus
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                    rv_clinic_list.adapter.notifyItemRangeRemoved(0,LabFragment.hospitalList.size-1)
+
+                    ActivityMain.provinces
+                            .filter { it.province_id == id.toString() }
+                            .forEach {
+                                Timber.d { it.province_eng + " // " }
+                                loadHospital(it.locx.toString(),it.locy.toString())
+                            }
+
+
+                    Timber.d { "i == $position///l == $id" }
+                }
+            }
+        }
+
+    }
+
+    fun loadHospital(lat:String,lng:String){
+        manageSub(
+                service.getHospitalsOnMap(lat,lng,"8")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data = ObservableArrayList<Model.Clinic>().apply{
+                                c.forEach {
+                                    item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
+                                        utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
+                                        utils.txtLocale(item.open_hour_th,item.open_hour_eng),item.phone,item.email,item.province,
+                                        item.locx,item.locy,item.version,"","","item.hospital_id",
+                                        "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
+                                        "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
+                                        "item.promotion_id","utils.txtLocale(item.promotion_th,item.promotion_eng)","utils.getDateSlash(item.start_date)",
+                                        "utils.getDateSlash(item.end_date)"))
+                                    d { "Add ["+item.name_th+"] to arraylist" }
+                                }
+                            }
+                            //
+                            rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(data,false)
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
     }
 }

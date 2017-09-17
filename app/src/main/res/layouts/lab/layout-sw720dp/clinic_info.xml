@@ -40,6 +40,12 @@
         android:layout_marginStart="200dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/bg_white_info">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/info_title"
@@ -65,14 +71,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="HIV test,STD PrER"
                 android:textSize="22sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/txt_worktime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="open 10.00 am - 18.00 pm"
                 android:textSize="22sp" />
 
             <view.custom_view.TextViewHeavy
@@ -131,7 +135,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text="8(800) 123-456-789"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -156,9 +159,52 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text="213/11 m4 Meachan \nMuang Chiangmai 57333"
                 android:textSize="22sp" />
         </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/info_promotion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/view_map"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp">
+
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_promotitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Promotion"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="26sp" />
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_promotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="22sp" />
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_promo_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp" />
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_promo_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp" />
+            </LinearLayout>
+        </RelativeLayout>
+        </ScrollView>
+
     </RelativeLayout>
 
     <Button
