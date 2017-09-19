@@ -75,6 +75,36 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                 KEY_KC_LINK + " TEXT" +
                 ")"
         db.execSQL(CREATE_KNOWLEDGE_CONTENT)
+        val CREATE_PROVINCE =" CREATE TABLE "+ TABLE_PROVINCE+
+                "("+
+                KEY_PROV_ID + " TEXT," +
+                KEY_PROV_TH + " TEXT," +
+                KEY_PROV_ENG + " TEXT," +
+                KEY_PROV_LOCX + " TEXT," +
+                KEY_PROV_LOCY + " TExT"+
+                ")"
+        db.execSQL(CREATE_PROVINCE)
+        val CREATE_RISK_QUESTION =" CREATE TABLE "+ TABLE_RISK_QUESTION+
+                "("+
+                KEY_CHOICE_ID + " TEXT," +
+                KEY_TITLE_TH + " TEXT," +
+                KEY_TITLE_ENG + " TEXT," +
+                KEY_QUES1_TH + " TEXT," +
+                KEY_QUES1_ENG + " TEXT," +
+                KEY_QUES2_TH + " TEXT," +
+                KEY_QUES2_ENG + " TEXT," +
+                KEY_QUES3_TH + " TEXT," +
+                KEY_QUES3_ENG + " TEXT," +
+                KEY_QUES4_TH + " TEXT," +
+                KEY_QUES4_ENG + " TEXT," +
+                KEY_QUES5_TH + " TEXT," +
+                KEY_QUES5_ENG + " TEXT," +
+                KEY_QUES6_TH + " TEXT," +
+                KEY_QUES6_ENG + " TEXT," +
+                KEY_QUES7_TH + " TEXT," +
+                KEY_QUES7_ENG + " TEXT" +
+                ")"
+        db.execSQL(CREATE_RISK_QUESTION)
     }
 
 
@@ -85,6 +115,8 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATION)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_KNOWLEGDE_GROUP)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_KNOWLEGDE_CONTENT)
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROVINCE)
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_RISK_QUESTION)
             onCreate(db)
         }
     }
@@ -406,7 +438,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
 
 
     //function knowledge content
-    fun addKnowledgeContent(data:ArrayList<Model.RepositoryKnowledge>){
+    fun addKnowledgeContent(data:ObservableArrayList<Model.RepositoryKnowledge>){
         // Create and/or open the database for writing
         val db = writableDatabase
         // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
@@ -554,6 +586,172 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         db.delete(TABLE_KNOWLEGDE_CONTENT,null,null)
         db.close()
     }
+
+    fun addProvince(data: ObservableArrayList<Model.Province>){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            for(content in data){
+                val values = ContentValues()
+                values.put(KEY_PROV_ID, content.province_id)
+                values.put(KEY_PROV_TH,content.province_th)
+                values.put(KEY_PROV_ENG,content.province_eng)
+                values.put(KEY_PROV_LOCX,content.locx.toString())
+                values.put(KEY_PROV_LOCY,content.locy.toString())
+                db.insertOrThrow(TABLE_PROVINCE, null, values)
+                d{"Insert ["+content.province_id+"] ["+content.province_th+"] ["+content.province_eng+"]"}
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
+
+    fun getProvince() : ObservableArrayList<Model.Province> {
+        var contentList = ObservableArrayList<Model.Province>()
+        d{"getKnowledgeContent"}
+        // Select All Query
+        val selectQuery = "SELECT * FROM $TABLE_PROVINCE"
+        val db = readableDatabase
+        val cursor = db.rawQuery(selectQuery,null)
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    contentList.apply {
+                        add(Model.Province(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getString(3).toDouble(),
+                                cursor.getString(4).toDouble())
+                            )
+                    }
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database ["+e.message+"]" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+        return contentList
+
+    }
+    fun deleteAllProvince(){
+        val db = writableDatabase
+        d{"Delete all record province"}
+        db.delete(TABLE_PROVINCE,null,null)
+        db.close()
+    }
+    fun addRiskQustion(data:ObservableArrayList<Model.RiskQuestion>){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            for(content in data){
+                val values = ContentValues()
+                values.put(KEY_CHOICE_ID, content.choice_id)
+                values.put(KEY_TITLE_TH,content.title_th)
+                values.put(KEY_TITLE_ENG,content.title_eng)
+                values.put(KEY_QUES1_TH,content.question1_th)
+                values.put(KEY_QUES1_ENG,content.question1_eng)
+                values.put(KEY_QUES2_TH,content.question2_th)
+                values.put(KEY_QUES2_ENG,content.question2_eng)
+                values.put(KEY_QUES3_TH,content.question3_th)
+                values.put(KEY_QUES3_ENG,content.question3_eng)
+                values.put(KEY_QUES4_TH,content.question4_th)
+                values.put(KEY_QUES4_ENG,content.question4_eng)
+                values.put(KEY_QUES5_TH,content.question5_th)
+                values.put(KEY_QUES5_ENG,content.question5_eng)
+                values.put(KEY_QUES6_TH,content.question6_th)
+                values.put(KEY_QUES6_ENG,content.question6_eng)
+                values.put(KEY_QUES7_TH,content.question7_th)
+                values.put(KEY_QUES7_ENG,content.question7_eng)
+                db.insertOrThrow(TABLE_RISK_QUESTION, null, values)
+                d{"Insert ["+content.choice_id+"] ["+content.title_eng+"] ["+content.title_th+"]"}
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+
+    }
+    fun getRiskQuestion()  : ObservableArrayList<Model.RiskQuestion> {
+        var contentList = ObservableArrayList<Model.RiskQuestion>()
+        d{"getRiskQuestion"}
+        // Select All Query
+        val selectQuery = "SELECT * FROM $TABLE_RISK_QUESTION"
+        val db = readableDatabase
+        val cursor = db.rawQuery(selectQuery,null)
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    contentList.apply {
+                        add(Model.RiskQuestion(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getString(5),
+                                cursor.getString(6),
+                                cursor.getString(7),
+                                cursor.getString(8),
+                                cursor.getString(9),
+                                cursor.getString(10),
+                                cursor.getString(11),
+                                cursor.getString(12),
+                                cursor.getString(13),
+                                cursor.getString(14),
+                                cursor.getString(15),
+                                cursor.getString(16))
+                        )
+                    }
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database ["+e.message+"]" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+
+        return contentList
+
+    }
+    fun deleteAllRiskQuestion(){
+        val db = writableDatabase
+        d{"Delete all record risk question"}
+        db.delete(TABLE_RISK_QUESTION,null,null)
+        db.close()
+    }
+
+    fun deleteAllContentWhenStart(){
+        val db = writableDatabase
+        d{"Delete all record risk question"}
+        db.delete(TABLE_RISK_QUESTION,null,null)
+        db.delete(TABLE_KNOWLEGDE_CONTENT,null,null)
+        db.delete(TABLE_KNOWLEGDE_GROUP,null,null)
+        db.delete(TABLE_PROVINCE,null,null)
+        db.close()
+    }
     companion object {
         // Database Info
         private val DATABASE_NAME = "loveapp"
@@ -564,6 +762,8 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val TABLE_NOTIFICATION ="notification"
         private val TABLE_KNOWLEGDE_GROUP="knowlegde_group"
         private val TABLE_KNOWLEGDE_CONTENT="knowlegde_content"
+        private val TABLE_PROVINCE="province"
+        private val TABLE_RISK_QUESTION="risk_question"
 
         // user Table Columns
         private val KEY_LOGIN_ID = "id"
@@ -599,6 +799,32 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val KEY_KC_CONTENT_LONG_TH ="content_long_th"
         private val KEY_KC_CONTENT_LONG_EN ="content_long_eng"
         private val KEY_KC_LINK ="link"
+
+        //province
+        private val KEY_PROV_ID ="province_id"
+        private val KEY_PROV_TH ="province_th"
+        private val KEY_PROV_ENG = "province_eng"
+        private val KEY_PROV_LOCX ="locx"
+        private val KEY_PROV_LOCY ="locy"
+        //risk question
+        private val KEY_CHOICE_ID="choice_id"
+        private val KEY_TITLE_TH="title_th"
+        private val KEY_TITLE_ENG="title_eng"
+        private val KEY_QUES1_TH="question1_th"
+        private val KEY_QUES1_ENG="question1_eng"
+        private val KEY_QUES2_TH="question2_th"
+        private val KEY_QUES2_ENG="question2_eng"
+        private val KEY_QUES3_TH="question3_th"
+        private val KEY_QUES3_ENG="question3_eng"
+        private val KEY_QUES4_TH="question4_th"
+        private val KEY_QUES4_ENG="question4_eng"
+        private val KEY_QUES5_TH="question5_th"
+        private val KEY_QUES5_ENG="question5_eng"
+        private val KEY_QUES6_TH="question6_th"
+        private val KEY_QUES6_ENG="question6_eng"
+        private val KEY_QUES7_TH="question7_th"
+        private val KEY_QUES7_ENG="question7_eng"
+
 
 
 

@@ -45,7 +45,7 @@ class RiskQuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         btn_1.typeface = MyApp.typeFace.heavy
         btn_2.typeface = MyApp.typeFace.heavy
-        setQuestion(ActivityMain.questions[0])
+        setQuestion(RiskMeterActivity.questions[0])
 
         btn_1.setOnClickListener {
             RiskMeterActivity.riskAnswer[0] = 1

@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:orientation="vertical"
-        android:paddingBottom="20dp"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
         android:paddingTop="20dp">
@@ -45,13 +44,13 @@
                     android:layout_weight="1">
 
                     <view.custom_view.TextViewHeavy
-                        android:text="@{topic.title}"
-
                         android:id="@+id/title_topic"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:paddingStart="20dp"
+                        android:text="@{topic.title}"
                         android:textColor="@android:color/white"
                         android:textSize="30sp" />
 
@@ -64,7 +63,6 @@
                 android:gravity="center_vertical">
 
                 <view.custom_view.TextViewHeavy
-                    android:text="@{topic.point}"
                     android:id="@+id/txt_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,11 +70,11 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingStart="15dp"
+                    android:text="@{topic.point}"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
 
                 <view.custom_view.TextViewHeavy
-                    android:text="@{topic.size}"
                     android:id="@+id/txt_topics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,6 +82,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingStart="15dp"
+                    android:text="@{topic.size}"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
             </LinearLayout>

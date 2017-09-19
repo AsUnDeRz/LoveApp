@@ -24,7 +24,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import asunder.toche.loveapp.ActivityMain.Companion.provinces
 import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -97,8 +96,9 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                                         item.locx,item.locy,item.version,"","","item.hospital_id",
                                         "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
                                         "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
-                                        "item.promotion_id","utils.txtLocale(item.promotion_th,item.promotion_eng)","utils.getDateSlash(item.start_date)",
-                                        "utils.getDateSlash(item.end_date)"))
+                                        if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
+                                        if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
+                                        if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
                                     d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }
@@ -126,6 +126,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     lateinit var options: MarkerOptions
     var mPermissionDenied = false
     val zoomLevel = 14f
+    lateinit var appDb : AppDatabase
 
 
     companion object {
@@ -159,6 +160,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
 
         utils = Utils(activity)
+        appDb = AppDatabase(activity)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -180,6 +182,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapView.onCreate(savedInstanceState)
+        val provinces = appDb.getProvince()
 
         //Custom wording and font
         title_app.typeface = MyApp.typeFace.heavy

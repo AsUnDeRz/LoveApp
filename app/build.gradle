@@ -123,8 +123,7 @@ dependencies {
 
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     //push
-    //implementation 'com.github.thekhaeng:pushdown-anim-click:1.0.2'
-
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
 }
 
 repositories {

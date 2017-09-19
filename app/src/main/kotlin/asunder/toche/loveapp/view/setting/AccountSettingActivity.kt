@@ -54,9 +54,9 @@ class AccountSettingActivity: AppCompatActivity() {
     var dataUser = ObservableArrayList<Model.User>()
     lateinit var prefer :SharedPreferences
     lateinit var utils :Utils
+    lateinit var appdb : AppDatabase
 
     fun loadProvince(){
-        if(ActivityMain.provinces.size == 0) {
             manageSub(
                     service.getProvinces()
                             .subscribeOn(Schedulers.io())
@@ -83,18 +83,7 @@ class AccountSettingActivity: AppCompatActivity() {
                                 d { it.message!! }
                             })
             )
-        }else{
-            var Title = ""
-            for(item in ActivityMain.provinces){
-                provinTitle.add(utils.txtLocale(item.province_th, item.province_eng))
-                if (item.province_id == dataUser[0].province) {
-                    Title = utils.txtLocale(item.province_th, item.province_eng)
-                }
-            }
-            edt_province.setText(Title)
-            provinces = ActivityMain.provinces
 
-        }
     }
 
 
@@ -122,6 +111,7 @@ class AccountSettingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_setting)
+        appdb = AppDatabase(this)
         utils = Utils(this)
         prefer = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
         Glide.with(this)
@@ -130,7 +120,7 @@ class AccountSettingActivity: AppCompatActivity() {
         txt_title.text = "SETTING"
         edt_phone.typeface = MyApp.typeFace.heavy
         edt_mcode.typeface = MyApp.typeFace.heavy
-        edt_fcode.typeface = MyApp.typeFace.heavy
+        //edt_fcode.typeface = MyApp.typeFace.heavy
         edt_email.typeface = MyApp.typeFace.heavy
         edt_password.typeface = MyApp.typeFace.heavy
         edt_unique.typeface = MyApp.typeFace.heavy
@@ -139,6 +129,8 @@ class AccountSettingActivity: AppCompatActivity() {
         edt_number_id.typeface = MyApp.typeFace.heavy
         edtUniId = findViewById(R.id.edt_unique)
         loadUser(prefer.getString(KEYPREFER.UserId,"0"))
+
+
 
 
         btn_back.setOnClickListener {
@@ -202,13 +194,31 @@ class AccountSettingActivity: AppCompatActivity() {
                                val data = ObservableArrayList<Model.User>().apply {
                                     c.forEach {
                                         item -> add(item)
-                                        d { "Add ["+item.name+"] to arraylist" }
+                                        d { "Add [$item] to arraylist" }
                                     }
                                 }
                                 dataUser = data
                                 setDataUser(dataUser[0])
-                                loadProvince()
-                                d { "check response [" + c.size + "]" }
+                                d { "check response [" + dataUser.size + "]" }
+                                if(appdb.getProvince().size != 0){
+                                    var Title = ""
+                                    val provin = ObservableArrayList<Model.Province>().apply {
+                                        appdb.getProvince().forEach { item ->
+                                            run {
+                                                add(item)
+                                                provinTitle.add(utils.txtLocale(item.province_th, item.province_eng))
+                                                if (item.province_id == dataUser[0].province) {
+                                                    Title = utils.txtLocale(item.province_th, item.province_eng)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    edt_province.setText(Title)
+                                    provinces = provin
+
+                                }else{
+                                    loadProvince()
+                                }
                             }},{
                                 d { it.message!! }
                             })
@@ -221,20 +231,24 @@ class AccountSettingActivity: AppCompatActivity() {
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         val formatUni = SimpleDateFormat("ddMMyyy")
         val formatSend = SimpleDateFormat("yyyy-MM-dd")
-        val date = formatter.parse(data.birth)
-        val mixUnique = data.first_name+data.first_surname+formatUni.format(date)
-        edt_phone.setText(data.phone)
-        edt_mcode.setText(data.user_id)
-        edt_fcode.setText(data.friend_id)
-        edt_email.setText(data.email)
-        edt_password.setText(data.password)
+        val date = if(data.birth != null){formatter.parse(data.birth)}else{""}
+        var mixUnique =""
+        if(data.first_name!= null && data.first_surname !=null && data.birth != null) {
+            mixUnique = data.first_name + data.first_surname + formatUni.format(date)
+        }
+
+        edt_phone.setText(if(data.phone != null){data.phone}else{""})
+        edt_mcode.setText(if(data.user_id != null){data.user_id}else{""})
+        //edt_fcode.setText(data.friend_id)
+        edt_email.setText(if(data.email != null){data.email}else{""})
+        edt_password.setText(if(data.password != null){data.password}else{""})
         edt_unique.setText(mixUnique)
-        edt_work.setText(data.job)
-        edt_number_id.setText(data.iden_id)
-        fname = data.first_name
-        lname = data.first_surname
-        birth = formatSend.format(date)
-        provinID = data.province
+        edt_work.setText(if(data.job != null){data.job}else{""})
+        edt_number_id.setText(if(data.iden_id != null){data.iden_id}else{""})
+        fname = if(data.first_name != null){data.first_surname}else{""}
+        lname = if(data.first_surname != null){data.first_surname}else{""}
+        birth = if(data.birth != null){formatSend.format(date)}else{""}
+        provinID = if(data.province != null){data.province}else{""}
 
 
         var status=""
@@ -242,11 +256,41 @@ class AccountSettingActivity: AppCompatActivity() {
             "1" -> { status ="Positive"}
             "2" -> { status ="Negative"}
             "3" -> { status ="I don't know"}
+            else -> ""
         }
         txt_hiv_status.text = status
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
+        val editor = preferences.edit()
+        if(!checkDataUser(data)){
+            d{"return User No update Data"}
+            editor.putBoolean(KEYPREFER.isUpdateProfile,false)
+            editor.apply()
+        }else{
+            d{"return User Updated Data"}
+            editor.putBoolean(KEYPREFER.isUpdateProfile,true)
+            editor.apply()
+        }
+
 
     }
+
+
+    fun checkDataUser(data:Model.User) : Boolean{
+        if(data.name == null){ return false }
+        if(data.first_name == null){ return false }
+        if(data.first_surname == null){ return false}
+        if(data.friend_id == null){ return false}
+        if(data.phone == null){ return false}
+        if(data.email == null){ return false}
+        if(data.password == null){ return false}
+        if(data.province == null){ return false}
+        if(data.job == null){ return false}
+        if(data.iden_id == null){ return false}
+        if(data.birth == null){ return false}
+        return true
+    }
+
 
 
 

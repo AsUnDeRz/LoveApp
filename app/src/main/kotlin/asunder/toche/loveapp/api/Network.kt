@@ -43,7 +43,7 @@ interface LoveAppService{
     @GET("api/knowledges/gender_id/{genderid}/group_id/{groupid}")
     fun getKnowledgeInGroup(@Path("genderid") gender_id: String,@Path("groupid") group_id:String) :Observable<ArrayList<Model.RepositoryKnowledge>>
 
-    @GET("api/knowledge_groups/user_ids/{gender_id}/limit/3")
+    @GET("api/knowledge_groups/user_ids/{gender_id}/limit/5")
     fun getKnowledgeGroup(@Path("gender_id") gender_id:String) :Observable<ArrayList<Model.KnowledgeGroup>>
 
 

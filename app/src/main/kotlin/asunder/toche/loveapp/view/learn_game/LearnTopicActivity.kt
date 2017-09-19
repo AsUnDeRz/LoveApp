@@ -52,7 +52,23 @@ class LearnTopicActivity : AppCompatActivity() {
             utils = Utils(this@LearnTopicActivity)
             preference = PreferenceManager.getDefaultSharedPreferences(this@LearnTopicActivity)
             appDb = AppDatabase(this@LearnTopicActivity)
-            loadKnowledgeGroup(preference.getString(KEYPREFER.GENDER,"1"),appDb)
+        //load
+            if(appDb.getKnowledgeGroup().size != 0){
+            val c = appDb.getKnowledgeGroup()
+            val data = ObservableArrayList<Model.LearnTopicContent>().apply {
+                c.forEach {
+                    item -> add(Model.LearnTopicContent(
+                        item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
+                        item.sumpoint+" Points","",R.drawable.clinic_img))
+                    d { "add [" + item.group_name_eng + "] to array" }
+                }
+            }
+            knowledgeGroups = data
+            rv_learn_topic.adapter =LearnTopicAdapter(knowledgeGroups,false)
+
+            }else {
+                loadKnowledgeGroup(preference.getString(KEYPREFER.GENDER,"1"),appDb)
+            }
 
             rv_learn_topic.setHasFixedSize(true)
             rv_learn_topic.layoutManager = LinearLayoutManager(this)

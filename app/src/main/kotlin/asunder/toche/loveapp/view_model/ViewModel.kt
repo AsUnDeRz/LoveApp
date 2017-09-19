@@ -84,7 +84,7 @@ object ViewModel{
 
     class MainViewModel :ViewModel(){
         var service : LoveAppService = LoveAppService.create()
-        interface RiskQInterface { fun endCallProgress(data: ObservableList<Model.RiskQuestion>,province: ObservableArrayList<Model.Province>) }
+        interface RiskQInterface { fun endCallProgress(any: Any) }
 
         private var _compoSub = CompositeDisposable()
         private val compoSub: CompositeDisposable
@@ -121,15 +121,14 @@ object ViewModel{
                                     }
                                 }
                                 */
-                                loadProvince(data,callback)
+                                callback.endCallProgress(data)
                                 d { "check response [" + c.size + "]" }
                             }},{
                                 d { it.message!! }
                             })
             )
         }
-
-        fun loadProvince(riskQustionList : ObservableArrayList<Model.RiskQuestion>,callback:RiskQInterface){
+        fun loadProvince(callback:RiskQInterface){
             manageSub(
                     service.getProvinces()
                             .subscribeOn(Schedulers.io())
@@ -141,9 +140,51 @@ object ViewModel{
                                         add(item)
                                         }}}
 
-                                callback.endCallProgress(riskQustionList,data)
+                                callback.endCallProgress(data)
                                 d { "check response [" + c.size + "]" }
 
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+        }
+
+        fun loadKnowledage(callback: RiskQInterface,user_id: String){
+            manageSub(
+                    service.getContentInHome(user_id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c ->
+                                run {
+                                    val data = ObservableArrayList<Model.RepositoryKnowledge>().apply {
+                                        c.forEach { item ->
+                                            add(item)
+                                            d { "add contentId [" + item.id + "]" }
+                                        }
+                                    }
+                                    callback.endCallProgress(data)
+                                    d { "check response [" + c.size + "]" }
+                                }
+                            }, {
+                                d {"on Error "+ it.message }
+                            })
+            )
+        }
+
+        fun loadKnowledgeGroup(genderID:String,callback: RiskQInterface,utils: Utils){
+            manageSub(
+                    service.getKnowledgeGroup(genderID)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data = ObservableArrayList<Model.KnowledgeGroup>().apply {
+                                    c.forEach {
+                                        item -> add(item)
+                                        d { "add [" + item.group_name_eng + "] to array" }
+                                    }
+                                }
+                                callback.endCallProgress(data)
+                                d { "check response [" + c.size + "]" }
                             }},{
                                 d { it.message!! }
                             })
@@ -202,11 +243,58 @@ object ViewModel{
                 callback.endCallProgress(data.await())
             }
         }
-        fun loadContentHome(callback :HomeInterface,user_id:String,appDatabase: AppDatabase) {
+
+        fun checkDataUser(data:Model.User) : Boolean{
+            if(data.name == null){ return false }
+            if(data.first_name == null){ return false }
+            if(data.first_surname == null){ return false}
+            if(data.friend_id == null){ return false}
+            if(data.phone == null){ return false}
+            if(data.email == null){ return false}
+            if(data.password == null){ return false}
+            if(data.province == null){ return false}
+            if(data.job == null){ return false}
+            if(data.iden_id == null){ return false}
+            if(data.birth == null){ return false}
+            return true
+        }
+
+        fun loadUser(id:String,callback: HomeInterface,context: Context,items:ObservableArrayList<Model.RepositoryKnowledge>){
+            manageSub(
+                    service.getUser(id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data = ObservableArrayList<Model.User>().apply {
+                                    c.forEach {
+                                        item -> add(item)
+                                        d { "Add [$item] to arraylist" }
+                                    }
+                                }
+                                d { "check response [" + c.size + "]" }
+                                val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+                                val editor = preferences.edit()
+                                if(!checkDataUser(data[0])){
+                                    d{"return User No update Data"}
+                                    editor.putBoolean(KEYPREFER.isUpdateProfile,false)
+                                    editor.apply()
+                                }else{
+                                    d{"return User Updated Data"}
+                                    editor.putBoolean(KEYPREFER.isUpdateProfile,true)
+                                    editor.apply()
+                                }
+                                callback.endCallProgress(items)
+
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+        }
+        fun loadContentHome(callback :HomeInterface,user_id:String,appDatabase: AppDatabase,context: Context) {
             if (appDatabase.getKnowledgeContent().size != 0) {
                 d{"load content in local"}
                 val data = appDatabase.getKnowledgeContent()
-                callback.endCallProgress(data)
+                loadUser(user_id,callback,context,data)
             }else{
                 manageSub(
                         service.getContentInHome(user_id)
@@ -221,7 +309,8 @@ object ViewModel{
                                             }
                                         }
                                         appDatabase.addKnowledgeContent(data)
-                                        callback.endCallProgress(appDatabase.getKnowledgeContent())
+                                        loadUser(user_id,callback,context,data)
+                                        //callback.endCallProgress(appDatabase.getKnowledgeContent())
                                         d { "check response [" + c.size + "]" }
                                     }
                                 }, {
@@ -231,7 +320,8 @@ object ViewModel{
                                     if (appDatabase.getKnowledgeContent().size != 0) {
                                         d{"load content in local"}
                                         val data = appDatabase.getKnowledgeContent()
-                                        callback.endCallProgress(data)
+                                        loadUser(user_id,callback,context,data)
+                                        //callback.endCallProgress(data)
                                     }
                                 })
                 )

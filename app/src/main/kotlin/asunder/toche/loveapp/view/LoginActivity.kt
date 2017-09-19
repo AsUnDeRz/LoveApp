@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.graphics.Color
@@ -21,10 +22,38 @@ import kotlinx.android.synthetic.main.login.*
 /**
  * Created by admin on 7/31/2017 AD.
  */
-class LoginActivity :AppCompatActivity(){
+class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
+
+
+    override fun endCallProgress(any: Any) {
+        val resultList = any as ObservableArrayList<*>
+
+        when (resultList[0]) {
+            is Model.RepositoryKnowledge -> {
+                appDb.addKnowledgeContent(resultList as ObservableArrayList<Model.RepositoryKnowledge>)
+                loadSuccess++
+                d{"Load Knowledge Success"}
+            }
+            is Model.KnowledgeGroup -> {
+                appDb.addKnowledgeGroup(resultList as ObservableArrayList<Model.KnowledgeGroup>)
+                loadSuccess++
+                d{"Load KnowledgeGroup Success"}
+            }
+        }
+
+        if(loadSuccess == 2) {
+            startActivity(Intent().setClass(this@LoginActivity,ActivityMain::class.java))
+            finish()
+        }
+
+    }
 
 
     var service : LoveAppService = LoveAppService.create()
+    lateinit var utils :Utils
+    lateinit var appDb : AppDatabase
+    lateinit var MainViewModel : ViewModel.MainViewModel
+    var loadSuccess =0
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable
@@ -38,6 +67,7 @@ class LoginActivity :AppCompatActivity(){
     protected final fun manageSub(s: Disposable) = compoSub.add(s)
 
     fun unsubscribe() { compoSub.dispose() }
+
 
     fun checkLogin(email:String,password:String){
         manageSub(
@@ -54,9 +84,10 @@ class LoginActivity :AppCompatActivity(){
                                 editor.putString(KEYPREFER.GENDER,c[0].gender_id)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
+                                MainViewModel.loadKnowledage(this,c[0].user_id)
+                                MainViewModel.loadKnowledgeGroup(c[0].gender_id,this,utils)
 
-                                startActivity(Intent().setClass(this@LoginActivity,ActivityMain::class.java))
-                                finish()
+
                             }else{
                                 d{"login fail"}
                                 showAlerter()
@@ -74,6 +105,10 @@ class LoginActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+        appDb = AppDatabase(this@LoginActivity)
+        utils = Utils(this@LoginActivity)
+        MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
+
 
         Glide.with(this)
                 .load(R.drawable.image_cycle)

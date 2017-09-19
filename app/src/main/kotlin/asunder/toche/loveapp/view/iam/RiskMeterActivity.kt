@@ -26,6 +26,7 @@ class RiskMeterActivity:AppCompatActivity(){
 
     companion object {
         lateinit var vp_riskmeter : CustomViewpager
+        lateinit var questions : ObservableList<Model.RiskQuestion>
         var riskAnswer = arrayOfNulls<Int>(7)
         fun sendRiskAnswer(context:Context){
             var answer =""
@@ -45,12 +46,17 @@ class RiskMeterActivity:AppCompatActivity(){
         //data
     }
 
+    lateinit var appDb : AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.risk_meter)
+        appDb = AppDatabase(this)
         Glide.with(this)
                 .load(R.drawable.bg_white)
                 .into(bg_root)
+
+        questions = appDb.getRiskQuestion()
 
 
         val adapterViewPager = RiskMeterAdapter(supportFragmentManager, this)

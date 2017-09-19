@@ -138,7 +138,7 @@ class RiskMeterFinalActivity:AppCompatActivity(){
         var toDegree = 0f
         when(riskResult.status){
             "MEDIUM" -> toDegree = -20f
-            "HIGH" -> toDegree = 30f
+            "HIGH" -> toDegree = 50f
             "LOW" -> toDegree = -50f
         }
 

@@ -3,6 +3,7 @@ package asunder.toche.loveapp
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.clinic_info.*
@@ -41,9 +42,15 @@ class ClinicInfo:AppCompatActivity(){
         txt_worktime.text = content?.open_hour
         txtPhone.text = content?.phone
         txt_map.text = content?.address
-        txt_promo_start.text = "Start "+content?.promo_start
-        txt_promo_end.text = "End "+content?.promo_end
-        txt_promotion.text = content?.promo_title
+
+        if (content?.promo_id == ""){
+            info_promotion.visibility = View.GONE
+        }else{
+            txt_promo_start.text = "Start "+content?.promo_start
+            txt_promo_end.text = "End "+content?.promo_end
+            txt_promotion.text = content?.promo_title
+        }
+
 
 
         btn_booknow.setOnClickListener {

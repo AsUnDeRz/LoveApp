@@ -21,8 +21,10 @@ import android.databinding.ObservableList
 import android.preference.PreferenceManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.tapadoo.alerter.Alerter
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.lab.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,17 +32,14 @@ import retrofit2.Response
 import java.util.*
 
 
-class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface {
+class ActivityMain : AppCompatActivity() {
 
 
     var finis = 0
-    lateinit var MainViewModel : ViewModel.MainViewModel
     companion object {
         lateinit var vp_main : CustomViewpager
             @SuppressLint("StaticFieldLeak")
             lateinit var bnve : BottomNavigationViewEx
-            lateinit var questions : ObservableList<Model.RiskQuestion>
-            lateinit var provinces : ObservableArrayList<Model.Province>
 
     }
 
@@ -50,7 +49,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
             d{"onCreate"}
             vp_main = findViewById(R.id.vp_main_fragment)
             bnve = findViewById(R.id.bottom_nav)
-
             setUpBottomBar()
             Glide.with(this)
                     .load(R.drawable.bg_white)
@@ -94,8 +92,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
     override fun onResume() {
         super.onResume()
         d{"onResume"}
-        MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
-        MainViewModel.loadRiskQuestion(this)
     }
 
         fun setUpBottomBar(){
@@ -129,15 +125,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
 
         }
 
-    override fun endCallProgress(data: ObservableList<Model.RiskQuestion>, province: ObservableArrayList<Model.Province>) {
-        questions = data
-        provinces = province
-
-
-
-
-    }
-
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putInt("viewpager", vp_main.currentItem)
@@ -154,7 +141,6 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
 
     override fun onPause() {
         super.onPause()
-        MainViewModel.unsubscribe()
     }
 
     override fun onBackPressed() {
@@ -198,6 +184,9 @@ class ActivityMain : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface 
         }
         finis++
     }
+
+
+
 
 
 

@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:paddingBottom="20dp"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
         android:paddingTop="20dp">
@@ -38,12 +37,12 @@
                 android:layout_weight="1">
 
                 <view.custom_view.TextViewHeavy
-                    android:text="@{learnGameItem.title}"
                     android:id="@+id/title_game"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:paddingBottom="10dp"
+                    android:text="@{learnGameItem.title}"
                     android:textColor="@android:color/white"
                     android:textSize="30sp" />
 
@@ -55,22 +54,22 @@
                     android:orientation="horizontal">
 
                     <view.custom_view.TextViewHeavy
-                        android:text="@{learnGameItem.desc}"
                         android:id="@+id/txt_points"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="@{learnGameItem.desc}"
                         android:textColor="@color/colorFade"
                         android:textSize="18sp" />
 
                     <view.custom_view.TextViewHeavy
-                        android:text="@{learnGameItem.percent}"
                         android:id="@+id/txt_percent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="false"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:text="@{learnGameItem.percent}"
                         android:textColor="@color/colorFade"
                         android:textSize="18sp" />
                 </LinearLayout>

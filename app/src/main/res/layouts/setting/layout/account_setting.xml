@@ -70,7 +70,8 @@
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <view.custom_view.TextViewHeavy
                     android:id="@+id/txt_fcode"
@@ -79,7 +80,8 @@
                     android:layout_weight="1"
                     android:text="Fried Code"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -89,6 +91,8 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:enabled="false"
+                    android:focusable="false"
                     android:id="@+id/edt_mcode"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -103,7 +107,8 @@
 
                 <android.support.v4.widget.Space
                     android:layout_width="30dp"
-                    android:layout_height="55dp" />
+                    android:layout_height="55dp"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edt_fcode"
@@ -116,7 +121,8 @@
                     android:nextFocusDown="@id/edt_email"
                     android:paddingLeft="20dp"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

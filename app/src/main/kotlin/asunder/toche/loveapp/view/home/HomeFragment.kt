@@ -32,12 +32,20 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     override fun endCallProgress(any:Any) {
         val data = any as ObservableArrayList<*>
         val content =ObservableArrayList<Model.HomeContent>().apply {
+            //check update user
+            if(prefer.getBoolean(KEYPREFER.isUpdateProfile,false)){
+
+            }else{
+                var item = data[0] as Model.RepositoryKnowledge
+                add(Model.HomeContent(1111111111,utils.txtLocale("กรอกข้อมูลของคุณ","Update Your info"),"500 Points",item))
+            }
             for (a in data){
                 if (a is Model.RepositoryKnowledge){
                     add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
                 }
             }
         }
+
         homeList = content
         rv_home.adapter = HomeAdapter(homeList, false)
 
@@ -103,7 +111,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb)
+        homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb,context)
         button_noti.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, NotificationActivity::class.java))
         }
@@ -153,6 +161,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     }
 
 
+
     fun HomeAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
         return LastAdapter(item,BR.homeItem,stableIds).type{ item, position ->
             when(item){
@@ -168,12 +177,15 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             .onRecycle {  }
             .onClick {
                 val item = it.binding.getHomeItem().data
-                val model = Model.RepositoryKnowledge(item.id,item.group_id,item.title_th,item.title_eng,item.content_th,item.content_eng,
-                        "image",item.point, arrayListOf("2","3"),item.version,item.content_th_long,item.content_eng_long,item.link)
-
-                var data = Intent()
-                data.putExtra(KEYPREFER.CONTENT,model)
-                startActivityForResult(data.setClass(activity,LearnNewsActivity::class.java),KEYPREFER.LEARNGAME)
+                if (it.binding.getHomeItem().id == 1111111111L) {
+                    startActivity(Intent().setClass(activity, AccountSettingActivity::class.java))
+                } else {
+                    val model = Model.RepositoryKnowledge(item.id, item.group_id, item.title_th, item.title_eng, item.content_th, item.content_eng,
+                            "image", item.point, arrayListOf("2", "3"), item.version, item.content_th_long, item.content_eng_long, item.link)
+                    var data = Intent()
+                    data.putExtra(KEYPREFER.CONTENT, model)
+                    startActivityForResult(data.setClass(activity, LearnNewsActivity::class.java), KEYPREFER.LEARNGAME)
+                }
             }
             .onLongClick {}
 }

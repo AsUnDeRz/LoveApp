@@ -104,7 +104,7 @@ class PointHistriesActivity: AppCompatActivity() {
     }
     fun loadPointHistoryGame(){
         manageSub(
-                service.getPointHistoryGame("1")
+                service.getPointHistoryGame(prefer.getString(KEYPREFER.UserId,""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {
@@ -125,7 +125,7 @@ class PointHistriesActivity: AppCompatActivity() {
     }
     fun loadPointHistoryRiskMeter(){
         manageSub(
-                service.getPointHistoryRiskMeter("1")
+                service.getPointHistoryRiskMeter(prefer.getString(KEYPREFER.UserId,""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {

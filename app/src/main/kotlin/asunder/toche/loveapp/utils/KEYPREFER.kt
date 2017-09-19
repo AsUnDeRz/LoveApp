@@ -17,6 +17,7 @@ object KEYPREFER{
     val PASSCODE = "PASSCODE"
     val GENDER ="gender"
     val UserId = "USERID"
+    val isUpdateProfile = "updateprofile"
     val isFirst = "isFirst"
     val language = "language"
     val TH = "th"

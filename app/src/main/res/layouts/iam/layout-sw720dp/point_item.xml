@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
-        android:paddingTop="40dp">
+        android:paddingTop="20dp">
 
         <RelativeLayout
             android:id="@+id/btn_point"

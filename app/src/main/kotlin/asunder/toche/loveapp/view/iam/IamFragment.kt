@@ -387,7 +387,8 @@ class IamFragment : Fragment() {
                                     d { "Add ["+item.name+"] to arraylist" }
                                 }
                             }
-                            values_point.text = dataUser[0].point+" Points"
+
+                            values_point.text = if(dataUser[0].point != null){dataUser[0].point+" Points"}else{""}
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }

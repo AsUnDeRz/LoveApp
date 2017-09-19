@@ -44,6 +44,7 @@ class ClinicFragment: Fragment() {
     fun unsubscribe() { compoSub.dispose() }
 
     lateinit var utils : Utils
+    lateinit var appDb : AppDatabase
 
 
     companion object {
@@ -61,6 +62,8 @@ class ClinicFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         txt_search.typeface = MyApp.typeFace.medium
         utils = Utils(activity)
+        appDb = AppDatabase(activity)
+        val province = appDb.getProvince()
 
         //set title
         title_app.text ="BOOK\nA TEST"
@@ -80,7 +83,7 @@ class ClinicFragment: Fragment() {
 
         txt_search.setOnFocusChangeListener { view, b ->
             if(b){
-                val proAdapter = ProvinceAdapter(activity, ActivityMain.provinces)
+                val proAdapter = ProvinceAdapter(activity, province)
                 txt_search.setAdapter(proAdapter)
                 txt_search.setOnItemClickListener { adapterView, view, position, id ->
                     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -88,7 +91,7 @@ class ClinicFragment: Fragment() {
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
                     rv_clinic_list.adapter.notifyItemRangeRemoved(0,LabFragment.hospitalList.size-1)
 
-                    ActivityMain.provinces
+                    province
                             .filter { it.province_id == id.toString() }
                             .forEach {
                                 Timber.d { it.province_eng + " // " }
@@ -117,8 +120,9 @@ class ClinicFragment: Fragment() {
                                         item.locx,item.locy,item.version,"","","item.hospital_id",
                                         "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
                                         "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
-                                        "item.promotion_id","utils.txtLocale(item.promotion_th,item.promotion_eng)","utils.getDateSlash(item.start_date)",
-                                        "utils.getDateSlash(item.end_date)"))
+                                        if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
+                                        if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
+                                        if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
                                     d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }

@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
@@ -27,7 +28,31 @@ import com.afollestad.materialdialogs.MaterialDialog
 /**
  * Created by admin on 7/30/2017 AD.
  */
-class GenderActivity : AppCompatActivity(){
+class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
+
+
+
+    override fun endCallProgress(any: Any) {
+        val resultList = any as ObservableArrayList<*>
+
+        when (resultList[0]) {
+            is Model.RepositoryKnowledge -> {
+                appDb.addKnowledgeContent(resultList as ObservableArrayList<Model.RepositoryKnowledge>)
+                loadSuccess++
+                d{"Load Knowledge Success"}
+            }
+            is Model.KnowledgeGroup -> {
+                appDb.addKnowledgeGroup(resultList as ObservableArrayList<Model.KnowledgeGroup>)
+                loadSuccess++
+                d{"Load KnowledgeGroup Success"}
+            }
+        }
+
+        if(loadSuccess == 2) {
+            startActivity(Intent().setClass(this@GenderActivity, ActivityMain::class.java))
+            finish()
+        }
+    }
 
 
     var service : LoveAppService = LoveAppService.create()
@@ -47,6 +72,10 @@ class GenderActivity : AppCompatActivity(){
 
     val genderList = ObservableArrayList<Model.Gender>()
     lateinit var utils :Utils
+    lateinit var appDb : AppDatabase
+    lateinit var MainViewModel : ViewModel.MainViewModel
+    var loadSuccess =0
+
 
     fun loadGender(){
         manageSub(
@@ -82,9 +111,10 @@ class GenderActivity : AppCompatActivity(){
                                 editor.putString(KEYPREFER.GENDER, genderID)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
+                                MainViewModel.loadKnowledage(this,c[0].user_id)
+                                MainViewModel.loadKnowledgeGroup(genderID,this,Utils(this@GenderActivity))
                             }
-                            startActivity(Intent().setClass(this@GenderActivity,ActivityMain::class.java))
-                            finish()
+
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }
@@ -95,7 +125,9 @@ class GenderActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gender_list)
+        appDb = AppDatabase(this@GenderActivity)
         utils = Utils(this@GenderActivity)
+        MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
         loadGender()
         Glide.with(this)
                 .load(R.drawable.bg_blue)

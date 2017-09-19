@@ -31,7 +31,7 @@ class RiskQuestionFragment2 : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setQuestion(ActivityMain.questions[1])
+        setQuestion(RiskMeterActivity.questions[1])
         btn_1.typeface = MyApp.typeFace.heavy
         btn_2.typeface = MyApp.typeFace.heavy
         btn_3.typeface =MyApp.typeFace.heavy

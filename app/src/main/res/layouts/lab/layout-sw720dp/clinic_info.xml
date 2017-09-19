@@ -89,30 +89,31 @@
                 android:textSize="26sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/view_web"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/info_title"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/home" />
-
-            <view.custom_view.TextViewMedium
-                android:id="@+id/txt_web"
+            <LinearLayout
+                android:id="@+id/view_web"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:text="www.bangkokclinic.com"
-                android:textSize="22sp" />
-        </LinearLayout>
+                android:layout_below="@+id/info_title"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/home" />
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_web"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="www.bangkokclinic.com"
+                    android:textSize="22sp" />
+            </LinearLayout>
 
         <LinearLayout
             android:id="@+id/view_phone"
@@ -219,6 +220,7 @@
         android:text="Book Now!"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        android:visibility="gone" />
 
 </RelativeLayout>
