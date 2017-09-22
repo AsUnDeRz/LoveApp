@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:gravity="left|center"
             android:paddingLeft="30dp"
-            android:text="Redeem point"
+            android:text="@string/redeempoint"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 

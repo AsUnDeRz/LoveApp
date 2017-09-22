@@ -58,7 +58,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="70dp"
         android:background="@drawable/button_box"
-        android:text="Yes"
+        android:text="@string/yes"
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 
@@ -71,7 +71,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/button_box"
-        android:text="No"
+        android:text="@string/no"
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 

@@ -37,11 +37,11 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
             }else{
                 var item = data[0] as Model.RepositoryKnowledge
-                add(Model.HomeContent(1111111111,utils.txtLocale("กรอกข้อมูลของคุณ","Update Your info"),"500 Points",item))
+                add(Model.HomeContent(1111111111,utils.txtLocale("กรอกข้อมูลของคุณ","Update Your info"),"500 "+context.getString(R.string.points),item))
             }
             for (a in data){
                 if (a is Model.RepositoryKnowledge){
-                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points",a))
+                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " "+context.getString(R.string.points),a))
                 }
             }
         }
@@ -143,6 +143,19 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             d{"check result $point   $contentID"}
             homeViewModel.addUpdatePoint(point,contentID,userID)
         }
+        if(requestCode == KEYPREFER.HOME){
+            //load check data and
+            d{"result for update account"}
+            val isUpdate = prefer.getBoolean(KEYPREFER.isUpdateProfile,false)
+            if(isUpdate){
+                //addpoint
+                d{"isUpdate"}
+                homeViewModel.addUpdatePoint("500",prefer.getString(KEYPREFER.UserId,""))
+            }else{
+                d{"noUpdate"}
+
+            }
+        }
     }
 
     override fun onPause() {
@@ -178,7 +191,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             .onClick {
                 val item = it.binding.getHomeItem().data
                 if (it.binding.getHomeItem().id == 1111111111L) {
-                    startActivity(Intent().setClass(activity, AccountSettingActivity::class.java))
+                    startActivityForResult(Intent().setClass(activity, AccountSettingActivity::class.java),KEYPREFER.HOME)
                 } else {
                     val model = Model.RepositoryKnowledge(item.id, item.group_id, item.title_th, item.title_eng, item.content_th, item.content_eng,
                             "image", item.point, arrayListOf("2", "3"), item.version, item.content_th_long, item.content_eng_long, item.link)

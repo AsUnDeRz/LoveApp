@@ -55,6 +55,7 @@ class AccountSettingActivity: AppCompatActivity() {
     lateinit var prefer :SharedPreferences
     lateinit var utils :Utils
     lateinit var appdb : AppDatabase
+    lateinit var preferences : SharedPreferences
 
     fun loadProvince(){
             manageSub(
@@ -253,14 +254,14 @@ class AccountSettingActivity: AppCompatActivity() {
 
         var status=""
         when(data.status_id){
-            "1" -> { status ="Positive"}
-            "2" -> { status ="Negative"}
-            "3" -> { status ="I don't know"}
+            "1" -> { status = getString(R.string.positive)}
+            "2" -> { status = getString(R.string.negative)}
+            "3" -> { status = getString(R.string.idontknow)}
             else -> ""
         }
         txt_hiv_status.text = status
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
         val editor = preferences.edit()
         if(!checkDataUser(data)){
             d{"return User No update Data"}
@@ -280,7 +281,7 @@ class AccountSettingActivity: AppCompatActivity() {
         if(data.name == null){ return false }
         if(data.first_name == null){ return false }
         if(data.first_surname == null){ return false}
-        if(data.friend_id == null){ return false}
+        //if(data.friend_id == null){ return false}
         if(data.phone == null){ return false}
         if(data.email == null){ return false}
         if(data.password == null){ return false}
@@ -297,11 +298,17 @@ class AccountSettingActivity: AppCompatActivity() {
     fun updateUser(){
         btn_save.isClickable = false
         val data = dataUser[0]
+        //update edt_fcode.editableText.toString()
+        var user = Model.User(data.user_id,data.gender_id,data.name, fname,
+                lname,data.status_id,"0",edt_phone.editableText.toString(),
+                edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,edt_work.editableText.toString(),
+                edt_number_id.editableText.toString(), birth,data.point,"","","")
+
         if (prefer.getString(KEYPREFER.UserId, "") != "") {
             val userID = prefer.getString(KEYPREFER.UserId,"")
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
             val update = service.updateUser(data.user_id,data.gender_id,data.name, fname,
-                    lname,data.status_id,edt_fcode.editableText.toString(),edt_phone.editableText.toString(),
+                    lname,data.status_id,"0",edt_phone.editableText.toString(),
                     edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,edt_work.editableText.toString(),
                     edt_number_id.editableText.toString(), birth,data.point)
             update.enqueue(object : Callback<Void> {
@@ -313,7 +320,18 @@ class AccountSettingActivity: AppCompatActivity() {
                 override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                     if (response!!.isSuccessful) {
                         d { "update successful" }
-                        onBackPressed()
+                        preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
+                        val editor = preferences.edit()
+                        if(!checkDataUser(user)){
+                            d{"user can't update full information"}
+                            editor.putBoolean(KEYPREFER.isUpdateProfile,false)
+                            editor.apply()
+                        }else{
+                            d{"user update full information"}
+                            editor.putBoolean(KEYPREFER.isUpdateProfile,true)
+                            editor.apply()
+                        }
+                        finish()
                     }
                     btn_save.isClickable = true
                 }

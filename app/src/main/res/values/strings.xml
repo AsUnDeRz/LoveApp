@@ -32,7 +32,7 @@
     <string name="email">Email</string>
     <string name="submit">Submit</string>
     <string name="readmore">Read more</string>
-    <string name="getmorepoint">Get more point</string>
+    <string name="getmorepoint">Get more points</string>
     <string name="hivstatus">HIV Status</string>
     <string name="positive">Positive</string>
     <string name="negative">Negative</string>
@@ -63,13 +63,20 @@
     <string name="save">Save</string>
     <string name="pills">Pills</string>
     <string name="takepillat">Take Pill At</string>
-    <string name="remindernoti">Reminder Notification</string>
+    <string name="remindernoti">Reminder \nNotification</string>
     <string name="message">Message</string>
     <string name="addmessage">Add New Message</string>
     <string name="changepasscode">Change Passcode</string>
     <string name="forgetpassword">Forget Password</string>
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
     <string name="feedback">Feedback</string>
-    <string name="sent">Sent</string>
+    <string name="sent">Send</string>
+    <string name="password">Password</string>
+    <string name="insertlab">Insert Lab</string>
+    <string name="work">Work</string>
+    <string name="idenid">Identified ID</string>
+    <string name="language">Language</string>
+    <string name="alterhome">Click again to return to your home screen</string>
+
 
 </resources>

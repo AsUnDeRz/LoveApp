@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:paddingStart="50dp"
-                android:text="Take Pill At"
+                android:text="@string/takepillat"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:paddingStart="50dp"
-                android:text="Reminder\nNotification"
+                android:text="@string/remindernoti"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp" />
 
@@ -127,7 +127,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:paddingStart="50dp"
-                android:text="Message"
+                android:text="@string/message"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 

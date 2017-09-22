@@ -53,12 +53,13 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_box">
+
         <view.custom_view.TextViewHeavy
             android:id="@+id/txt_send"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Send"
+            android:text="@string/sent"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 

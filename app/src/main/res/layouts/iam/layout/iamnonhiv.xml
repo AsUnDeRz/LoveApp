@@ -38,7 +38,7 @@
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:paddingStart="15dp"
-                android:text="Last Test"
+                android:text="@string/lasttest"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:paddingStart="15dp"
-                android:text="Next Test"
+                android:text="@string/nexttest"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 

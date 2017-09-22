@@ -155,6 +155,7 @@
     <orderEntry type="library" name="support-vector-drawable-26.0.1" level="project" />
     <orderEntry type="library" name="support-core-utils-26.0.1" level="project" />
     <orderEntry type="library" name="Android-SpinKit-1.1.0" level="project" />
+    <orderEntry type="library" name="localizationactivity-1.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="espresso-idling-resource-3.0.1" level="project" />
     <orderEntry type="library" name="rxbinding-kotlin-1.0.1" level="project" />
     <orderEntry type="library" name="rxandroid-2.0.1" level="project" />

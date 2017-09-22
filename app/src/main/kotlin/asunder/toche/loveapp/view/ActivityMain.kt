@@ -167,7 +167,7 @@ class ActivityMain : AppCompatActivity() {
             }
             1 -> {
                 Alerter.create(this)
-                        .setText("Click again to return to your home screen")
+                        .setText(getString(R.string.alterhome))
                         .setTitleTypeface(Utils(this).heavy)
                         .setTextTypeface(Utils(this).heavy)
                         .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)

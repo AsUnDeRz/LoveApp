@@ -82,6 +82,7 @@ class MyApp:Application(){
 
 
         var lang:String
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             lang =resources.configuration.locales.get(0).language
             d{"check default SDK >= N "+resources.configuration.locales.get(0).language }
@@ -89,7 +90,12 @@ class MyApp:Application(){
             lang = resources.configuration.locale.language
             d{"check default SDK < N "+resources.configuration.locale.language}
         }
-        LocalUtil.onAttach(applicationContext,lang)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@MyApp)
+        if(preferences.getString(KEYPREFER.language, lang) == "th"){
+            LocalUtil.onAttach(applicationContext,"th")
+        }else{
+            LocalUtil.onAttach(applicationContext,"en")
+        }
         //loadRiskResult()
     }
 

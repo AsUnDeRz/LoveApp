@@ -44,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:paddingStart="120dp"
-                    android:text="Passcode"
+                    android:text="@string/passcode"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
@@ -81,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:paddingStart="120dp"
-                    android:text="Pill Reminders"
+                    android:text="@string/pillreminder"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
@@ -119,7 +119,7 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:paddingStart="120dp"
-                    android:text="Insert Lab"
+                    android:text="@string/insertlab"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
@@ -194,7 +194,7 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:paddingStart="120dp"
-                    android:text="Account Settings"
+                    android:text="@string/accsetting"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
@@ -231,7 +231,44 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:paddingStart="120dp"
-                    android:text="Feedback"
+                    android:text="@string/feedback"
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_language"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_box">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/icon_test" />
+
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:paddingStart="120dp"
+                    android:text="@string/language"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 

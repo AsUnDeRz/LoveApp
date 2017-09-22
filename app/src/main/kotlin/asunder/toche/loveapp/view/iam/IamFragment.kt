@@ -137,27 +137,27 @@ class IamFragment : Fragment() {
             val total = Integer.parseInt(data.tracked) + Integer.parseInt(data.missing)
             if(data.tracked.toInt() > 0) {
                 val tracked = (data.tracked.toInt() / total) * 100
-                txt_tracked.text = "$tracked % Tracked"
+                txt_tracked.text = "$tracked % "+context.getString(R.string.tracked)
             }else{
-                txt_tracked.text = "0 % Tracked"
+                txt_tracked.text = "0 % "+context.getString(R.string.tracked)
 
             }
             if(data.missing.toInt() >0) {
                 val missing = (data.missing.toInt() / total) * 100
-                txt_missed.text = "$missing % Missed"
+                txt_missed.text = "$missing % "+context.getString(R.string.missing)
             }else{
-                txt_missed.text = "0 % Missed"
+                txt_missed.text = "0 % "+context.getString(R.string.missing)
 
             }
         }else{
-            txt_tracked.text = "0 % Tracked"
-            txt_missed.text = "0 % Missed"
+            txt_tracked.text = "0 % "+context.getString(R.string.tracked)
+            txt_missed.text = "0 % "+context.getString(R.string.missing)
         }
         //
 
         //display last risk
         if(preference.getLong(KEYPREFER.LASTRISK,0L) != 0L){
-            date_riskmeter.text = "Last Risk "+Utils(activity).getDateSlash(Date(preference.getLong(KEYPREFER.LASTRISK,0L)))
+            date_riskmeter.text = context.getString(R.string.lastrisk)+" "+Utils(activity).getDateSlash(Date(preference.getLong(KEYPREFER.LASTRISK,0L)))
         }
 
 

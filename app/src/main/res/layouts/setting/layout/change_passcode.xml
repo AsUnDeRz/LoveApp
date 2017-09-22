@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:gravity="left|center"
             android:paddingStart="30dp"
-            android:text="Change Passcode"
+            android:text="@string/changepasscode"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 

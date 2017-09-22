@@ -72,4 +72,11 @@
     <string name="login">เข้าสู่ระบบ</string>
     <string name="feedback">ข้อเสนอแนะ</string>
     <string name="sent">ส่ง</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="insertlab">วันตรวจ</string>
+    <string name="work">อาขีพ</string>
+    <string name="idenid">เลขบัตรประชาชน</string>
+    <string name="language">ภาษา</string>
+    <string name="alterhome">กดปุ่มอีกครั้งเพื่อกลับสู่หน้าโฮม</string>
+
 </resources>

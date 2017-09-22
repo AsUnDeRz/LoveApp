@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:gravity="left|center"
             android:paddingLeft="50dp"
-            android:text="Find a test place near by"
+            android:text="@string/findplacenearu"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 

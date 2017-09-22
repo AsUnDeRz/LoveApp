@@ -96,7 +96,7 @@ class LearnAndGameFragment : Fragment() {
             val c = appDb.getKnowledgeContent()
             val data = ObservableArrayList<Model.HomeContent>().apply {
                 c.forEach { a ->
-                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                    add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " "+context.getString(R.string.points), a))
                     d { "add contentId [" + a.id + "]" }
                 }
             }
@@ -127,8 +127,8 @@ class LearnAndGameFragment : Fragment() {
             .onRecycle { println("Recycled") }
             .onClick {
                 val item = it.binding.learnNewItem.data
-                val model = Model.RepositoryKnowledge("1","1","title_th",item.title_eng,"content_th",item.content_eng,
-                        "image",item.point, arrayListOf("2","3"),"1","content_th_long",item.content_eng_long,item.link)
+                val model = Model.RepositoryKnowledge(item.id,item.group_id,item.title_th,item.title_eng,item.content_th,item.content_eng,
+                        "image",item.point, arrayListOf("2","3"),item.version,item.content_th_long,item.content_eng_long,item.link)
 
                 var data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,model)
@@ -154,7 +154,7 @@ class LearnAndGameFragment : Fragment() {
                                 run {
                                     val data = ObservableArrayList<Model.HomeContent>().apply {
                                         c.forEach { a ->
-                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " "+context.getString(R.string.points), a))
                                             d { "add contentId [" + a.id + "]" }
                                         }
                                     }
@@ -169,7 +169,7 @@ class LearnAndGameFragment : Fragment() {
                                     val c = appDatabase.getKnowledgeContent()
                                     val data = ObservableArrayList<Model.HomeContent>().apply {
                                         c.forEach { a ->
-                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " Points", a))
+                                            add(Model.HomeContent(a.id.toLong(), utils.txtLocale(a.title_th, a.title_eng), a.point + " "+context.getString(R.string.points), a))
                                             d { "add contentId [" + a.id + "]" }
                                         }
                                     }

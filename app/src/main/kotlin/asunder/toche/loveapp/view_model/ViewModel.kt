@@ -341,10 +341,20 @@ object ViewModel{
                         }
                     }
                 })
-
-
         }
-
+        fun addUpdatePoint(point:String,userId: String){
+            val addPoint = service.addUserPoint(userId,point)
+            addPoint.enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    Timber.d { t?.message.toString() }
+                }
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if(response!!.isSuccessful){
+                        Timber.d { "addPoint Successful" }
+                    }
+                }
+            })
+        }
         fun inputPointHistory(point:String,knowledgeID:String,id:String){
             Timber.d { "input point history" }
                 Timber.d { "point [$point] user_id[$id]" }

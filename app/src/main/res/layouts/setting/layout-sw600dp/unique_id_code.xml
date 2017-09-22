@@ -28,7 +28,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:text="The First Alphabet Of Name"
+            android:text="@string/firstname"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -74,7 +74,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:text="The First Alphabet Of SureName"
+            android:text="@string/firstsurename"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -120,7 +120,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:text="Birth Day"
+            android:text="@string/birthday"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -168,7 +168,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/button_box"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="26sp" />

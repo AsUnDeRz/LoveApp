@@ -137,7 +137,6 @@ interface LoveAppService{
     //fun getProductByGroup(@Field("group_id") id:String) : Observable<Model.ProductResponse>
 
     companion object {
-        private val BASE_URL = "http://loveapp1.herokuapp.com/"
 
         fun create() : LoveAppService {
             val gsonBuilder = GsonBuilder()
@@ -151,7 +150,7 @@ interface LoveAppService{
 
 
             val restAdapter = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(BuildConfig.ENDPOINT)
                     .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))

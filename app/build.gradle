@@ -19,9 +19,16 @@ android {
         multiDexEnabled true
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "ENDPOINT", "\"http://loveapponline.com:9000/\""
+
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "ENDPOINT", "\"http://loveapponline.com:9000/\""
+
         }
     }
     sourceSets {
@@ -124,6 +131,8 @@ dependencies {
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     //push
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    implementation 'com.akexorcist:localizationactivity:1.1.1'
+
 }
 
 repositories {

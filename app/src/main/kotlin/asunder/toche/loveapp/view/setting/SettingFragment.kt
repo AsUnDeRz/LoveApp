@@ -60,5 +60,13 @@ class SettingFragment : Fragment() {
             activity.startActivity(Intent().setClass(activity, FeedbackActivity::class.java))
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_language)
+        btn_language.setOnClickListener{
+            activity.startActivity(Intent().setClass(activity,LanguageActivity::class.java))
+        }
+
+
+
+
     }
 }

@@ -29,14 +29,13 @@
             android:paddingRight="30dp">
 
 
-
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Telephone"
+                android:text="@string/phone"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -64,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="My Code"
+                    android:text="@string/mycode"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Email"
+                android:text="@string/email"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -154,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Password"
+                android:text="@string/password"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -183,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Unique Identified"
+                    android:text="@string/uid"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
@@ -196,7 +195,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Province"
+                    android:text="@string/province"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
@@ -244,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Work"
+                android:text="@string/work"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -265,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="8dp"
-                android:text="Identified ID"
+                android:text="@string/idenid"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -311,7 +310,7 @@
                 android:layout_centerHorizontal="false"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/button_box"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />

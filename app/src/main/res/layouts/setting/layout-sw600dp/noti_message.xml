@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingStart="30dp"
-            android:text="Add New Message"
+            android:text="@string/addmessage"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 

@@ -48,7 +48,7 @@
                         android:id="@+id/title_riskmeter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Risk Meter"
+                        android:text="@string/riskmeter"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -56,7 +56,6 @@
                         android:id="@+id/date_riskmeter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Last Risk "
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -100,7 +99,7 @@
                         android:id="@+id/txt_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Point"
+                        android:text="@string/points"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -108,7 +107,6 @@
                         android:id="@+id/values_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0 Points"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -152,7 +150,7 @@
                         android:id="@+id/txt_pill_tracking"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pill Tracking"
+                        android:text="@string/pilltracking"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -160,14 +158,12 @@
                         android:id="@+id/txt_tracked"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="78 % Tracked"
                         android:textColor="@android:color/white" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_missed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="22 % Missed"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>

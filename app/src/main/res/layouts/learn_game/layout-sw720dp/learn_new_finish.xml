@@ -61,7 +61,7 @@
                     android:id="@+id/txt_readmore"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:text="Read more"
+                    android:text="@string/readmore"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
@@ -116,7 +116,7 @@
                     android:id="@+id/txt_getmore"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:text="Get more points"
+                    android:text="@string/getmorepoint"
                     android:textColor="@android:color/white"
                     android:textSize="26sp" />
 
