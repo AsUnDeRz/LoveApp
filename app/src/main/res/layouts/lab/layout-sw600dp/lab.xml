@@ -54,5 +54,11 @@
             android:layout_marginRight="70dp"
             android:background="@android:color/transparent"
             android:maxLines="1" />
+
+        <View
+            android:id="@+id/btn_clear"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 </RelativeLayout>

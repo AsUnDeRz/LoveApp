@@ -37,7 +37,7 @@
         android:paddingRight="30dp"
         android:text="2. I have sex with:"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/box1"
@@ -58,7 +58,7 @@
             android:text="Men"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -73,7 +73,7 @@
             android:text="Women"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +94,7 @@
             android:text="Both men and women"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"

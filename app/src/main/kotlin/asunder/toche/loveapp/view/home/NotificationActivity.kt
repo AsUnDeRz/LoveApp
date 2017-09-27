@@ -2,6 +2,7 @@ package asunder.toche.loveapp
 
 import android.databinding.ObservableArrayList
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import asunder.toche.loveapp.R
@@ -25,12 +26,22 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notification)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@NotificationActivity)
         appDb = AppDatabase(this)
         utils = Utils(this)
 
 
 
         notiList.apply {
+            //check hiv test date
+            /*
+            if (preferences.getLong(KEYPREFER.HIVTEST, 0L) != 0L) {
+                val hivTestDate = preferences.getLong(KEYPREFER.HIVTEST,0L)
+                if (hivTestDate > Date().time){
+                    add(Model.Notification("0","Hiv test",utils.getDifDate(Date(hivTestDate)),Date(hivTestDate)))
+                }
+            }
+            */
             val data = appDb.getNotiMissing()
             for(noti in data){
                 add(Model.Notification(noti.id,noti.title,utils.getDifDate(noti.time),noti.time))

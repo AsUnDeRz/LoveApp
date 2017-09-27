@@ -29,7 +29,7 @@
         android:layout_below="@+id/circle_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
-        android:text="Who are you?"
+        android:text="@string/whoru"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 

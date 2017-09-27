@@ -62,7 +62,7 @@
                 android:id="@+id/txt_infomation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Information"
+                android:text="@string/information"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="26sp" />
 
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Contact"
+                android:text="@string/contacts"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="26sp" />
         </LinearLayout>
@@ -180,7 +180,7 @@
                     android:id="@+id/txt_promotitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Promotion"
+                    android:text="@string/promotion"
                     android:textColor="@color/colorDarkGrey"
                     android:textSize="26sp" />
 

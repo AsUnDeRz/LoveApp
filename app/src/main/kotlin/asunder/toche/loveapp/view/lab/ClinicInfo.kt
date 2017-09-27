@@ -1,7 +1,11 @@
 package asunder.toche.loveapp
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import asunder.toche.loveapp.R
@@ -40,8 +44,9 @@ class ClinicInfo:AppCompatActivity(){
         title_clinic.text = content?.name
         txt_nametest.text = content?.service
         txt_worktime.text = content?.open_hour
-        txtPhone.text = content?.phone
+        txtPhone.text = "Phone:"+content?.phone
         txt_map.text = content?.address
+        txt_web.text = "Email:"+content?.email
 
         if (content?.promo_id == ""){
             info_promotion.visibility = View.GONE
@@ -49,6 +54,10 @@ class ClinicInfo:AppCompatActivity(){
             txt_promo_start.text = "Start "+content?.promo_start
             txt_promo_end.text = "End "+content?.promo_end
             txt_promotion.text = content?.promo_title
+        }
+
+        txtPhone.setOnClickListener {
+            actionCall(content?.phone!!)
         }
 
 
@@ -62,7 +71,26 @@ class ClinicInfo:AppCompatActivity(){
         }
 
 
+        if (ContextCompat.checkSelfPermission(this@ClinicInfo, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this@ClinicInfo, 123, Manifest.permission.CALL_PHONE, true)
 
+        }
+
+
+
+    }
+
+    fun actionCall(number:String){
+
+        if (ContextCompat.checkSelfPermission(this@ClinicInfo, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this@ClinicInfo, 123, Manifest.permission.CALL_PHONE, true)
+
+        }else{
+            startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$number")))
+
+        }
     }
 }
 

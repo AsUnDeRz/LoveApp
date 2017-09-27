@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <im.delight.android.webview.AdvancedWebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

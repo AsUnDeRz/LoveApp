@@ -35,7 +35,9 @@ class LanguageActivity : LocalizationActivity(), OnLocaleChange {
         if(preferences.getString(KEYPREFER.language, locale) == "th"){
             sb_ios.isChecked = true
             txt_lang.text = "ภาษาไทย"
+            lang = "th"
         }else{
+            lang = "en"
             sb_ios.isChecked = false
             txt_lang.text = "English"
         }

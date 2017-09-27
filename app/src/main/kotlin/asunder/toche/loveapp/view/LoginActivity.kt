@@ -1,11 +1,15 @@
 package asunder.toche.loveapp
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.customtabs.CustomTabsIntent
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
@@ -17,6 +21,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.login.*
+import utils.CustomTabActivityHelper
 
 
 /**
@@ -54,6 +59,7 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
     lateinit var appDb : AppDatabase
     lateinit var MainViewModel : ViewModel.MainViewModel
     var loadSuccess =0
+    private var mCustomTabActivityHelper: CustomTabActivityHelper? = null
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable
@@ -80,7 +86,7 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
                                 val editor = preferences.edit()
                                 editor.putString(KEYPREFER.UserId, c[0].user_id)
                                 editor.putBoolean(KEYPREFER.isFirst, false)
-                                editor.putInt(KEYPREFER.HIVSTAT,c[0].status_id.toInt())
+                                editor.putInt(KEYPREFER.HIVSTAT,c[0].status_id!!.toInt())
                                 editor.putString(KEYPREFER.GENDER,c[0].gender_id)
                                 editor.apply()
                                 d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
@@ -132,6 +138,11 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
         btn_back.setOnClickListener {
             onBackPressed()
         }
+
+        forgetpassword.setOnClickListener {
+            setupCustomTabHelper(KEYPREFER.FORGOT)
+            openCustomTab(KEYPREFER.FORGOT)
+        }
     }
 
      override fun onBackPressed() {
@@ -157,5 +168,63 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
                         .setBackgroundColorInt(Color.RED)
                         .show()
 
+    }
+
+
+    private fun setupCustomTabHelper(URL:String) {
+        mCustomTabActivityHelper = CustomTabActivityHelper()
+        mCustomTabActivityHelper!!.setConnectionCallback(mConnectionCallback)
+        mCustomTabActivityHelper!!.mayLaunchUrl(Uri.parse(URL), null, null)
+    }
+
+    private fun openCustomTab(URL: String) {
+
+        //ตัวแปรนี้จะให้ในการกำหนดค่าต่างๆ ที่ข้างล่างนี้
+        val intentBuilder = CustomTabsIntent.Builder()
+
+        //กำหนดสีของ Action bar
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+
+        //กำหนดให้มี Animation เมื่อ Custom tab เข้ามาและออกไป ถ้าไม่มีจะเหมือน Activity ที่เด้งเข้ามาเลย
+        setAnimation(intentBuilder)
+
+        //Launch Custome tab ให้ทำงาน
+        CustomTabActivityHelper.openCustomTab(
+                this, intentBuilder.build(), Uri.parse(URL), WebviewFallback())
+    }
+
+    private fun setAnimation(intentBuilder: CustomTabsIntent.Builder) {
+        //intentBuilder.setStartAnimations(this, android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
+    // You can use this callback to make UI changes
+    private val mConnectionCallback = object : CustomTabActivityHelper.ConnectionCallback {
+        override fun onCustomTabsConnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Connected to service", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onCustomTabsDisconnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Disconnected from service", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        mCustomTabActivityHelper?.bindCustomTabsService(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mCustomTabActivityHelper?.unbindCustomTabsService(this)
+    }
+
+    inner class WebviewFallback : CustomTabActivityHelper.CustomTabFallback {
+        override fun openUri(activity: Activity, uri: Uri) {
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtra("KEY_URL", uri.toString())
+            activity.startActivity(intent)
+        }
     }
 }

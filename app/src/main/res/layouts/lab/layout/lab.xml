@@ -34,11 +34,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/header_nearby"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="90dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -54,5 +53,11 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:maxLines="1" />
+
+        <View
+            android:id="@+id/btn_clear"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 </RelativeLayout>

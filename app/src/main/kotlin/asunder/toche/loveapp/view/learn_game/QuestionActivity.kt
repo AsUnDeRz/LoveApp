@@ -55,6 +55,7 @@ class QuestionActivity: AppCompatActivity() {
     }
 
     lateinit var content : String
+    var typeGame : String =""
     var questionList = ArrayList<Model.QuestionYesNo>()
     lateinit var utils: Utils
 
@@ -65,6 +66,7 @@ class QuestionActivity: AppCompatActivity() {
         utils = Utils(this@QuestionActivity)
         //questionList = intent.getParcelableArrayListExtra<Model.QuestionYesNo>(KEYPREFER.CONTENT)
         content = intent.getStringExtra(KEYPREFER.CONTENT)
+        typeGame = intent.getStringExtra(KEYPREFER.TYPE)
 
         Glide.with(this)
                 .load(R.drawable.bg_question)
@@ -89,7 +91,11 @@ class QuestionActivity: AppCompatActivity() {
         rv_question_position.setHasFixedSize(true)
         rv_question_position.layoutManager = LinearLayoutManager(this,LinearLayout.HORIZONTAL,false)
        // rv_question_position.layoutManager = GridLayoutManager(this,maxQuestionSize)
-        loadYesNoQuestion()
+        if(typeGame == KEYPREFER.KNOWLEDGE) {
+            loadYesNoQuestion()
+        }else{
+            loadYesNoQuestionGame()
+        }
 
     }
 
@@ -144,6 +150,38 @@ class QuestionActivity: AppCompatActivity() {
                 .show()
     }
 
+    fun loadYesNoQuestionGame(){
+        d{"check game id ["+content+"]"}
+        manageSub(
+                service.getYesNoQuestionGame(content)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data =ObservableArrayList<Model.QuestionYesNo>().apply {
+                                c.forEach {
+                                    item -> add(Model.QuestionYesNo(item.question_id,item.game_id,item.question_th,
+                                        item.question_eng,item.answer,item.point))
+                                    d{"add ["+item.question_eng+"] to array"}
+                                }
+                            }
+                            questionList = data
+
+                            //init first question
+                            maxQuestionSize = questionList.size
+                            d{"check Maxquestion $maxQuestionSize"}
+                            val content = questionList[currentPosition]
+                            txt_current_page.text = currentQuestion.toString()
+                            txt_question.text =utils.txtLocale(content.question_th,content.question_eng)
+                            rv_question_position.adapter = IndicatorAdapter(maxQuestionSize,currentPosition)
+
+                            d { "check response [" + c.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+
+    }
+
 
     fun loadYesNoQuestion(){
         d{"check id ["+content+"]"}
@@ -186,6 +224,7 @@ class QuestionActivity: AppCompatActivity() {
                             override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                                 if(response!!.isSuccessful){
                                     d{"addPoint Successful"}
+
                                     inputPointHistory(point,knowledgeID)
                                 }
                             }
@@ -196,11 +235,17 @@ class QuestionActivity: AppCompatActivity() {
 
     fun inputPointHistory(point:String,knowledgeID:String){
         d{"input point history"}
+        var pointType =""
+        if (typeGame == KEYPREFER.KNOWLEDGE) {
+            pointType = "2"
+        }else{
+            pointType ="1"
+        }
         val preferences = PreferenceManager.getDefaultSharedPreferences(this@QuestionActivity)
         if (preferences.getString(KEYPREFER.UserId, "") != "") {
             d{"point [$point] user_id["+preferences.getString(KEYPREFER.UserId,"")+"]"}
             val addPointHistory = service.addPointHistory(knowledgeID,preferences.getString(KEYPREFER.UserId,""),
-                    "2",point, Date())
+                    pointType,point, Date())
             addPointHistory.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }

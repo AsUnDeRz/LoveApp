@@ -78,5 +78,10 @@
     <string name="idenid">เลขบัตรประชาชน</string>
     <string name="language">ภาษา</string>
     <string name="alterhome">กดปุ่มอีกครั้งเพื่อกลับสู่หน้าโฮม</string>
+    <string name="alteraccupdate">กรุณากรอกข้อมูลให้ครบถ้วน</string>
+    <string name="information">ข้อมูล</string>
+    <string name="contacts">ที่อยู่</string>
+    <string name="promotion">โปรโมนชั่น</string>
+
 
 </resources>

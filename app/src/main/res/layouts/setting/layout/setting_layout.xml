@@ -44,7 +44,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/passcode"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -80,7 +80,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/pillreminder"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -116,7 +116,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/insertlab"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -152,7 +152,7 @@
                     android:paddingStart="65dp"
                     android:text="CD4 &amp; VL."
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -189,7 +189,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/accsetting"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -225,7 +225,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/feedback"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -261,7 +261,7 @@
                     android:paddingStart="65dp"
                     android:text="@string/language"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"

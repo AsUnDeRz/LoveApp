@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import android.R.array
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.text.TextUtils
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import retrofit2.Call
@@ -51,11 +52,16 @@ class AccountSettingActivity: AppCompatActivity() {
     var provinces = ObservableArrayList<Model.Province>()
     var provinID=""
     val provinTitle = ObservableArrayList<String>()
+    var jobs = ObservableArrayList<Model.RepositoryJob>()
+    var jobID=""
+    var jobTitle = ObservableArrayList<String>()
+    var statusList = ObservableArrayList<Model.HivStatus>()
+    var statusTitle =  ObservableArrayList<String>()
+    var statusID=""
     var dataUser = ObservableArrayList<Model.User>()
     lateinit var prefer :SharedPreferences
     lateinit var utils :Utils
     lateinit var appdb : AppDatabase
-    lateinit var preferences : SharedPreferences
 
     fun loadProvince(){
             manageSub(
@@ -130,9 +136,11 @@ class AccountSettingActivity: AppCompatActivity() {
         edt_number_id.typeface = MyApp.typeFace.heavy
         edtUniId = findViewById(R.id.edt_unique)
         loadUser(prefer.getString(KEYPREFER.UserId,"0"))
-
-
-
+        statusList.apply {
+            add(Model.HivStatus("1","POSITIVE","บวก"))
+            add(Model.HivStatus("2","NEGATIVE","ลบ"))
+            add(Model.HivStatus("3","I DON'T KNOW","ไม่ทราบ"))
+        }
 
         btn_back.setOnClickListener {
             onBackPressed()
@@ -159,21 +167,54 @@ class AccountSettingActivity: AppCompatActivity() {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
            showProvince()
         }
-        edt_province.setOnFocusChangeListener { view, b ->
+        txt_hiv_status.setOnClickListener {
+            showStatus()
+        }
+        edt_province.isFocusableInTouchMode = false
+        edt_province.isFocusable =false
+        edt_work.isFocusableInTouchMode = false
+        edt_work.isFocusable =false
+        edt_work.setOnClickListener { view ->
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
-            if(b)
-            showProvince()
+            showJob()
         }
 
         btn_save.setOnClickListener {
-            updateUser()
+            if(validate()) {
+                updateUser()
+                d{"validate success"}
+            }else{
+                d{"validate fail"}
+
+            }
         }
 
 
     }
+
+    fun loadJob(){
+        if(appdb.getJobs().size != 0){
+            var Title = ""
+            val job = ObservableArrayList<Model.RepositoryJob>().apply {
+                appdb.getJobs().forEach { item ->
+                    run {
+                        add(item)
+                        jobTitle.add(utils.txtLocale(item.occupation_th, item.occupation_eng))
+                        if (item.occupation_id == dataUser[0].job) {
+                            Title = utils.txtLocale(item.occupation_th, item.occupation_eng)
+                        }
+                    }
+                }
+            }
+            edt_work.setText(Title)
+            jobs = job
+
+        }
+    }
     fun showProvince(){
         MaterialDialog.Builder(this)
+                .typeface(utils.medium,utils.medium)
                 .title("Province")
                 .items(provinTitle)
                 .itemsCallback({ dialog, view, which, text ->
@@ -181,6 +222,47 @@ class AccountSettingActivity: AppCompatActivity() {
                     d{"select province [$text]"}
                     provinID = provinces[which].province_id
                     d{"check provinID [$provinID] ["+provinces[which].toString()+"]"}
+                })
+                .positiveText(android.R.string.cancel)
+                .show()
+    }
+
+    fun showJob(){
+        MaterialDialog.Builder(this)
+                .typeface(utils.medium,utils.medium)
+                .title("Work")
+                .items(jobTitle)
+                .itemsCallback({ dialog, view, which, text ->
+                    edt_work.setText(text)
+                    d{"select job [$text]"}
+                    jobID = jobs[which].occupation_id
+                    d{"check jobID [$jobID] ["+jobs[which].toString()+"]"}
+                })
+                .positiveText(android.R.string.cancel)
+                .show()
+    }
+
+    fun loadStatus(){
+        statusTitle = ObservableArrayList<String>()
+        statusTitle.apply {
+            statusList.forEach {
+                item -> add(utils.txtLocale(item.status_th,item.status_eng))
+            }
+        }
+
+    }
+
+    fun showStatus(){
+        loadStatus()
+        MaterialDialog.Builder(this)
+                .typeface(utils.medium,utils.medium)
+                .title("HIV status")
+                .items(statusTitle)
+                .itemsCallback({ dialog, view, which, text ->
+                    txt_hiv_status.text = text
+                    d{"select status [$text]"}
+                    statusID = statusList[which].status_id
+                    d{ """check statusID [$statusID] [${statusList[which]}]""" }
                 })
                 .positiveText(android.R.string.cancel)
                 .show()
@@ -201,6 +283,7 @@ class AccountSettingActivity: AppCompatActivity() {
                                 dataUser = data
                                 setDataUser(dataUser[0])
                                 d { "check response [" + dataUser.size + "]" }
+                                loadJob()
                                 if(appdb.getProvince().size != 0){
                                     var Title = ""
                                     val provin = ObservableArrayList<Model.Province>().apply {
@@ -238,31 +321,35 @@ class AccountSettingActivity: AppCompatActivity() {
             mixUnique = data.first_name + data.first_surname + formatUni.format(date)
         }
 
-        edt_phone.setText(if(data.phone != null){data.phone}else{""})
+        edt_phone.setText(if(data.phone != null){data.phone!!}else{""})
         edt_mcode.setText(if(data.user_id != null){data.user_id}else{""})
         //edt_fcode.setText(data.friend_id)
-        edt_email.setText(if(data.email != null){data.email}else{""})
-        edt_password.setText(if(data.password != null){data.password}else{""})
+        edt_email.setText(if(data.email != null){data.email!!}else{""})
+        edt_password.setText(if(data.password != null){data.password!!}else{""})
         edt_unique.setText(mixUnique)
-        edt_work.setText(if(data.job != null){data.job}else{""})
-        edt_number_id.setText(if(data.iden_id != null){data.iden_id}else{""})
-        fname = if(data.first_name != null){data.first_surname}else{""}
-        lname = if(data.first_surname != null){data.first_surname}else{""}
+        //edt_work.setText(if(data.job != null){data.job!!}else{""})
+        //edt_number_id.setText(if(data.iden_id != null){data.iden_id!!}else{""})
+        fname = if(data.first_name != null){data.first_surname!!}else{""}
+        lname = if(data.first_surname != null){data.first_surname!!}else{""}
         birth = if(data.birth != null){formatSend.format(date)}else{""}
-        provinID = if(data.province != null){data.province}else{""}
+        provinID = if(data.province != null){data.province!!}else{""}
+        jobID = data.job.let { it!!  }
+        statusID = data.status_id.let { it!! }
 
 
+
+        val editor = prefer.edit()
         var status=""
         when(data.status_id){
-            "1" -> { status = getString(R.string.positive)}
+            "1" -> { status = getString(R.string.positive) }
             "2" -> { status = getString(R.string.negative)}
             "3" -> { status = getString(R.string.idontknow)}
             else -> ""
         }
+        editor.putInt(KEYPREFER.HIVSTAT,data.status_id!!.toInt())
+        editor.apply()
         txt_hiv_status.text = status
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
-        val editor = preferences.edit()
         if(!checkDataUser(data)){
             d{"return User No update Data"}
             editor.putBoolean(KEYPREFER.isUpdateProfile,false)
@@ -278,7 +365,7 @@ class AccountSettingActivity: AppCompatActivity() {
 
 
     fun checkDataUser(data:Model.User) : Boolean{
-        if(data.name == null){ return false }
+        //if(data.name == null){ return false }
         if(data.first_name == null){ return false }
         if(data.first_surname == null){ return false}
         //if(data.friend_id == null){ return false}
@@ -287,11 +374,52 @@ class AccountSettingActivity: AppCompatActivity() {
         if(data.password == null){ return false}
         if(data.province == null){ return false}
         if(data.job == null){ return false}
-        if(data.iden_id == null){ return false}
+        //if(data.iden_id == null){ return false}
         if(data.birth == null){ return false}
         return true
     }
 
+
+    fun validate() : Boolean{
+        val emailPattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        val alter = getString(R.string.alteraccupdate)
+        if(TextUtils.isEmpty(edt_phone.editableText.toString())){
+            edt_phone.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_mcode.editableText.toString())){
+            edt_mcode.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_email.editableText.toString())){
+            edt_email.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_password.editableText.toString())){
+            edt_password.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_unique.editableText.toString())){
+            edt_unique.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_province.editableText.toString())){
+            edt_province.error = alter
+            return false
+        }
+        if(TextUtils.isEmpty(edt_work.editableText.toString())){
+            edt_work.error = alter
+            return false
+        }
+        /*
+        if(TextUtils.isEmpty(edt_number_id.editableText.toString())){
+            edt_number_id.error = alter
+            return false
+        }
+        */
+
+        return true
+    }
 
 
 
@@ -299,18 +427,20 @@ class AccountSettingActivity: AppCompatActivity() {
         btn_save.isClickable = false
         val data = dataUser[0]
         //update edt_fcode.editableText.toString()
+
         var user = Model.User(data.user_id,data.gender_id,data.name, fname,
-                lname,data.status_id,"0",edt_phone.editableText.toString(),
-                edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,edt_work.editableText.toString(),
-                edt_number_id.editableText.toString(), birth,data.point,"","","")
+                lname,statusID,"0",edt_phone.editableText.toString(),
+                edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
+                null, birth,data.point,"","","")
+
 
         if (prefer.getString(KEYPREFER.UserId, "") != "") {
             val userID = prefer.getString(KEYPREFER.UserId,"")
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
-            val update = service.updateUser(data.user_id,data.gender_id,data.name, fname,
-                    lname,data.status_id,"0",edt_phone.editableText.toString(),
-                    edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,edt_work.editableText.toString(),
-                    edt_number_id.editableText.toString(), birth,data.point)
+            val update = service.updateUser(data.user_id,data.gender_id,"", fname,
+                    lname,statusID,"0",edt_phone.editableText.toString(),
+                    edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
+                    null, birth,data.point)
             update.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }
@@ -320,8 +450,9 @@ class AccountSettingActivity: AppCompatActivity() {
                 override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                     if (response!!.isSuccessful) {
                         d { "update successful" }
-                        preferences = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
-                        val editor = preferences.edit()
+                        prefer = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
+                        val editor = prefer.edit()
+                        editor.putInt(KEYPREFER.HIVSTAT,statusID.toInt())
                         if(!checkDataUser(user)){
                             d{"user can't update full information"}
                             editor.putBoolean(KEYPREFER.isUpdateProfile,false)
@@ -337,6 +468,7 @@ class AccountSettingActivity: AppCompatActivity() {
                 }
             })
         }
+
 
 
     }

@@ -88,8 +88,12 @@ class HivStatusActivity: AppCompatActivity(){
         val preferences = PreferenceManager.getDefaultSharedPreferences(this@HivStatusActivity)
         if(preferences.getString(KEYPREFER.UserId,"") != ""){
             //update status by user id
-            val call = service.updateHivStatus(data.status_id,preferences.getString(KEYPREFER.UserId,""))
-            call.enqueue(object :Callback<Void>{
+            val userid = preferences.getString(KEYPREFER.UserId,"")
+            val genid = preferences.getString(KEYPREFER.GENDER,"")
+            //val call = service.updateHivStatus(data.status_id,userid)
+            val cal = service.updateUser(userid,genid,null,null,null,data.status_id,null,
+                    null,null,null,null,null,null,null,"0")
+            cal.enqueue(object :Callback<Void>{
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d{"Throwable ["+t?.message+"]"}
                 }

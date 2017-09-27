@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{pillItem.getTimeShort}"
                 android:textColor="@android:color/white"
-                android:textSize="34sp" />
+                android:textSize="30sp" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_pill"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notification"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <ImageView

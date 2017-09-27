@@ -37,7 +37,7 @@
         android:paddingRight="30dp"
         android:text="6. Did you use a condom?"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/box1"
@@ -57,8 +57,7 @@
             android:background="@drawable/button_box"
             android:text="I used a condom the whole time"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textColor="@android:color/white" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -72,8 +71,7 @@
             android:background="@drawable/button_box"
             android:text="I used a condom for part of the time"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -92,8 +90,7 @@
             android:background="@drawable/button_box"
             android:text="I didn't use a condom"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textColor="@android:color/white" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"

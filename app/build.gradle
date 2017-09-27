@@ -20,6 +20,8 @@ android {
     }
     buildTypes {
         debug {
+            //http://loveapp1.herokuapp.com
+            //http://loveapponline.com:9000/
             buildConfigField "String", "ENDPOINT", "\"http://loveapponline.com:9000/\""
 
         }
@@ -132,6 +134,7 @@ dependencies {
     //push
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.akexorcist:localizationactivity:1.1.1'
+    implementation 'com.android.support:customtabs:26.0.1'
 
 }
 

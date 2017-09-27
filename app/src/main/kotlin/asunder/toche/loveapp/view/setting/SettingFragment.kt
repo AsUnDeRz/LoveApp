@@ -1,7 +1,9 @@
 package asunder.toche.loveapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,14 +23,27 @@ class SettingFragment : Fragment() {
         }
     }
 
+    lateinit var prefer : SharedPreferences
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.setting_layout, container, false)
+        prefer = PreferenceManager.getDefaultSharedPreferences(activity)
         return view
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "SETTING"
+
+        if(prefer.getInt(KEYPREFER.HIVSTAT,0) != 0){
+            val stat = prefer.getInt(KEYPREFER.HIVSTAT,0)
+            when(stat){
+                1 ->{ btn_cd4.visibility = View.VISIBLE}
+                2 ->{ btn_cd4.visibility = View.GONE}
+                3 ->{ btn_cd4.visibility = View.GONE}
+            }
+
+        }
 
         PushDownAnim.setOnTouchPushDownAnim(btn_passcode)
         btn_passcode.setOnClickListener {
@@ -69,4 +84,19 @@ class SettingFragment : Fragment() {
 
 
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        if(prefer.getInt(KEYPREFER.HIVSTAT,0) != 0){
+            val stat = prefer.getInt(KEYPREFER.HIVSTAT,0)
+            when(stat){
+                1 ->{ btn_cd4.visibility = View.VISIBLE}
+                2 ->{ btn_cd4.visibility = View.GONE}
+                3 ->{ btn_cd4.visibility = View.GONE}
+            }
+
+        }
+    }
+
 }

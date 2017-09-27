@@ -71,11 +71,13 @@ class LearnGameMainActivity: AppCompatActivity(){
 
         when(intent.extras.getInt("key")){
             1 ->{
+                /*
                 LearnGameList.apply {
                     for(i in 1..2) {
                         add(Model.LearnGameContent(R.drawable.clinic_img, "Memory Master #$i", "100 Point", "20% Done",R.drawable.clinic_img))
                     }
                 }
+                */
                 rv_learngame.adapter = LearnGameAdapter(LearnGameList,false)
                 loadContentGame()
             }
@@ -127,12 +129,15 @@ class LearnGameMainActivity: AppCompatActivity(){
                 it.binding.titleGame as TextView
                 when(intent.extras.getInt("key")){
                     1 ->{
-                        if(it.binding.titleGame.text  == "Memory Master #1"){
+                        if(it.binding.learnGameItem.id  == 0){
                             startActivity(Intent().setClass(this,MemoryMasterActivity::class.java))
-                        }
-                        if(it.binding.titleGame.text == "Memory Master #2"){
+                        }else if(it.binding.learnGameItem.id == 1){
                             startActivity(Intent().setClass(this,MemoryMaster2Activity::class.java))
-
+                        }else{
+                            val data = Intent()
+                            data.putExtra(KEYPREFER.CONTENT,it.binding.learnGameItem.id.toString())
+                            data.putExtra(KEYPREFER.TYPE,KEYPREFER.GAME)
+                            startActivity(data.setClass(this@LearnGameMainActivity, QuestionActivity::class.java))
                         }
                     }
                     2 ->{
@@ -160,7 +165,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                     c.forEach { item ->
                                         add(Model.LearnGameContent(
                                                 item.game_id.toInt(), utils.txtLocale(item.game_name_th, item.game_name_eng),
-                                                item.sum_point+ " Point", "20% done", R.drawable.clinic_img))
+                                                if(item.sum_point != null){item.sum_point+ " Point"}else{""}, "20% done", R.drawable.clinic_img))
                                         d { "add [" + item.game_name_th + "] to array" }
                                     }
                                 }

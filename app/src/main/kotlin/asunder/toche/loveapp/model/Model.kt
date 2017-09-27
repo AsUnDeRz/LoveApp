@@ -16,6 +16,7 @@ import kotlin.collections.ArrayList
 object Model{
 
 
+    data class RepositoryJob(val occupation_id:String,val occupation_th: String,val occupation_eng: String)
 
     data class RepositoryGame(val game_id:String,val game_name_eng: String,val game_name_th: String,val sum_point:String)
 
@@ -24,6 +25,36 @@ object Model{
 
     data class KnowledgeGroup(val group_id: String,val group_name_eng:String,val group_name_th:String,
                               val version:String,val sumpoint:String)
+
+    data class QuestionYesNoGame(val question_id: String, val game_id: String, val question_th: String, val question_eng: String, val answer: Boolean, val point: String) : Parcelable {
+        constructor(source: Parcel) : this(
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                source.readString(),
+                1 == source.readInt(),
+                source.readString()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeString(question_id)
+            writeString(game_id)
+            writeString(question_th)
+            writeString(question_eng)
+            writeInt((if (answer) 1 else 0))
+            writeString(point)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<QuestionYesNoGame> = object : Parcelable.Creator<QuestionYesNoGame> {
+                override fun createFromParcel(source: Parcel): QuestionYesNoGame = QuestionYesNoGame(source)
+                override fun newArray(size: Int): Array<QuestionYesNoGame?> = arrayOfNulls(size)
+            }
+        }
+    }
 
     data class QuestionYesNo(val question_id: String, val knowledge_id: String, val question_th: String, val question_eng: String, val answer: Boolean, val point: String) : Parcelable {
         constructor(source: Parcel) : this(
@@ -230,9 +261,9 @@ object Model{
     data class RepoPointHistoryGame(val game_name_th:String,val game_name_eng:String,val date:Date,val point:String)
     data class RepoPointHistoryKnowledge(val title_th:String,val title_eng: String,val date:Date,val point:String)
 
-    data class User(val user_id:String,val gender_id:String,val name:String,val first_name:String,val first_surname:String,
-                    val status_id: String,val friend_id:String,val phone:String,val email:String,val password:String,
-                    val province:String,val job:String,val iden_id:String,val birth:String,val point:String,
+    data class User(val user_id:String,val gender_id:String,val name:String?,val first_name:String?,val first_surname:String?,
+                    val status_id: String?,val friend_id:String?,val phone:String?,val email:String?,val password:String?,
+                    val province:String?,val job:String?,val iden_id:String?,val birth:String?,val point:String,
                     val password_hash:String,val remember_token:String,val updated_at:String)
 
     data class RepositoryKnowledge(val id: String, val group_id: String, val title_th: String, val title_eng: String,

@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
@@ -32,6 +33,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import utils.CustomTabActivityHelper
 import java.util.*
 
 
@@ -60,6 +62,8 @@ class LearnNewsActivity : AppCompatActivity() {
     lateinit var  handler: Handler
     lateinit var runnable: Runnable
     var readFinish = false
+    private var mCustomTabActivityHelper: CustomTabActivityHelper? = null
+
 
     override fun onBackPressed() {
         val data =Intent()
@@ -135,11 +139,22 @@ class LearnNewsActivity : AppCompatActivity() {
 
 
         btn_readmore.setOnClickListener {
-            val uri = Uri.parse(content.link.trim())
+
+            var websiteString = content.link.trim()
+            if (!(websiteString.contains("http://"))) {
+                websiteString = "http://" + websiteString
+            }
+            setupCustomTabHelper(websiteString)
+            openCustomTab(websiteString)
+            /*
+            val uri = Uri.parse(websiteString)
             val intent = Intent()
             intent.action = Intent.ACTION_VIEW
             intent.data = uri
+            finish()
             startActivity(intent)
+            */
+
         }
 
         btn_facebook.setOnClickListener {
@@ -150,6 +165,7 @@ class LearnNewsActivity : AppCompatActivity() {
             //load question
                 val data = Intent()
                 data.putExtra(KEYPREFER.CONTENT,content.id)
+                data.putExtra(KEYPREFER.TYPE,KEYPREFER.KNOWLEDGE)
                 startActivity(data.setClass(this@LearnNewsActivity, QuestionActivity::class.java))
 
         }
@@ -232,4 +248,60 @@ class LearnNewsActivity : AppCompatActivity() {
         handler.removeCallbacks(runnable)
         unsubscribe()
     }
+
+    private fun setupCustomTabHelper(URL:String) {
+        mCustomTabActivityHelper = CustomTabActivityHelper()
+        mCustomTabActivityHelper!!.setConnectionCallback(mConnectionCallback)
+        mCustomTabActivityHelper!!.mayLaunchUrl(Uri.parse(URL), null, null)
+    }
+
+    private fun openCustomTab(URL: String) {
+
+        //ตัวแปรนี้จะให้ในการกำหนดค่าต่างๆ ที่ข้างล่างนี้
+        val intentBuilder = CustomTabsIntent.Builder()
+
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        //กำหนดให้มี Animation เมื่อ Custom tab เข้ามาและออกไป ถ้าไม่มีจะเหมือน Activity ที่เด้งเข้ามาเลย
+        setAnimation(intentBuilder)
+
+        //Launch Custome tab ให้ทำงาน
+        CustomTabActivityHelper.openCustomTab(
+                this, intentBuilder.build(), Uri.parse(URL), WebviewFallback())
+    }
+
+    private fun setAnimation(intentBuilder: CustomTabsIntent.Builder) {
+        //intentBuilder.setStartAnimations(this, android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
+    // You can use this callback to make UI changes
+    private val mConnectionCallback = object : CustomTabActivityHelper.ConnectionCallback {
+        override fun onCustomTabsConnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Connected to service", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onCustomTabsDisconnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Disconnected from service", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        mCustomTabActivityHelper?.bindCustomTabsService(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mCustomTabActivityHelper?.unbindCustomTabsService(this)
+    }
+
+    inner class WebviewFallback : CustomTabActivityHelper.CustomTabFallback {
+        override fun openUri(activity: Activity, uri: Uri) {
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtra("KEY_URL", uri.toString())
+            activity.startActivity(intent)
+        }
+    }
+
 }

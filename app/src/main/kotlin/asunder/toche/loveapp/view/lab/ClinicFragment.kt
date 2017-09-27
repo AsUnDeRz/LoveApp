@@ -66,10 +66,32 @@ class ClinicFragment: Fragment() {
         val province = appDb.getProvince()
 
         //set title
-        title_app.text ="BOOK\nA TEST"
+        title_app.text ="NEARBY \nPLACE"
         txt_location.text = LabFragment.city
         txt_location_desc.text = LabFragment.subCity
 
+        rv_clinic_list.layoutManager = GridLayoutManager(context,2)
+        rv_clinic_list.setHasFixedSize(true)
+
+        if(LabFragment.hospitalList.size > 0){
+            val data = ObservableArrayList<Model.Clinic>().apply {
+                LabFragment.repohospitalList.forEach {
+                    item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
+                        utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
+                        utils.txtLocale(item.open_hour_th,item.open_hour_eng),item.phone,item.email,item.province,
+                        item.locx,item.locy,item.version,"","","item.hospital_id",
+                        "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
+                        "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
+                        if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
+                        if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
+                        if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
+                    d { "Add ["+item.name_th+"] to arraylist" }
+                }
+            }
+            LabFragment.hospitalList = data
+            rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(LabFragment.hospitalList,false)
+
+        }
 
 
         btn_map.setOnClickListener {
@@ -77,9 +99,7 @@ class ClinicFragment: Fragment() {
         }
 
 
-        rv_clinic_list.layoutManager = GridLayoutManager(context,2)
-        rv_clinic_list.setHasFixedSize(true)
-        rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(LabFragment.hospitalList,false)
+
 
         txt_search.setOnFocusChangeListener { view, b ->
             if(b){

@@ -38,4 +38,10 @@ object KEYPREFER{
     val POSITIVE = 1
     val NEGATIVE = 2
     val IDONTKNOW = 3
+
+    //
+    val TYPE ="type"
+    val GAME ="game"
+    val KNOWLEDGE = "knowledge"
+    val FORGOT ="http://www.loveapponline.com/forgot-password"
 }

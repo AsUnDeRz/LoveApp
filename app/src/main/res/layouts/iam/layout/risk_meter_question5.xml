@@ -39,7 +39,7 @@
         android:paddingRight="30dp"
         android:text="5. What type of activity did you do?"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/box1"
@@ -61,7 +61,7 @@
             android:text="Touching"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -76,7 +76,7 @@
             android:text="Kissing"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,7 +101,7 @@
             android:text="Hand Job"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -116,7 +116,7 @@
             android:text="Oral Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -141,7 +141,7 @@
             android:text="Vaginal Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -156,7 +156,7 @@
             android:text="Anal Sex"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -181,7 +181,7 @@
             android:text="Sharing Needles"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"

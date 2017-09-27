@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{homeItem.point}"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/desc"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{homeItem.name}"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <ImageView

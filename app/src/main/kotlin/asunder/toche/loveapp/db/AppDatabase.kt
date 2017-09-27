@@ -105,6 +105,13 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
                 KEY_QUES7_ENG + " TEXT" +
                 ")"
         db.execSQL(CREATE_RISK_QUESTION)
+        val CREATE_JOB =" CREATE TABLE "+ TABLE_JOB+
+                "("+
+                KEY_JOB_ID + " TEXT,"+
+                KEY_JOB_TH + " TEXT,"+
+                KEY_JOB_ENG + " TEXT"+
+                ")"
+        db.execSQL(CREATE_JOB)
     }
 
 
@@ -117,6 +124,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_KNOWLEGDE_CONTENT)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROVINCE)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_RISK_QUESTION)
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOB)
             onCreate(db)
         }
     }
@@ -743,6 +751,64 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         db.close()
     }
 
+    //db job
+    fun addJobs(data:ObservableArrayList<Model.RepositoryJob>){
+        // Create and/or open the database for writing
+        val db = writableDatabase
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction()
+        try {
+            for(content in data){
+                val values = ContentValues()
+                values.put(KEY_JOB_ID, content.occupation_id)
+                values.put(KEY_JOB_TH,content.occupation_th)
+                values.put(KEY_JOB_ENG,content.occupation_eng)
+                db.insertOrThrow(TABLE_JOB, null, values)
+                d{"Insert ["+content.occupation_id+"] ["+content.occupation_eng+"] ["+content.occupation_th+"]"}
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            d{"Error while trying to add login to database"}
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+
+    }
+    fun getJobs()  : ObservableArrayList<Model.RepositoryJob> {
+        var contentList = ObservableArrayList<Model.RepositoryJob>()
+        d{"getJobs"}
+        // Select All Query
+        val selectQuery = "SELECT * FROM $TABLE_JOB"
+        val db = readableDatabase
+        val cursor = db.rawQuery(selectQuery,null)
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    contentList.apply {
+                        add(Model.RepositoryJob(
+                                cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2))
+                        )
+                    }
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            d { "Error while trying to get posts from database ["+e.message+"]" }
+        } finally {
+            if (cursor != null && !cursor.isClosed) {
+                cursor.close()
+            }
+            db.close()
+        }
+        // return  list
+
+        return contentList
+
+    }
+
     fun deleteAllContentWhenStart(){
         val db = writableDatabase
         d{"Delete all record risk question"}
@@ -750,6 +816,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         db.delete(TABLE_KNOWLEGDE_CONTENT,null,null)
         db.delete(TABLE_KNOWLEGDE_GROUP,null,null)
         db.delete(TABLE_PROVINCE,null,null)
+        db.delete(TABLE_JOB,null,null)
         db.close()
     }
     companion object {
@@ -764,6 +831,7 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val TABLE_KNOWLEGDE_CONTENT="knowlegde_content"
         private val TABLE_PROVINCE="province"
         private val TABLE_RISK_QUESTION="risk_question"
+        private val TABLE_JOB ="job"
 
         // user Table Columns
         private val KEY_LOGIN_ID = "id"
@@ -826,6 +894,9 @@ class AppDatabase(internal var myCon:Context) : SQLiteOpenHelper(myCon, DATABASE
         private val KEY_QUES7_ENG="question7_eng"
 
 
+        private val KEY_JOB_ID ="occupation_id"
+        private val KEY_JOB_TH ="occupation_th"
+        private val KEY_JOB_ENG="occupation_eng"
 
 
     }

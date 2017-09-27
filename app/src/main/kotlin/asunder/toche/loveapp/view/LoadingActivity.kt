@@ -39,13 +39,11 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
         setContentView(R.layout.loading_page)
         utilDb = AppDatabase(this@LoadingActivity)
         MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
-        MainViewModel.loadRiskQuestion(this)
-        MainViewModel.loadProvince(this)
         SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak,view_loading)
 
 
 
-        utilDb.deleteAllContentWhenStart()
+        //utilDb.deleteAllContentWhenStart()
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
             PermissionUtils.requestPermission(this@LoadingActivity, 123, Manifest.permission.ACCESS_FINE_LOCATION, true)
@@ -79,14 +77,20 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     loadSuccess++
                     d{"Load KnowledgeGroup Success"}
                 }
+
+                is Model.RepositoryJob -> {
+                    utilDb.addJobs(resultList as ObservableArrayList<Model.RepositoryJob>)
+                    loadSuccess++
+                    d{"Load Job Success"}
+                }
             }
 
-        if(isFirst && loadSuccess == 2){
+        if(isFirst && loadSuccess == 3){
             handler.postDelayed(runnable,2000)
         }
 
         d{"Check LoadSuccess $loadSuccess"}
-        if(loadSuccess == 4){
+        if(loadSuccess == 5){
             //handler.postDelayed(runnable)
             handler.post(runnable)
 
@@ -104,6 +108,9 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
             val editor = preferences.edit()
             editor.putBoolean(KEYPREFER.isFirst, true)
             editor.apply()
+            MainViewModel.loadRiskQuestion(this)
+            MainViewModel.loadProvince(this)
+            MainViewModel.loadJob(this)
             //MainViewModel.loadKnowledage(this,"0")
             //MainViewModel.loadKnowledgeGroup("1",this,Utils(this@LoadingActivity))
             // gen user id
@@ -111,9 +118,13 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
            d{"user open app normal"}
             d{"Check user ID ["+preferences.getString(KEYPREFER.UserId,"")+"]"}
             //load and check infomation user if
-            MainViewModel.loadKnowledage(this,preferences.getString(KEYPREFER.UserId,""))
-            MainViewModel.loadKnowledgeGroup(preferences.getString(KEYPREFER.GENDER,""),this,Utils(this@LoadingActivity))
-
+            if(utilDb.getKnowledgeContent().size == 0) {
+                MainViewModel.loadKnowledage(this, preferences.getString(KEYPREFER.UserId, ""))
+                MainViewModel.loadKnowledgeGroup(preferences.getString(KEYPREFER.GENDER, ""), this, Utils(this@LoadingActivity))
+            }else{
+                loadSuccess = 2
+                //handler.postDelayed(runnable,2000)
+            }
         }
 
         return isFirst
@@ -142,7 +153,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                 //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                 finish()
             })
-            if(isFirst && loadSuccess == 2){
+            if(isFirst && loadSuccess == 3){
                 handler.postDelayed(runnable,2000)
             }
         }else{
@@ -159,6 +170,9 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
                 })
+            }
+            if(loadSuccess == 2){
+                handler.postDelayed(runnable,4000)
             }
 
         }

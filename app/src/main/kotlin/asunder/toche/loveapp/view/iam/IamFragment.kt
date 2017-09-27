@@ -94,7 +94,10 @@ class IamFragment : Fragment() {
         //btn_cd4.typeface = MyApp.typeFace.heavy
 
         btn_point.setOnClickListener {
-            context.startActivity(Intent().setClass(context,PointHistriesActivity::class.java))
+            val currentPoint =if(dataUser[0].point != null){dataUser[0].point}else{"0"}
+            val data = Intent()
+            data.putExtra(KEYPREFER.POINT,currentPoint)
+            context.startActivity(data.setClass(context,PointHistriesActivity::class.java))
         }
         btn_riskmeter.setOnClickListener {
             context.startActivity(Intent().setClass(context,RiskMeterActivity::class.java))

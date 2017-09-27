@@ -266,7 +266,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/idenid"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edt_number_id"
@@ -278,7 +279,8 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_title_hiv_status"
@@ -300,7 +302,7 @@
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btn_save"
@@ -313,7 +315,7 @@
                 android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
 

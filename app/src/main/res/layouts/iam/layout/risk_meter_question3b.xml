@@ -39,7 +39,7 @@
         android:paddingRight="30dp"
         android:text="3b. Does your partner have an undetectable viral load?"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/box1"
@@ -60,7 +60,7 @@
             android:text="Yes"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -75,6 +75,6 @@
             android:text="No"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </RelativeLayout>

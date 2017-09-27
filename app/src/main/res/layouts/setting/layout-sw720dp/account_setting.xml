@@ -265,7 +265,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/idenid"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edt_number_id"
@@ -277,7 +278,8 @@
                 android:maxLines="1"
                 android:paddingLeft="20dp"
                 android:textColor="@color/colorGrey"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_title_hiv_status"

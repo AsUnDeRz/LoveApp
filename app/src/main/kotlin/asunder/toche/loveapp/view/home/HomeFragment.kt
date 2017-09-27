@@ -150,6 +150,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             if(isUpdate){
                 //addpoint
                 d{"isUpdate"}
+                homeViewModel.loadContentHome(this, prefer.getString(KEYPREFER.UserId, ""),appDb,context)
                 homeViewModel.addUpdatePoint("500",prefer.getString(KEYPREFER.UserId,""))
             }else{
                 d{"noUpdate"}

@@ -128,6 +128,28 @@ object ViewModel{
                             })
             )
         }
+
+        fun loadJob(callback: RiskQInterface){
+            manageSub(
+                    service.getJobs()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c ->
+                                run {
+                                    val data = ObservableArrayList<Model.RepositoryJob>().apply {
+                                        c.forEach { item ->
+                                            add(item)
+                                            d { "add job [" + item.occupation_th + "]" }
+                                        }
+                                    }
+                                    callback.endCallProgress(data)
+                                    d { "check response [" + c.size + "]" }
+                                }
+                            }, {
+                                d {"on Error "+ it.message }
+                            })
+            )
+        }
         fun loadProvince(callback:RiskQInterface){
             manageSub(
                     service.getProvinces()

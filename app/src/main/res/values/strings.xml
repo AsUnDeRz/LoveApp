@@ -77,6 +77,10 @@
     <string name="idenid">Identified ID</string>
     <string name="language">Language</string>
     <string name="alterhome">Click again to return to your home screen</string>
+    <string name="alteraccupdate">Please fill</string>
+    <string name="information">Information</string>
+    <string name="contacts">Contact</string>
+    <string name="promotion">Promotion</string>
 
 
 </resources>

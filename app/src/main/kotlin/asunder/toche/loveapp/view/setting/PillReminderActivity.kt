@@ -102,6 +102,10 @@ class PillReminderActivity: AppCompatActivity(){
         btn_take_pill.setOnClickListener {
             showTimePickerDialog(btn_take_pill)
         }
+
+        btn_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     fun alerter(message:String?){

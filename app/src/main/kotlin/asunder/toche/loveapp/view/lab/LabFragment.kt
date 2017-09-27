@@ -88,7 +88,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ c -> run {
-                           val data = ObservableArrayList<Model.Clinic>().apply{
+                            val rawData = ObservableArrayList<Model.RepositoryHospital>()
+                            val data = ObservableArrayList<Model.Clinic>().apply{
                                 c.forEach {
                                     item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
                                         utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
@@ -100,9 +101,11 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                                         if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
                                         if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
                                     d { "Add ["+item.name_th+"] to arraylist" }
+                                    rawData.add(item)
                                 }
                             }
                             hospitalList = data
+                            repohospitalList = rawData
                             //
                             loadMarker()
                             d { "check response [" + c.size + "]" }
@@ -134,6 +137,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
             return LabFragment()
         }
 
+        var repohospitalList = ObservableArrayList<Model.RepositoryHospital>()
         var hospitalList = ObservableArrayList<Model.Clinic>()
         var city : String=""
         var subCity : String =""
@@ -168,7 +172,27 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         if(isVisibleToUser && location != null && hospitalList.size == 0){
             loadHospital()
 
+        }else{
+            if(isVisibleToUser && location != null && hospitalList.size > 0){
+                val data = ObservableArrayList<Model.Clinic>().apply {
+                    repohospitalList.forEach {
+                        item -> add(Model.Clinic(item.id.toLong(),utils.txtLocale(item.name_th,item.name_eng),
+                            utils.txtLocale(item.address_th,item.address_eng),utils.txtLocale(item.service_th,item.service_eng),
+                            utils.txtLocale(item.open_hour_th,item.open_hour_eng),item.phone,item.email,item.province,
+                            item.locx,item.locy,item.version,"","","item.hospital_id",
+                            "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
+                            "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
+                            if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
+                            if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
+                            if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
+                        d { "Add ["+item.name_th+"] to arraylist" }
+                    }
+                }
+                hospitalList = data
+
+            }
         }
+
         //addmarker
 
 
@@ -186,11 +210,15 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
         //Custom wording and font
         title_app.typeface = MyApp.typeFace.heavy
-        title_app.text = "NEAR\nBY PLACE"
+        title_app.text = "NEARBY \nPLACE"
         txt_search.typeface = MyApp.typeFace.medium
         txt_search.hint = "Search..."
         btn_showlist.setOnClickListener {
             ActivityMain.vp_main.setCurrentItem(KEYPREFER.CLINIC, false)
+        }
+
+        btn_clear.setOnClickListener {
+            txt_search.setText("")
         }
 
         txt_search.setOnFocusChangeListener { view, b ->

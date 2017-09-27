@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <view.custom_view.TextViewMedium
         android:id="@+id/txt_risk_detail"
@@ -49,10 +49,11 @@
         android:layout_below="@+id/txt_risk_status"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:lineSpacingExtra="8dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <RelativeLayout
         android:id="@+id/btn_findtest"
@@ -74,7 +75,7 @@
             android:paddingLeft="20dp"
             android:text="@string/findplacenearu"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="65dp"

@@ -34,7 +34,7 @@
                 android:paddingStart="30dp"
                 android:text="@string/takepillat"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="65dp"
@@ -63,7 +63,7 @@
                 android:paddingStart="30dp"
                 android:text="@string/remindernoti"
                 android:textColor="@color/colorPrimary"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
 
 
             <com.kyleduo.switchbutton.SwitchButton
@@ -129,7 +129,7 @@
                 android:paddingStart="30dp"
                 android:text="@string/message"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="65dp"

@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="Games"
                 android:textColor="@android:color/white"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/desc_game"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="Play more\nget more points"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:text="Learns"
                 android:textColor="@android:color/white"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
 
             <view.custom_view.TextViewMedium
                 android:id="@+id/desc_learn"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="Play more\nget more points"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
 

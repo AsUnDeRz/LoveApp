@@ -137,7 +137,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/split-apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/splits-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/kotlin" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
@@ -200,6 +199,7 @@
     <orderEntry type="library" name="rxjava-2.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="runner-1.0.1" level="project" />
     <orderEntry type="library" name="kotlinx-coroutines-android-0.15" level="project" />
+    <orderEntry type="library" name="customtabs-26.0.1" level="project" />
     <orderEntry type="library" name="play-services-maps-11.0.4" level="project" />
     <orderEntry type="library" name="support-compat-26.0.1" level="project" />
     <orderEntry type="library" name="constraint-layout-solver-1.0.2" level="project" />
