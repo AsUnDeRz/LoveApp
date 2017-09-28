@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="Well done!"
+            android:text="@string/welldone"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="You have already read"
+            android:text="@string/uhaveread"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Earned +53 points."
+            android:text="@string/earn"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 

@@ -60,7 +60,7 @@
             android:gravity="center"
             android:paddingLeft="55dp"
             android:paddingRight="55dp"
-            android:text="This is your first time here? "
+            android:text="@string/firsttime"
             android:textColor="@color/colorPrimary"
             android:textSize="30sp" />
 
@@ -72,7 +72,7 @@
             android:gravity="center"
             android:paddingLeft="45dp"
             android:paddingRight="45dp"
-            android:text="The human immunodeficiency virus is a lentivirus that causes HIV infection and over time acquired immunodeficiency syndrome."
+            android:text="@string/hintfirstpage"
             android:textColor="@color/colorGrey"
             android:textSize="18sp" />
     </LinearLayout>

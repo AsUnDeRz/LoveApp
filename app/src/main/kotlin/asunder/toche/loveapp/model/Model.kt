@@ -255,6 +255,15 @@ object Model{
     data class NotiMessage(var id:Long,var title:String):StableId{
         override val stableId :Long = id
     }
+    data class PillTracking(var id:Long,var date:Long,var status:String) : StableId{
+        override val stableId: Long =id
+
+        fun getTimeShort():String{
+            val formatter = SimpleDateFormat("dd/MM/yy HH:mm")
+            val dateString = formatter.format(Date(date))
+            return dateString
+        }
+    }
 
 
     data class RepoPointHistoryRiskMeter(val risk_status: String,val date: Date,val point: String)

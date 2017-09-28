@@ -333,8 +333,8 @@ class AccountSettingActivity: AppCompatActivity() {
         lname = if(data.first_surname != null){data.first_surname!!}else{""}
         birth = if(data.birth != null){formatSend.format(date)}else{""}
         provinID = if(data.province != null){data.province!!}else{""}
-        jobID = data.job.let { it!!  }
-        statusID = data.status_id.let { it!! }
+        jobID = if(data.job != null){data.job!!}else{""}
+        statusID = if(data.status_id != null){data.status_id!!}else{""}
 
 
 

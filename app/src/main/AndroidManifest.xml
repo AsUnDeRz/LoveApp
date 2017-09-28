@@ -90,6 +90,7 @@
         <activity android:screenOrientation="portrait" android:name=".Cd4VLActivity" />
         <activity android:screenOrientation="portrait" android:name=".LanguageActivity" />
         <activity android:screenOrientation="portrait" android:name=".WebViewActivity" />
+        <activity android:screenOrientation="portrait" android:name=".PillHistoryActivity" />
 
 
         <meta-data

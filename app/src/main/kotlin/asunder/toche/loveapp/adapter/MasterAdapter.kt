@@ -39,6 +39,23 @@ object MasterAdapter{
     }
 
 
+    fun PillsAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
+        return LastAdapter(item,BR.pillItem,stableIds).type{ item, position ->
+            when(item){
+                is Model.PillTracking -> PillType
+                else -> null
+            }
+        }
+    }
+
+
+
+    private val PillType = Type<PillItemBinding>(R.layout.pill_item)
+            .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
+            .onBind { println("Bound ${it.binding.pillItem} at #${it.adapterPosition}") }
+            .onRecycle { println("Recycled ${it.binding.pillItem} at #${it.adapterPosition}") }
+            .onClick {}
+            .onLongClick {}
 
 
 

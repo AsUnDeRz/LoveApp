@@ -38,7 +38,7 @@
         android:background="@drawable/bg_feedback_box"
         android:ems="10"
         android:gravity="left"
-        android:hint="What is your opinion?"
+        android:hint="@string/hintfeedback"
         android:inputType="none|text"
         android:minLines="6"
         android:padding="20dp"

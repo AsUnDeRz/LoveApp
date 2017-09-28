@@ -267,7 +267,7 @@ object ViewModel{
         }
 
         fun checkDataUser(data:Model.User) : Boolean{
-            if(data.name == null){ return false }
+            //if(data.name == null){ return false }
             if(data.first_name == null){ return false }
             if(data.first_surname == null){ return false}
             if(data.friend_id == null){ return false}
@@ -276,7 +276,7 @@ object ViewModel{
             if(data.password == null){ return false}
             if(data.province == null){ return false}
             if(data.job == null){ return false}
-            if(data.iden_id == null){ return false}
+            //if(data.iden_id == null){ return false}
             if(data.birth == null){ return false}
             return true
         }

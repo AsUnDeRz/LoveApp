@@ -82,5 +82,15 @@
     <string name="contacts">Contact</string>
     <string name="promotion">Promotion</string>
 
+    <string name="hintfeedback">What is your opinion?</string>
+    <string name="playmoregetmore">Play more\nget more points</string>
+    <string name="learns">Learns</string>
+    <string name="games">Games</string>
+    <string name="welldone">Well done!</string>
+    <string name="uhaveread">You have already read</string>
+    <string name="earn">Earned +</string>
+    <string name="firsttime">This is your first time here?</string>
+    <string name="timetotakepill">Time to take \na medicind</string>
+    <string name="hintfirstpage">The human immunodeficency virus is a lentivirus that causes HIV infection and over time acquired ummunodeficiency syndrome</string>
 
 </resources>

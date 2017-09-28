@@ -103,6 +103,10 @@ class IamFragment : Fragment() {
             context.startActivity(Intent().setClass(context,RiskMeterActivity::class.java))
 
         }
+
+        btn_pill.setOnClickListener {
+            context.startActivity(Intent().setClass(context,PillHistoryActivity::class.java))
+        }
         labresult.setOnInflateListener { viewStub, view ->
             loadLabResult(preference.getString(KEYPREFER.UserId,"0"),view)
             val btnViral = view.findViewById<Button>(R.id.btn_viral_load)
@@ -137,22 +141,30 @@ class IamFragment : Fragment() {
         ///set Tracked missing
         val data = appDb.getCountNoti()
         if(data.totalNoti != "0") {
-            val total = Integer.parseInt(data.tracked) + Integer.parseInt(data.missing)
-            if(data.tracked.toInt() > 0) {
-                val tracked = (data.tracked.toInt() / total) * 100
+            d{"total noti > 0"}
+            val total = data.tracked.toDouble() + data.missing.toDouble()
+            val track = data.tracked.toDouble()
+            val missing = data.missing.toDouble()
+            d{"Check $track  $missing and total $total"}
+            if(track > 0) {
+                val tracked = ((track/total)*100)
+                d{"check cal track $tracked"}
                 txt_tracked.text = "$tracked % "+context.getString(R.string.tracked)
             }else{
                 txt_tracked.text = "0 % "+context.getString(R.string.tracked)
 
             }
-            if(data.missing.toInt() >0) {
-                val missing = (data.missing.toInt() / total) * 100
-                txt_missed.text = "$missing % "+context.getString(R.string.missing)
+            if(missing >0) {
+                val miss = ((missing/total)*100)
+                d{"check cal missing $miss"}
+                txt_missed.text = "$miss % "+context.getString(R.string.missing)
             }else{
                 txt_missed.text = "0 % "+context.getString(R.string.missing)
 
             }
         }else{
+            d{"total noti = 0"}
+
             txt_tracked.text = "0 % "+context.getString(R.string.tracked)
             txt_missed.text = "0 % "+context.getString(R.string.missing)
         }

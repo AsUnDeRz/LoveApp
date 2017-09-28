@@ -22,7 +22,7 @@
     <string name="signin">ลงชื่อเข้าใช้</string>
     <string name="newacc">สร้างบัญชี</string>
     <string name="whoru">คุณคือใคร</string>
-    <string name="points">คะแนน/แต้ม</string>
+    <string name="points">คะแนน</string>
     <string name="notis">การแจ้งเตือน</string>
     <string name="info">ข้อมูล</string>
     <string name="contact">การติดต่อ</string>
@@ -82,6 +82,17 @@
     <string name="information">ข้อมูล</string>
     <string name="contacts">ที่อยู่</string>
     <string name="promotion">โปรโมนชั่น</string>
+
+    <string name="hintfeedback">คุณคิดเห็นว่าอย่างไร</string>
+    <string name="playmoregetmore">เล่นอีก \nรับแต้มเพิ่มอีก</string>
+    <string name="learns">เรียนรู้</string>
+    <string name="games">เกมส์</string>
+    <string name="welldone">ทำได้ดี!</string>
+    <string name="uhaveread">คุณได้อ่านบทความ</string>
+    <string name="earn">และรับ</string>
+    <string name="firsttime">นี่คือครั้งแรกของคุณใช่หรือไม่</string>
+    <string name="timetotakepill">เวลาทานยา</string>
+    <string name="hintfirstpage">การป้องกันการติดเชื้อโรคเอดส์ทำได้โดยลดพฤติกรรมความเสี่ยงต่อการเกิดโรคเอดส์</string>
 
 
 </resources>

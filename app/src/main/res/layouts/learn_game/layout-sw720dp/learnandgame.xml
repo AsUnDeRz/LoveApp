@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
-                android:text="Games"
+                android:text="@string/games"
                 android:textColor="@android:color/white"
                 android:textSize="36sp" />
 
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
-                android:text="Play more\nget more points"
+                android:text="@string/playmoregetmore"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
-                android:text="Learns"
+                android:text="@string/learns"
                 android:textColor="@android:color/white"
                 android:textSize="36sp" />
 
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
-                android:text="Play more\nget more points"
+                android:text="@string/playmoregetmore"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
         </LinearLayout>
