@@ -20,9 +20,11 @@ import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import android.R.array
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.tapadoo.alerter.Alerter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -186,6 +188,7 @@ class AccountSettingActivity: AppCompatActivity() {
                 d{"validate success"}
             }else{
                 d{"validate fail"}
+                showPopup()
 
             }
         }
@@ -386,31 +389,31 @@ class AccountSettingActivity: AppCompatActivity() {
         val emailPattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
         val alter = getString(R.string.alteraccupdate)
         if(TextUtils.isEmpty(edt_phone.editableText.toString())){
-            edt_phone.error = alter
+            //edt_phone.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_mcode.editableText.toString())){
-            edt_mcode.error = alter
+            //edt_mcode.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_email.editableText.toString())){
-            edt_email.error = alter
+            //edt_email.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_password.editableText.toString())){
-            edt_password.error = alter
+            //edt_password.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_unique.editableText.toString())){
-            edt_unique.error = alter
+            //edt_unique.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_province.editableText.toString())){
-            edt_province.error = alter
+            //edt_province.error = alter
             return false
         }
         if(TextUtils.isEmpty(edt_work.editableText.toString())){
-            edt_work.error = alter
+            //edt_work.error = alter
             return false
         }
         /*
@@ -474,6 +477,14 @@ class AccountSettingActivity: AppCompatActivity() {
 
     }
 
+    fun showPopup(){
+        Alerter.create(this@AccountSettingActivity)
+                .setBackgroundColorInt(ContextCompat.getColor(this,R.color.red))
+                .setIcon(R.drawable.ic_clear_white_48dp)
+                .setText(getString(R.string.fillinformation))
+                .setTextTypeface(utils.medium)
+                .show()
+    }
 
    override fun onPause() {
         super.onPause()

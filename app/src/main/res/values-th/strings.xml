@@ -82,7 +82,8 @@
     <string name="information">ข้อมูล</string>
     <string name="contacts">ที่อยู่</string>
     <string name="promotion">โปรโมนชั่น</string>
-    <string name="nationtitle">คุณมีสัญชาติอะไร?</string>
+    <string name="nationtitle">กรุณาเลือกสัญชาติ</string>
+    <string name="fillinformation">กรุณาเติมข้อมูลในช่องว่างให้ครบ</string>
 
 
     <string name="hintfeedback">คุณคิดเห็นว่าอย่างไร</string>

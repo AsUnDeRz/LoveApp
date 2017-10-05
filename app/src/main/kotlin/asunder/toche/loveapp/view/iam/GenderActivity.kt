@@ -182,7 +182,8 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
                 editor.putString(KEYPREFER.NATIONAL, it.binding.nationItem.id.toString())
                 editor.apply()
                 val data = Intent()
-                if(it.binding.nationItem.title.equals("thai",true)) {
+                if(it.binding.nationItem.title.equals("thai",true) ||
+                        it.binding.nationItem.title.equals("ไทย",true)) {
                     data.putExtra("isThai", true)
                     d{"isThai"}
                 }
