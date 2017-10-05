@@ -170,6 +170,26 @@ object ViewModel{
                             })
             )
         }
+        fun loadNational(callback:RiskQInterface){
+            manageSub(
+                    service.getNationals()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data =ObservableArrayList<Model.RepositoryNational>().apply {
+                                    c.forEach {
+                                        item -> run {
+                                        add(item)
+                                    }}}
+
+                                callback.endCallProgress(data)
+                                d { "check response [" + c.size + "]" }
+
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+        }
 
         fun loadKnowledage(callback: RiskQInterface,user_id: String){
             manageSub(
@@ -393,6 +413,49 @@ object ViewModel{
                 })
 
         }
+
+    }
+
+
+    class StepNewUser : ViewModel() {
+
+        lateinit var service : LoveAppService
+
+        init {
+            service = LoveAppService.create()
+        }
+
+        interface StepInterface { fun endCallProgress(any:Any) }
+
+        private var _compoSub = CompositeDisposable()
+        private val compoSub: CompositeDisposable
+            get() {
+                if (_compoSub.isDisposed) {
+                    _compoSub = CompositeDisposable()
+                }
+                return _compoSub
+            }
+
+        protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+        fun unsubscribe() { compoSub.dispose() }
+
+        fun loadGender(){
+
+        }
+
+        fun getUserId(){
+
+        }
+
+        fun loadKnowleadge(){
+
+        }
+
+        fun updateUser(){
+
+        }
+
 
     }
 

@@ -346,8 +346,10 @@ class AccountSettingActivity: AppCompatActivity() {
             "3" -> { status = getString(R.string.idontknow)}
             else -> ""
         }
-        editor.putInt(KEYPREFER.HIVSTAT,data.status_id!!.toInt())
-        editor.apply()
+        if(data.status_id != null) {
+            editor.putInt(KEYPREFER.HIVSTAT, data.status_id!!.toInt())
+            editor.apply()
+        }
         txt_hiv_status.text = status
 
         if(!checkDataUser(data)){
@@ -431,16 +433,15 @@ class AccountSettingActivity: AppCompatActivity() {
         var user = Model.User(data.user_id,data.gender_id,data.name, fname,
                 lname,statusID,"0",edt_phone.editableText.toString(),
                 edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
-                null, birth,data.point,"","","")
+                null, birth,data.point,"","","",data.national_id)
 
 
         if (prefer.getString(KEYPREFER.UserId, "") != "") {
-            val userID = prefer.getString(KEYPREFER.UserId,"")
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
             val update = service.updateUser(data.user_id,data.gender_id,"", fname,
                     lname,statusID,"0",edt_phone.editableText.toString(),
                     edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
-                    null, birth,data.point)
+                    null, birth,data.point, data.national_id)
             update.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }

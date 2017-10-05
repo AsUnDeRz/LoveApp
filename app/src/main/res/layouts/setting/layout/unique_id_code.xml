@@ -9,14 +9,23 @@
         android:id="@+id/bg_root"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+    <ViewFlipper
+        android:id="@id/vf_uic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <include
-        android:id="@+id/include2"
+        android:id="@+id/include1"
         layout="@layout/header_logo_blue_back" />
+        <include
+            android:id="@+id/include3"
+            layout="@layout/header_logo_blue" />
+    </ViewFlipper>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/include2"
+        android:layout_below="@+id/vf_uic"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
@@ -34,9 +43,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/fill_box"
@@ -48,7 +57,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:inputType="text"
                 android:maxLength="1"
                 android:maxLines="1"
@@ -81,9 +89,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/fill_box"
@@ -95,7 +103,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:inputType="text"
                 android:maxLength="1"
                 android:maxLines="1"
@@ -128,9 +135,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/fill_box"
@@ -157,6 +164,35 @@
                 app:srcCompat="@drawable/icon_check" />
 
         </RelativeLayout>
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/province"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/edt_province"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/fill_box"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="30dp"
+            android:paddingRight="70dp"
+            android:textColor="@color/colorDarkGrey"
+            android:visibility="gone" />
     </LinearLayout>
 
     <Button

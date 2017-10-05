@@ -18,6 +18,11 @@ import kotlinx.android.synthetic.main.loading_page.*
 import android.graphics.drawable.AnimationDrawable
 import android.preference.PreferenceManager
 import android.view.View
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.listener.PermissionRequest
 
 
 /**
@@ -34,6 +39,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
     lateinit var runnable: Runnable
     lateinit var MainViewModel : ViewModel.MainViewModel
     var loadSuccess=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_page)
@@ -42,14 +48,13 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
         SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak,view_loading)
 
 
-
-        //utilDb.deleteAllContentWhenStart()
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
             PermissionUtils.requestPermission(this@LoadingActivity, 123, Manifest.permission.ACCESS_FINE_LOCATION, true)
         }else{
            postDelayed()
         }
+
     }
 
     override fun endCallProgress(any: Any) {
@@ -83,10 +88,15 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     loadSuccess++
                     d{"Load Job Success"}
                 }
+                is Model.RepositoryNational -> {
+                    utilDb.addNationals(resultList as ObservableArrayList<Model.RepositoryNational>)
+                    loadSuccess++
+                    d{"Load nation Success"}
+                }
             }
 
-        if(isFirst && loadSuccess == 3){
-            handler.postDelayed(runnable,2000)
+        if(isFirst && loadSuccess == 4){
+            handler.postDelayed(runnable,4000)
         }
 
         d{"Check LoadSuccess $loadSuccess"}
@@ -111,6 +121,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
             MainViewModel.loadRiskQuestion(this)
             MainViewModel.loadProvince(this)
             MainViewModel.loadJob(this)
+            MainViewModel.loadNational(this)
             //MainViewModel.loadKnowledage(this,"0")
             //MainViewModel.loadKnowledgeGroup("1",this,Utils(this@LoadingActivity))
             // gen user id
@@ -123,7 +134,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                 MainViewModel.loadKnowledgeGroup(preferences.getString(KEYPREFER.GENDER, ""), this, Utils(this@LoadingActivity))
             }else{
                 loadSuccess = 2
-                //handler.postDelayed(runnable,2000)
+                handler.postDelayed(runnable,2000)
             }
         }
 
@@ -153,21 +164,19 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                 //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                 finish()
             })
-            if(isFirst && loadSuccess == 3){
-                handler.postDelayed(runnable,2000)
+            if(isFirst && loadSuccess == 4){
+                handler.postDelayed(runnable,4000)
             }
         }else{
             if(checkPasscode()){
                 runnable = Runnable({
                     intentThis.putExtra(KEYPREFER.PASSCODE,"check")
                     startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
-                    //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
                 })
             }else{
                 runnable = Runnable({
                     startActivity(intentThis.setClass(this, ActivityMain::class.java))
-                    //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
                     finish()
                 })
             }
@@ -180,10 +189,6 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
 
     public override fun onResume() {
         super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     public override fun onStop() {

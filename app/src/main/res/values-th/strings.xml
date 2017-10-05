@@ -82,6 +82,8 @@
     <string name="information">ข้อมูล</string>
     <string name="contacts">ที่อยู่</string>
     <string name="promotion">โปรโมนชั่น</string>
+    <string name="nationtitle">คุณมีสัญชาติอะไร?</string>
+
 
     <string name="hintfeedback">คุณคิดเห็นว่าอย่างไร</string>
     <string name="playmoregetmore">เล่นอีก \nรับแต้มเพิ่มอีก</string>

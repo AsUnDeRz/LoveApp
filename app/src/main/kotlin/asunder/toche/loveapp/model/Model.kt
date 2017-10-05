@@ -15,6 +15,10 @@ import kotlin.collections.ArrayList
  */
 object Model{
 
+    data class RepositoryNational(val national_id:String,val nationality_th:String,val nationality_eng:String)
+    data class National(var id:Long,var title:String):StableId{
+        override val stableId : Long = id
+    }
 
     data class RepositoryJob(val occupation_id:String,val occupation_th: String,val occupation_eng: String)
 
@@ -273,7 +277,7 @@ object Model{
     data class User(val user_id:String,val gender_id:String,val name:String?,val first_name:String?,val first_surname:String?,
                     val status_id: String?,val friend_id:String?,val phone:String?,val email:String?,val password:String?,
                     val province:String?,val job:String?,val iden_id:String?,val birth:String?,val point:String,
-                    val password_hash:String,val remember_token:String,val updated_at:String)
+                    val password_hash:String,val remember_token:String,val updated_at:String,val national_id:String?)
 
     data class RepositoryKnowledge(val id: String, val group_id: String, val title_th: String, val title_eng: String,
                                    val content_th: String, val content_eng: String, val image_byte: String, val point: String,

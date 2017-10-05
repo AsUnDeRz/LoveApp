@@ -91,6 +91,7 @@
         <activity android:screenOrientation="portrait" android:name=".LanguageActivity" />
         <activity android:screenOrientation="portrait" android:name=".WebViewActivity" />
         <activity android:screenOrientation="portrait" android:name=".PillHistoryActivity" />
+        <activity android:name=".StepNewUserActivity" />
 
 
         <meta-data

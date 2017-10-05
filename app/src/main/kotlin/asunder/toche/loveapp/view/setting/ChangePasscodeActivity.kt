@@ -28,5 +28,9 @@ class ChangePasscodeActivity: AppCompatActivity(){
             data.putExtra(KEYPREFER.PASSCODE,"change")
             startActivity(data.setClass(this@ChangePasscodeActivity,PassCodeActivity::class.java))
         }
+
+        btn_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

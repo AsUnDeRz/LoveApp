@@ -41,6 +41,7 @@ class HivStatusActivity: AppCompatActivity(){
 
     fun unsubscribe() { compoSub.dispose() }
 
+    var dataUser = ObservableArrayList<Model.User>()
     val statusList = ObservableArrayList<Model.HivStatus>()
     val utils = Utils(this@HivStatusActivity)
 
@@ -88,11 +89,10 @@ class HivStatusActivity: AppCompatActivity(){
         val preferences = PreferenceManager.getDefaultSharedPreferences(this@HivStatusActivity)
         if(preferences.getString(KEYPREFER.UserId,"") != ""){
             //update status by user id
-            val userid = preferences.getString(KEYPREFER.UserId,"")
-            val genid = preferences.getString(KEYPREFER.GENDER,"")
+            val user = dataUser[0]
             //val call = service.updateHivStatus(data.status_id,userid)
-            val cal = service.updateUser(userid,genid,null,null,null,data.status_id,null,
-                    null,null,null,null,null,null,null,"0")
+            val cal = service.updateUser(user.user_id,user.gender_id,user.name,user.first_name,user.first_surname,data.status_id,user.friend_id,
+                    user.phone,user.email,user.password,user.province,user.job,user.iden_id,user.birth,user.point,user.national_id)
             cal.enqueue(object :Callback<Void>{
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d{"Throwable ["+t?.message+"]"}
@@ -125,6 +125,7 @@ class HivStatusActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hiv_status)
+        loadUser()
         loadStatus()
         Glide.with(this)
                 .load(R.drawable.bg_blue)
@@ -133,6 +134,30 @@ class HivStatusActivity: AppCompatActivity(){
                 .load(R.drawable.image_cycle)
                 .into(circle_icon)
 
+    }
+
+
+    fun loadUser(){
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@HivStatusActivity)
+        val userid = preferences.getString(KEYPREFER.UserId,"")
+        manageSub(
+                service.getUser(userid)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            val data = ObservableArrayList<Model.User>().apply {
+                                c.forEach {
+                                    item -> add(item)
+                                    d { "Add [$item] to arraylist" }
+                                }
+                            }
+                            dataUser = data
+                            d { "check response [" + dataUser.size + "]" }
+                        }},{
+                            d { it.message!! }
+                        })
+
+        )
     }
 
     override fun onPause() {

@@ -46,8 +46,9 @@ class RiskQuestionFragment3 : Fragment() {
         }
         btn_3.setOnClickListener {
             RiskMeterActivity.riskAnswer[2] = 3
-            RiskMeterActivity.vp_riskmeter.setCurrentItem(3,false)
-        }
+            RiskMeterActivity.riskAnswer[3] = 0
+            RiskMeterActivity.riskAnswer[4] = 0
+            RiskMeterActivity.vp_riskmeter.setCurrentItem(5,false)        }
         btn_back.setOnClickListener {
             activity.finish()
         }

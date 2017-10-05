@@ -6,12 +6,14 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.TextView
 import android.widget.Toast
 import asunder.toche.loveapp.R
 import asunder.toche.loveapp.databinding.GenderItemBinding
+import asunder.toche.loveapp.databinding.NationItemBinding
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,8 +23,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gender_list.*
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import com.afollestad.materialdialogs.MaterialDialog
-
-
+import view.custom_view.TextViewHeavy
+import view.custom_view.TextViewMedium
 
 
 /**
@@ -49,8 +51,8 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
         }
 
         if(loadSuccess == 2) {
-            startActivity(Intent().setClass(this@GenderActivity, ActivityMain::class.java))
-            finish()
+            //startActivity(Intent().setClass(this@GenderActivity, ActivityMain::class.java))
+            //finish()
         }
     }
 
@@ -150,6 +152,15 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
             }
         }
     }
+    fun NationAdapter(item: List<Any>, stableIds: Boolean): LastAdapter {
+        return LastAdapter(item,BR.nationItem,stableIds).type{ item, position ->
+            when(item){
+                is Model.National -> NationType
+                else -> null
+            }
+        }
+    }
+
 
     private val GenderType = Type<GenderItemBinding>(R.layout.gender_item)
             .onCreate { println("Created ${it.binding.genderItem} at #${it.adapterPosition}") }
@@ -159,8 +170,27 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
                 //update gender with user id
                 //call api
                 getUserID(it.binding.genderItem.id.toString())
+                swicthState()
             }
             .onLongClick {}
+
+    private val NationType = Type<NationItemBinding>(R.layout.nation_item)
+            .onClick {
+                d{it.binding.nationItem.toString()}
+                val preferences = PreferenceManager.getDefaultSharedPreferences(this@GenderActivity)
+                val editor = preferences.edit()
+                editor.putString(KEYPREFER.NATIONAL, it.binding.nationItem.id.toString())
+                editor.apply()
+                val data = Intent()
+                if(it.binding.nationItem.title.equals("thai",true)) {
+                    data.putExtra("isThai", true)
+                    d{"isThai"}
+                }
+                startActivity(data.setClass(this@GenderActivity,UniqueIdActivity::class.java))
+                finish()
+                //update nation with user id
+                //getUserID(it.binding.nationItem.id.toString())
+            }
 
 
     override fun onPause() {
@@ -168,6 +198,26 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
         unsubscribe()
     }
 
+    fun swicthState(){
+        vf.displayedChild = 1
+        val title = findViewById<TextViewHeavy>(R.id.title_whoru)
+        title.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
+        title.text = getString(R.string.nationtitle)
+        Glide.with(this)
+                .load(R.drawable.bg_white)
+                .into(bg_root)
+
+        val nationList = ObservableArrayList<Model.National>().apply {
+            appDb.getNations().forEach {
+                add(Model.National(it.national_id.toLong(), utils.txtLocale(it.nationality_th, it.nationality_eng)))
+
+            }
+        }
+        rv_gender.adapter = NationAdapter(nationList,false)
+
+
+
+    }
     fun showProgress(){
         val dialog =MaterialDialog.Builder(this)
                 .title("")

@@ -135,6 +135,8 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.akexorcist:localizationactivity:1.1.1'
     implementation 'com.android.support:customtabs:26.0.1'
+    //permission
+    implementation 'com.karumi:dexter:4.1.0'
 
 }
 

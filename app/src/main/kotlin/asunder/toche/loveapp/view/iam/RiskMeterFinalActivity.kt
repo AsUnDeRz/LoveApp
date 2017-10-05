@@ -147,13 +147,13 @@ class RiskMeterFinalActivity:AppCompatActivity(){
                 RotateAnimation.RELATIVE_TO_SELF,0.5f,
                 RotateAnimation.RELATIVE_TO_SELF,1f)
 
-        rotateAnim.duration = 3000
+        rotateAnim.duration = 1500
         rotateAnim.fillAfter = true
         val splash = Handler()
         splash.postDelayed({
             meter_pin.startAnimation(rotateAnim)
 
-        },500)
+        },300)
 
         //set txt
         txt_risk_status.text = utils.txtLocale(riskResult.topic_th,riskResult.topic_eng)

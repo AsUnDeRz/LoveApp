@@ -18,11 +18,21 @@ import kotlinx.android.synthetic.main.unique_id_code.*
 import java.util.*
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.content.SharedPreferences
+import android.databinding.ObservableArrayList
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.text.method.DigitsKeyListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.afollestad.materialdialogs.MaterialDialog
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -40,18 +50,27 @@ class UniqueIdActivity: AppCompatActivity() {
         finish()
     }
 
+    var provinces = ObservableArrayList<Model.Province>()
+    var provinID=""
+    val provinTitle = ObservableArrayList<String>()
     lateinit var edtHbd :EditText
+    lateinit var prefer : SharedPreferences
+    lateinit var utils : Utils
+    lateinit var appDb : AppDatabase
     var y:Int=0
     var m:Int=0
     var day:Int=0
     var fname:String=""
     var lname:String=""
+    var isThai = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.unique_id_code)
         edtHbd = findViewById(R.id.edt_hbd)
-
+        appDb = AppDatabase(this@UniqueIdActivity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(this@UniqueIdActivity)
+        utils = Utils(this@UniqueIdActivity)
 
         Glide.with(this)
                 .load(R.drawable.bg_white)
@@ -63,9 +82,38 @@ class UniqueIdActivity: AppCompatActivity() {
         edtHbd.typeface = MyApp.typeFace.heavy
 
 
-        btn_back.setOnClickListener {
-            onBackPressed()
+
+        if(prefer.getBoolean(KEYPREFER.isFirst,false)){
+            vf_uic.displayedChild = 1
+            isThai = intent.getBooleanExtra("isThai",false)
+            d{"Check isThai $isThai"}
+            txt_province.visibility = View.VISIBLE
+            edt_province.visibility = View.VISIBLE
+            loadProvince()
+            edt_province.typeface = MyApp.typeFace.heavy
+            edt_province.setOnClickListener { view ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                showProvince()
+            }
+            edt_province.isFocusableInTouchMode = false
+            edt_province.isFocusable =false
+            //weightInput.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+
+
+        }else{
+            btn_back.setOnClickListener {
+                onBackPressed()
+            }
         }
+
+        var regex=""
+        when(isThai){
+            true -> {regex="กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ"}
+            false -> {regex="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+        }
+        edt_fname.keyListener = DigitsKeyListener.getInstance(regex)
+        edt_lname.keyListener = DigitsKeyListener.getInstance(regex)
 
         edtHbd.setOnClickListener {
             showTimePickerDialog(edt_hbd)
@@ -78,7 +126,9 @@ class UniqueIdActivity: AppCompatActivity() {
         }
 
         edt_fname.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(p0: Editable?) {
+            override fun afterTextChanged(text: Editable?) {
+
+                d{text.toString()}
                 edt_fname.clearFocus()
                 edt_lname.requestFocus()
             }
@@ -88,7 +138,8 @@ class UniqueIdActivity: AppCompatActivity() {
         })
 
         edt_lname.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(p0: Editable?) {
+            override fun afterTextChanged(text: Editable?) {
+                d{text.toString()}
                 edt_lname.clearFocus()
                 edtHbd.requestFocus()
             }
@@ -98,7 +149,12 @@ class UniqueIdActivity: AppCompatActivity() {
         })
 
         btn_save.setOnClickListener {
-            onBackPressed()
+            if(prefer.getBoolean(KEYPREFER.isFirst,false)) {
+                updateUser()
+            }else{
+                onBackPressed()
+
+            }
         }
 
 
@@ -121,7 +177,10 @@ class UniqueIdActivity: AppCompatActivity() {
             y = year
             m = mounth+1
             day = dom
-            edtHbd.setText("$dom/$m/$year")
+            if(isThai){
+                y+=543
+            }
+            edtHbd.setText("$dom/$m/$y")
         }
 
 
@@ -158,4 +217,86 @@ class UniqueIdActivity: AppCompatActivity() {
             callCount++
         }
     }
+
+    fun showProvince(){
+        MaterialDialog.Builder(this)
+                .typeface(utils.medium,utils.medium)
+                .title("Province")
+                .items(provinTitle)
+                .itemsCallback({ dialog, view, which, text ->
+                    edt_province.setText(text)
+                    d{"select province [$text]"}
+                    provinID = provinces[which].province_id
+                    d{"check provinID [$provinID] ["+provinces[which].toString()+"]"}
+                })
+                .positiveText(android.R.string.cancel)
+                .show()
+    }
+
+    fun loadProvince(){
+        if(appDb.getProvince().size != 0){
+            val provin = ObservableArrayList<Model.Province>().apply {
+                appDb.getProvince().forEach { item ->
+                    run {
+                        add(item)
+                        provinTitle.add(utils.txtLocale(item.province_th, item.province_eng))
+                    }
+                }
+            }
+            provinces = provin
+        }
+    }
+
+
+    fun updateUser(){
+        btn_save.isClickable = false
+        //check data before update
+        fname = edt_fname.text.toString().toUpperCase()
+        lname = edt_lname.text.toString().toUpperCase()
+        val birth = "$y-$m-$day"
+        //update edt_fcode.editableText.toString()
+        if (prefer.getString(KEYPREFER.UserId, "") != "") {
+            val userID = prefer.getString(KEYPREFER.UserId,"")
+            val genderID = prefer.getString(KEYPREFER.GENDER,"")
+            val nationID = prefer.getString(KEYPREFER.NATIONAL,"")
+            d { " user_id[$userID] genderID[$genderID] fname[$fname] lname[$lname} birth[$birth] "}
+            val update = service.updateUser(userID,genderID,null,fname,lname,null,null,null,
+                    null,null,provinID,null,null,birth,"0",nationID)
+
+            update.enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    d { t?.message.toString() }
+                    btn_save.isClickable = true
+                }
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    if (response!!.isSuccessful) {
+                        d { "update successful" }
+                        //val editor = prefer.edit()
+                        //editor.apply()
+                        startActivity(Intent().setClass(this@UniqueIdActivity, ActivityMain::class.java))
+                        finish()
+                    }
+                    btn_save.isClickable = true
+                }
+            })
+
+        }
+    }
+
+    var service : LoveAppService = LoveAppService.create()
+
+    private var _compoSub = CompositeDisposable()
+    private val compoSub: CompositeDisposable
+        get() {
+            if (_compoSub.isDisposed) {
+                _compoSub = CompositeDisposable()
+            }
+            return _compoSub
+        }
+
+    protected final fun manageSub(s: Disposable) = compoSub.add(s)
+
+    fun unsubscribe() { compoSub.dispose() }
+
+
 }

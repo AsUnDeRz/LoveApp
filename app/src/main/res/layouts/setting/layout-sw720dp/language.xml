@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/header_setting"
-        layout="@layout/header_logo_blue" />
+        layout="@layout/header_logo_blue_back" />
 
     <RelativeLayout
         android:id="@+id/btn_language"

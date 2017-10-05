@@ -17,6 +17,10 @@ import kotlin.collections.ArrayList
  */
 interface LoveAppService{
 
+
+    @GET("api/nationals/")
+    fun getNationals() : Observable<ArrayList<Model.RepositoryNational>>
+
     @GET("api/occupations")
     fun getJobs() : Observable<ArrayList<Model.RepositoryJob>>
 
@@ -35,12 +39,12 @@ interface LoveAppService{
     fun addFeedback(@Field("user_id") userID: String,@Field("datetime") date:Date,@Field("comment") comment:String,@Field("rate") rate:String): Call<Void>
 
     @FormUrlEncoded
-    @POST("api/user")
+    @POST("api/user2")
     fun updateUser(@Field("user_id") userID: String,@Field("gender_id") genderID:String,@Field("name") name:String?,
-                   @Field("first_name") fname:String?,@Field("first_surname") lname:String?,@Field("status_id") statusID:String,
+                   @Field("first_name") fname:String?,@Field("first_surname") lname:String?,@Field("status_id") statusID:String?,
                    @Field("friend_id") fcode:String?,@Field("phone") phone:String?,@Field("email") email:String?,
                    @Field("password") password:String?,@Field("province") province:String?,@Field("job") job:String?,
-                   @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String): Call<Void>
+                   @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String,@Field("national_id") nationaID:String?): Call<Void>
 
     @GET("api/knowledges/gender_id/{genderid}/group_id/{groupid}")
     fun getKnowledgeInGroup(@Path("genderid") gender_id: String,@Path("groupid") group_id:String) :Observable<ArrayList<Model.RepositoryKnowledge>>
@@ -113,7 +117,7 @@ interface LoveAppService{
     fun updateHivStatus(@Field("status_id") status:String,@Field("user_id") userId:String) : Call<Void>
 
     @FormUrlEncoded
-    @PUT("api/user/")
+    @PUT("api/user2/")
     fun genUserID(@Field("gender_id") genderId:String) :Observable<ArrayList<Model.UserId>>
 
     @GET("api/hiv_status")

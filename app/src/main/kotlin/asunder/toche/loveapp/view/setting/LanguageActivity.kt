@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import com.akexorcist.localizationactivity.LocalizationActivity
 import com.github.ajalt.timberkt.Timber.d
+import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.language.*
 import utils.localization.LocalDelegate
 import utils.localization.OnLocaleChange
@@ -52,6 +53,10 @@ class LanguageActivity : LocalizationActivity(), OnLocaleChange {
                 lang = "en"
                 d{"Swicth button is $b"}
             }
+        }
+
+        btn_back.setOnClickListener {
+            onBackPressed()
         }
     }
 
