@@ -165,7 +165,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                     c.forEach { item ->
                                         add(Model.LearnGameContent(
                                                 item.game_id.toInt(), utils.txtLocale(item.game_name_th, item.game_name_eng),
-                                                if(item.sum_point != null){item.sum_point+ " Point"}else{""}, "20% done", R.drawable.joy))
+                                                if(item.sum_point != null){item.sum_point+ " "+getString(R.string.points)}else{""}, "", R.drawable.joy))
                                         d { "add [" + item.game_name_th + "] to array" }
                                     }
                                 }
@@ -191,7 +191,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                         c.forEach { item ->
                                             add(Model.LearnGameContent(
                                                     item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
-                                                    item.point+ " Point", "20% done", R.drawable.book))
+                                                    item.point+ " "+getString(R.string.points), "", R.drawable.book))
                                             content.add(item)
                                             d { "add [" + item.title_eng + "] to array" }
                                         }
@@ -211,7 +211,7 @@ class LearnGameMainActivity: AppCompatActivity(){
                                         c.forEach { item ->
                                             add(Model.LearnGameContent(
                                                     item.id.toInt(), utils.txtLocale(item.title_th, item.title_eng),
-                                                    item.point, "20% done", R.drawable.book))
+                                                    item.point, "", R.drawable.book))
                                             content.add(item)
                                             d { "add [" + item.title_eng + "] to array" }
                                         }

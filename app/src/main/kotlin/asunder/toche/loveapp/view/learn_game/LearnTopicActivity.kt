@@ -59,7 +59,7 @@ class LearnTopicActivity : AppCompatActivity() {
                 c.forEach {
                     item -> add(Model.LearnTopicContent(
                         item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
-                        item.sumpoint+" Points","",R.drawable.clinic_img))
+                        item.sumpoint+" "+getString(R.string.points),"",R.drawable.book))
                     d { "add [" + item.group_name_eng + "] to array" }
                 }
             }
@@ -120,7 +120,7 @@ class LearnTopicActivity : AppCompatActivity() {
                                 c.forEach {
                                     item -> add(Model.LearnTopicContent(
                                         item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
-                                        item.sumpoint+" Points","",R.drawable.clinic_img))
+                                        item.sumpoint+" "+getString(R.string.points),"",R.drawable.book))
                                     d { "add [" + item.group_name_eng + "] to array" }
                                 }
                             }
@@ -138,7 +138,7 @@ class LearnTopicActivity : AppCompatActivity() {
                                     c.forEach {
                                         item -> add(Model.LearnTopicContent(
                                             item.group_id.toInt(),utils.txtLocale(item.group_name_th,item.group_name_eng),
-                                            item.sumpoint+" Points","",R.drawable.clinic_img))
+                                            item.sumpoint+" "+getString(R.string.points),"",R.drawable.clinic_img))
                                         d { "add [" + item.group_name_eng + "] to array" }
                                     }
                                 }

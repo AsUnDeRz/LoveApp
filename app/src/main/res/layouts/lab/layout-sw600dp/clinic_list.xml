@@ -45,6 +45,12 @@
             android:background="@android:color/transparent"
             android:hint="Search..."
             android:maxLines="1" />
+
+        <View
+            android:id="@+id/btn_clear"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <view.custom_view.TextViewHeavy

@@ -100,6 +100,9 @@ class ClinicFragment: Fragment() {
 
 
 
+        btn_clear.setOnClickListener {
+            txt_search.setText("")
+        }
 
         txt_search.setOnFocusChangeListener { view, b ->
             if(b){
@@ -147,7 +150,8 @@ class ClinicFragment: Fragment() {
                                 }
                             }
                             //
-                            rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(data,false)
+
+                            rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(utils.softPlaceWithCurrent(LatLng(lat.toDouble(),lng.toDouble()),data),false)
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }

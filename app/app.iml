@@ -241,5 +241,6 @@
     <orderEntry type="library" name="multidex-1.0.2" level="project" />
     <orderEntry type="library" name="design-26.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="rules-1.0.1" level="project" />
+    <orderEntry type="module" module-name="lib" />
   </component>
 </module>

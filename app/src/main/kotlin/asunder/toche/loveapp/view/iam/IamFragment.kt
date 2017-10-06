@@ -117,6 +117,7 @@ class IamFragment : Fragment() {
             btnCd4.setOnClickListener {
                 startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
             }
+            textView2.text = getString(R.string.labresult)
         }
         iamnonhiv.setOnInflateListener { viewStub, view ->
             d{"i am non hiv inflate"}
@@ -403,7 +404,7 @@ class IamFragment : Fragment() {
                                 }
                             }
 
-                            values_point.text = if(dataUser[0].point != null){dataUser[0].point+" Points"}else{""}
+                            values_point.text = if(dataUser[0].point != null){dataUser[0].point+" "+getString(R.string.points)}else{""}
                             d { "check response [" + c.size + "]" }
                         }},{
                             d { it.message!! }

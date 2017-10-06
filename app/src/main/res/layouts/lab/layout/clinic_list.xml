@@ -43,6 +43,11 @@
             android:background="@android:color/transparent"
             android:hint="Search..."
             android:maxLines="1" />
+        <View
+            android:id="@+id/btn_clear"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <view.custom_view.TextViewHeavy
@@ -52,8 +57,9 @@
         android:layout_below="@+id/relativeLayout3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:maxLines="1"
         android:textColor="@color/colorDarkGrey"
-        android:textSize="36sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -76,8 +82,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
+            android:maxLines="1"
             android:textColor="@color/colorGrey"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

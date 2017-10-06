@@ -21,10 +21,11 @@ import android.text.Spanned
 import android.text.TextUtils
 import android.text.SpannableString
 import android.text.InputFilter
-
-
-
-
+import com.google.android.gms.maps.model.LatLng
+import com.grum.geocalc.Coordinate
+import com.grum.geocalc.DegreeCoordinate
+import com.grum.geocalc.EarthCalc
+import com.grum.geocalc.Point
 
 
 /**
@@ -200,6 +201,56 @@ class Utils(val contex: Context) {
         }
         d{sb.toString()}
         return numbers
+    }
+
+
+    data class mPlace(val id:String,val distan:Double)
+    //geo Distance
+    fun softPlaceWithCurrent(current:LatLng,hospitalList:ObservableArrayList<Model.Clinic>):ObservableArrayList<Model.Clinic>{
+        var placeLatlng = ArrayList<Double>()
+        var mPlaces = ArrayList<mPlace>()
+        var nPlaces = ArrayList<mPlace>()
+        val result = ObservableArrayList<Model.Clinic>()
+
+        hospitalList.forEach {
+            val data =cal2Place(current, LatLng(it.locx, it.locy))
+            placeLatlng.add(data)
+            mPlaces.add(mPlace(it.id.toString(),data))
+        }
+
+        Collections.sort(placeLatlng)
+
+        d{"after sort"}
+        placeLatlng.forEach {
+            item -> run {
+            d{"$item"}
+            mPlaces.filter { it.distan == item }
+                    .forEach { nPlaces.add(it) }
+        }}
+        d{"Check mPlace"}
+        nPlaces.forEach {
+            item -> run {
+            hospitalList.filter { it.id.toString() == item.id}
+                    .forEach { result.add(it) }
+        }
+        }
+
+        //check hospital
+        return  result
+    }
+
+    fun cal2Place(start: LatLng,end:LatLng):Double{
+        val sLat = DegreeCoordinate(start.latitude)
+        val sLng = DegreeCoordinate(start.longitude)
+        val sPoint = Point(sLat,sLng)
+
+        val eLat = DegreeCoordinate(end.latitude)
+        val eLng = DegreeCoordinate(end.longitude)
+        val ePoint = Point(eLat,eLng)
+
+        val result = EarthCalc.getVincentyDistance(sPoint, ePoint)
+        d{"Cal2Place $result"}
+        return result
     }
 
 }
