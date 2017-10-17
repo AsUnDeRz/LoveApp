@@ -19,6 +19,9 @@ object Model{
     data class National(var id:Long,var title:String):StableId{
         override val stableId : Long = id
     }
+    data class Language(var id:Long,var title:String,var key:String):StableId{
+        override val stableId : Long = id
+    }
 
     data class RepositoryJob(val occupation_id:String,val occupation_th: String,val occupation_eng: String)
 

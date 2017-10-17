@@ -107,7 +107,9 @@ class HivStatusActivity: AppCompatActivity(){
                         d{"Response [Success]"}
                         d{ "update status HIV user and Change isFirst ="+preferences.getBoolean(KEYPREFER.isFirst,true) }
                         ActivityMain.vp_main.setCurrentItem(0,false)
-                        ActivityMain.vp_main.setCurrentItem(2,false)
+                        val fromFragment = intent.getIntExtra("from",0)
+                        d{"check FromFragment $fromFragment"}
+                        ActivityMain.vp_main.setCurrentItem(fromFragment,false)
                         finish()
                     }
                 }

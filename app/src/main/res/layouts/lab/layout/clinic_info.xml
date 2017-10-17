@@ -9,7 +9,7 @@
     <include
         android:id="@+id/header_clinic_info"
         layout="@layout/header_logo_white_back"/>
-
+<!--
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_clinic"
         android:layout_width="150dp"
@@ -18,17 +18,19 @@
         android:layout_centerHorizontal="true"
         app:civ_border_color="#0e51a4"
         app:civ_border_width="4dp" />
+        -->
 
     <view.custom_view.TextViewHeavy
         android:id="@+id/title_clinic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_clinic"
+        android:layout_below="@+id/header_clinic_info"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:maxLines="1"
+        android:padding="3dp"
         android:textColor="@android:color/white"
-        android:textSize="26sp" />
+        android:textSize="22sp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
@@ -105,7 +107,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/info_map" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_web"
@@ -128,7 +130,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/info_phone" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_phone"
@@ -151,7 +153,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/info_pin" />
 
                     <view.custom_view.TextViewMedium
                         android:id="@+id/txt_map"

@@ -96,4 +96,18 @@
     <string name="timetotakepill">Time to take \na medicind</string>
     <string name="hintfirstpage">The human immunodeficency virus is a lentivirus that causes HIV infection and over time acquired ummunodeficiency syndrome</string>
 
+    <!--V2 -->
+    <string name="conditiontitle">Terms &amp; Conditions</string>
+    <string name="accept">Accept</string>
+    <string name="selectlang">Select your language</string>
+    <string name="getstarted">Get Started</string>
+    <string name="security">Security</string>
+    <string name="securitytext">ป้องการการเข้าถึงข้อมูล และการใข้งานด้วยระบบรักษาความปลอดภัย</string>
+    <string name="pillremindertext">เดือนเวลาทานยา เพื่อให้ตรงเวล ในแต่ละวัน</string>
+    <string name="nearby">Near by place</string>
+    <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
+    <string name="hivtest">HIV Test \nTest apointment</string>
+    <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
+
+
 </resources>

@@ -3,6 +3,7 @@ package asunder.toche.loveapp
 import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
@@ -38,14 +39,23 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
     lateinit var  handler: Handler
     lateinit var runnable: Runnable
     lateinit var MainViewModel : ViewModel.MainViewModel
+    lateinit var preferences :SharedPreferences
+
     var loadSuccess=0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_page)
         utilDb = AppDatabase(this@LoadingActivity)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this@LoadingActivity)
         MainViewModel = ViewModelProviders.of(this).get(ViewModel.MainViewModel::class.java)
-        SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak,view_loading)
+        MainViewModel.loadImage(this)
+        //SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak,view_loading)
+
+        Glide.with(this@LoadingActivity)
+                .load(R.drawable.loading)
+                .into(root_animation)
 
 
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -93,25 +103,28 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     loadSuccess++
                     d{"Load nation Success"}
                 }
+                is Model.ImageHome -> {
+                    for(data in resultList as ObservableArrayList<Model.ImageHome>){
+                        DataSimple.imageHome.add("http://backend.loveapponline.com/"+data.image_byte)
+                        d{"Add image home  http://backend.loveapponline.com/"+data.image_byte}
+                    }
+                    loadSuccess++
+                    d{"Load imageHome Success"}
+                }
             }
 
-        if(isFirst && loadSuccess == 4){
+        if(isFirst && loadSuccess == 5){
             handler.postDelayed(runnable,4000)
         }
 
         d{"Check LoadSuccess $loadSuccess"}
-        if(loadSuccess == 5){
-            //handler.postDelayed(runnable)
-            handler.post(runnable)
 
-        }
 
 
     }
 
 
     fun checkFirstTime():Boolean{
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoadingActivity)
         if(preferences.getBoolean(KEYPREFER.isFirst,true)){
             isFirst = true
             d{"user open app isFirst"}
@@ -133,7 +146,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                 MainViewModel.loadKnowledage(this, preferences.getString(KEYPREFER.UserId, ""))
                 MainViewModel.loadKnowledgeGroup(preferences.getString(KEYPREFER.GENDER, ""), this, Utils(this@LoadingActivity))
             }else{
-                loadSuccess = 2
+                loadSuccess = 3
                 handler.postDelayed(runnable,2000)
             }
         }
@@ -143,7 +156,6 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
 
     fun checkPasscode():Boolean{
         var havePasscode = false
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoadingActivity)
         if(preferences.getString(KEYPREFER.PASSCODE,"") != ""){
             havePasscode = true
         }
@@ -160,11 +172,17 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
         runnable = Runnable({})
         if(checkFirstTime()){
             runnable = Runnable({
-                startActivity(intentThis.setClass(this, OldNewUserActivity::class.java))
+                if(preferences.getString(KEYPREFER.UserId,"") != ""){
+                    startActivity(intentThis.setClass(this, ActivityMain::class.java))
+                    finish()
+                    overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
+                }else {
+                    startActivity(intentThis.setClass(this, SelectLangActivity::class.java))
+                    finish()
+                }
                 //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left)
-                finish()
             })
-            if(isFirst && loadSuccess == 4){
+            if(isFirst && loadSuccess == 5){
                 handler.postDelayed(runnable,4000)
             }
         }else{
@@ -173,14 +191,18 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     intentThis.putExtra(KEYPREFER.PASSCODE,"check")
                     startActivity(intentThis.setClass(this, PassCodeActivity::class.java))
                     finish()
+                    overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
+
                 })
             }else{
                 runnable = Runnable({
                     startActivity(intentThis.setClass(this, ActivityMain::class.java))
                     finish()
+                    overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
+
                 })
             }
-            if(loadSuccess == 2){
+            if(loadSuccess == 3){
                 handler.postDelayed(runnable,4000)
             }
 
@@ -189,6 +211,13 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
 
     public override fun onResume() {
         super.onResume()
+        view_loading?.visibility = View.VISIBLE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        spin_kit?.visibility = View.INVISIBLE
+
     }
 
     public override fun onStop() {

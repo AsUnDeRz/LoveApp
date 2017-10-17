@@ -104,6 +104,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
         Glide.with(activity)
                 .load(DataSimple.imageHome[position])
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView)
 
 

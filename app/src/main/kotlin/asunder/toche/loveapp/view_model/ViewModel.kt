@@ -233,6 +233,26 @@ object ViewModel{
             )
         }
 
+        fun loadImage(callback: RiskQInterface){
+            manageSub(
+                    service.getImageHome()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                val data = ObservableArrayList<Model.ImageHome>().apply {
+                                    c.forEach {
+                                        item -> add(item)
+                                        d{item.link}
+                                    }
+                                }
+                                callback.endCallProgress(data)
+                                d{"check response ["+c.size+"]"}
+                            }},{
+                                d{ it.message!! }
+                            })
+            )
+        }
+
     }
 
     class HomeViewModel : ViewModel() {

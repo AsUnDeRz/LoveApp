@@ -106,17 +106,10 @@ class ActivityMain : AppCompatActivity() {
             bnve.onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
                 when (item.itemId){
-                    R.id.setting -> vp_main.setCurrentItem(KEYPREFER.SETTING,false)
-                    R.id.learnandgame -> vp_main.setCurrentItem(KEYPREFER.LEARNGAME,false)
-                    R.id.iam -> {
-                        val preferences = PreferenceManager.getDefaultSharedPreferences(this@ActivityMain)
-                        if(preferences.getBoolean(KEYPREFER.isFirst,true)){
-                            startActivity(Intent().setClass(this@ActivityMain,HivStatusActivity::class.java))
-                        }else {
-                            vp_main.setCurrentItem(KEYPREFER.IAM, false)
-                        }
-                    }
-                    R.id.lab -> vp_main.setCurrentItem(KEYPREFER.LAB,false)
+                    R.id.setting -> checkUserSetHivStatus(KEYPREFER.SETTING)
+                    R.id.learnandgame -> checkUserSetHivStatus(KEYPREFER.LEARNGAME)
+                    R.id.iam -> checkUserSetHivStatus(KEYPREFER.IAM)
+                    R.id.lab -> checkUserSetHivStatus(KEYPREFER.LAB)
                     R.id.home -> vp_main.setCurrentItem(KEYPREFER.HOME,false)
                 }
 
@@ -183,6 +176,17 @@ class ActivityMain : AppCompatActivity() {
             }
         }
         finis++
+    }
+
+    fun checkUserSetHivStatus(keyprefer:Int){
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this@ActivityMain)
+        if(preferences.getBoolean(KEYPREFER.isFirst,true)){
+            val intent =Intent()
+            intent.putExtra("from",keyprefer)
+            startActivity(Intent().setClass(this@ActivityMain,HivStatusActivity::class.java))
+        }else {
+            vp_main.setCurrentItem(keyprefer, false)
+        }
     }
 
 

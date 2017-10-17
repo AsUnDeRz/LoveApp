@@ -22,178 +22,184 @@
     </ViewFlipper>
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/vf_uic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/vf_uic">
 
-        <view.custom_view.TextViewHeavy
-            android:id="@+id/txt_fname"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/firstname"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:layout_below="@+id/vf_uic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fill_box"
-            android:orientation="horizontal">
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/firstname"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fill_box"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:inputType="text"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:nextFocusDown="@id/edt_lname"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="70dp"
+                    android:textColor="@color/colorDarkGrey" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/icon_check" />
+
+            </RelativeLayout>
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/firstsurename"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fill_box"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:inputType="text"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:nextFocusDown="@id/edt_hbd"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="70dp"
+                    android:textColor="@color/colorDarkGrey" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/icon_check" />
+
+            </RelativeLayout>
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_hbd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/birthday"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fill_box"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_hbd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:maxLines="1"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="70dp"
+                    android:textColor="@color/colorDarkGrey" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/icon_check" />
+
+            </RelativeLayout>
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/province"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <EditText
-                android:id="@+id/edt_fname"
+                android:id="@+id/edt_province"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fill_box"
                 android:inputType="text"
-                android:maxLength="1"
-                android:maxLines="1"
-                android:nextFocusDown="@id/edt_lname"
-                android:paddingLeft="30dp"
-                android:paddingRight="70dp"
-                android:textColor="@color/colorDarkGrey" />
-
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:padding="20dp"
-                android:visibility="gone"
-                app:srcCompat="@drawable/icon_check" />
-
-        </RelativeLayout>
-
-        <view.custom_view.TextViewHeavy
-            android:id="@+id/txt_lname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/firstsurename"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fill_box"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edt_lname"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:inputType="text"
-                android:maxLength="1"
-                android:maxLines="1"
-                android:nextFocusDown="@id/edt_hbd"
-                android:paddingLeft="30dp"
-                android:paddingRight="70dp"
-                android:textColor="@color/colorDarkGrey" />
-
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:padding="20dp"
-                android:visibility="gone"
-                app:srcCompat="@drawable/icon_check" />
-
-        </RelativeLayout>
-
-        <view.custom_view.TextViewHeavy
-            android:id="@+id/txt_hbd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/birthday"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fill_box"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edt_hbd"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
                 android:maxLines="1"
                 android:paddingLeft="30dp"
                 android:paddingRight="70dp"
-                android:textColor="@color/colorDarkGrey" />
-
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:padding="20dp"
-                android:visibility="gone"
-                app:srcCompat="@drawable/icon_check" />
-
-        </RelativeLayout>
-
-        <view.custom_view.TextViewHeavy
-            android:id="@+id/txt_province"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/province"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/edt_province"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fill_box"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingLeft="30dp"
-            android:paddingRight="70dp"
-            android:textColor="@color/colorDarkGrey"
-            android:visibility="gone" />
-    </LinearLayout>
+                android:textColor="@color/colorDarkGrey"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_save"
@@ -201,7 +207,7 @@
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="false"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/button_box"

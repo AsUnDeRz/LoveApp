@@ -194,12 +194,14 @@ class UniqueIdActivity: AppCompatActivity() {
             val dOfm = c.get(Calendar.DAY_OF_MONTH)
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
-            val year = c.get(Calendar.YEAR)
+            var year = c.get(Calendar.YEAR)
 
             /*
             return TimePickerDialog(activity, this, hour, minute,
                     DateFormat.is24HourFormat(activity))
                     */
+
+
 
             return DatePickerDialog(activity,this,year,mount,dOfm)
         }
@@ -221,7 +223,7 @@ class UniqueIdActivity: AppCompatActivity() {
     fun showProvince(){
         MaterialDialog.Builder(this)
                 .typeface(utils.medium,utils.medium)
-                .title("Province")
+                .title(getString(R.string.province))
                 .items(provinTitle)
                 .itemsCallback({ dialog, view, which, text ->
                     edt_province.setText(text)
@@ -273,7 +275,10 @@ class UniqueIdActivity: AppCompatActivity() {
                         d { "update successful" }
                         //val editor = prefer.edit()
                         //editor.apply()
-                        startActivity(Intent().setClass(this@UniqueIdActivity, ActivityMain::class.java))
+                        val data = Intent()
+                        data.putExtra(KEYPREFER.PASSCODE,"change")
+                        startActivity(data.setClass(this@UniqueIdActivity,PassCodeActivity::class.java))
+                        //startActivity(Intent().setClass(this@UniqueIdActivity, ActivityMain::class.java))
                         finish()
                     }
                     btn_save.isClickable = true

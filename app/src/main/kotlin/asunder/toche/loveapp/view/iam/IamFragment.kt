@@ -132,9 +132,18 @@ class IamFragment : Fragment() {
 
         // inflate bottom layout
         when(preference.getInt(KEYPREFER.HIVSTAT,0)){
-            KEYPREFER.POSITIVE -> labresult.inflate()
-            KEYPREFER.NEGATIVE -> iamnonhiv.inflate()
-            KEYPREFER.IDONTKNOW -> iamnonhiv.inflate()
+            KEYPREFER.POSITIVE -> {
+                labresult.inflate()
+                btn_negative.visibility = View.GONE
+            }
+            KEYPREFER.NEGATIVE -> {
+                labresult.visibility = View.GONE
+                btn_negative.visibility = View.VISIBLE
+            }
+            KEYPREFER.IDONTKNOW -> {
+                labresult.visibility = View.GONE
+                btn_negative.visibility = View.VISIBLE
+            }
         }
 
 
@@ -403,7 +412,18 @@ class IamFragment : Fragment() {
                                     d { "Add ["+item.name+"] to arraylist" }
                                 }
                             }
-
+                            //set statushiv
+                            val editor = preference.edit()
+                            editor.putInt(KEYPREFER.HIVSTAT, dataUser[0]?.status_id!!.toInt())
+                            editor.apply()
+                            when(dataUser[0].status_id!!.toInt()){
+                                KEYPREFER.POSITIVE -> {
+                                    labresult.inflate()
+                                    btn_negative.visibility = View.GONE
+                                }
+                                KEYPREFER.NEGATIVE -> btn_negative.visibility = View.VISIBLE
+                                KEYPREFER.IDONTKNOW -> btn_negative.visibility = View.VISIBLE
+                            }
                             values_point.text = if(dataUser[0].point != null){dataUser[0].point+" "+getString(R.string.points)}else{""}
                             d { "check response [" + c.size + "]" }
                         }},{

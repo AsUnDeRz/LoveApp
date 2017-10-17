@@ -1,6 +1,7 @@
 package asunder.toche.loveapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +14,8 @@ import android.widget.Toast
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import com.github.ybq.android.spinkit.style.DoubleBounce
+import com.github.ybq.android.spinkit.style.FadingCircle
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.passcode.*
 
@@ -34,6 +37,7 @@ class PassCodeActivity: AppCompatActivity(){
     var numClick =0
     var pcInStateAdd =""
     var pcInStateCheck =""
+    lateinit var preferences : SharedPreferences
 
 
 
@@ -47,12 +51,12 @@ class PassCodeActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.passcode)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this@PassCodeActivity)
 
         Glide.with(this)
                 .load(R.drawable.bg_blue_only)
                 .into(bg_root)
         if(intent.getStringExtra(KEYPREFER.PASSCODE) == "check"){
-            val preferences = PreferenceManager.getDefaultSharedPreferences(this@PassCodeActivity)
             txt_passcode.text = "Enter Passcode"
             statePasscode = StatePC.check
             pcInStateAdd = preferences.getString(KEYPREFER.PASSCODE,"")
@@ -172,23 +176,34 @@ class PassCodeActivity: AppCompatActivity(){
                         post.postDelayed({
                             startActivity(Intent().setClass(this@PassCodeActivity,ActivityMain::class.java))
                             finish()
+                            overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
                         },500)
                     }else{
                         Alerter.create(this)
                                 .setText("Your passcode have saved")
                                 .setOnHideListener {
-                                    finish()
+
                                 }
                                 .setTitleTypeface(Utils(this).heavy)
                                 .setTextTypeface(Utils(this).heavy)
                                 .setBackgroundColorRes(R.color.colorAccent) // or setBackgroundColorInt(Color.CYAN)
                                 .show()
                         //save passcode to preference
-                        val preferences = PreferenceManager.getDefaultSharedPreferences(this@PassCodeActivity)
                         d{"save passcode user [$pc]"}
                         val editor = preferences.edit()
                         editor.putString(KEYPREFER.PASSCODE, pc)
                         editor.apply()
+
+                        if(preferences.getBoolean(KEYPREFER.isFirst,false)){
+                            val doubleBounce = DoubleBounce()
+                            pro_load.indeterminateDrawable = doubleBounce
+                            root_load.visibility = View.VISIBLE
+                            startActivity(Intent().setClass(this@PassCodeActivity, ActivityMain::class.java))
+                            finish()
+                            overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
+                        }else {
+                            finish()
+                        }
                     }
 
 

@@ -17,6 +17,7 @@
         android:layout_below="@+id/header_clinic_info"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:visibility="invisible"
         app:civ_border_color="#0e51a4"
         app:civ_border_width="4dp" />
 
@@ -94,16 +95,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/info_title"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:visibility="gone">
+                android:paddingRight="15dp">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/home" />
+                    app:srcCompat="@drawable/info_map" />
 
                 <view.custom_view.TextViewMedium
                     android:id="@+id/txt_web"
@@ -111,57 +111,56 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingStart="10dp"
-                    android:text="www.bangkokclinic.com"
                     android:textSize="22sp" />
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/view_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view_web"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/home" />
-
-            <TextView
-                android:id="@+id/txt_phone"
+            <LinearLayout
+                android:id="@+id/view_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:textSize="22sp" />
-        </LinearLayout>
+                android:layout_below="@+id/view_web"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-        <LinearLayout
-            android:id="@+id/view_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view_phone"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/info_phone" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@drawable/home" />
+                <TextView
+                    android:id="@+id/txt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:textSize="22sp" />
+            </LinearLayout>
 
-            <view.custom_view.TextViewMedium
-                android:id="@+id/txt_map"
+            <LinearLayout
+                android:id="@+id/view_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:textSize="22sp" />
-        </LinearLayout>
+                android:layout_below="@+id/view_phone"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/info_pin" />
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:textSize="22sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/info_promotion"
@@ -170,8 +169,9 @@
                 android:layout_alignParentStart="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/view_map"
-                android:orientation="vertical"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp">

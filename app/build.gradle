@@ -13,8 +13,8 @@ android {
         applicationId "com.loveapp2"
         minSdkVersion 18
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -142,6 +142,8 @@ dependencies {
     implementation 'com.karumi:dexter:4.1.0'
     implementation project(':lib')
 }
+
+
 
 repositories {
     maven {

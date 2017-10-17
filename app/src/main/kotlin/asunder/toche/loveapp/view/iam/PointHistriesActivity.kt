@@ -24,6 +24,8 @@ import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.app.Activity
+import android.graphics.Color
+import com.tapadoo.alerter.Alerter
 import utils.CustomTabActivityHelper
 
 
@@ -100,8 +102,14 @@ class PointHistriesActivity: AppCompatActivity() {
 
 
         btn_redeem.setOnClickListener {
-            setupCustomTabHelper("http://www.loveapponline.com/redeem")
-            openCustomTab("http://www.loveapponline.com/redeem")
+            //check user
+            if(prefer.getBoolean(KEYPREFER.isUpdateProfile,false)){
+                setupCustomTabHelper("http://www.loveapponline.com/redeem")
+                openCustomTab("http://www.loveapponline.com/redeem")
+            }else{
+                showAlerter()
+            }
+
             //val data = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.loveapponline.com/redeem"))
             //startActivity(data)
         }
@@ -248,6 +256,24 @@ class PointHistriesActivity: AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         unsubscribe()
+    }
+
+    fun showAlerter(){
+        d{"show Alerter"}
+        Alerter.create(this)
+                .setText(getString(R.string.popupredeempoint))
+                .setTitleTypeface(Utils(this).heavy)
+                .setTextTypeface(Utils(this).heavy)
+                //.setBackgroundColorRes(Color.RED) // or setBackgroundColorInt(Color.CYAN)
+                .setBackgroundColorInt(Color.RED)
+                .setOnClickListener {
+                    startActivity(Intent().setClass(this@PointHistriesActivity, AccountSettingActivity::class.java))
+                }
+                .setOnHideListener {
+                    startActivity(Intent().setClass(this@PointHistriesActivity, AccountSettingActivity::class.java))
+                }
+                .show()
+
     }
 
 

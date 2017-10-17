@@ -48,7 +48,7 @@
     <string name="cd4">CD4</string>
     <string name="lasttest">ทดสอบครั้งล่าสุด</string>
     <string name="nexttest">ทดสอบครั้งต่อไป</string>
-    <string name="redeempoint">แลกแต้ม</string>
+    <string name="redeempoint">แลกของรางวัล</string>
     <string name="findplacenearu">ค้นหาสถานที่ตรวจใกล้เคียงคุณ</string>
     <string name="passcode">รหัสผ่านหน้าจอ</string>
     <string name="pillreminder">ช่วยเตือนทานยา</string>
@@ -59,7 +59,7 @@
     <string name="uid">รหัสเฉพาะ</string>
     <string name="province">จังหวัด</string>
     <string name="firstname">อักษรขึ้นต้นชื่อ</string>
-    <string name="firstsurename">อักษะขึ้นต้นนามสกุล</string>
+    <string name="firstsurename">อักษรขึ้นต้นนามสกุล</string>
     <string name="birthday">วันเกิด</string>
     <string name="save">บันทึก</string>
     <string name="pills">ยา</string>
@@ -81,7 +81,7 @@
     <string name="alteraccupdate">กรุณากรอกข้อมูลให้ครบถ้วน</string>
     <string name="information">ข้อมูล</string>
     <string name="contacts">ที่อยู่</string>
-    <string name="promotion">โปรโมนชั่น</string>
+    <string name="promotion">โปรโมชั่น</string>
     <string name="nationtitle">กรุณาเลือกสัญชาติ</string>
     <string name="fillinformation">กรุณาเติมข้อมูลในช่องว่างให้ครบ</string>
 
@@ -96,6 +96,23 @@
     <string name="firsttime">นี่คือครั้งแรกของคุณใช่หรือไม่</string>
     <string name="timetotakepill">เวลาทานยา</string>
     <string name="hintfirstpage">การป้องกันการติดเชื้อโรคเอดส์ทำได้โดยลดพฤติกรรมความเสี่ยงต่อการเกิดโรคเอดส์</string>
+
+    <!--V2 -->
+    <string name="conditiontitle">เงื่อนไขการให้บริการ</string>
+    <string name="accept">ยอมรับ</string>
+    <string name="selectlang">กรุณาเลือกภาษา</string>
+    <string name="getstarted">Get Started</string>
+    <string name="security">Security</string>
+    <string name="securitytext">ป้องการการเข้าถึงข้อมูล และการใข้งานด้วยระบบรักษาความปลอดภัย</string>
+    <string name="pillremindertext">เดือนเวลาทานยา เพื่อให้ตรงเวล ในแต่ละวัน</string>
+    <string name="nearby">Near by place</string>
+    <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
+    <string name="hivtest">ตรวจเลือด \nนัดหมายการตรวจ</string>
+    <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
+
+
+
+
 
 
 </resources>

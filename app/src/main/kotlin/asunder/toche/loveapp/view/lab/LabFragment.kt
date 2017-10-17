@@ -100,7 +100,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                                         if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
                                         if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
                                         if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
-                                    d { "Add ["+item.name_th+"] to arraylist" }
+                                    //d { "Add ["+item.name_th+"] to arraylist" }
                                     rawData.add(item)
                                 }
                             }
@@ -141,6 +141,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         var hospitalList = ObservableArrayList<Model.Clinic>()
         var city : String=""
         var subCity : String =""
+        var latlngCurrent : LatLng? =null
+
 
     }
 
@@ -232,7 +234,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                     provinces
                             .filter { it.province_id == id.toString() }
                             .forEach {
-                                d{ it.province_eng+" // "}
+                                //d{ it.province_eng+" // "}
                                 val latlng = LatLng(it.locx,it.locy)
                                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,10f))
                             }
@@ -380,10 +382,12 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     //function
 
     fun handleNewLocation(location: Location?) {
-        d { "handle New location ["+location?.provider+"]" }
-        d{"get current location ["+getAddress(location?.latitude,location?.longitude)+"]"}
+        //d { "handle New location ["+location?.provider+"]" }
+        //d{"get current location ["+getAddress(location?.latitude,location?.longitude)+"]"}
 
         val latLng = LatLng(location!!.latitude, location!!.longitude)
+        latlngCurrent = latLng
+        googleMap?.clear()
         val current =MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.fromBitmap(CustomPin()))
@@ -460,7 +464,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     }
 
     fun addMarker(dat:Model.Clinic){
-        d{"Add marker hospital lat["+dat.locy+"] lng["+dat.locx+"]"}
+        //d{"Add marker hospital lat["+dat.locy+"] lng["+dat.locx+"]"}
         //val zoomLevel = 16.0f //This goes up to 21
         val latLng = LatLng(dat.locx, dat.locy)
         async(UI){

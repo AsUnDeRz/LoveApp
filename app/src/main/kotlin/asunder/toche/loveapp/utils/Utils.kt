@@ -120,7 +120,7 @@ class Utils(val contex: Context) {
             KEYPREFER.EN -> txt=eng
             KEYPREFER.TH -> txt=th
         }
-        d{"Show txtLocale =$txt"}
+        //d{"Show txtLocale =$txt"}
         return txt
     }
 

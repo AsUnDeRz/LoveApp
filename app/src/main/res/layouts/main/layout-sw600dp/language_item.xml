@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="asunder.toche.loveapp.Utils"/>
+        <variable name="langItem" type="asunder.toche.loveapp.Model.Language" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_nation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@{langItem.title}"
+            android:textColor="@android:color/white"
+            android:textSize="26sp" />
+    </LinearLayout>
+</layout>

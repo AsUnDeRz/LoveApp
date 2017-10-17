@@ -21,6 +21,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.hiv_test.*
+import kotlinx.android.synthetic.main.hiv_test_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

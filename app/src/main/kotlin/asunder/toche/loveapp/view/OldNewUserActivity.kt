@@ -40,7 +40,7 @@ class OldNewUserActivity : AppCompatActivity(){
         }
 
         btn_newaccout.setOnClickListener {
-            startActivity(Intent().setClass(this@OldNewUserActivity,GenderActivity::class.java))
+            startActivity(Intent().setClass(this@OldNewUserActivity,ConditionActivity::class.java))
             finish()
         }
     }

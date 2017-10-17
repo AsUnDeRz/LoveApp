@@ -9,6 +9,9 @@ import android.preference.PreferenceManager
 import android.icu.util.ULocale.getLanguage
 import com.github.ajalt.timberkt.Timber.d
 import java.util.*
+import android.os.LocaleList
+
+
 
 
 /**
@@ -70,6 +73,9 @@ object LocalUtil {
     private fun updateResources(context: Context?, language: String?): Context? {
         val locale = Locale(language)
         Locale.setDefault(locale)
+
+        val localeList = LocaleList(locale)
+        LocaleList.setDefault(localeList)
 
         val configuration = context?.resources?.configuration
         configuration?.setLocale(locale)

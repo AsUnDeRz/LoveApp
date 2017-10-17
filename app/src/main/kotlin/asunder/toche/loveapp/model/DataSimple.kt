@@ -20,7 +20,8 @@ object DataSimple {
             R.drawable.loading043,R.drawable.loading044,R.drawable.loading045,R.drawable.loading046,
             R.drawable.loading047)
 
-    val imageHome = arrayListOf(R.drawable.icon_40,R.drawable.icon_36,R.drawable.icon_41)
+    //val imageHome = arrayListOf(R.drawable.icon_40,R.drawable.icon_36,R.drawable.icon_41)
+    var imageHome = arrayListOf<String>()
     val iconGame1 = arrayListOf(
             R.drawable.mm1,R.drawable.mm2,R.drawable.mm3,R.drawable.mm4,R.drawable.mm5,
             R.drawable.mm6,R.drawable.mm7,R.drawable.mm8,R.drawable.mm9,R.drawable.mm10,

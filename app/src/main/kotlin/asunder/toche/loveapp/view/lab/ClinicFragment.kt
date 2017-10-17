@@ -85,7 +85,7 @@ class ClinicFragment: Fragment() {
                         if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
                         if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
                         if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
-                    d { "Add ["+item.name_th+"] to arraylist" }
+                    //d { "Add ["+item.name_th+"] to arraylist" }
                 }
             }
             LabFragment.hospitalList = data
@@ -146,7 +146,7 @@ class ClinicFragment: Fragment() {
                                         if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
                                         if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
                                         if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
-                                    d { "Add ["+item.name_th+"] to arraylist" }
+                                    //d { "Add ["+item.name_th+"] to arraylist" }
                                 }
                             }
                             //

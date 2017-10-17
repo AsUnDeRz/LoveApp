@@ -22,6 +22,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.tapadoo.alerter.Alerter
@@ -338,6 +339,13 @@ class AccountSettingActivity: AppCompatActivity() {
         provinID = if(data.province != null){data.province!!}else{""}
         jobID = if(data.job != null){data.job!!}else{""}
         statusID = if(data.status_id != null){data.status_id!!}else{""}
+        if(data.iden_id != null){
+            txt_number_id.visibility = View.GONE
+            edt_number_id.visibility = View.GONE
+        }else{
+            txt_number_id.visibility = View.VISIBLE
+            edt_number_id.visibility = View.VISIBLE
+        }
 
 
 
@@ -444,7 +452,7 @@ class AccountSettingActivity: AppCompatActivity() {
             val update = service.updateUser(data.user_id,data.gender_id,"", fname,
                     lname,statusID,"0",edt_phone.editableText.toString(),
                     edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
-                    null, birth,data.point, data.national_id)
+                    data.iden_id, birth,data.point, data.national_id)
             update.enqueue(object : Callback<Void> {
                 override fun onFailure(call: Call<Void>?, t: Throwable?) {
                     d { t?.message.toString() }
