@@ -13,8 +13,8 @@ android {
         applicationId "com.loveapp2"
         minSdkVersion 18
         targetSdkVersion 26
-        versionCode 5
-        versionName "2.3"
+        versionCode 7
+        versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -141,6 +141,8 @@ dependencies {
     //permissionjk
     implementation 'com.karumi:dexter:4.1.0'
     implementation project(':lib')
+    implementation 'com.layer-net:thai-datetimepicker:1.0.3'
+    implementation project(':SpinnerDatePicker')
 }
 
 

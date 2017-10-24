@@ -2,10 +2,12 @@
     <string name="app_name">LoveApp</string>
     <!--
     <string name="map">AIzaSyAje8jmCHxhGfNIadMRBenvHOfLkfhFZ6A</string>
-        <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
 
-
--->
+    //production key
+    <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
+    //debug key
+    <string name="map">AIzaSyCjbPTt3ALgWjO_8v1g7zhbxjpaZ9COIgI</string>
+    -->
     <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
 
     <string name="tag_anim_state">tag_data</string>
@@ -74,7 +76,7 @@
     <string name="sent">ส่ง</string>
     <string name="password">รหัสผ่าน</string>
     <string name="insertlab">วันตรวจ</string>
-    <string name="work">อาขีพ</string>
+    <string name="work">อาชีพ</string>
     <string name="idenid">เลขบัตรประชาชน</string>
     <string name="language">ภาษา</string>
     <string name="alterhome">กดปุ่มอีกครั้งเพื่อกลับสู่หน้าโฮม</string>
@@ -109,6 +111,15 @@
     <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
     <string name="hivtest">ตรวจเลือด \nนัดหมายการตรวจ</string>
     <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
+    <string name="next">ถัดไป</string>
+    <string name="logout">ออกจากระบบ</string>
+    <string name="agree">รับทราบ</string>
+    <string name="wronganswer">เป็นคำตอบที่ผิดนะครับ</string>
+    <string name="totalpoint">คะแนนทั้งหมดของคุณคือ</string>
+    <string name="confirm">ตกลง</string>
+
+
+
 
 
 

@@ -21,24 +21,40 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
+import android.text.method.KeyListener
+import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Spinner
 import com.afollestad.materialdialogs.MaterialDialog
+import com.tapadoo.alerter.Alerter
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.regex.Pattern
 
 
 /**
  * Created by admin on 8/4/2017 AD.
  */
-class UniqueIdActivity: AppCompatActivity() {
+class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.date.DatePickerDialog.OnDateSetListener{
+
+
+    override fun onDateSet(view: com.layernet.thaidatetimepicker.date.DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        d{"$year  $monthOfYear  $dayOfMonth"}
+        y = year+543
+        m = monthOfYear+1
+        day = dayOfMonth
+        edtHbd.setText("$day/$m/$y")
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -107,13 +123,20 @@ class UniqueIdActivity: AppCompatActivity() {
             }
         }
 
+        val hasTh = LocalUtil.getLanguage(this@UniqueIdActivity)
+        when(hasTh){
+            "th" -> {isThai = true}
+            "en" -> {isThai = false}
+        }
+
+
         var regex=""
         when(isThai){
-            true -> {regex="กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ"}
-            false -> {regex="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+            true -> {regex="[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ]"}
+            false -> {regex="[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]"}
         }
-        edt_fname.keyListener = DigitsKeyListener.getInstance(regex)
-        edt_lname.keyListener = DigitsKeyListener.getInstance(regex)
+        //edt_fname.keyListener = DigitsKeyListener.getInstance(regex)
+        //edt_lname.keyListener = DigitsKeyListener.getInstance(regex)
 
         edtHbd.setOnClickListener {
             showTimePickerDialog(edt_hbd)
@@ -127,10 +150,16 @@ class UniqueIdActivity: AppCompatActivity() {
 
         edt_fname.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(text: Editable?) {
+                val length = text.toString().length
 
-                d{text.toString()}
-                edt_fname.clearFocus()
-                edt_lname.requestFocus()
+                if(length > 0 && !Pattern.matches(regex, text)) {
+                    text?.delete(length - 1, length)
+                }
+                if(text.toString().length == 1){
+                    d { text.toString() }
+                    edt_fname.clearFocus()
+                    edt_lname.requestFocus()
+                }
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -139,21 +168,39 @@ class UniqueIdActivity: AppCompatActivity() {
 
         edt_lname.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(text: Editable?) {
-                d{text.toString()}
-                edt_lname.clearFocus()
-                edtHbd.requestFocus()
+                val length = text.toString().length
+
+                if(length > 0 && !Pattern.matches(regex, text)) {
+                    text?.delete(length - 1, length)
+                }
+                if(text.toString().length == 1){
+                    d { text.toString() }
+                    edt_lname.clearFocus()
+                    edtHbd.requestFocus()
+                }
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_save)
         btn_save.setOnClickListener {
-            if(prefer.getBoolean(KEYPREFER.isFirst,false)) {
-                updateUser()
+            fname = edt_fname.text.toString()
+            lname = edt_lname.text.toString()
+            if(y == 0 || m == 0 || day == 0 || fname == "" || lname == ""){
+                showPopup()
             }else{
-                onBackPressed()
+                if(prefer.getBoolean(KEYPREFER.isFirst,false)) {
+                    if(provinID ==""){
+                        showPopup()
+                    }else {
+                        updateUser()
+                    }
+                }else{
+                    onBackPressed()
 
+                }
             }
         }
 
@@ -164,22 +211,53 @@ class UniqueIdActivity: AppCompatActivity() {
     fun showTimePickerDialog(v: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
-        val newFragment = TimePickerFragment()
-        newFragment.show(fragmentManager, "timePicker")
+        showSpinner()
+        if(isThai) {
+            //val datePopup = com.layernet.thaidatetimepicker.date.DatePickerDialog.newInstance(this, year, mount, dOfm)
+            //datePopup.show(fragmentManager, "datepicker")
+        }else{
+            //val newFragment = TimePickerFragment()
+            //newFragment.show(fragmentManager, "timePicker")
+
+        }
+    }
+
+    fun showSpinner(){
+        val hasTh = LocalUtil.getLanguage(this@UniqueIdActivity)
+        var isthai=0
+        when(hasTh){
+            "th" -> {isthai=543}
+            "en" -> {isthai=0}
+        }
+        val c = Calendar.getInstance()
+        val mount = c.get(Calendar.MONTH)
+        val dOfm = c.get(Calendar.DAY_OF_MONTH)
+        var year = c.get(Calendar.YEAR)
+        SpinnerDatePickerDialogBuilder()
+                .context(this)
+                .callback { view, year, monthOfYear, dayOfMonth ->
+                    d{"$year  $monthOfYear  $dayOfMonth"}
+                    y = year
+                    m = monthOfYear+1
+                    day = dayOfMonth
+                    edtHbd.setText("$day/$m/$y")
+                }
+                .spinnerTheme(R.style.DatePickerSpinner)
+                .year(year+isthai)
+                .monthOfYear(mount)
+                .dayOfMonth(dOfm)
+                .build()
+                .show()
     }
 
     @SuppressLint("ValidFragment")
-    inner class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener,DatePickerDialog.OnDateSetListener {
-
+    inner class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener,DatePickerDialog.OnDateSetListener{
 
         override fun onDateSet(p0: DatePicker?, year: Int, mounth: Int, dom: Int) {
             d{"$year  $mounth  $dom"}
             y = year
             m = mounth+1
             day = dom
-            if(isThai){
-                y+=543
-            }
             edtHbd.setText("$dom/$m/$y")
         }
 
@@ -200,9 +278,6 @@ class UniqueIdActivity: AppCompatActivity() {
             return TimePickerDialog(activity, this, hour, minute,
                     DateFormat.is24HourFormat(activity))
                     */
-
-
-
             return DatePickerDialog(activity,this,year,mount,dOfm)
         }
 
@@ -224,12 +299,14 @@ class UniqueIdActivity: AppCompatActivity() {
         MaterialDialog.Builder(this)
                 .typeface(utils.medium,utils.medium)
                 .title(getString(R.string.province))
-                .items(provinTitle)
+                .items(provinTitle.sorted())
                 .itemsCallback({ dialog, view, which, text ->
                     edt_province.setText(text)
-                    d{"select province [$text]"}
-                    provinID = provinces[which].province_id
-                    d{"check provinID [$provinID] ["+provinces[which].toString()+"]"}
+                    provinces.filter { text == it.province_th || text == it.province_eng }
+                            .forEach {
+                                provinID = it.province_id
+                                d{"check provinID [$provinID] ["+it.toString()+"]"}
+                            }
                 })
                 .positiveText(android.R.string.cancel)
                 .show()
@@ -302,6 +379,15 @@ class UniqueIdActivity: AppCompatActivity() {
     protected final fun manageSub(s: Disposable) = compoSub.add(s)
 
     fun unsubscribe() { compoSub.dispose() }
+
+    fun showPopup(){
+        Alerter.create(this@UniqueIdActivity)
+                .setBackgroundColorInt(ContextCompat.getColor(this,R.color.red))
+                .setIcon(R.drawable.ic_clear_white_48dp)
+                .setText(getString(R.string.fillinformation))
+                .setTextTypeface(utils.medium)
+                .show()
+    }
 
 
 }

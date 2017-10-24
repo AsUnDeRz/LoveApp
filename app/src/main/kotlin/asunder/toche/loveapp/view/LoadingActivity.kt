@@ -78,12 +78,16 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                     d{"Load Knowledge Success"}
                 }
                 is Model.Province -> {
-                    utilDb.addProvince(resultList as ObservableArrayList<Model.Province>)
+                    if(utilDb.getProvince().size ==0) {
+                        utilDb.addProvince(resultList as ObservableArrayList<Model.Province>)
+                    }
                     loadSuccess++
                     d{"Load Province Success"}
                 }
                 is Model.RiskQuestion -> {
-                    utilDb.addRiskQustion(resultList as ObservableArrayList<Model.RiskQuestion>)
+                    if(utilDb.getRiskQuestion().size == 0) {
+                        utilDb.addRiskQustion(resultList as ObservableArrayList<Model.RiskQuestion>)
+                    }
                     loadSuccess++
                     d{"Load RiskQuestion Success"}
                 }
@@ -94,19 +98,26 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
                 }
 
                 is Model.RepositoryJob -> {
-                    utilDb.addJobs(resultList as ObservableArrayList<Model.RepositoryJob>)
+                    if(utilDb.getJobs().size ==0) {
+                        utilDb.addJobs(resultList as ObservableArrayList<Model.RepositoryJob>)
+                    }
                     loadSuccess++
                     d{"Load Job Success"}
                 }
                 is Model.RepositoryNational -> {
-                    utilDb.addNationals(resultList as ObservableArrayList<Model.RepositoryNational>)
+                    if(utilDb.getNations().size ==0) {
+                        utilDb.addNationals(resultList as ObservableArrayList<Model.RepositoryNational>)
+                    }
                     loadSuccess++
                     d{"Load nation Success"}
                 }
                 is Model.ImageHome -> {
-                    for(data in resultList as ObservableArrayList<Model.ImageHome>){
-                        DataSimple.imageHome.add("http://backend.loveapponline.com/"+data.image_byte)
-                        d{"Add image home  http://backend.loveapponline.com/"+data.image_byte}
+                    if(DataSimple.imageHome.size ==0) {
+                        for (data in resultList as ObservableArrayList<Model.ImageHome>) {
+                            DataSimple.imageHome.add(data)
+                            //DataSimple.imageHome.add("http://backend.loveapponline.com/"+data.image_byte)
+                            d { "Add image home  http://backend.loveapponline.com/" + data.image_byte }
+                        }
                     }
                     loadSuccess++
                     d{"Load imageHome Success"}
@@ -216,7 +227,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
 
     override fun onPause() {
         super.onPause()
-        spin_kit?.visibility = View.INVISIBLE
+        //spin_kit?.visibility = View.INVISIBLE
 
     }
 

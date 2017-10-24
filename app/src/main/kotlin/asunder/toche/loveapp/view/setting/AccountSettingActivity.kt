@@ -30,6 +30,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -183,6 +184,7 @@ class AccountSettingActivity: AppCompatActivity() {
             showJob()
         }
 
+        PushDownAnim.setOnTouchPushDownAnim(btn_save)
         btn_save.setOnClickListener {
             if(validate()) {
                 updateUser()
@@ -219,13 +221,16 @@ class AccountSettingActivity: AppCompatActivity() {
     fun showProvince(){
         MaterialDialog.Builder(this)
                 .typeface(utils.medium,utils.medium)
-                .title("Province")
-                .items(provinTitle)
+                .title(getString(R.string.province))
+                .items(provinTitle.sorted())
                 .itemsCallback({ dialog, view, which, text ->
                     edt_province.setText(text)
                     d{"select province [$text]"}
-                    provinID = provinces[which].province_id
-                    d{"check provinID [$provinID] ["+provinces[which].toString()+"]"}
+                    provinces.filter { text == it.province_th || text == it.province_eng }
+                            .forEach {
+                                provinID = it.province_id
+                                d{"check provinID [$provinID] ["+it.toString()+"]"}
+                            }
                 })
                 .positiveText(android.R.string.cancel)
                 .show()
@@ -234,7 +239,7 @@ class AccountSettingActivity: AppCompatActivity() {
     fun showJob(){
         MaterialDialog.Builder(this)
                 .typeface(utils.medium,utils.medium)
-                .title("Work")
+                .title(getString(R.string.work))
                 .items(jobTitle)
                 .itemsCallback({ dialog, view, which, text ->
                     edt_work.setText(text)
@@ -260,7 +265,7 @@ class AccountSettingActivity: AppCompatActivity() {
         loadStatus()
         MaterialDialog.Builder(this)
                 .typeface(utils.medium,utils.medium)
-                .title("HIV status")
+                .title(getString(R.string.hivstatus))
                 .items(statusTitle)
                 .itemsCallback({ dialog, view, which, text ->
                     txt_hiv_status.text = text

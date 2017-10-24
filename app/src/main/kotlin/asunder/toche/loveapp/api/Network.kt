@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.databinding.ObservableArrayList
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
@@ -17,6 +18,8 @@ import kotlin.collections.ArrayList
  */
 interface LoveAppService{
 
+    @GET("api/hiv_test/user_id/{id}")
+    fun getHivTest(@Path("id") userId: String) : Observable<ArrayList<Model.RepositoryHivTest>>
 
     @GET("api/nationals/")
     fun getNationals() : Observable<ArrayList<Model.RepositoryNational>>

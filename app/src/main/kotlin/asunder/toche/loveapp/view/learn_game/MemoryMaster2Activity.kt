@@ -185,11 +185,11 @@ class MemoryMaster2Activity:AppCompatActivity() {
         MaterialDialog.Builder(this@MemoryMaster2Activity)
                 .typeface(utils.medium,utils.heavy)
                 //.title("Congratulation")
-                .content("Your total point is $point Point")
+                .content(getString(R.string.totalpoint)+" $point "+getString(R.string.points))
                 .onPositive { dialog, which -> run {
-                    dialog.dismiss()
+                    finish()
                 }}
-                .positiveText("Confirm")
+                .positiveText(R.string.confirm)
                 .show()
     }
 

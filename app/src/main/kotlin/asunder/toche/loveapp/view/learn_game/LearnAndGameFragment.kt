@@ -116,7 +116,7 @@ class LearnAndGameFragment : Fragment() {
             val contentID = data.getStringExtra(KEYPREFER.CONTENT)
             val userID = prefer.getString(KEYPREFER.UserId,"")
             d{"check result $point   $contentID"}
-            addUpdatePoint(point,contentID,userID)
+            //addUpdatePoint(point,contentID,userID)
         }
     }
 

@@ -17,11 +17,11 @@ import android.widget.TextView
 import android.widget.TimePicker
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.hiv_test.*
-import kotlinx.android.synthetic.main.hiv_test_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -131,10 +131,41 @@ class HivTestActivity :AppCompatActivity(){
     fun showTimePickerDialog(v: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
-        val newFragment = TimePickerFragment()
-        newFragment.show(fragmentManager, "timePicker")
+        showSpinner()
+        //val newFragment = TimePickerFragment()
+        //newFragment.show(fragmentManager, "timePicker")
     }
 
+    fun showSpinner(){
+        val hasTh = LocalUtil.getLanguage(this@HivTestActivity)
+        var isthai=0
+        when(hasTh){
+            "th" -> {isthai=543}
+            "en" -> {isthai=0}
+        }
+        val c = Calendar.getInstance()
+        val mount = c.get(Calendar.MONTH)
+        val dOfm = c.get(Calendar.DAY_OF_MONTH)
+        var year = c.get(Calendar.YEAR)
+        SpinnerDatePickerDialogBuilder()
+                .context(this)
+                .callback { view, year, monthOfYear, dayOfMonth ->
+                    Timber.d { "$year  $monthOfYear  $dayOfMonth" }
+                    y = year
+                    m = monthOfYear+1
+                    day = dayOfMonth
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year,monthOfYear,dayOfMonth)
+                    edtDate.setText("$dayOfMonth/$m/$year")
+                    dateVal = calendar.time
+                }
+                .spinnerTheme(R.style.DatePickerSpinner)
+                .year(year+isthai)
+                .monthOfYear(mount)
+                .dayOfMonth(dOfm)
+                .build()
+                .show()
+    }
 
     @SuppressLint("ValidFragment")
     inner class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {

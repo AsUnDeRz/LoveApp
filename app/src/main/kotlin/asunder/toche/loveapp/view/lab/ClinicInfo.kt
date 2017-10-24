@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.clinic_info.*
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import kotlinx.android.synthetic.main.old_new_user.view.*
@@ -44,11 +45,13 @@ class ClinicInfo:AppCompatActivity(){
 
         //set title
 
-        /*
+
         Glide.with(this)
                 .load(content?.img_detail)
-                .into(img_clinic)
-                */
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(icon_clinic)
+
         title_clinic.text = content?.name
         txt_nametest.text = content?.service
         txt_worktime.text = content?.open_hour

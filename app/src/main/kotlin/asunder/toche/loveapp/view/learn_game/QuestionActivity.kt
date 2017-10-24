@@ -1,17 +1,12 @@
 package asunder.toche.loveapp
 
-import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
-import asunder.toche.loveapp.IndicatorAdapter
-import asunder.toche.loveapp.MyApp
-import asunder.toche.loveapp.NotificationActivity
-import asunder.toche.loveapp.R
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
@@ -105,10 +100,15 @@ class QuestionActivity: AppCompatActivity() {
         d{"check anwser"}
         if(anwser == question.answer){
             point += question.point.toInt()
+            checkFinish()
+        }else{
+            displayWrong()
         }
+
+    }
+    fun checkFinish(){
         d{"update total point $point"}
         if(currentPosition < maxQuestionSize-1) {
-
             //init new question
             currentQuestion++
             currentPosition++
@@ -127,26 +127,21 @@ class QuestionActivity: AppCompatActivity() {
                 //onBackPressed()
             }
             showDialogFinish(point.toString())
-
-
-
         }
-
-
     }
 
     fun showDialogFinish(point: String){
         MaterialDialog.Builder(this@QuestionActivity)
                 .typeface(utils.medium,utils.heavy)
                 //.title("Congratulation")
-                .content("Your total point is $point Point")
+                .content(getString(R.string.totalpoint)+" $point "+getString(R.string.points))
                 .onPositive { dialog, which -> run {
                     dialog.dismiss()
                 }}
                 .dismissListener {
                     onBackPressed()
                 }
-                .positiveText("Confirm")
+                .positiveText(R.string.confirm)
                 .show()
     }
 
@@ -259,5 +254,19 @@ class QuestionActivity: AppCompatActivity() {
                 }
             })
         }
+    }
+
+    fun displayWrong(){
+        MaterialDialog.Builder(this)
+                .title(R.string.wronganswer)
+                .positiveText(R.string.agree)
+                .typeface(utils.medium,utils.medium)
+                .onPositive { dialog, which ->
+                    checkFinish()
+                    dialog.dismiss()
+                }
+                .icon(ContextCompat.getDrawable(this,R.drawable.icon_x))
+                .maxIconSize(70)
+                .show()
     }
 }

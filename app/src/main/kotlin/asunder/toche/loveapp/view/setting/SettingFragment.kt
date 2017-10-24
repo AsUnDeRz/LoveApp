@@ -24,10 +24,12 @@ class SettingFragment : Fragment() {
     }
 
     lateinit var prefer : SharedPreferences
+    lateinit var appDb :AppDatabase
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.setting_layout, container, false)
         prefer = PreferenceManager.getDefaultSharedPreferences(activity)
+        appDb = AppDatabase(activity)
         return view
     }
 
@@ -79,6 +81,22 @@ class SettingFragment : Fragment() {
         btn_language.setOnClickListener{
             activity.startActivity(Intent().setClass(activity,LanguageActivity::class.java))
         }
+
+        PushDownAnim.setOnTouchPushDownAnim(btn_logout)
+        btn_logout.setOnClickListener {
+            appDb.deleteAllKnowledgeGroup()
+            appDb.deleteAllKnowledgeContent()
+            val editor = prefer.edit()
+            editor.putString(KEYPREFER.UserId,"")
+            editor.putBoolean(KEYPREFER.isFirst, true)
+            editor.putInt(KEYPREFER.HIVSTAT,0)
+            editor.putString(KEYPREFER.GENDER,"")
+            editor.apply()
+            activity.startActivity(Intent().setClass(activity,SelectLangActivity::class.java))
+            activity.finish()
+
+        }
+
 
 
 

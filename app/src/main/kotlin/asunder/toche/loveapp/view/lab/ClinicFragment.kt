@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.clinic_list.*
 import kotlinx.android.synthetic.main.header_logo_blue.*
-
+import java.util.ArrayList
 
 
 /**
@@ -106,14 +106,18 @@ class ClinicFragment: Fragment() {
 
         txt_search.setOnFocusChangeListener { view, b ->
             if(b){
-                val proAdapter = ProvinceAdapter(activity, province)
+                val mixData = ArrayList<ProvinceAdapter.searchtext>().apply {
+                    for(pro in province){
+                        add(ProvinceAdapter.searchtext(pro.province_id,pro.province_th,pro.province_eng,pro.province_id,0))
+                    }
+                }
+                val proAdapter = ProvinceAdapter(activity, mixData)
                 txt_search.setAdapter(proAdapter)
                 txt_search.setOnItemClickListener { adapterView, view, position, id ->
                     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     val v = activity.currentFocus
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
                     rv_clinic_list.adapter.notifyItemRangeRemoved(0,LabFragment.hospitalList.size-1)
-
                     province
                             .filter { it.province_id == id.toString() }
                             .forEach {

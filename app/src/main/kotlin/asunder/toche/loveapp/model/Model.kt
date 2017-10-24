@@ -15,6 +15,7 @@ import kotlin.collections.ArrayList
  */
 object Model{
 
+    data class RepositoryHivTest(val user_id:String,val test_date: Date)
     data class RepositoryNational(val national_id:String,val nationality_th:String,val nationality_eng:String)
     data class National(var id:Long,var title:String):StableId{
         override val stableId : Long = id

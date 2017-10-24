@@ -64,6 +64,7 @@ class LanguageActivity : LocalizationActivity(), OnLocaleChange {
     override fun onBackPressed() {
         super.onBackPressed()
         if(lang != "") {
+            setLanguage(lang)
             LocalUtil.onAttach(applicationContext, lang)
         }
         startActivity(Intent().setClass(this@LanguageActivity,ActivityMain::class.java))

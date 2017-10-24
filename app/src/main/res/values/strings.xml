@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">LoveApp</string>
     <!--
-    <string name="map">AIzaSyAje8jmCHxhGfNIadMRBenvHOfLkfhFZ6A</string>
-        <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
+ <string name="map">AIzaSyAje8jmCHxhGfNIadMRBenvHOfLkfhFZ6A</string>
 
-
--->
+ //production key
+ <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
+ //debug key
+ <string name="map">AIzaSyCjbPTt3ALgWjO_8v1g7zhbxjpaZ9COIgI</string>
+ -->
     <string name="map">AIzaSyBR-QysSyyXVRBpMaAyLl0rTiyunIo7Kn0</string>
 
     <string name="tag_anim_state">tag_data</string>
@@ -108,6 +110,13 @@
     <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
     <string name="hivtest">HIV Test \nTest apointment</string>
     <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
+    <string name="next">Next</string>
+    <string name="logout">Logout</string>
+    <string name="agree">Agree</string>
+    <string name="wronganswer">The answer is wrong</string>
+    <string name="totalpoint">Your total point is</string>
+    <string name="confirm">Confirm</string>
+
 
 
 </resources>

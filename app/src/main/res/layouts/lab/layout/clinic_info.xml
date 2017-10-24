@@ -26,17 +26,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_clinic_info"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:maxLines="1"
         android:padding="3dp"
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 
+    <ImageView
+        android:id="@+id/icon_clinic"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/title_clinic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_clinic"
+        android:layout_below="@+id/icon_clinic"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="50dp"

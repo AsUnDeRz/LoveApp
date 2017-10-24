@@ -138,6 +138,8 @@ class PillReminderActivity: AppCompatActivity(){
         newFragment.show(fragmentManager, "timePicker")
     }
 
+
+
     @SuppressLint("ValidFragment")
     inner class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 

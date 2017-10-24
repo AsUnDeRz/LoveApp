@@ -56,15 +56,13 @@ class PillHistoryActivity : AppCompatActivity(){
         appDb.getNotiMissing().forEach {
             item ->
             data.add(Model.PillTracking(item.id.toLong(),item.time.time,getString(R.string.no)))
-            dataDate.add(item.time.time)
         }
         appDb.getNotiTracked().forEach {
             item ->
             data.add(Model.PillTracking(item.id.toLong(),item.time.time,getString(R.string.yes)))
-            dataDate.add(item.time.time)
         }
 
-        rv_pillhistory.adapter = MasterAdapter.PillsAdapter(sortDate(data,dataDate),false)
+        rv_pillhistory.adapter = MasterAdapter.PillsAdapter(data.sortedByDescending { it.date },false)
 
 
     }

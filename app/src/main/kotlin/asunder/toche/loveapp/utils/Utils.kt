@@ -1,6 +1,7 @@
 package asunder.toche.loveapp
 
 import android.content.Context
+import android.content.IntentFilter
 import android.databinding.ObservableArrayList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -253,4 +254,6 @@ class Utils(val contex: Context) {
         return result
     }
 
+
+    
 }

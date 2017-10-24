@@ -129,7 +129,7 @@ class PointHistriesActivity: AppCompatActivity() {
                                     Timber.d { "add [" + item.title_eng + "] to array" }
                                 }
                             }
-                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(sortDate(dataList,dataDate),false)
+                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(dataList.sortedByDescending { it.time },false)
 
                             Timber.d { "check response [" + c.size + "]" }
                         }},{
@@ -151,7 +151,7 @@ class PointHistriesActivity: AppCompatActivity() {
                                     Timber.d { "add [" + item.game_name_eng + "] to array" }
                                 }
                             }
-                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(sortDate(dataList,dataDate),false)
+                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(dataList.sortedByDescending { it.time },false)
                             Timber.d { "check response [" + c.size + "]" }
                         }},{
                             Timber.d { it.message!! }
@@ -171,7 +171,7 @@ class PointHistriesActivity: AppCompatActivity() {
                                     Timber.d { "add [" + item.risk_status + "] to array" }
                                 }
                             }
-                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(sortDate(dataList,dataDate),false)
+                            rv_point_histries.adapter = MasterAdapter.PointsAdapter(dataList.sortedByDescending { it.time },false)
                             Timber.d { "check response [" + c.size + "]" }
                         }},{
                             Timber.d { it.message!! }

@@ -146,6 +146,10 @@ class IamFragment : Fragment() {
             }
         }
 
+        btn_negative.setOnClickListener {
+            startActivity(Intent().setClass(activity,HivTestReminderActivity::class.java))
+        }
+
 
 
         ///set Tracked missing

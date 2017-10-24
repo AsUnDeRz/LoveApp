@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:autoPlay="false"
-        app:indicatorMarginVertical="100dp"
+        app:indicatorMarginVertical="120dp"
         app:pageColor="@android:color/darker_gray"
         app:radius="3dp"
-        app:strokeColor="@android:color/darker_gray" >
+        app:strokeColor="@android:color/darker_gray">
 
     </com.synnapps.carouselview.CarouselView>
 
@@ -76,17 +76,25 @@
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_box"
-        android:text="@string/getstarted"
+        android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:visibility="gone" />
+        android:textSize="16sp"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/icon_step"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        app:srcCompat="@drawable/pic3" />
 
 </RelativeLayout>

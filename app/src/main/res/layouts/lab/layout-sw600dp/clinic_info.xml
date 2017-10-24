@@ -10,202 +10,204 @@
         android:id="@+id/header_clinic_info"
         layout="@layout/header_logo_white_back"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_clinic"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/header_clinic_info"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        app:civ_border_color="#0e51a4"
-        app:civ_border_width="4dp" />
-
     <view.custom_view.TextViewHeavy
         android:id="@+id/title_clinic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_clinic"
+        android:layout_below="@+id/header_clinic_info"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="Bangkok Clinic"
         android:textColor="@android:color/white"
         android:textSize="30sp" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout4"
+    <ImageView
+        android:id="@+id/icon_clinic"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/title_clinic"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_marginTop="40dp"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/icon_clinic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_white_info">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/info_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
-
-            <view.custom_view.TextViewHeavy
-                android:id="@+id/txt_infomation"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/information"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="24sp" />
+                android:layout_height="match_parent">
 
-            <view.custom_view.TextViewMedium
-                android:id="@+id/txt_nametest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp" />
-
-            <view.custom_view.TextViewMedium
-                android:id="@+id/txt_worktime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp" />
-
-            <view.custom_view.TextViewHeavy
-                android:id="@+id/txt_contact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/contacts"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/view_web"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/info_title"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/info_map" />
-
-                <view.custom_view.TextViewMedium
-                    android:id="@+id/txt_web"
+                <LinearLayout
+                    android:id="@+id/info_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp">
 
-            <LinearLayout
-                android:id="@+id/view_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view_web"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_infomation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/information"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="24sp" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/info_phone" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_nametest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_phone"
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_worktime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18sp" />
+
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/contacts"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_web"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:layout_below="@+id/info_title"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-            <LinearLayout
-                android:id="@+id/view_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view_phone"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:srcCompat="@drawable/info_map" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/info_pin" />
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_web"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                <view.custom_view.TextViewMedium
-                    android:id="@+id/txt_map"
+                <LinearLayout
+                    android:id="@+id/view_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:layout_below="@+id/view_web"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-            <LinearLayout
-                android:id="@+id/info_promotion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentTop="false"
-                android:layout_below="@+id/view_map"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:srcCompat="@drawable/info_phone" />
 
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_promotitle"
+                    <TextView
+                        android:id="@+id/txt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/promotion"
-                    android:textColor="@color/colorDarkGrey"
-                    android:textSize="24sp" />
+                    android:layout_below="@+id/view_phone"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-                <view.custom_view.TextViewMedium
-                    android:id="@+id/txt_promotion"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:srcCompat="@drawable/info_pin" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_promotion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="18sp" />
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/view_map"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp">
 
-                <view.custom_view.TextViewMedium
-                    android:id="@+id/txt_promo_start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="18sp" />
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_promotitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/promotion"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="24sp" />
 
-                <view.custom_view.TextViewMedium
-                    android:id="@+id/txt_promo_end"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="18sp" />
-            </LinearLayout>
-        </RelativeLayout>
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promotion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18sp" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promo_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18sp" />
+
+                    <view.custom_view.TextViewMedium
+                        android:id="@+id/txt_promo_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
 

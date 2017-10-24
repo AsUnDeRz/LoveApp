@@ -18,10 +18,11 @@ import com.github.ajalt.timberkt.Timber.d
 /**
  * Created by ToCHe on 9/17/2017 AD.
  */
-class ProvinceAdapter(private val context: Context, private val originalList: ArrayList<Model.Province>?) : BaseAdapter(), Filterable {
+class ProvinceAdapter(private val context: Context, private val originalList: ArrayList<searchtext>?) : BaseAdapter(), Filterable {
 
-
-    private var suggestions = ArrayList<Model.Province>()
+    data class searchtext(val id:String,val txtTh:String,val txtEN:String,val referId:String,val type:Int)
+    private var suggestions = ArrayList<searchtext>()
+    //private var suggestions = ArrayList<Model.Province>()
     var utils = Utils(context)
 
     override fun getCount(): Int {
@@ -30,13 +31,13 @@ class ProvinceAdapter(private val context: Context, private val originalList: Ar
 
     //utils.txtLocale(suggestions[position].province_th,suggestions[position].province_eng)
     override fun getItem(position: Int): Any {
-        return utils.txtLocale(suggestions[position].province_th,suggestions[position].province_eng)
+        return utils.txtLocale(suggestions[position].txtTh,suggestions[position].txtEN)
 
     }
 
 
     override fun getItemId(position: Int): Long {
-        return suggestions[position].province_id.toLong()
+        return suggestions[position].referId.toLong()
     }
 
 
@@ -62,9 +63,7 @@ class ProvinceAdapter(private val context: Context, private val originalList: Ar
             holder = convertView.tag as ViewHolder
         }
 
-        holder.autoText!!.text = utils.txtLocale(suggestions[position].province_th,suggestions[position].province_eng)
-
-
+        holder.autoText!!.text = utils.txtLocale(suggestions[position].txtTh,suggestions[position].txtEN)
         return convertView
     }
 
@@ -87,9 +86,9 @@ class ProvinceAdapter(private val context: Context, private val originalList: Ar
 
             if (originalList != null && constraint != null) { // Check if the Original List and Constraint aren't null.
                 for (i in 0 until originalList.size) {
-                    if (originalList[i].province_eng.toLowerCase().contains(constraint) ||
-                            originalList[i].province_th.toLowerCase().contains(constraint)) { // Compare item in original list if it contains constraints.
-                        d{"add "+originalList[i].province_eng}
+                    if (originalList[i].txtEN.toLowerCase().contains(constraint) || originalList[i].txtTh.toLowerCase().contains(constraint)) {
+                        // Compare item in original list if it contains constraints.
+                        d{"add "+originalList[i].txtTh}
                         suggestions.add(originalList[i]) // If TRUE add item in Suggestions.
                     }
                 }
@@ -103,7 +102,7 @@ class ProvinceAdapter(private val context: Context, private val originalList: Ar
 
         override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults?) {
             if (results?.count!! > 0) {
-                val i =  results?.values as ArrayList<Model.Province>
+                val i =  results?.values as ArrayList<searchtext>
                 suggestions = i
                 notifyDataSetChanged()
             } else {

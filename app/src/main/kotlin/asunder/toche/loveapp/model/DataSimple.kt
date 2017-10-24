@@ -21,7 +21,8 @@ object DataSimple {
             R.drawable.loading047)
 
     //val imageHome = arrayListOf(R.drawable.icon_40,R.drawable.icon_36,R.drawable.icon_41)
-    var imageHome = arrayListOf<String>()
+    //var imageHome = arrayListOf<String>()
+    var imageHome = arrayListOf<Model.ImageHome>()
     val iconGame1 = arrayListOf(
             R.drawable.mm1,R.drawable.mm2,R.drawable.mm3,R.drawable.mm4,R.drawable.mm5,
             R.drawable.mm6,R.drawable.mm7,R.drawable.mm8,R.drawable.mm9,R.drawable.mm10,

@@ -225,18 +225,54 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
         txt_search.setOnFocusChangeListener { view, b ->
             if(b){
-                val proAdapter = ProvinceAdapter(activity,provinces)
+                val mixData = ArrayList<ProvinceAdapter.searchtext>().apply {
+                    for(pro in provinces){
+                        add(ProvinceAdapter.searchtext(pro.province_id,pro.province_th,pro.province_eng,pro.province_id,0))
+                    }
+                    for(hos in repohospitalList){
+                        add(ProvinceAdapter.searchtext(hos.id,hos.name_th,hos.name_eng,hos.id+"000",1))
+                    }
+                }
+                val proAdapter = ProvinceAdapter(activity,mixData)
                 txt_search.setAdapter(proAdapter)
                 txt_search.setOnItemClickListener { adapterView, view, position, id ->
                     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     val v = activity.currentFocus
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
+                    /*
                     provinces
                             .filter { it.province_id == id.toString() }
                             .forEach {
                                 //d{ it.province_eng+" // "}
                                 val latlng = LatLng(it.locx,it.locy)
                                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,10f))
+                            }
+                            */
+                    mixData
+                            .filter { it.referId == id.toString() }
+                            .forEach { data ->
+                                when(data.type){
+                                    0 -> {
+                                        provinces
+                                                .filter { it.province_id == data.id }
+                                                .forEach {
+                                                    //d{ it.province_eng+" // "}
+                                                    val latlng = LatLng(it.locx,it.locy)
+                                                    googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,10f))
+                                                }
+                                    }
+                                    1 -> {
+                                        var clinic : Model.Clinic? =null
+                                        hospitalList
+                                                .filter { it.id.toString() == data.id }
+                                                .forEach { clinic = it }
+
+                                        val intent = Intent()
+                                        intent.putExtra(KEYPREFER.CLINICMODEL,clinic)
+                                        activity.startActivity(intent.setClass(activity,ClinicInfo::class.java))
+                                    }
+                                }
+
                             }
 
 

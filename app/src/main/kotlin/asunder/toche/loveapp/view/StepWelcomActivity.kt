@@ -21,15 +21,18 @@ import com.synnapps.carouselview.ViewListener
 class StepWelcomActivity:AppCompatActivity(){
 
 
-    val img = arrayOf(R.drawable.pic3,R.drawable.pic2,R.drawable.pic1)
+    val img = arrayOf(R.drawable.bg_white,R.drawable.bg_white,R.drawable.bg_white)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.stepwelcom)
 
-
         txt_infomation.text = getString(R.string.security)
         txt_nametest.text = getString(R.string.securitytext)
+        PushDownAnim.setOnTouchPushDownAnim(btn_start)
+        btn_start.setOnClickListener {
+            carouselView.currentItem = 1
+        }
         carouselView.pageCount = img.size
         carouselView.setImageListener(imageListener)
         carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -37,26 +40,42 @@ class StepWelcomActivity:AppCompatActivity(){
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
                 when(position){
-                    2 -> { btn_start.visibility = View.VISIBLE
+                    2 -> {
+                        Glide.with(this@StepWelcomActivity)
+                                .load(R.drawable.pic1)
+                                .into(icon_step)
+                        btn_start.visibility = View.VISIBLE
                         txt_infomation.text = getString(R.string.nearby)
                         txt_nametest.text = getString(R.string.nearbytext)
-                        PushDownAnim.setOnTouchPushDownAnim(btn_start)
+                        btn_start.text = getString(R.string.getstarted)
                         btn_start.setOnClickListener {
                         startActivity(Intent().setClass(this@StepWelcomActivity,GenderActivity::class.java))
                         finish()
                     }}
                     1 ->{
-                        btn_start.visibility = View.INVISIBLE
-                        txt_infomation.text = getString(R.string.pillreminder)
+                        Glide.with(this@StepWelcomActivity)
+                                .load(R.drawable.pic2)
+                                .into(icon_step)
+                        txt_infomation.text = getString(R.string.notis)
                         txt_nametest.text = getString(R.string.pillremindertext)
+                        btn_start.text = getString(R.string.next)
+                        btn_start.setOnClickListener {
+                            carouselView.currentItem = 2
+                        }
 
                     }
                     0 ->{
-                        btn_start.visibility = View.INVISIBLE
+                        Glide.with(this@StepWelcomActivity)
+                                .load(R.drawable.pic3)
+                                .into(icon_step)
                         txt_infomation.text = getString(R.string.security)
                         txt_nametest.text = getString(R.string.securitytext)
+                        btn_start.text = getString(R.string.next)
+                        btn_start.setOnClickListener {
+                            carouselView.currentItem = 1
+                        }
                     }
-                    else -> { btn_start.visibility = View.INVISIBLE}
+                    else -> { }
                 }
             }
         })

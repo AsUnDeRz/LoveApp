@@ -16,6 +16,8 @@ import android.widget.EditText
 import android.widget.TimePicker
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.Timber.d
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cd4_vl.*
@@ -125,8 +127,40 @@ class Cd4VLActivity :AppCompatActivity(){
     fun showTimePickerDialog(v: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
-        val newFragment = TimePickerFragment()
-        newFragment.show(fragmentManager, "timePicker")
+        //val newFragment = TimePickerFragment()
+        //newFragment.show(fragmentManager, "timePicker")
+        showSpinner()
+    }
+
+    fun showSpinner(){
+        val hasTh = LocalUtil.getLanguage(this@Cd4VLActivity)
+        var isthai=0
+        when(hasTh){
+            "th" -> {isthai=543}
+            "en" -> {isthai=0}
+        }
+        val c = Calendar.getInstance()
+        val mount = c.get(Calendar.MONTH)
+        val dOfm = c.get(Calendar.DAY_OF_MONTH)
+        var year = c.get(Calendar.YEAR)
+        SpinnerDatePickerDialogBuilder()
+                .context(this)
+                .callback { view, year, monthOfYear, dayOfMonth ->
+                    d{"$year  $monthOfYear  $dayOfMonth"}
+                    y = year
+                    m = monthOfYear+1
+                    day = dayOfMonth
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year, monthOfYear, dayOfMonth)
+                    edtDate.setText("$dayOfMonth/$m/$year")
+                    dateVal = calendar.time
+                }
+                .spinnerTheme(R.style.DatePickerSpinner)
+                .year(year+isthai)
+                .monthOfYear(mount)
+                .dayOfMonth(dOfm)
+                .build()
+                .show()
     }
 
 

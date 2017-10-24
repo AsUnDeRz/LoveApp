@@ -64,7 +64,9 @@
         <activity android:screenOrientation="portrait" android:name=".ChangePasscodeActivity" />
         <activity android:screenOrientation="portrait" android:name=".ReminderActivity" />
         <activity android:screenOrientation="portrait" android:name=".UniqueIdActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
         <activity android:screenOrientation="portrait" android:name=".PillReminderActivity" />
         <activity android:screenOrientation="portrait" android:name=".PillReminderTimeActivity" >
 

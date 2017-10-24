@@ -1,12 +1,16 @@
 package asunder.toche.loveapp
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +25,7 @@ import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.header_home.*
 import kotlinx.android.synthetic.main.home.*
 import kotlinx.android.synthetic.main.home_item.view.*
+import utils.CustomTabActivityHelper
 
 
 /**
@@ -63,6 +68,8 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
     lateinit var utils :Utils
     lateinit var appDb :AppDatabase
     lateinit var prefer : SharedPreferences
+    private var mCustomTabActivityHelper: CustomTabActivityHelper? = null
+
 
 
     companion object {
@@ -87,11 +94,14 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
         val cv = view?.findViewById<CarouselView>(R.id.cV)
         cv?.setImageListener(listener)
         cv?.pageCount = DataSimple.imageHome.size
+        cv?.setImageClickListener {
+            position ->
+            d{"Position $position"}
+            openCustomTab(DataSimple.imageHome[position].link)
+            setupCustomTabHelper(DataSimple.imageHome[position].link)
+        }
         //cv?.setImageListener(listener)
         //cv?.pageCount
-
-
-
         return view
     }
     fun loadNotiColor(image:Int){
@@ -102,8 +112,9 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
     var listener: ImageListener = ImageListener { position, imageView ->
         //imageView.scaleType = ImageView.ScaleType.FIT_XY
+        //"http://backend.loveapponline.com/"+data.image_byte
         Glide.with(activity)
-                .load(DataSimple.imageHome[position])
+                .load("http://backend.loveapponline.com/"+DataSimple.imageHome[position].image_byte)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView)
 
@@ -142,7 +153,7 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
             val contentID = data.getStringExtra(KEYPREFER.CONTENT)
             val userID = prefer.getString(KEYPREFER.UserId,"")
             d{"check result $point   $contentID"}
-            homeViewModel.addUpdatePoint(point,contentID,userID)
+            //homeViewModel.addUpdatePoint(point,contentID,userID)
         }
         if(requestCode == KEYPREFER.HOME){
             //load check data and
@@ -203,4 +214,59 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
                 }
             }
             .onLongClick {}
+
+
+    private fun setupCustomTabHelper(URL:String) {
+        mCustomTabActivityHelper = CustomTabActivityHelper()
+        mCustomTabActivityHelper!!.setConnectionCallback(mConnectionCallback)
+        mCustomTabActivityHelper!!.mayLaunchUrl(Uri.parse(URL), null, null)
+    }
+
+    private fun openCustomTab(URL: String) {
+
+        //ตัวแปรนี้จะให้ในการกำหนดค่าต่างๆ ที่ข้างล่างนี้
+        val intentBuilder = CustomTabsIntent.Builder()
+
+        intentBuilder.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+        //กำหนดให้มี Animation เมื่อ Custom tab เข้ามาและออกไป ถ้าไม่มีจะเหมือน Activity ที่เด้งเข้ามาเลย
+        setAnimation(intentBuilder)
+
+        //Launch Custome tab ให้ทำงาน
+        CustomTabActivityHelper.openCustomTab(activity, intentBuilder.build(), Uri.parse(URL), WebviewFallback())
+    }
+
+    private fun setAnimation(intentBuilder: CustomTabsIntent.Builder) {
+        //intentBuilder.setStartAnimations(this, android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        intentBuilder.setExitAnimations(activity, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
+    // You can use this callback to make UI changes
+    private val mConnectionCallback = object : CustomTabActivityHelper.ConnectionCallback {
+        override fun onCustomTabsConnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Connected to service", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onCustomTabsDisconnected() {
+            //Toast.makeText(this@PointHistriesActivity, "Disconnected from service", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        mCustomTabActivityHelper?.bindCustomTabsService(activity)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mCustomTabActivityHelper?.unbindCustomTabsService(activity)
+    }
+
+    inner class WebviewFallback : CustomTabActivityHelper.CustomTabFallback {
+        override fun openUri(activity: Activity, uri: Uri) {
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtra("KEY_URL", uri.toString())
+            activity.startActivity(intent)
+        }
+    }
 }

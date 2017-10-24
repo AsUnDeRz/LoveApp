@@ -108,7 +108,7 @@ class LearnGameMainActivity: AppCompatActivity(){
             val contentID = data.getStringExtra(KEYPREFER.CONTENT)
             val userID = preference.getString(KEYPREFER.UserId,"")
             d{"check result $point   $contentID"}
-            addUpdatePoint(point,contentID,userID)
+            //addUpdatePoint(point,contentID,userID)
         }
     }
 
