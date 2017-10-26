@@ -271,6 +271,11 @@ object Model{
             val dateString = formatter.format(Date(date))
             return dateString
         }
+        fun getTimeHiv():String{
+            val formatter = SimpleDateFormat("dd/MM/yy")
+            val dateString = formatter.format(Date(date))
+            return dateString
+        }
     }
 
 

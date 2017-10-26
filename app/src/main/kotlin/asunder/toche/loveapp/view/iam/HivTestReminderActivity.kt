@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import asunder.toche.loveapp.databinding.HivtestItemBinding
 import asunder.toche.loveapp.databinding.PillItemBinding
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
@@ -14,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.hiv_test_list.*
 import java.util.*
 
@@ -77,6 +79,10 @@ class HivTestReminderActivity : AppCompatActivity(){
         rv_hiv_test.layoutManager = LinearLayoutManager(this)
         rv_hiv_test.setHasFixedSize(true)
 
+        btn_back.setOnClickListener {
+            finish()
+        }
+
 
     }
 
@@ -89,7 +95,7 @@ class HivTestReminderActivity : AppCompatActivity(){
         }
     }
 
-    private val hivTestType = Type<PillItemBinding>(R.layout.pill_item)
+    private val hivTestType = Type<HivtestItemBinding>(R.layout.hivtest_item)
             .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
             .onClick {}
 

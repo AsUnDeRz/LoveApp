@@ -25,6 +25,7 @@ import android.text.Spanned
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
+import com.bumptech.glide.Glide
 import im.delight.android.webview.AdvancedWebView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -84,6 +85,9 @@ class LearnNewsActivity : AppCompatActivity() {
         handler = Handler()
         runnable = Runnable {
             final_layout.visibility = View.VISIBLE
+            Glide.with(this)
+                    .load(R.drawable.bg_guy_fade)
+                    .into(bg_finish)
         }
 
 
@@ -171,6 +175,7 @@ class LearnNewsActivity : AppCompatActivity() {
         }
 
 
+        /*
         scroller.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             if (scrollY > oldScrollY) {
                 //d{ "Scroll DOWN"}
@@ -189,6 +194,7 @@ class LearnNewsActivity : AppCompatActivity() {
             }
 
         }
+        */
 
 
 

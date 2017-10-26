@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pillItem" type="asunder.toche.loveapp.Model.PillTracking" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/btn_point"
+            android:layout_width="match_parent"
+            android:layout_height="115dp"
+            android:background="@drawable/fill_box">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="80dp"
+                android:orientation="vertical"
+                android:paddingLeft="30dp">
+
+                <view.custom_view.TextViewMedium
+                    android:id="@+id/txt_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{pillItem.getTimeHiv}"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <view.custom_view.TextViewHeavy
+                        android:id="@+id/txt_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{pillItem.status}"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
