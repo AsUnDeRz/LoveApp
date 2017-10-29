@@ -10,14 +10,14 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.clinic_info.*
 import kotlinx.android.synthetic.main.header_logo_white_back.*
-import kotlinx.android.synthetic.main.old_new_user.view.*
 import utils.CustomTabActivityHelper
 import view.custom_view.TextViewMedium
+
 
 /**
  * Created by admin on 8/2/2017 AD.
@@ -50,6 +50,7 @@ class ClinicInfo:AppCompatActivity(){
                 .load(content?.img_detail)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
+                .bitmapTransform(RoundedCornersTransformation(this,10,0))
                 .into(icon_clinic)
 
         title_clinic.text = content?.name

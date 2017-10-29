@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.github.ajalt:timberkt-1.3.0">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timberkt-1.3.0.aar/05ee7706c8d8f7e404e6982510032692/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timberkt-1.3.0.aar/05ee7706c8d8f7e404e6982510032692/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timberkt-1.3.0.aar/88b8a441ce4550a5b86e44cfa79cbf7d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timberkt-1.3.0.aar/88b8a441ce4550a5b86e44cfa79cbf7d/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

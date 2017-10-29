@@ -15,6 +15,16 @@ import kotlin.collections.ArrayList
  */
 object Model{
 
+    /*
+     "header": {
+        "code": 200,
+        "msg": {
+     */
+    data class RepoUser(var header:RepoUserDetail)
+    data class RepoUserDetail(var code:String,var msg:Any)
+    data class RepoResponse(var header:RepoDetail)
+    data class RepoDetail(var msg:String, var code: String)
+
     data class RepositoryHivTest(val user_id:String,val test_date: Date)
     data class RepositoryNational(val national_id:String,val nationality_th:String,val nationality_eng:String)
     data class National(var id:Long,var title:String):StableId{

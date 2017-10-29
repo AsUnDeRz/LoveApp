@@ -173,3 +173,62 @@ interface LoveAppService{
     }
 
 }
+
+interface newService{
+
+
+    /*
+    API
+Register new user โดยส่ง gender_id ไป (POST)
+http://loveapponline.com/api/user
+
+
+เป็นการ Update user หลังจากทำข้อ 1 (POST, ส่งให้ครบเหมือนของเดิมเลยครับ)
+http://loveapponline.com/api/user2
+ตรง email/password ให้เข้ารหัส base64 มาด้วยนะคับ
+
+
+หลักจาก register เสร็จ แล้วจะทำการ Login (GET)
+http://loveapponline.com/api/user/email/c3VwYXBhazk5OUBnbWFpbC5jb20=/password/MTIzNDU2
+ตรงหลัง email กับ หลัง password ให้เข้ารหัส base64 มาด้วยนะคับ
+     */
+    @FormUrlEncoded
+    @POST("api/user")
+    fun Register(@Field("gender_id") genderID: String) : Observable<Model.RepoUser>
+
+    @FormUrlEncoded
+    @POST("api/user2")
+    fun UpdateUser(@Field("user_id") userID: String,@Field("gender_id") genderID:String,@Field("name") name:String?,
+                @Field("first_name") fname:String?,@Field("first_surname") lname:String?,@Field("status_id") statusID:String?,
+                @Field("friend_id") fcode:String?,@Field("phone") phone:String?,@Field("email") email:String?,
+                @Field("password") password:String?,@Field("province") province:String?,@Field("job") job:String?,
+                @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String,@Field("national_id") nationaID:String?): Observable<Model.RepoResponse>
+
+    @GET("api/user/email/{email_user}/password/{pass_user}")
+    fun GetUser(@Path("email_user") email:String,@Path("pass_user") password: String) : Observable<Model.RepoUser>
+
+    companion object {
+
+        fun create() : newService {
+            val gsonBuilder = GsonBuilder()
+
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+            val client = OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .build()
+
+
+            val restAdapter = Retrofit.Builder()
+                    .baseUrl(BuildConfig.NEWENDPOINT)
+                    .client(client)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
+                    .build()
+
+            return restAdapter.create(newService::class.java)
+        }
+    }
+
+}

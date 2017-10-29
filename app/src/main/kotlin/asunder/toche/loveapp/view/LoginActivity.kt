@@ -11,10 +11,12 @@ import android.preference.PreferenceManager
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import asunder.toche.loveapp.R
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import com.tapadoo.alerter.Alerter
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -22,6 +24,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
 import kotlinx.android.synthetic.main.login.*
 import utils.CustomTabActivityHelper
+import com.google.gson.Gson
+import java.util.*
 
 
 /**
@@ -55,6 +59,7 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
 
 
     var service : LoveAppService = LoveAppService.create()
+    var mService: newService = newService.create()
     lateinit var utils :Utils
     lateinit var appDb : AppDatabase
     lateinit var MainViewModel : ViewModel.MainViewModel
@@ -74,6 +79,33 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
 
     fun unsubscribe() { compoSub.dispose() }
 
+    fun mCheckLogin(email: String,password: String){
+        val enEmail= Base64.encodeToString(email.toByteArray(), Base64.DEFAULT)
+        val enPass= Base64.encodeToString(password.toByteArray(), Base64.DEFAULT)
+        d{"$enEmail"}
+        d{"$enPass"}
+        d{email}
+        d{password}
+        manageSub(
+                mService.GetUser(enEmail.trim(),enPass.trim())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            when(c.header.code){
+                                "200" -> {
+                                    val data = Gson().fromJson((c.header.msg).toString(),Model.User::class.java)
+                                    d{"Check "+data.email}
+                                }
+                                "400" ->{
+                                    showAlerter()
+                                    d{"Check "+(c.header.msg)}
+                                }
+                            }
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
 
     fun checkLogin(email:String,password:String){
         manageSub(
@@ -132,7 +164,8 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
         login_btn.setOnClickListener {
             //check login
             if(edit_email.text.toString() != "" && edit_password.text.toString() != ""){
-                checkLogin(edit_email.text.toString(),edit_password.text.toString())
+                mCheckLogin(edit_email.text.toString(),edit_password.text.toString())
+                //checkLogin(edit_email.text.toString(),edit_password.text.toString())
             }
         }
         btn_back.setOnClickListener {

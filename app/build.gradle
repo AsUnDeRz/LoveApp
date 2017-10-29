@@ -22,15 +22,16 @@ android {
         debug {
             //http://loveapp1.herokuapp.com
             //http://loveapponline.com:9000/
+            //http://loveapponline.com/
             buildConfigField "String", "ENDPOINT", "\"http://loveapponline.com:9000/\""
-
+            buildConfigField "String", "NEWENDPOINT", "\"http://loveapponline.com/\""
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ENDPOINT", "\"http://loveapponline.com:9000/\""
-
+            buildConfigField "String", "NEWENDPOINT", "\"http://loveapponline.com/\""
         }
     }
     sourceSets {
@@ -143,6 +144,8 @@ dependencies {
     implementation project(':lib')
     implementation 'com.layer-net:thai-datetimepicker:1.0.3'
     implementation project(':SpinnerDatePicker')
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
+
 }
 
 
