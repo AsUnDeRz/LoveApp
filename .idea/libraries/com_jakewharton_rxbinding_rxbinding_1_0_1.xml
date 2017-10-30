@@ -4,9 +4,7 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxbinding-1.0.1.aar/cc7195559f5d310e7d76793c63912aa0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxbinding-1.0.1.aar/cc7195559f5d310e7d76793c63912aa0/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding/rxbinding/1.0.1/25208373060a7c57a49861ab5bb6feb1059f9a63/rxbinding-1.0.1-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding/rxbinding/1.0.1/ebd628f6437877d601937da88e79c21f0c90504f/rxbinding-1.0.1-sources.jar!/" />
     </SOURCES>

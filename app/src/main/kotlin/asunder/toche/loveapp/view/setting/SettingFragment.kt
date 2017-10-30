@@ -37,51 +37,36 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         title_app.text = "SETTING"
 
-        if(prefer.getInt(KEYPREFER.HIVSTAT,0) != 0){
-            val stat = prefer.getInt(KEYPREFER.HIVSTAT,0)
-            when(stat){
-                1 ->{ btn_cd4.visibility = View.VISIBLE}
-                2 ->{ btn_cd4.visibility = View.GONE}
-                3 ->{ btn_cd4.visibility = View.GONE}
-            }
-
-        }
-
-        PushDownAnim.setOnTouchPushDownAnim(btn_passcode)
-        btn_passcode.setOnClickListener {
-            activity.startActivity(Intent().setClass(activity,ChangePasscodeActivity::class.java))
+        PushDownAnim.setOnTouchPushDownAnim(btn_general)
+        btn_general.setOnClickListener {
+            val data =Intent()
+            data.putExtra("data",KEYPREFER.GENERAL)
+            activity.startActivity(data.setClass(activity,NewSetting::class.java))
         }
 
         PushDownAnim.setOnTouchPushDownAnim(btn_reminder)
         btn_reminder.setOnClickListener {
-            activity.startActivity(Intent().setClass(activity,PillReminderTimeActivity::class.java))
+            val data =Intent()
+            data.putExtra("data",KEYPREFER.REMINDERS)
+            activity.startActivity(data.setClass(activity,NewSetting::class.java))
         }
 
-        PushDownAnim.setOnTouchPushDownAnim(btn_test_hiv)
-        btn_test_hiv.setOnClickListener {
-            activity.startActivity(Intent().setClass(activity,HivTestActivity::class.java))
-        }
+        PushDownAnim.setOnTouchPushDownAnim(btn_support)
+        btn_support.setOnClickListener {
+            val data =Intent()
+            data.putExtra("data",KEYPREFER.SUPPORT)
+            activity.startActivity(data.setClass(activity,NewSetting::class.java))        }
 
-        PushDownAnim.setOnTouchPushDownAnim(btn_cd4)
-        btn_cd4.setOnClickListener {
-            activity.startActivity(Intent().setClass(activity,Cd4VLActivity::class.java))
-        }
+        PushDownAnim.setOnTouchPushDownAnim(btn_about)
+        btn_about.setOnClickListener {
+            val data =Intent()
+            data.putExtra("data",KEYPREFER.ABOUT)
+            activity.startActivity(data.setClass(activity,NewSetting::class.java))        }
 
         PushDownAnim.setOnTouchPushDownAnim(btn_acc_setting)
         btn_acc_setting.setOnClickListener {
             activity.startActivity(Intent().setClass(activity, AccountSettingActivity::class.java))
         }
-
-        PushDownAnim.setOnTouchPushDownAnim(btn_feedback)
-        btn_feedback.setOnClickListener {
-            activity.startActivity(Intent().setClass(activity, FeedbackActivity::class.java))
-        }
-
-        PushDownAnim.setOnTouchPushDownAnim(btn_language)
-        btn_language.setOnClickListener{
-            activity.startActivity(Intent().setClass(activity,LanguageActivity::class.java))
-        }
-
         PushDownAnim.setOnTouchPushDownAnim(btn_logout)
         btn_logout.setOnClickListener {
             appDb.deleteAllKnowledgeGroup()
@@ -91,30 +76,19 @@ class SettingFragment : Fragment() {
             editor.putBoolean(KEYPREFER.isFirst, true)
             editor.putInt(KEYPREFER.HIVSTAT,0)
             editor.putString(KEYPREFER.GENDER,"")
+            editor.putBoolean(KEYPREFER.ISCHECKPASSCODE,false)
+            editor.putString(KEYPREFER.PASSCODE,"")
             editor.apply()
             activity.startActivity(Intent().setClass(activity,SelectLangActivity::class.java))
             activity.finish()
 
         }
-
-
-
-
-
     }
+
 
 
     override fun onResume() {
         super.onResume()
-        if(prefer.getInt(KEYPREFER.HIVSTAT,0) != 0){
-            val stat = prefer.getInt(KEYPREFER.HIVSTAT,0)
-            when(stat){
-                1 ->{ btn_cd4.visibility = View.VISIBLE}
-                2 ->{ btn_cd4.visibility = View.GONE}
-                3 ->{ btn_cd4.visibility = View.GONE}
-            }
-
-        }
     }
 
 }

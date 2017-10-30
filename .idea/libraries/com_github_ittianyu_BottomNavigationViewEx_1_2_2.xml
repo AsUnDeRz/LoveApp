@@ -4,9 +4,7 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/BottomNavigationViewEx-1.2.2.aar/d8f9cec41d4735179664c25ba0340756/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/BottomNavigationViewEx-1.2.2.aar/d8f9cec41d4735179664c25ba0340756/res" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ittianyu/BottomNavigationViewEx/1.2.2/d793cd44c84c37fd78f7c47f56e0bffc07baea8c/BottomNavigationViewEx-1.2.2-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ittianyu/BottomNavigationViewEx/1.2.2/5500a5098e98de4fdb1bf46133813a566c3b5e94/BottomNavigationViewEx-1.2.2-sources.jar!/" />
     </SOURCES>

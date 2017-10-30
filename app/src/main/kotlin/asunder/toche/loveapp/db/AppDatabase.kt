@@ -10,7 +10,6 @@ import android.databinding.ObservableArrayList
 import com.github.ajalt.timberkt.Timber.d
 import android.databinding.adapters.TextViewBindingAdapter.setPhoneNumber
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**

@@ -4,9 +4,7 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/localizationactivity-1.1.1.aar/3246996639f2c2da9d8a3910856fcfb2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/localizationactivity-1.1.1.aar/3246996639f2c2da9d8a3910856fcfb2/res" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.akexorcist/localizationactivity/1.1.1/c5b4a81079250a9638b7a5bd62878a0bec47611e/localizationactivity-1.1.1-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.akexorcist/localizationactivity/1.1.1/72dcb1592e08ae8be6cd0daa02cef1e743904f43/localizationactivity-1.1.1-sources.jar!/" />
     </SOURCES>

@@ -94,6 +94,18 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
                             when(c.header.code){
                                 "200" -> {
                                     val data = Gson().fromJson((c.header.msg).toString(),Model.User::class.java)
+                                    val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoginActivity)
+                                    val editor = preferences.edit()
+                                    val status = data.status_id!!.toDouble()
+                                    editor.putString(KEYPREFER.UserId, data.user_id)
+                                    editor.putBoolean(KEYPREFER.isFirst, false)
+                                    editor.putInt(KEYPREFER.HIVSTAT,status.toInt())
+                                    editor.putString(KEYPREFER.GENDER,data.gender_id)
+                                    editor.apply()
+
+                                    d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
+                                    MainViewModel.loadKnowledage(this,data.user_id)
+                                    MainViewModel.loadKnowledgeGroup(data.gender_id,this,utils)
                                     d{"Check "+data.email}
                                 }
                                 "400" ->{

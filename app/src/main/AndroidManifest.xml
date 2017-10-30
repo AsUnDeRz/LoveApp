@@ -104,6 +104,10 @@
         <activity android:screenOrientation="portrait" android:name=".StepWelcomActivity" />
         <activity android:screenOrientation="portrait" android:name=".HivTestReminderActivity" />
         <activity android:name=".Debug" />
+        <activity android:name=".NewSetting" >
+
+        </activity>
+        <activity android:name=".ConditionText" />
 
 
         <meta-data

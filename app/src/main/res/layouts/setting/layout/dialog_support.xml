@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <view.custom_view.TextViewHeavy
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Feedback"
+            android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btn_problem"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:text="Problem"
+        android:background="@drawable/fill_box"
+        android:layout_width="match_parent"
+        android:layout_height="55dp" />
+    <Button
+        android:id="@+id/btn_sugges"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:text="Suggestion"
+        android:background="@drawable/fill_box"
+        android:layout_width="match_parent"
+        android:layout_height="55dp" />
+    <Button
+        android:id="@+id/btn_others"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:text="Others"
+        android:background="@drawable/fill_box"
+        android:layout_width="match_parent"
+        android:layout_height="55dp" />
+
+
+
+    </LinearLayout>

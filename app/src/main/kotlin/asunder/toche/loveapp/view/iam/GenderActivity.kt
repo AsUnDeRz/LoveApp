@@ -23,6 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gender_list.*
 import kotlinx.android.synthetic.main.header_logo_white_back.*
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.gson.Gson
 import view.custom_view.TextViewHeavy
 import view.custom_view.TextViewMedium
 
@@ -58,6 +59,7 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
 
 
     var service : LoveAppService = LoveAppService.create()
+    var mService : newService = newService.create()
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable
@@ -124,6 +126,33 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
         )
     }
 
+    fun getNewUserID(genderID:String){
+        d{"Check GenderId [$genderID]"}
+        manageSub(
+                mService.Register(genderID)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ c -> run {
+                            when(c.header.code){
+                                "200" -> {
+                                    val data = Gson().fromJson((c.header.msg).toString(),Model.User::class.java)
+                                    val preferences = PreferenceManager.getDefaultSharedPreferences(this@GenderActivity)
+                                    val editor = preferences.edit()
+                                    editor.putString(KEYPREFER.UserId, data.user_id.toDouble().toInt().toString())
+                                    editor.putString(KEYPREFER.GENDER, genderID)
+                                    editor.apply()
+                                    d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
+                                    MainViewModel.loadKnowledage(this,data.user_id.toDouble().toInt().toString())
+                                    MainViewModel.loadKnowledgeGroup(genderID,this,Utils(this@GenderActivity))
+                                }
+                            }
+
+                        }},{
+                            d { it.message!! }
+                        })
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gender_list)
@@ -169,7 +198,7 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
             .onClick {
                 //update gender with user id
                 //call api
-                getUserID(it.binding.genderItem.id.toString())
+                getNewUserID(it.binding.genderItem.id.toString())
                 swicthState()
             }
             .onLongClick {}

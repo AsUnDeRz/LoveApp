@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/header_newsetting"
+        layout="@layout/header_logo_blue_back"/>
+
+    <ViewStub
+        android:id="@+id/general"
+        android:layout_below="@id/header_newsetting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/general"/>
+    <ViewStub
+        android:id="@+id/reminders"
+        android:layout_below="@id/header_newsetting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/reminders"/>
+    <ViewStub
+        android:id="@+id/support"
+        android:layout_below="@id/header_newsetting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/support"/>
+    <ViewStub
+        android:id="@+id/aboutapp"
+        android:layout_below="@id/header_newsetting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/about_loveapp"/>
+
+</RelativeLayout>

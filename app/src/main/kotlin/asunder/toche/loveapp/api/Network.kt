@@ -47,7 +47,7 @@ interface LoveAppService{
                    @Field("first_name") fname:String?,@Field("first_surname") lname:String?,@Field("status_id") statusID:String?,
                    @Field("friend_id") fcode:String?,@Field("phone") phone:String?,@Field("email") email:String?,
                    @Field("password") password:String?,@Field("province") province:String?,@Field("job") job:String?,
-                   @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String,@Field("national_id") nationaID:String?): Call<Void>
+                   @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String?,@Field("national_id") nationaID:String?): Call<Void>
 
     @GET("api/knowledges/gender_id/{genderid}/group_id/{groupid}")
     fun getKnowledgeInGroup(@Path("genderid") gender_id: String,@Path("groupid") group_id:String) :Observable<ArrayList<Model.RepositoryKnowledge>>
@@ -158,6 +158,7 @@ interface LoveAppService{
 
             val client = OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .retryOnConnectionFailure(true)
                     .build()
 
 
@@ -202,7 +203,7 @@ http://loveapponline.com/api/user/email/c3VwYXBhazk5OUBnbWFpbC5jb20=/password/MT
                 @Field("first_name") fname:String?,@Field("first_surname") lname:String?,@Field("status_id") statusID:String?,
                 @Field("friend_id") fcode:String?,@Field("phone") phone:String?,@Field("email") email:String?,
                 @Field("password") password:String?,@Field("province") province:String?,@Field("job") job:String?,
-                @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String,@Field("national_id") nationaID:String?): Observable<Model.RepoResponse>
+                @Field("iden_id") idCard:String?,@Field("birth") birthDay:String?,@Field("point") point:String?,@Field("national_id") nationaID:String?): Observable<Model.RepoResponse>
 
     @GET("api/user/email/{email_user}/password/{pass_user}")
     fun GetUser(@Path("email_user") email:String,@Path("pass_user") password: String) : Observable<Model.RepoUser>
@@ -215,9 +216,12 @@ http://loveapponline.com/api/user/email/c3VwYXBhazk5OUBnbWFpbC5jb20=/password/MT
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
+
             val client = OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .retryOnConnectionFailure(true)
                     .build()
+
 
 
             val restAdapter = Retrofit.Builder()

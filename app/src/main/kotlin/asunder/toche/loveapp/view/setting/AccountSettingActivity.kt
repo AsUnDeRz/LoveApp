@@ -22,6 +22,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
@@ -39,6 +40,7 @@ import java.util.*
 class AccountSettingActivity: AppCompatActivity() {
 
     var service : LoveAppService = LoveAppService.create()
+    var mService : newService = newService.create()
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable
@@ -447,13 +449,45 @@ class AccountSettingActivity: AppCompatActivity() {
         //update edt_fcode.editableText.toString()
 
         var user = Model.User(data.user_id,data.gender_id,data.name, fname,
-                lname,statusID,"0",edt_phone.editableText.toString(),
+                lname,statusID,null,edt_phone.editableText.toString(),
                 edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
-                null, birth,data.point,"","","",data.national_id)
+                if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point,"","","",data.national_id)
 
 
         if (prefer.getString(KEYPREFER.UserId, "") != "") {
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
+            manageSub(
+                    mService.UpdateUser(data.user_id,data.gender_id,null, fname,
+                            lname,statusID,null,edt_phone.editableText.toString(),
+                            Base64.encodeToString(edt_email.editableText.toString().toByteArray(), Base64.DEFAULT),Base64.encodeToString(edt_password.editableText.toString().toByteArray(),Base64.DEFAULT),provinID,jobID,
+                            if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point, data.national_id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                btn_save.isClickable = true
+                                when(c.header.code){
+                                    "200" -> {
+                                        d { "update successful" }
+                                        prefer = PreferenceManager.getDefaultSharedPreferences(this@AccountSettingActivity)
+                                        val editor = prefer.edit()
+                                        editor.putInt(KEYPREFER.HIVSTAT,statusID.toInt())
+                                        if(!checkDataUser(user)){
+                                            d{"user can't update full information"}
+                                            editor.putBoolean(KEYPREFER.isUpdateProfile,false)
+                                            editor.apply()
+                                        }else{
+                                            d{"user update full information"}
+                                            editor.putBoolean(KEYPREFER.isUpdateProfile,true)
+                                            editor.apply()
+                                        }
+                                        finish()
+                                    }
+                                }
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+            /*
             val update = service.updateUser(data.user_id,data.gender_id,"", fname,
                     lname,statusID,"0",edt_phone.editableText.toString(),
                     edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
@@ -484,6 +518,7 @@ class AccountSettingActivity: AppCompatActivity() {
                     btn_save.isClickable = true
                 }
             })
+            */
         }
 
 

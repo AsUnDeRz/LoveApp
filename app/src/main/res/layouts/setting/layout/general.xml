@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/btn_language"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/header_change_passcode"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/fill_box">
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_lang"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:paddingStart="10dp"
+            android:text="@string/language"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+
+        <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+            android:id="@+id/switch_lang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="false"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="10sp"
+            app:activeBgColor="@color/colorPrimary"
+            app:activeTextColor="@android:color/white"
+            app:inactiveBgColor="@android:color/white"
+            app:inactiveTextColor="@android:color/black"
+            app:textToggleLeft="@string/th"
+            app:textToggleRight="@string/en"
+            app:toggleWidth="55dp">
+
+        </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_below="@+id/btn_language"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/fill_box">
+
+        <RelativeLayout
+            android:id="@+id/btn_passcode"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/header"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/fill_box">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_pass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingStart="10dp"
+                android:text="@string/passlock"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/switch_passcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="false"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:textSize="10sp"
+                app:activeBgColor="@color/colorPrimary"
+                app:activeTextColor="@android:color/white"
+                app:inactiveBgColor="@android:color/white"
+                app:inactiveTextColor="@android:color/black"
+                app:textToggleLeft="@string/on"
+                app:textToggleRight="@string/off"
+                app:toggleWidth="55dp">
+
+            </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_touchid"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/btn_passcode"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/fill_box">
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_touch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingStart="10dp"
+                android:text="@string/touchid"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/switch_touchid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="false"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:textSize="10sp"
+                app:activeBgColor="@color/colorPrimary"
+                app:activeTextColor="@android:color/white"
+                app:inactiveBgColor="@android:color/white"
+                app:inactiveTextColor="@android:color/black"
+                app:textToggleLeft="@string/on"
+                app:textToggleRight="@string/off"
+                app:toggleWidth="55dp">
+
+            </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
+        </RelativeLayout>
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center"
+            android:padding="10dp"
+            android:text="@string/privacy"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_changepassword"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/btn_touchid"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/changepass"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_notification"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/btn_privacy"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/fill_box">
+
+        <view.custom_view.TextViewHeavy
+            android:id="@+id/txt_noti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:paddingStart="10dp"
+            android:text="@string/notis"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+
+        <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+            android:id="@+id/switch_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="false"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="10sp"
+            app:activeBgColor="@color/colorPrimary"
+            app:activeTextColor="@android:color/white"
+            app:inactiveBgColor="@android:color/white"
+            app:inactiveTextColor="@android:color/black"
+            app:textToggleLeft="@string/on"
+            app:textToggleRight="@string/off"
+            app:toggleWidth="55dp">
+
+        </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
+    </RelativeLayout>
+</RelativeLayout>

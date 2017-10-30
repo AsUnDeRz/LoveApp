@@ -92,6 +92,7 @@
         android:background="@drawable/bg_button_info"
         android:text="@string/accept"
         android:textAllCaps="false"
+        android:textColor="@color/green"
         android:textSize="18sp" />
 
     <Button
@@ -107,6 +108,7 @@
         android:background="@drawable/bg_button_info"
         android:text="@string/no"
         android:textAllCaps="false"
+        android:textColor="@color/red"
         android:textSize="18sp" />
 
 </RelativeLayout>

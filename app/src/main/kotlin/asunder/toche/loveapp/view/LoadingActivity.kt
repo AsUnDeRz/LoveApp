@@ -171,6 +171,7 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
             havePasscode = true
         }
 
+        havePasscode = preferences.getBoolean(KEYPREFER.ISCHECKPASSCODE,false)
 
         return havePasscode
     }

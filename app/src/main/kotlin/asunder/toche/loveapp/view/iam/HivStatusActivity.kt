@@ -110,6 +110,7 @@ class HivStatusActivity: AppCompatActivity(){
                         val fromFragment = intent.getIntExtra("from",0)
                         d{"check FromFragment $fromFragment"}
                         ActivityMain.vp_main.setCurrentItem(fromFragment,false)
+                        ActivityMain.bnve.currentItem =fromFragment
                         finish()
                     }
                 }

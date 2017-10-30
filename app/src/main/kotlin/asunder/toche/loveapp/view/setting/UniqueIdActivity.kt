@@ -32,10 +32,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Spinner
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.gson.Gson
 import com.tapadoo.alerter.Alerter
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -339,6 +342,33 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
             val genderID = prefer.getString(KEYPREFER.GENDER,"")
             val nationID = prefer.getString(KEYPREFER.NATIONAL,"")
             d { " user_id[$userID] genderID[$genderID] fname[$fname] lname[$lname} birth[$birth] "}
+
+            manageSub(
+                    mService.UpdateUser(userID.toDouble().toInt().toString(),genderID,null,fname,lname,null,null,null,
+                    null,null,provinID,null,null,birth,"0",nationID)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ c -> run {
+                                btn_save.isClickable = true
+                                when(c.header.code){
+                                    "200" -> {
+                                        d { "update successful" }
+                                        //val editor = prefer.edit()
+                                        //editor.apply()
+                                        val data = Intent()
+                                        data.putExtra(KEYPREFER.PASSCODE,"change")
+                                        startActivity(data.setClass(this@UniqueIdActivity,PassCodeActivity::class.java))
+                                        //startActivity(Intent().setClass(this@UniqueIdActivity, ActivityMain::class.java))
+                                        finish()
+                                    }
+                                }
+                            }},{
+                                d { it.message!! }
+                            })
+            )
+
+
+            /*
             val update = service.updateUser(userID,genderID,null,fname,lname,null,null,null,
                     null,null,provinID,null,null,birth,"0",nationID)
 
@@ -361,11 +391,15 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
                     btn_save.isClickable = true
                 }
             })
+            */
+
+
 
         }
     }
 
     var service : LoveAppService = LoveAppService.create()
+    var mService : newService = newService.create()
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable

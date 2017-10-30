@@ -117,6 +117,33 @@
     <string name="wronganswer">เป็นคำตอบที่ผิดนะครับ</string>
     <string name="totalpoint">คะแนนทั้งหมดของคุณคือ</string>
     <string name="confirm">ตกลง</string>
+    <string name="changepass">เปลี่ยนรหัสผ่าน</string>
+    <string name="currentpass">ใส่รหัสผ่านปัจจุบัน</string>
+    <string name="newpass">ใส่รหัสผ่านใหม่</string>
+    <string name="newpassagain">ใส่ยืนยันอีกครั้ง</string>
+    <string name="newcondition">ข้อกำหนดและเงื่อนไขการใช้งาน</string>
+    <string name="newpolicy">นโยบายความเป็นส่วนตัว</string>
+    <string name="privacy">ความเป็นส่วนตัว</string>
+    <string name="passlock">ล็อครหัสผ่าน</string>
+    <string name="touchid">ลายนิ้วมือ</string>
+    <string name="on">เปิด</string>
+    <string name="off">ปิด</string>
+    <string name="rateus">ความพอใจการใช้งาน</string>
+    <string name="sendfeedback">คำติชมการใช้งาน</string>
+    <string name="version">รุ่น</string>
+    <string name="problem">ปัญหาการใช้งาน</string>
+    <string name="sugges">ข้อแนะนำ</string>
+    <string name="orthes">อื่นๆ</string>
+    <string name="th">ไทย</string>
+    <string name="en">อังกฤษ</string>
+    <string name="account">บัญชีผู้ใช้</string>
+    <string name="reminder">การช่วยเตือนความจำ</string>
+    <string name="general">ทั่วไป</string>
+    <string name="support">การสนันสนุน</string>
+    <string name="aboutlove">เกี่ยวกับ Love App</string>
+    <string name="testreminder">การตรวจ</string>
+    <string name="medication">การทานยา</string>
+    <string name="cd4viral">ข้อมูล CD4 และ Viral Load</string>
 
 
 

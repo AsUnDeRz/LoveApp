@@ -31,7 +31,7 @@
         android:layout_marginBottom="100dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/bg_white_info">
+        android:background="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -41,41 +41,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-                <LinearLayout
-                    android:id="@+id/info_title"
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_infomation"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:paddingTop="15dp">
-
-                    <view.custom_view.TextViewHeavy
-                        android:id="@+id/txt_infomation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="8dp"
-                        android:text="   The summer night slowly crept on.  A group of teenagers had decided to get away from the heat and go camping in New Jersey.  They had one van and 10 sleep -ing bags, so they had no problems.  For two weeks they were free from parents and were just pleased to get away.  On the last night, everybody felt a little sad that this was it, but the kids were firm that this would be the best night yet.  A tall red haired girl named Rommye had planned a sing-a-long for that night, and everyone was looking forward to it.	Two of the boys started collecting firewood at dusk.  Withing an hour they had a roaring fire blazing and were in the midst of the loudest noise the forest had heard in quite a while    Fifty miles away, a twenty megaton bomb exploded about William Penn's hat. The temperature rose to 150,000,000 in one millionth of a second.  3,000,000 people in Philadelphia and the area were killed instantly.  Everything for 40 miles around ground zero burst into raging flames.    Fifty miles to the west, the aging vinyard master saw the looming mushroom cloud.  &quot;Damn!&quot;, he muttered, &quot;There go my best customers.&quot;    He slowly gathered his tools, ambled over to the shed and - as he had done many times in his many years - put them away carefully.  Each one had its place in a system only he knew.    His daughter (now dead) in Philadelphia used to kid him about the seeming disorder in the shed.  He remembered her chiding him about the randomness in his organization almost everytime the family - her and his grandchildren - visited.  The memory and the realization that he had been nagged, lovingly, for the last time brought a sudden tear that ran down one of the many crags and crevasses in his sun-worn face.    &quot;Well, he said to himself, &quot;she said she'd hafta clean it up someday and I said she had better wait till I was dead.  Too late now ... &quot;    He carefully locked-up the shed, went into the house, got his pistol, and shot himself.  Nobody noticed."
-                        android:textSize="14sp" />
-
-                    <view.custom_view.TextViewMedium
-                        android:id="@+id/txt_nametest"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:lineSpacingExtra="5dp" />
-
-                    <view.custom_view.TextViewMedium
-                        android:id="@+id/txt_worktime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
-
-                </LinearLayout>
-
+                    android:paddingTop="15dp"
+                    android:text="   The summer night slowly crept on.  A group of teenagers had decided to get away from the heat and go camping in New Jersey.  They had one van and 10 sleep -ing bags, so they had no problems.  For two weeks they were free from parents and were just pleased to get away.  On the last night, everybody felt a little sad that this was it, but the kids were firm that this would be the best night yet.  A tall red haired girl named Rommye had planned a sing-a-long for that night, and everyone was looking forward to it.	Two of the boys started collecting firewood at dusk.  Withing an hour they had a roaring fire blazing and were in the midst of the loudest noise the forest had heard in quite a while    Fifty miles away, a twenty megaton bomb exploded about William Penn's hat. The temperature rose to 150,000,000 in one millionth of a second.  3,000,000 people in Philadelphia and the area were killed instantly.  Everything for 40 miles around ground zero burst into raging flames.    Fifty miles to the west, the aging vinyard master saw the looming mushroom cloud.  &quot;Damn!&quot;, he muttered, &quot;There go my best customers.&quot;    He slowly gathered his tools, ambled over to the shed and - as he had done many times in his many years - put them away carefully.  Each one had its place in a system only he knew.    His daughter (now dead) in Philadelphia used to kid him about the seeming disorder in the shed.  He remembered her chiding him about the randomness in his organization almost everytime the family - her and his grandchildren - visited.  The memory and the realization that he had been nagged, lovingly, for the last time brought a sudden tear that ran down one of the many crags and crevasses in his sun-worn face.    &quot;Well, he said to himself, &quot;she said she'd hafta clean it up someday and I said she had better wait till I was dead.  Too late now ... &quot;    He carefully locked-up the shed, went into the house, got his pistol, and shot himself.  Nobody noticed."
+                    android:textSize="14sp" />
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

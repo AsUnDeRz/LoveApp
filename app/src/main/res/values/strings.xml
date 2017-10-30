@@ -116,6 +116,33 @@
     <string name="wronganswer">The answer is wrong</string>
     <string name="totalpoint">Your total point is</string>
     <string name="confirm">Confirm</string>
+    <string name="changepass">Change Password</string>
+    <string name="currentpass">Current Password</string>
+    <string name="newpass">New Password</string>
+    <string name="newpassagain">New Password again</string>
+    <string name="newcondition">Terms and Conditions of us</string>
+    <string name="newpolicy">Privacy and Policy</string>
+    <string name="privacy">Privacy</string>
+    <string name="passlock">Passcode lock</string>
+    <string name="touchid">Touch ID</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="rateus">Rate Us</string>
+    <string name="sendfeedback">Send Us Feedback</string>
+    <string name="version">Version</string>
+    <string name="problem">Problem</string>
+    <string name="sugges">Suggestion</string>
+    <string name="orthes">Other</string>
+    <string name="th">TH</string>
+    <string name="en">EN</string>
+    <string name="account">Account</string>
+    <string name="reminder">Reminders</string>
+    <string name="general">General</string>
+    <string name="support">Support</string>
+    <string name="aboutlove">About Loveapp</string>
+    <string name="testreminder">Testing Reminder</string>
+    <string name="medication">Medication Reminder</string>
+    <string name="cd4viral">CD4 &amp; VL.</string>
 
 
 

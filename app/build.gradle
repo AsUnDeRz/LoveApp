@@ -13,8 +13,8 @@ android {
         applicationId "com.loveapp2"
         minSdkVersion 18
         targetSdkVersion 26
-        versionCode 8
-        versionName "2.6"
+        versionCode 9
+        versionName "2.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -145,6 +145,9 @@ dependencies {
     implementation 'com.layer-net:thai-datetimepicker:1.0.3'
     implementation project(':SpinnerDatePicker')
     implementation 'jp.wasabeef:glide-transformations:2.0.2'
+    //toggle
+    implementation 'us.belka:androidtoggleswitch:1.2.2'
+
 
 }
 

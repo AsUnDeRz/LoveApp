@@ -310,7 +310,7 @@ object ViewModel{
             //if(data.name == null){ return false }
             if(data.first_name == null){ return false }
             if(data.first_surname == null){ return false}
-            if(data.friend_id == null){ return false}
+            //if(data.friend_id == null){ return false}
             if(data.phone == null){ return false}
             if(data.email == null){ return false}
             if(data.password == null){ return false}

@@ -5,6 +5,13 @@ package asunder.toche.loveapp
  */
 object KEYPREFER{
 
+    //new setting
+    val GENERAL = "general"
+    val SUPPORT= "support"
+    val ABOUT= "about"
+    val REMINDERS ="reminders"
+    val ISCHECKPASSCODE ="checkpasscode"
+
     val NATIONAL ="national"
     val POINT ="point"
     val HIVLASTTEST = "hivlasttest"
