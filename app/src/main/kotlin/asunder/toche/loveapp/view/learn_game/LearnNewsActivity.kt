@@ -217,28 +217,53 @@ class LearnNewsActivity : AppCompatActivity() {
 
         val resInfo = pm.queryIntentActivities(sendIntent, 0)
         val intentList = ArrayList<LabeledIntent>()
+        var isFb=false
+        var isTw=false
+        var isGm=false
         for (ri in resInfo) {
             // Extract the label, append it, and repackage it in a LabeledIntent
             val packageName = ri.activityInfo.packageName
-           if(packageName.contains("com.facebook.katana")) {
+           if(packageName.contains("com.facebook.katana") && !isFb ) {
+               isFb = true
+               val intent = Intent()
+                intent.component = ComponentName(packageName, ri.activityInfo.name)
+                intent.action = Intent.ACTION_SEND
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share")
+                intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
+                d{packageName+"   "+ri.activityInfo.processName}
+                intentList.add(LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon))
+            }
+            if(packageName.contains("com.twitter.android") && !isTw){
+                isTw = true
                 val intent = Intent()
                 intent.component = ComponentName(packageName, ri.activityInfo.name)
                 intent.action = Intent.ACTION_SEND
                 intent.type = "text/plain"
-               intent.putExtra(Intent.EXTRA_SUBJECT, "data")
-               intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
-               d{packageName+"   "+ri.activityInfo.processName}
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share")
+                intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
+                d{packageName+"   "+ri.activityInfo.processName}
+                intentList.add(LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon))
+            }
+            if(packageName.contains("com.google.android.gm") && !isGm){
+                isGm =true
+                val intent = Intent()
+                intent.component = ComponentName(packageName, ri.activityInfo.name)
+                intent.action = Intent.ACTION_SEND
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share")
+                intent.putExtra(Intent.EXTRA_TEXT,"Title"+ link)
+                d{packageName+"   "+ri.activityInfo.processName}
                 intentList.add(LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon))
             }
         }
 
         val openInChooser = Intent.createChooser(intentList[0], "Share")
-
         // convert intentList to array
         val extraIntents = intentList.toArray(arrayOfNulls<LabeledIntent>(intentList.size))
 
 
-        //openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents)
+        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents)
         startActivity(openInChooser)
     }
 

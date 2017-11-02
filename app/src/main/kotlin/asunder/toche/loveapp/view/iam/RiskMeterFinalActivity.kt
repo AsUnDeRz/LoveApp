@@ -137,10 +137,10 @@ class RiskMeterFinalActivity:AppCompatActivity(){
         val utils = Utils(this@RiskMeterFinalActivity)
         var toDegree = 0f
         when(riskResult.status){
-            "MEDIUM" -> toDegree = 20f
+            "MODERATE" -> toDegree = 20f
             "HIGH" -> toDegree = 50f
-            "LOW" -> toDegree = -50f
-            "NORMAL" -> toDegree = -20f
+            "NO" -> toDegree = -50f
+            "LOW" -> toDegree = -20f
         }
 
 

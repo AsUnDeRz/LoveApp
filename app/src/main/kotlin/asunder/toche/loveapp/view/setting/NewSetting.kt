@@ -2,25 +2,23 @@ package asunder.toche.loveapp
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.afollestad.materialdialogs.DialogAction
-import kotlinx.android.synthetic.main.new_setting.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.akexorcist.localizationactivity.LocalizationActivity
 import com.github.ajalt.timberkt.Timber.d
 import kotlinx.android.synthetic.main.about_loveapp.*
-import kotlinx.android.synthetic.main.dialog_support.*
 import kotlinx.android.synthetic.main.general.*
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
-import kotlinx.android.synthetic.main.old_new_user.view.*
+import kotlinx.android.synthetic.main.new_setting.*
 import kotlinx.android.synthetic.main.reminders.*
 import kotlinx.android.synthetic.main.support.*
 import utils.localization.LocalDelegate
@@ -264,19 +262,32 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         btnSugges?.typeface = utils.medium
         btnOther?.typeface = utils.medium
 
-        btnProblem?.setOnClickListener {
-
+        PushDownAnim.setOnTouchPushDownAnim(btnProblem?.rootView!!)
+        btnProblem.setOnClickListener {
+            sendEmail("Problem")
         }
-        btnSugges?.setOnClickListener {
-
+        PushDownAnim.setOnTouchPushDownAnim(btnSugges?.rootView!!)
+        btnSugges.setOnClickListener {
+            sendEmail("Suggestion")
         }
-        btnOther?.setOnClickListener {
-
+        PushDownAnim.setOnTouchPushDownAnim(btnOther?.rootView!!)
+        btnOther.setOnClickListener {
+            sendEmail("Others")
         }
 
 
         dialog.show()
 
+    }
+
+    fun sendEmail(subject:String){
+
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("loveapp@raksthai.org"))
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+
+        startActivity(Intent.createChooser(intent, "Email via..."))
     }
 
     fun setThai(){
