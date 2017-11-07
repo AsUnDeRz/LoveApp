@@ -77,6 +77,7 @@ class SettingFragment : Fragment() {
             editor.putInt(KEYPREFER.HIVSTAT,0)
             editor.putString(KEYPREFER.GENDER,"")
             editor.putBoolean(KEYPREFER.ISCHECKPASSCODE,false)
+            editor.putBoolean(KEYPREFER.TOUCHID,false)
             editor.putString(KEYPREFER.PASSCODE,"")
             editor.apply()
             activity.startActivity(Intent().setClass(activity,SelectLangActivity::class.java))

@@ -13,8 +13,8 @@ android {
         applicationId "com.loveapp2"
         minSdkVersion 18
         targetSdkVersion 26
-        versionCode 10
-        versionName "2.8"
+        versionCode 12
+        versionName "2.8.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -147,6 +147,9 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:2.0.2'
     //toggle
     implementation 'us.belka:androidtoggleswitch:1.2.2'
+    //finger scan
+    implementation 'com.mtramin:rxfingerprint:2.1.0'
+
 
 
 }

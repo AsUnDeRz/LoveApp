@@ -47,7 +47,7 @@ class StepWelcomActivity:AppCompatActivity(){
                         btn_start.visibility = View.VISIBLE
                         txt_infomation.text = getString(R.string.nearby)
                         txt_nametest.text = getString(R.string.nearbytext)
-                        btn_start.text = getString(R.string.getstarted)
+                        btn_start.text = getString(R.string.next)
                         btn_start.setOnClickListener {
                         startActivity(Intent().setClass(this@StepWelcomActivity,GenderActivity::class.java))
                         finish()

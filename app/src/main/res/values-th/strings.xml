@@ -21,9 +21,9 @@
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
 
-    <string name="signin">ลงชื่อเข้าใช้</string>
-    <string name="newacc">สร้างบัญชี</string>
-    <string name="whoru">คุณคือใคร</string>
+    <string name="signin">เข้าสู่ระบบ</string>
+    <string name="newacc">ลงทะเบียนใช้งาน</string>
+    <string name="whoru">ตัวตนของคุณคือ?</string>
     <string name="points">คะแนน</string>
     <string name="notis">การแจ้งเตือน</string>
     <string name="info">ข้อมูล</string>
@@ -60,9 +60,9 @@
     <string name="friendcode">รหัสเพื่อน</string>
     <string name="uid">รหัสเฉพาะ</string>
     <string name="province">จังหวัด</string>
-    <string name="firstname">อักษรขึ้นต้นชื่อ</string>
-    <string name="firstsurename">อักษรขึ้นต้นนามสกุล</string>
-    <string name="birthday">วันเกิด</string>
+    <string name="firstname">อักษรตัวแรกของชื่อจริง</string>
+    <string name="firstsurename">อักษรตัวแรกของนามสกุล</string>
+    <string name="birthday">วัน/เดือน/ปี เกิด</string>
     <string name="save">บันทึก</string>
     <string name="pills">ยา</string>
     <string name="takepillat">ทานยาเวลา</string>
@@ -84,7 +84,7 @@
     <string name="information">ข้อมูล</string>
     <string name="contacts">ที่อยู่</string>
     <string name="promotion">โปรโมชั่น</string>
-    <string name="nationtitle">กรุณาเลือกสัญชาติ</string>
+    <string name="nationtitle">สัญชาติของคุณคือ?</string>
     <string name="fillinformation">กรุณาเติมข้อมูลในช่องว่างให้ครบ</string>
 
 
@@ -95,20 +95,20 @@
     <string name="welldone">ทำได้ดี!</string>
     <string name="uhaveread">คุณได้อ่านบทความ</string>
     <string name="earn">และรับ</string>
-    <string name="firsttime">นี่คือครั้งแรกของคุณใช่หรือไม่</string>
+    <string name="firsttime">ยินดีต้อนรับสู่ LoveApp</string>
     <string name="timetotakepill">เวลาทานยา</string>
-    <string name="hintfirstpage">การป้องกันการติดเชื้อโรคเอดส์ทำได้โดยลดพฤติกรรมความเสี่ยงต่อการเกิดโรคเอดส์</string>
+    <string name="hintfirstpage">เรียนรู้เกี่ยวกับเฮชไอวี ค้นหาสถานที่ให้บริการตรวจและรักษา และตั้งเครื่องช่วยเตือนความจำส่วนตัวของคุณ</string>
 
     <!--V2 -->
     <string name="conditiontitle">เงื่อนไขการให้บริการ</string>
     <string name="accept">ยอมรับ</string>
-    <string name="selectlang">กรุณาเลือกภาษา</string>
+    <string name="selectlang">เลือกภาษา</string>
     <string name="getstarted">Get Started</string>
-    <string name="security">Security</string>
-    <string name="securitytext">ป้องการการเข้าถึงข้อมูล และการใข้งานด้วยระบบรักษาความปลอดภัย</string>
-    <string name="pillremindertext">เดือนเวลาทานยา เพื่อให้ตรงเวล ในแต่ละวัน</string>
-    <string name="nearby">Near by place</string>
-    <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
+    <string name="security">ความปลอดภัย</string>
+    <string name="securitytext">รักษาความปลอดภัยในการเข้าใช้งานด้วยระบบ Passcode Lock และ Touch ID</string>
+    <string name="pillremindertext">เครื่องช่วยเตือนความจำส่วนตัว เพื่อให้คุณไม่พลาดทุกการนัดหมาย</string>
+    <string name="nearby">หน่วยบริการใกล้เคียง</string>
+    <string name="nearbytext">ค้นหาหน่วยบริการทางด้านสุขภาพและเฮชไอวีที่ใกล้เคียง</string>
     <string name="hivtest">ตรวจเลือด \nนัดหมายการตรวจ</string>
     <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
     <string name="next">ถัดไป</string>
@@ -144,6 +144,14 @@
     <string name="testreminder">การตรวจ</string>
     <string name="medication">การทานยา</string>
     <string name="cd4viral">ข้อมูล CD4 และ Viral Load</string>
+    <string name="setuic">กำหนดรหัสเฉพาะบุคคล</string>
+    <string name="delete">ลบ</string>
+    <string name="enterpasscode">ใส่ Passcode</string>
+    <string name="haveuser">มีบัญชีการใช้งานอยู่แล้ว?</string>
+    <string name="cancle">ยกเลิก</string>
+    <string name="aceeptterm">ยอมรับข้อตกลงและเงื่อนไข</string>
+
+
 
 
 

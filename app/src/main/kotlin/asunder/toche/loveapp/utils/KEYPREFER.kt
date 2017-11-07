@@ -11,6 +11,7 @@ object KEYPREFER{
     val ABOUT= "about"
     val REMINDERS ="reminders"
     val ISCHECKPASSCODE ="checkpasscode"
+    val TOUCHID="touchid"
 
     val NATIONAL ="national"
     val POINT ="point"

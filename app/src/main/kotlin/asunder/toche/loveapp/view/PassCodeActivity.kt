@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.github.ybq.android.spinkit.style.FadingCircle
+import com.mtramin.rxfingerprint.RxFingerprint
+import com.mtramin.rxfingerprint.data.FingerprintResult
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.passcode.*
 
@@ -57,7 +59,7 @@ class PassCodeActivity: AppCompatActivity(){
                 .load(R.drawable.bg_blue_only)
                 .into(bg_root)
         if(intent.getStringExtra(KEYPREFER.PASSCODE) == "check"){
-            txt_passcode.text = "Enter Passcode"
+            txt_passcode.text = resources.getString(R.string.enterpasscode)
             statePasscode = StatePC.check
             pcInStateAdd = preferences.getString(KEYPREFER.PASSCODE,"")
 
@@ -81,6 +83,28 @@ class PassCodeActivity: AppCompatActivity(){
         n9.setOnClickListener { addValues(9) }
 
 
+        if (RxFingerprint.isAvailable(this) && preferences.getBoolean(KEYPREFER.TOUCHID,false)) {
+            // proceed with fingerprint operation
+            RxFingerprint.authenticate(this)
+                    .subscribe({ fingerprintAuthenticationResult ->
+                        when (fingerprintAuthenticationResult.result) {
+                            FingerprintResult.FAILED -> {}
+                            FingerprintResult.HELP -> {}
+                            FingerprintResult.AUTHENTICATED -> {
+                                val post = Handler()
+                                post.postDelayed({
+                                    val doubleBounce = DoubleBounce()
+                                    pro_load.indeterminateDrawable = doubleBounce
+                                    root_load.visibility = View.VISIBLE
+                                    txt_prograss.text = "Load ..."
+                                    startActivity(Intent().setClass(this@PassCodeActivity,ActivityMain::class.java))
+                                    finish()
+                                    overridePendingTransition( R.anim.fade_in, R.anim.fade_out )
+                                },500)
+                            }
+                        }
+                    }) { throwable -> com.github.ajalt.timberkt.d { "ERROR authenticate" + throwable.message } }
+        }
 
 
 
@@ -174,6 +198,10 @@ class PassCodeActivity: AppCompatActivity(){
                     if(intent.getStringExtra(KEYPREFER.PASSCODE) == "check"){
                         val post = Handler()
                         post.postDelayed({
+                            val doubleBounce = DoubleBounce()
+                            pro_load.indeterminateDrawable = doubleBounce
+                            root_load.visibility = View.VISIBLE
+                            txt_prograss.text = "Load ..."
                             startActivity(Intent().setClass(this@PassCodeActivity,ActivityMain::class.java))
                             finish()
                             overridePendingTransition( R.anim.fade_in, R.anim.fade_out )

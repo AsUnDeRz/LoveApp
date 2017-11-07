@@ -21,8 +21,8 @@
     <string name="permission_required_toast">Location permission is required for this demo.</string>
 
     <string name="signin">Sign In</string>
-    <string name="newacc">New Account</string>
-    <string name="whoru">Who Are You?</string>
+    <string name="newacc">Sign Up</string>
+    <string name="whoru">Select your gender identity</string>
     <string name="points">Points</string>
     <string name="notis">Notifications</string>
     <string name="info">Information</string>
@@ -59,9 +59,9 @@
     <string name="friendcode">Friend Code</string>
     <string name="uid">Unique Identified</string>
     <string name="province">Province</string>
-    <string name="firstname">The First Alphabet Of Name</string>
-    <string name="firstsurename">The Fiest Alphabet Of Surename</string>
-    <string name="birthday">Birth Day</string>
+    <string name="firstname">First letter of first name</string>
+    <string name="firstsurename">First letter of last name</string>
+    <string name="birthday">Date/ Month/ Year of birth</string>
     <string name="save">Save</string>
     <string name="pills">Pills</string>
     <string name="takepillat">Take Pill At</string>
@@ -94,20 +94,20 @@
     <string name="welldone">Well done!</string>
     <string name="uhaveread">You have already read</string>
     <string name="earn">Earned +</string>
-    <string name="firsttime">This is your first time here?</string>
+    <string name="firsttime">Welcome to LoveApp</string>
     <string name="timetotakepill">Time to take \na medicind</string>
-    <string name="hintfirstpage">The human immunodeficency virus is a lentivirus that causes HIV infection and over time acquired ummunodeficiency syndrome</string>
+    <string name="hintfirstpage">A simple platform to learn more about HIV, search for nearby service availability, and set up your own personal reminders</string>
 
     <!--V2 -->
     <string name="conditiontitle">Terms &amp; Conditions</string>
     <string name="accept">Accept</string>
-    <string name="selectlang">Select your language</string>
+    <string name="selectlang">Select a language</string>
     <string name="getstarted">Get Started</string>
     <string name="security">Security</string>
-    <string name="securitytext">ป้องการการเข้าถึงข้อมูล และการใข้งานด้วยระบบรักษาความปลอดภัย</string>
-    <string name="pillremindertext">เดือนเวลาทานยา เพื่อให้ตรงเวล ในแต่ละวัน</string>
-    <string name="nearby">Near by place</string>
-    <string name="nearbytext">สามารถค้นหาจุดบริการตรวจเลือด ขอคำปรึกษา และบริการอื่น ๆ ไกล้ตัวท่าน</string>
+    <string name="securitytext">Secure access to your privacy on LoveApp with Passcode Lock and Touch ID</string>
+    <string name="pillremindertext">Never miss out on any appointments by your own personal reminders</string>
+    <string name="nearby">Nearby service availability</string>
+    <string name="nearbytext">Search for nearby HIV-related health service availability</string>
     <string name="hivtest">HIV Test \nTest apointment</string>
     <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
     <string name="next">Next</string>
@@ -143,6 +143,14 @@
     <string name="testreminder">Testing Reminder</string>
     <string name="medication">Medication Reminder</string>
     <string name="cd4viral">CD4 &amp; VL.</string>
+    <string name="setuic">Set your Unique Identifier Code</string>
+    <string name="delete">Delete</string>
+    <string name="enterpasscode">Set Passcode</string>
+    <string name="haveuser">Already have an account?</string>
+    <string name="cancle">Cancle</string>
+    <string name="aceeptterm">Accept Terms &amp; Conditions</string>
+
+
 
 
 

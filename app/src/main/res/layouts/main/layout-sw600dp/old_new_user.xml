@@ -79,12 +79,13 @@
 
     <RelativeLayout
         android:id="@+id/btn_signin"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_below="@+id/text"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/textView3"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="65dp"
+        android:layout_toEndOf="@+id/textView3"
         android:background="@drawable/button_box"
         android:orientation="horizontal">
 
@@ -110,7 +111,7 @@
         android:id="@+id/btn_newaccout"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_below="@+id/btn_signin"
+        android:layout_below="@+id/text"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="30dp"
@@ -134,5 +135,18 @@
             app:srcCompat="@drawable/arrow_white" />
 
     </RelativeLayout>
+
+
+    <view.custom_view.TextViewHeavy
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_newaccout"
+        android:layout_below="@+id/btn_newaccout"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/haveuser"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
 </RelativeLayout>

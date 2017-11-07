@@ -30,7 +30,7 @@
         android:layout_centerInParent="false"
         android:paddingTop="50dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="90dp"
+        android:textSize="75sp"
         android:textStyle="bold" />
 
     <view.custom_view.TextViewHeavy
@@ -42,15 +42,15 @@
         android:layout_centerVertical="false"
         android:gravity="left|center"
         android:lineSpacingExtra="8sp"
-        android:paddingLeft="50dp"
-        android:paddingRight="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="28sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn_yes"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/txt_question"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
@@ -59,12 +59,12 @@
         android:background="@drawable/button_box"
         android:text="@string/yes"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_no"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/btn_yes"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -72,7 +72,7 @@
         android:background="@drawable/button_box"
         android:text="@string/no"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 
     <LinearLayout

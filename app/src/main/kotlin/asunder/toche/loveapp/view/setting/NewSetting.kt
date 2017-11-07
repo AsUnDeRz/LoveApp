@@ -78,11 +78,6 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
 
     fun initGeneral(){
         general.inflate()
-        PushDownAnim.setOnTouchPushDownAnim(btn_changepassword)
-        btn_changepassword.setOnClickListener {
-            showDialogChangePass()
-        }
-
         //init language
         var locale :String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             resources?.configuration?.locales?.get(0)?.language!!
@@ -118,13 +113,31 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         switch_passcode.setOnToggleSwitchChangeListener { position, isChecked ->
             var isCheckPass =false
             when(position){
-                0 -> { isCheckPass = true}
+                0 -> {
+                    val data = Intent()
+                    data.putExtra(KEYPREFER.PASSCODE,"change")
+                    startActivity(data.setClass(this@NewSetting,PassCodeActivity::class.java))
+                    //showDialogChangePass()
+                    isCheckPass = true
+                }
                 1 -> { isCheckPass = false}
             }
             val editor = prefer.edit()
             editor.putBoolean(KEYPREFER.ISCHECKPASSCODE,isCheckPass)
             editor.apply()
             d{"isCheckPasscode $isCheckPass"}
+        }
+
+        switch_touchid.setOnToggleSwitchChangeListener { position, isChecked ->
+            var isCheckPass =false
+            when(position){
+                0 -> { isCheckPass = true}
+                1 -> { isCheckPass = false}
+            }
+            val editor = prefer.edit()
+            editor.putBoolean(KEYPREFER.TOUCHID,isCheckPass)
+            editor.apply()
+            d{"isCheckTouchID $isCheckPass"}
         }
 
     }
@@ -284,7 +297,7 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
 
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:")
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("loveapp@raksthai.org"))
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("love.application@raksthai.org"))
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
 
         startActivity(Intent.createChooser(intent, "Email via..."))
@@ -296,7 +309,7 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         txt_noti.text ="การแจ้งเตือน"
         txt_touch.text = "ลายนิ้วมือ"
         txt_pass.text = "ล็อครหัสผ่าน"
-        btn_changepassword.text ="เปลี่ยนรหัสผ่าน"
+        //btn_changepassword.text ="เปลี่ยนรหัสผ่าน"
 
     }
 
@@ -306,7 +319,7 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         txt_noti.text ="Notifications"
         txt_touch.text = "Touch ID"
         txt_pass.text = "Password lock"
-        btn_changepassword.text ="Change Passwoed"
+        //btn_changepassword.text ="Change Passwoed"
 
 
     }

@@ -207,7 +207,7 @@
                 android:layout_height="70dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -234,6 +234,7 @@
                 android:layout_height="wrap_content" />
 
             <view.custom_view.TextViewMedium
+                android:id="@+id/txt_prograss"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

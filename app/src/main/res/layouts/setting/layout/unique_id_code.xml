@@ -22,17 +22,29 @@
     </ViewFlipper>
 
 
+    <view.custom_view.TextViewHeavy
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/setuic"
+        android:layout_below="@id/vf_uic"
+        android:id="@+id/new_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/vf_uic">
+        android:layout_below="@+id/new_title">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/vf_uic"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <view.custom_view.TextViewHeavy

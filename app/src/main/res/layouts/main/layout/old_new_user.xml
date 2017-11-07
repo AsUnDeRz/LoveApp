@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
@@ -70,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:paddingLeft="45dp"
-            android:paddingRight="45dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:text="@string/hintfirstpage"
             android:textColor="@color/colorGrey"
             android:textSize="16sp" />
@@ -79,12 +80,11 @@
 
     <RelativeLayout
         android:id="@+id/btn_signin"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_below="@+id/text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/textView3"
         android:background="@drawable/button_box"
         android:orientation="horizontal">
 
@@ -95,12 +95,12 @@
             android:gravity="center"
             android:text="@string/signin"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_alignParentRight="true"
+            android:layout_marginBottom="22dp"
             android:padding="20dp"
             app:srcCompat="@drawable/arrow_white" />
 
@@ -110,7 +110,7 @@
         android:id="@+id/btn_newaccout"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_below="@+id/btn_signin"
+        android:layout_below="@+id/text"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
@@ -124,7 +124,7 @@
             android:gravity="center"
             android:text="@string/newacc"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="65dp"
@@ -134,5 +134,18 @@
             app:srcCompat="@drawable/arrow_white" />
 
     </RelativeLayout>
+
+    <view.custom_view.TextViewHeavy
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_newaccout"
+        android:layout_below="@+id/btn_newaccout"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/haveuser"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
 
 </RelativeLayout>

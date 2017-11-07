@@ -32,8 +32,8 @@ class SelectLangActivity : LocalizationActivity(), OnLocaleChange {
         utils = Utils(this@SelectLangActivity)
 
         langList.apply {
-            add(Model.Language(11,utils.txtLocale("ไทย","Thai"),"th"))
-            add(Model.Language(12,utils.txtLocale("อังกฤษ","English"),"en"))
+            add(Model.Language(11,utils.txtLocale("ไทย","ไทย"),"th"))
+            add(Model.Language(12,utils.txtLocale("English","English"),"en"))
 
         }
 

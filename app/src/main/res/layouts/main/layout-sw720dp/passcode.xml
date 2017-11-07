@@ -235,6 +235,7 @@
                 android:layout_height="wrap_content" />
 
             <view.custom_view.TextViewMedium
+                android:id="@+id/txt_prograss"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

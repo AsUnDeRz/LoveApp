@@ -18,6 +18,24 @@ import kotlin.collections.ArrayList
  */
 interface LoveAppService{
 
+    //api v-2
+    @FormUrlEncoded
+    @PUT("api/place_click/")
+    fun insertPlaceClick(@Field("user_id") userId:String,@Field("place_id")placeID:String,
+                         @Field("click_date")clickDate:Date):Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/answer_check/")
+    fun insertAnswerClick(@Field("user_id")userID:String,@Field("knowledge_id")knowledgeID:String,
+                          @Field("answer_check")answerCheck:String,@Field("click_date")clickDate: Date):Call<Void>
+
+    @FormUrlEncoded
+    @PUT("api/rick_check/")
+    fun insertRickClick(@Field("user_id")userID:String, @Field("rick_check")rickCheck:String,
+                        @Field("click_date")clickDate:Date):Call<Void>
+
+
+
     @GET("api/hiv_test/user_id/{id}")
     fun getHivTest(@Path("id") userId: String) : Observable<ArrayList<Model.RepositoryHivTest>>
 
@@ -193,6 +211,12 @@ http://loveapponline.com/api/user2
 http://loveapponline.com/api/user/email/c3VwYXBhazk5OUBnbWFpbC5jb20=/password/MTIzNDU2
 ตรงหลัง email กับ หลัง password ให้เข้ารหัส base64 มาด้วยนะคับ
      */
+
+    @FormUrlEncoded
+    @POST("api/game_check")
+    fun insertGameClick(@Field("user_id")userID:String, @Field("game_id")gameID:String,
+                        @Field("game_check") gameCheck:String, @Field("click_date")clickDate:Date):Observable<Model.RepoResponse>
+
     @FormUrlEncoded
     @POST("api/user")
     fun Register(@Field("gender_id") genderID: String) : Observable<Model.RepoUser>

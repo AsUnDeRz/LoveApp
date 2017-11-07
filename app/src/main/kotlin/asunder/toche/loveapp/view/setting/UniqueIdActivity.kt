@@ -1,47 +1,37 @@
 package asunder.toche.loveapp
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.DatePickerDialog
+import android.app.Dialog
+import android.app.DialogFragment
+import android.app.TimePickerDialog
 import android.content.Context
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.text.format.DateFormat
-import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
-import asunder.toche.loveapp.R
-import com.bumptech.glide.Glide
-import com.github.ajalt.timberkt.Timber
-import com.github.ajalt.timberkt.Timber.d
-import kotlinx.android.synthetic.main.header_logo_blue_back.*
-import kotlinx.android.synthetic.main.unique_id_code.*
-import java.util.*
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
+import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.text.Editable
-import android.text.InputFilter
 import android.text.TextWatcher
-import android.text.method.DigitsKeyListener
-import android.text.method.KeyListener
-import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.Spinner
+import android.widget.TimePicker
 import com.afollestad.materialdialogs.MaterialDialog
-import com.google.gson.Gson
+import com.bumptech.glide.Glide
+import com.github.ajalt.timberkt.Timber.d
 import com.tapadoo.alerter.Alerter
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.header_logo_blue_back.*
+import kotlinx.android.synthetic.main.unique_id_code.*
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -70,7 +60,7 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
     }
 
     var provinces = ObservableArrayList<Model.Province>()
-    var provinID=""
+    var provinID :String?=null
     val provinTitle = ObservableArrayList<String>()
     lateinit var edtHbd :EditText
     lateinit var prefer : SharedPreferences
@@ -94,7 +84,7 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
         Glide.with(this)
                 .load(R.drawable.bg_white)
                 .into(bg_root)
-        txt_title.text = "UNIQUE\nID CODE"
+        txt_title.text = "LoveApp"
         btn_save.typeface = MyApp.typeFace.heavy
         edt_fname.typeface = MyApp.typeFace.heavy
         edt_lname.typeface = MyApp.typeFace.heavy
@@ -106,19 +96,20 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
             vf_uic.displayedChild = 1
             isThai = intent.getBooleanExtra("isThai",false)
             d{"Check isThai $isThai"}
-            txt_province.visibility = View.VISIBLE
-            edt_province.visibility = View.VISIBLE
-            loadProvince()
-            edt_province.typeface = MyApp.typeFace.heavy
-            edt_province.setOnClickListener { view ->
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-                showProvince()
+            if(isThai) {
+                txt_province.visibility = View.VISIBLE
+                edt_province.visibility = View.VISIBLE
+                loadProvince()
+                edt_province.typeface = MyApp.typeFace.heavy
+                edt_province.setOnClickListener { view ->
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    showProvince()
+                }
+                edt_province.isFocusableInTouchMode = false
+                edt_province.isFocusable = false
+                //weightInput.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
             }
-            edt_province.isFocusableInTouchMode = false
-            edt_province.isFocusable =false
-            //weightInput.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
-
 
         }else{
             btn_back.setOnClickListener {
@@ -195,7 +186,7 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
                 showPopup()
             }else{
                 if(prefer.getBoolean(KEYPREFER.isFirst,false)) {
-                    if(provinID ==""){
+                    if(provinID =="" && isThai){
                         showPopup()
                     }else {
                         updateUser()

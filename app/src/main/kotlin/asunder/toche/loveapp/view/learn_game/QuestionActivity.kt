@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by admin on 8/14/2017 AD.
@@ -27,6 +30,7 @@ import java.util.*
 class QuestionActivity: AppCompatActivity() {
 
     var service : LoveAppService = LoveAppService.create()
+    var mService : newService = newService.create()
 
     private var _compoSub = CompositeDisposable()
     private val compoSub: CompositeDisposable
@@ -53,12 +57,14 @@ class QuestionActivity: AppCompatActivity() {
     var typeGame : String =""
     var questionList = ArrayList<Model.QuestionYesNo>()
     lateinit var utils: Utils
+    lateinit var prefer:SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.question)
         utils = Utils(this@QuestionActivity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(this@QuestionActivity)
         //questionList = intent.getParcelableArrayListExtra<Model.QuestionYesNo>(KEYPREFER.CONTENT)
         content = intent.getStringExtra(KEYPREFER.CONTENT)
         typeGame = intent.getStringExtra(KEYPREFER.TYPE)
@@ -107,6 +113,7 @@ class QuestionActivity: AppCompatActivity() {
 
     }
     fun checkFinish(){
+        val userId = prefer.getString(KEYPREFER.UserId,"")
         d{"update total point $point"}
         if(currentPosition < maxQuestionSize-1) {
             //init new question
@@ -122,7 +129,8 @@ class QuestionActivity: AppCompatActivity() {
             //update point
             if(point > 0){
                 val data = questionList[currentPosition]
-                addUpdatePoint(point.toString(),data.knowledge_id)
+                addUpdatePoint(point.toString(),data.knowledge_id,userId)
+                trackAnswer(userId,data.knowledge_id,questionList)
             }else{
                 //onBackPressed()
             }
@@ -208,10 +216,9 @@ class QuestionActivity: AppCompatActivity() {
         )
     }
 
-    fun addUpdatePoint(point:String,knowledgeID: String){
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this@QuestionActivity)
-        if(preferences.getString(KEYPREFER.UserId,"") != "") {
-            val addPoint = service.addUserPoint(preferences.getString(KEYPREFER.UserId,""),point)
+    fun addUpdatePoint(point:String,knowledgeID: String,userId:String){
+        if(userId != "") {
+            val addPoint = service.addUserPoint(userId,point)
                         addPoint.enqueue(object : Callback<Void> {
                             override fun onFailure(call: Call<Void>?, t: Throwable?) {
                                 d{ t?.message.toString() }
@@ -219,7 +226,6 @@ class QuestionActivity: AppCompatActivity() {
                             override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                                 if(response!!.isSuccessful){
                                     d{"addPoint Successful"}
-
                                     inputPointHistory(point,knowledgeID)
                                 }
                             }
@@ -268,5 +274,52 @@ class QuestionActivity: AppCompatActivity() {
                 .icon(ContextCompat.getDrawable(this,R.drawable.icon_x))
                 .maxIconSize(70)
                 .show()
+    }
+
+    fun trackAnswer(userId: String,prefer: String,data:ArrayList<Model.QuestionYesNo>){
+        var convertDb = ""
+        data.forEach {
+            convertDb += if(it.answer){ "y" }else{ "n" }
+            d{"track "+convertDb}
+        }
+
+         when(typeGame){
+            KEYPREFER.KNOWLEDGE ->{
+                val track=service.insertAnswerClick(userId,prefer,convertDb,Date())
+                track.enqueue(object : Callback<Void> {
+                    override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                        d {"track "+ t?.message.toString() }
+                    }
+                    override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                        if(response!!.isSuccessful){
+                            d{"track successful"}
+                        }
+                    }
+                })
+            }
+            else -> {
+                manageSub(
+                        mService.insertGameClick(userId,prefer,convertDb,Date())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ c -> run {
+                                    when(c.header.code){
+                                        "200" -> {
+                                            d{"track successful"}
+                                        }
+                                    }
+
+                                }},{
+                                    d { it.message!! }
+                                })
+                )
+            }
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unsubscribe()
     }
 }

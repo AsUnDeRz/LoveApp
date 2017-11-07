@@ -1,5 +1,6 @@
 package asunder.toche.loveapp
 
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.os.Handler
@@ -39,6 +40,20 @@ class RiskMeterFinalActivity:AppCompatActivity(){
 
     fun unsubscribe() { compoSub.dispose() }
 
+    fun trackRisk(code: String,userId:String){
+        val track = service.insertRickClick(userId,code,Date())
+        track.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                d {"track "+ t?.message.toString() }
+            }
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if(response!!.isSuccessful){
+                    d{"track successful"}
+                }
+            }
+        })
+
+    }
 
     fun loadRiskResult(code:String){
         manageSub(
@@ -115,11 +130,15 @@ class RiskMeterFinalActivity:AppCompatActivity(){
 
     var service : LoveAppService = LoveAppService.create()
     var riskResult = ObservableArrayList<Model.RiskResult>()
+    lateinit var prefer:SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.risk_meter_final)
+        prefer =PreferenceManager.getDefaultSharedPreferences(this@RiskMeterFinalActivity)
         loadRiskResult(intent.extras.getString("answer"))
+        trackRisk(intent.extras.getString("answer"),prefer.getString(KEYPREFER.UserId,""))
+
         loadImage()
 
         btn_findtest.setOnClickListener {

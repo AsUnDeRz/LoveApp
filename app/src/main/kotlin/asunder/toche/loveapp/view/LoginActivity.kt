@@ -97,15 +97,15 @@ class LoginActivity :AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface{
                                     val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoginActivity)
                                     val editor = preferences.edit()
                                     val status = data.status_id!!.toDouble()
-                                    editor.putString(KEYPREFER.UserId, data.user_id)
+                                    editor.putString(KEYPREFER.UserId, data.user_id.toDouble().toInt().toString())
                                     editor.putBoolean(KEYPREFER.isFirst, false)
                                     editor.putInt(KEYPREFER.HIVSTAT,status.toInt())
-                                    editor.putString(KEYPREFER.GENDER,data.gender_id)
+                                    editor.putString(KEYPREFER.GENDER,data.gender_id.toDouble().toInt().toString())
                                     editor.apply()
 
                                     d{ "check userid in preference ="+preferences.getString(KEYPREFER.UserId,"")}
-                                    MainViewModel.loadKnowledage(this,data.user_id)
-                                    MainViewModel.loadKnowledgeGroup(data.gender_id,this,utils)
+                                    MainViewModel.loadKnowledage(this,data.user_id.toDouble().toInt().toString())
+                                    MainViewModel.loadKnowledgeGroup(data.gender_id.toDouble().toInt().toString(),this,utils)
                                     d{"Check "+data.email}
                                 }
                                 "400" ->{
