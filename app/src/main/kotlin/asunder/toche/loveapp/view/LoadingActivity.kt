@@ -53,9 +53,11 @@ class LoadingActivity:AppCompatActivity(),ViewModel.MainViewModel.RiskQInterface
         MainViewModel.loadImage(this)
         //SceneAnimation(root_animation, DataSimple.imgAnimation.toIntArray(), mTapScreenTextAnimDuration, mTapScreenTextAnimBreak,view_loading)
 
+        /*
         Glide.with(this@LoadingActivity)
                 .load(R.drawable.loading)
                 .into(root_animation)
+                */
 
 
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
