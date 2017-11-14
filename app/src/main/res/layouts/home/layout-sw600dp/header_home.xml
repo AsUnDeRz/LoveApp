@@ -27,7 +27,7 @@
             android:layout_alignParentTop="false"
             android:gravity="left|center"
             android:paddingStart="10dp"
-            android:text="WEL\nCOME"
+            android:text="LoveApp"
             android:textColor="@android:color/white"
             android:textSize="28sp" />
     </LinearLayout>

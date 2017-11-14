@@ -349,6 +349,7 @@ object ViewModel{
 
                             }},{
                                 d { it.message!! }
+                                callback.endCallProgress(items)
                             })
             )
         }

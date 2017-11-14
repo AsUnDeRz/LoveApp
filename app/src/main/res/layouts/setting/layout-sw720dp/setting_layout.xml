@@ -16,37 +16,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/btn_passcode"
+                android:id="@+id/btn_acc_setting"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/icon_passcode" />
+                    app:srcCompat="@drawable/icon_account" />
 
                 <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_passcode"
+                    android:id="@+id/txt_acc_setting"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/passcode"
+                    android:paddingStart="65dp"
+                    android:text="@string/account"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -60,18 +58,17 @@
             <RelativeLayout
                 android:id="@+id/btn_reminder"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_reminder" />
 
@@ -80,48 +77,82 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/pillreminder"
+                    android:paddingStart="65dp"
+                    android:text="@string/reminder"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:padding="20dp"
                     app:srcCompat="@drawable/arrow_white" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_test_hiv"
+                android:id="@+id/btn_general"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/icon_reminder" />
+
+                <view.custom_view.TextViewHeavy
+                    android:id="@+id/txt_general"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:paddingStart="65dp"
+                    android:text="@string/general"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_support"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_box">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_test" />
 
                 <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_test_hiv"
+                    android:id="@+id/txt_support"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/insertlab"
+                    android:paddingStart="65dp"
+                    android:text="@string/support"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -133,32 +164,31 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_cd4"
+                android:id="@+id/btn_about"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_account" />
 
                 <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_test_cd4"
+                    android:id="@+id/txt_cd4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="CD4 &amp; VL."
+                    android:paddingStart="65dp"
+                    android:text="@string/aboutlove"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -169,134 +199,94 @@
                     app:srcCompat="@drawable/arrow_white" />
             </RelativeLayout>
 
+            <!--
+                        <RelativeLayout
+                            android:id="@+id/btn_feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_box">
 
-            <RelativeLayout
-                android:id="@+id/btn_acc_setting"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/button_box">
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10dp"
+                                app:srcCompat="@drawable/icon_feedback" />
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/icon_account" />
+                            <view.custom_view.TextViewHeavy
+                                android:id="@+id/txt_feedback"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:paddingStart="65dp"
+                                android:text="@string/feedback"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp" />
 
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_acc_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/accsetting"
-                    android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/arrow_white" />
+                        </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="20dp"
-                    app:srcCompat="@drawable/arrow_white" />
-            </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/btn_language"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_box">
 
-            <RelativeLayout
-                android:id="@+id/btn_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/button_box">
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10dp"
+                                app:srcCompat="@drawable/icon_test" />
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/icon_feedback" />
+                            <view.custom_view.TextViewHeavy
+                                android:id="@+id/txt_language"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="left|center"
+                                android:paddingStart="65dp"
+                                android:text="@string/language"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp" />
 
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_feedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/feedback"
-                    android:textColor="@android:color/white"
-                    android:textSize="26sp" />
-
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="20dp"
-                    app:srcCompat="@drawable/arrow_white" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/btn_language"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/button_box">
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/icon_test" />
-
-                <view.custom_view.TextViewHeavy
-                    android:id="@+id/txt_language"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left|center"
-                    android:paddingStart="120dp"
-                    android:text="@string/language"
-                    android:textColor="@android:color/white"
-                    android:textSize="26sp" />
-
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="20dp"
-                    app:srcCompat="@drawable/arrow_white" />
-            </RelativeLayout>
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/arrow_white" />
+                        </RelativeLayout>
+                        -->
 
             <RelativeLayout
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="100dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/button_box">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:padding="10dp"
                     app:srcCompat="@drawable/icon_test" />
 
@@ -305,10 +295,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
-                    android:paddingStart="120dp"
+                    android:paddingStart="65dp"
                     android:text="@string/logout"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="65dp"

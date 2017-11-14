@@ -3,6 +3,7 @@ package asunder.toche.loveapp
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.databinding.ObservableArrayList
 import android.graphics.Bitmap
@@ -13,6 +14,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -36,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
+import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -106,6 +109,10 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                             }
                             hospitalList = data
                             repohospitalList = rawData
+
+                            val editor =prefer.edit()
+                            editor.putString(KEYPREFER.CLINICMODEL,Gson().toJson(data))
+                            editor.apply()
                             //
                             loadMarker()
                             d { "check response [" + c.size + "]" }
@@ -130,6 +137,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
     var mPermissionDenied = false
     val zoomLevel = 14f
     lateinit var appDb : AppDatabase
+    lateinit var prefer :SharedPreferences
 
 
     companion object {
@@ -167,12 +175,14 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
         utils = Utils(activity)
         appDb = AppDatabase(activity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(activity)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         d { "Visible to user =$isVisibleToUser" }
         if(isVisibleToUser && location != null && hospitalList.size == 0){
-            loadHospital()
+                loadHospital()
+
 
         }else{
             if(isVisibleToUser && location != null && hospitalList.size > 0){
@@ -184,7 +194,8 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
                             item.locx,item.locy,item.version,"","","item.hospital_id",
                             "http://backend.loveapponline.com/"+item.file_path.replace("images","")+"o.png",
                             "http://backend.loveapponline.com/"+item.file_path+"/"+item.file_name+"_o.png",
-                            if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null && item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
+                            if(item.promotion_id != null){item.promotion_id}else{""},if(item.promotion_th != null &&
+                            item.promotion_eng != null){utils.txtLocale(item.promotion_th,item.promotion_eng)}else{""},
                             if(item.start_date !=null){utils.getDateSlash(item.start_date)}else{""},
                             if(item.end_date !=null){utils.getDateSlash(item.end_date)}else{""}))
                         d { "Add ["+item.name_th+"] to arraylist" }
@@ -430,7 +441,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
         googleMap?.addMarker(current)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
         if(hospitalList.size == 0) {
-            loadHospital()
+                loadHospital()
         }else{
             loadMarker()
         }

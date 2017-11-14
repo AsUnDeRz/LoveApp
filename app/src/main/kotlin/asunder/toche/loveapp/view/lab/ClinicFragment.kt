@@ -1,8 +1,10 @@
 package asunder.toche.loveapp
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -14,6 +16,8 @@ import com.github.ajalt.timberkt.Timber
 import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -45,6 +49,7 @@ class ClinicFragment: Fragment() {
 
     lateinit var utils : Utils
     lateinit var appDb : AppDatabase
+    lateinit var prefer :SharedPreferences
 
 
     companion object {
@@ -55,6 +60,7 @@ class ClinicFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.clinic_list, container, false)
+
         return view
     }
 
@@ -63,7 +69,9 @@ class ClinicFragment: Fragment() {
         txt_search.typeface = MyApp.typeFace.medium
         utils = Utils(activity)
         appDb = AppDatabase(activity)
+        prefer = PreferenceManager.getDefaultSharedPreferences(activity)
         val province = appDb.getProvince()
+
 
         //set title
         title_app.text ="NEARBY \nPLACE"
@@ -72,6 +80,8 @@ class ClinicFragment: Fragment() {
 
         rv_clinic_list.layoutManager = GridLayoutManager(context,2)
         rv_clinic_list.setHasFixedSize(true)
+
+
 
         if(LabFragment.hospitalList.size > 0){
             val data = ObservableArrayList<Model.Clinic>().apply {
@@ -90,8 +100,13 @@ class ClinicFragment: Fragment() {
             }
             LabFragment.hospitalList = data
             rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(LabFragment.hospitalList,false)
-
+        }else{
+            val jsonOutput = prefer.getString(KEYPREFER.CLINICMODEL,"")
+            val listType = object : TypeToken<List<Model.Clinic>>() {}.type
+            val clinic = Gson().fromJson(jsonOutput, listType) as List<Model.Clinic>
+            rv_clinic_list.adapter = MasterAdapter.ClinicAdapter(clinic,false)
         }
+
 
 
         btn_map.setOnClickListener {

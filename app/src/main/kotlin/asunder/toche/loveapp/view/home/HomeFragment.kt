@@ -53,13 +53,6 @@ class HomeFragment : Fragment(),ViewModel.HomeViewModel.HomeInterface {
 
         homeList = content
         rv_home.adapter = HomeAdapter(homeList, false)
-
-
-        /*
-        imaHome = data
-        cV.setImageListener(listener)
-        cV.pageCount = imaHome.size
-        */
     }
 
 

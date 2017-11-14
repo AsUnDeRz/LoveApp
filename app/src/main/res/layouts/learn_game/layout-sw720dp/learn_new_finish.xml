@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/bg_finish"
+        android:layout_width="match_parent"
+        android:layout_height="350dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:background="@drawable/bg_guy_fade"
         android:orientation="vertical">
 
         <!--
