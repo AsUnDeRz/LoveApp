@@ -72,7 +72,7 @@ class LearnAndGameFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title_app.text = "LEARNS\nAND GAMES"
+        title_app.text = getString(R.string.title_learnandgame)
         prefer = PreferenceManager.getDefaultSharedPreferences(activity)
         rv_learn_game.layoutManager = LinearLayoutManager(context)
         rv_learn_game.setHasFixedSize(true)
@@ -122,9 +122,6 @@ class LearnAndGameFragment : Fragment() {
 
 
     private val LearnNewType = Type<LearnNewItemBinding>(R.layout.learn_new_item)
-            .onCreate { println("Created") }
-            .onBind { println("Bound") }
-            .onRecycle { println("Recycled") }
             .onClick {
                 val item = it.binding.learnNewItem.data
                 val model = Model.RepositoryKnowledge(item.id,item.group_id,item.title_th,item.title_eng,item.content_th,item.content_eng,

@@ -122,9 +122,6 @@ class LearnGameMainActivity: AppCompatActivity(){
     }
 
     private val LearnGameType = Type<LearnGameItemBinding>(R.layout.learn_game_item)
-            .onCreate { println("Created ${it.binding.learnGameItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.learnGameItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.learnGameItem} at #${it.adapterPosition}") }
             .onClick {
                 it.binding.titleGame as TextView
                 when(intent.extras.getInt("key")){

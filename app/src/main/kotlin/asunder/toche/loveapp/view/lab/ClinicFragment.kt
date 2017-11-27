@@ -74,7 +74,7 @@ class ClinicFragment: Fragment() {
 
 
         //set title
-        title_app.text ="NEARBY \nPLACE"
+        title_app.text = getString(R.string.title_nearby)
         txt_location.text = LabFragment.city
         txt_location_desc.text = LabFragment.subCity
 

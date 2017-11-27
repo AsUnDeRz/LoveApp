@@ -85,9 +85,6 @@ class NotificationActivity : AppCompatActivity() {
 
 
     private val NotificationType = Type<NotificationItemBinding>(R.layout.notification_item)
-            .onCreate { println("Created ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.notiItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.notiItem} at #${it.adapterPosition}") }
             .onClick {
                 AppDatabase(it.itemView.context).deleteNotification(it.binding.notiItem.id)
                 notiList.removeAt(it.adapterPosition)

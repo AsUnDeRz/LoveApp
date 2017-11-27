@@ -36,6 +36,8 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
             setLanguage(lang)
             LocalUtil.onAttach(applicationContext, lang)
             startActivity(Intent().setClass(this@NewSetting,ActivityMain::class.java))
+            ActivityMain.vp_main.currentItem = 0
+            ActivityMain.bnve.currentItem =0
         }
         finish()
     }
@@ -195,7 +197,14 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         btn_policy.setOnClickListener {
             val data = Intent()
             data.putExtra("data","policy")
-            startActivity(data.setClass(this@NewSetting,ConditionText::class.java))        }
+            startActivity(data.setClass(this@NewSetting,ConditionText::class.java))
+        }
+        PushDownAnim.setOnTouchPushDownAnim(btn_about)
+        btn_about.setOnClickListener {
+            val data = Intent()
+            data.putExtra("data","about")
+            startActivity(data.setClass(this@NewSetting,ConditionText::class.java))
+        }
     }
 
 

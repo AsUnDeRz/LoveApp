@@ -78,7 +78,7 @@ class MyApp:Application(){
         super.onCreate()
         //utils typeface
         typeFace = Utils(applicationContext)
-        Timber.plant(Timber.DebugTree())
+        //Timber.plant(Timber.DebugTree())
 
 
         var lang:String

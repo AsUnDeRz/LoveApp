@@ -192,9 +192,6 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
 
 
     private val GenderType = Type<GenderItemBinding>(R.layout.gender_item)
-            .onCreate { println("Created ${it.binding.genderItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.genderItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.genderItem} at #${it.adapterPosition}") }
             .onClick {
                 //update gender with user id
                 //call api

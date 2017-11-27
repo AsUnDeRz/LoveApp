@@ -89,6 +89,7 @@
 
     <string name="hintfeedback">What is your opinion?</string>
     <string name="playmoregetmore">Play more\nget more points</string>
+    <string name="learnmoregetmore">Learn more\nget more points</string>
     <string name="learns">Learns</string>
     <string name="games">Games</string>
     <string name="welldone">Well done!</string>
@@ -99,7 +100,8 @@
     <string name="hintfirstpage">A simple platform to learn more about HIV, search for nearby service availability, and set up your own personal reminders</string>
 
     <!--V2 -->
-    <string name="conditiontitle">Terms &amp; Conditions</string>
+    <string name="conditiontitle">Terms &amp; Conditions of Use</string>
+    <string name="privacytitle">Privacy Policy</string>
     <string name="accept">Accept</string>
     <string name="selectlang">Select a language</string>
     <string name="getstarted">Get Started</string>
@@ -121,7 +123,7 @@
     <string name="newpass">New Password</string>
     <string name="newpassagain">New Password again</string>
     <string name="newcondition">Terms and Conditions of us</string>
-    <string name="newpolicy">Privacy and Policy</string>
+    <string name="newpolicy">Privacy Policy</string>
     <string name="privacy">Privacy</string>
     <string name="passlock">Passcode lock</string>
     <string name="touchid">Touch ID</string>
@@ -150,6 +152,10 @@
     <string name="cancle">Cancle</string>
     <string name="aceeptterm">Accept Terms &amp; Conditions</string>
 
+    <string name="title_nearby">NEARBY\nPLACE</string>
+    <string name="title_iam">I AM</string>
+    <string name="title_riskmeter">RISK METER</string>
+    <string name="title_learnandgame">LEARNS\nAND GAMES</string>
 
 
 

@@ -30,9 +30,6 @@ class PillReminderTimeActivity : AppCompatActivity(){
 
     companion object {
         private val PillReminderType = Type<PillReminderItemBinding>(R.layout.pill_reminder_item)
-                .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
-                .onBind { println("Bound ${it.binding.pillItem} at #${it.adapterPosition}") }
-                .onRecycle { println("Recycled ${it.binding.pillItem} at #${it.adapterPosition}") }
                 .onClick {
                     val data =Intent()
                     data.putExtra(KEYPREFER.isFirst,false)

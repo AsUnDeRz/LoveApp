@@ -62,7 +62,6 @@ class SelectLangActivity : LocalizationActivity(), OnLocaleChange {
     }
 
     private val LangType = Type<LanguageItemBinding>(R.layout.language_item)
-            .onCreate { println("Created ${it.binding.langItem} at #${it.adapterPosition}") }
             .onClick {
                 setLanguage(it.binding.langItem.key)
                 LocalUtil.onAttach(applicationContext, it.binding.langItem.key)

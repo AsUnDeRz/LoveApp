@@ -182,7 +182,6 @@ interface LoveAppService{
 
             val restAdapter = Retrofit.Builder()
                     .baseUrl(BuildConfig.ENDPOINT)
-                    .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
                     .build()
@@ -250,7 +249,6 @@ http://loveapponline.com/api/user/email/c3VwYXBhazk5OUBnbWFpbC5jb20=/password/MT
 
             val restAdapter = Retrofit.Builder()
                     .baseUrl(BuildConfig.NEWENDPOINT)
-                    .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
                     .build()

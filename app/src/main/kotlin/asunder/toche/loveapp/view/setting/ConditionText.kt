@@ -21,14 +21,25 @@ class ConditionText:AppCompatActivity(){
 
         val data = intent.getStringExtra("data")
         when(data){
-            "term" -> { title_condition.text = getString(R.string.conditiontitle) }
-            "policy" ->{ title_condition.text = "Privacy Policy" }
+            "term" -> {
+                title_condition.text = getString(R.string.conditiontitle)
+                txt_infomation.text = DataSimple.textCondition
+            }
+            "policy" ->{
+                title_condition.text = getString(R.string.newpolicy)
+                txt_infomation.text = DataSimple.textPrivacy
+            }
+            "about" ->{
+                title_condition.text = getString(R.string.aboutlove)
+                txt_infomation.text = Utils(this@ConditionText).txtLocale(DataSimple.textAboutTh,DataSimple.textAboutEn)
+            }
         }
 
         var parameter = relativeLayout4.layoutParams as RelativeLayout.LayoutParams
         parameter.setMargins(parameter.leftMargin, parameter.topMargin, parameter.rightMargin, 50) // left, top, right, bottom
         relativeLayout4.layoutParams = parameter
 
+        check_condition.visibility = View.GONE
         btn_accept.visibility = View.GONE
         btn_no.visibility = View.GONE
 

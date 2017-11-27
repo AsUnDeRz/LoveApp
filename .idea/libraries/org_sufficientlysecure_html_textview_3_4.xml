@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="org.sufficientlysecure:html-textview-3.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/html-textview-3.4.aar/80a0eb239be04cbfa6714391897e4218/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/html-textview-3.4.aar/80a0eb239be04cbfa6714391897e4218/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/html-textview-3.4.aar/87b30ab149b04793034ede8022938233/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/html-textview-3.4.aar/87b30ab149b04793034ede8022938233/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

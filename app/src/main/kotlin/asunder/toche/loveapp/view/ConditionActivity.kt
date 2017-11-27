@@ -25,6 +25,7 @@ class ConditionActivity :AppCompatActivity(){
         btn_accept.typeface =utils.heavy
         btn_no.typeface = utils.heavy
         check_condition.typeface = utils.heavy
+        txt_infomation.text = DataSimple.textCondition
 
         btn_accept.setOnClickListener {
             startActivity(Intent().setClass(this@ConditionActivity,StepWelcomActivity::class.java))

@@ -51,25 +51,16 @@ object MasterAdapter{
 
 
     private val PillType = Type<PillItemBinding>(R.layout.pill_item)
-            .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.pillItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.pillItem} at #${it.adapterPosition}") }
             .onClick {}
             .onLongClick {}
 
 
 
     private val HomeType = Type<HomeItemBinding>(R.layout.home_item)
-            .onCreate { println("Created ${it.binding.homeItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.homeItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.homeItem} at #${it.adapterPosition}") }
             .onClick {}
             .onLongClick {}
 
     private val ClinicType = Type<ClinicItemBinding>(R.layout.clinic_item)
-            .onCreate { println("Created ${it.binding.clinicItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.clinicItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.clinicItem} at #${it.adapterPosition}") }
             .onClick {
                 val intent = Intent()
                 val context = it.binding.clinicRoot.context
@@ -86,9 +77,6 @@ object MasterAdapter{
 
 
     private val PointType = Type<PointItemBinding>(R.layout.point_item)
-            .onCreate { println("Created ${it.binding.pointItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.pointItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.pointItem} at #${it.adapterPosition}") }
             .onClick {}
             .onLongClick {}
 

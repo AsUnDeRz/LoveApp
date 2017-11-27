@@ -40,7 +40,7 @@
             app:inactiveTextColor="@android:color/black"
             app:textToggleLeft="@string/th"
             app:textToggleRight="@string/en"
-            app:toggleWidth="55dp">
+            app:toggleWidth="65dp">
 
         </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
     </RelativeLayout>

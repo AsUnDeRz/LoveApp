@@ -223,7 +223,7 @@ class LabFragment : Fragment(),GoogleApiClient.OnConnectionFailedListener,
 
         //Custom wording and font
         title_app.typeface = MyApp.typeFace.heavy
-        title_app.text = "NEARBY \nPLACE"
+        title_app.text = getString(R.string.title_nearby)
         txt_search.typeface = MyApp.typeFace.medium
         txt_search.hint = "Search..."
         btn_showlist.setOnClickListener {

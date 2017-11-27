@@ -127,9 +127,6 @@ class NotiMessageActivity:AppCompatActivity(){
     }
 
     private val NotiMessageType = Type<NotiMessageItemBinding>(R.layout.noti_message_item)
-            .onCreate { println("Created ${it.binding.msnItem} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.msnItem} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.msnItem} at #${it.adapterPosition}") }
             .onClick {
                 message = it.binding.msnItem.title
                 val returnIntent = Intent()

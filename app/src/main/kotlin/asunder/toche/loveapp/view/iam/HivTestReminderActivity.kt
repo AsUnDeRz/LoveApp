@@ -96,7 +96,6 @@ class HivTestReminderActivity : AppCompatActivity(){
     }
 
     private val hivTestType = Type<HivtestItemBinding>(R.layout.hivtest_item)
-            .onCreate { println("Created ${it.binding.pillItem} at #${it.adapterPosition}") }
             .onClick {}
 
 

@@ -88,9 +88,6 @@ class LearnTopicActivity : AppCompatActivity() {
 
 
     private val LearnTopicType = Type<LearnTopicItemBinding>(R.layout.learn_topic_item)
-            .onCreate { println("Created ${it.binding.topic} at #${it.adapterPosition}") }
-            .onBind { println("Bound ${it.binding.topic} at #${it.adapterPosition}") }
-            .onRecycle { println("Recycled ${it.binding.topic} at #${it.adapterPosition}") }
             .onClick {
                 val data = Intent()
                 data.putExtra("title","LEARNS")

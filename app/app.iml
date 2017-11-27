@@ -143,6 +143,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
@@ -166,7 +167,6 @@
     <orderEntry type="library" name="com.android.support:multidex-1.0.2" level="project" />
     <orderEntry type="library" name="org.sufficientlysecure:html-textview-3.4" level="project" />
     <orderEntry type="library" name="com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0@jar" level="project" />
-    <orderEntry type="library" name="com.android.databinding:baseLibrary:3.0.0@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15@jar" level="project" />
     <orderEntry type="library" name="com.akexorcist:localizationactivity-1.1.1" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-26.0.1" level="project" />
@@ -243,6 +243,7 @@
     <orderEntry type="library" name="com.android.support:customtabs-26.0.1" level="project" />
     <orderEntry type="library" name="android.arch.core:runtime-1.0.0-alpha8" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.0.4" level="project" />
+    <orderEntry type="library" name="com.android.databinding:baseLibrary:3.0.1@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
     <orderEntry type="library" name="com.github.ybq:Android-SpinKit-1.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-v13-26.0.1" level="project" />
