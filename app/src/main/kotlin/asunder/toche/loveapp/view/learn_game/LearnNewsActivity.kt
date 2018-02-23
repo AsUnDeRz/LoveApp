@@ -80,7 +80,7 @@ class LearnNewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.learn_new)
-        val utils = Utils(this@LearnNewsActivity)
+        utils = Utils(this@LearnNewsActivity)
 
         handler = Handler()
         runnable = Runnable {

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.jakewharton.timber:timber-4.5.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timber-4.5.1.aar/f1453dedf4cdf1eb41aa46209a10cc0c/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timber-4.5.1.aar/f1453dedf4cdf1eb41aa46209a10cc0c/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timber-4.5.1.aar/c99d357908d15011aacb7ce7c45fc3df/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/timber-4.5.1.aar/c99d357908d15011aacb7ce7c45fc3df/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

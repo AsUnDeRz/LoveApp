@@ -226,18 +226,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/btn_pill"
+                android:layout_below="@+id/btn_negative"
                 android:layout_marginTop="15dp">
+
                 <ViewStub
                     android:id="@+id/labresult"
-                    android:layout="@layout/lab_result"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout="@layout/lab_result" />
+
                 <ViewStub
                     android:id="@+id/iamnonhiv"
-                    android:layout="@layout/iamnonhiv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout="@layout/iamnonhiv" />
                 <!--
                 <include
                     android:id="@+id/lab_view"

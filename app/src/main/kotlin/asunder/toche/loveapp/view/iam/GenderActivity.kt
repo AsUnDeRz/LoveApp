@@ -208,13 +208,24 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
                 editor.putString(KEYPREFER.NATIONAL, it.binding.nationItem.id.toString())
                 editor.apply()
                 val data = Intent()
-                if(it.binding.nationItem.title.equals("thai",true) ||
-                        it.binding.nationItem.title.equals("ไทย",true)) {
-                    data.putExtra("isThai", true)
-                    d{"isThai"}
+                if(it.binding.nationItem.title.equals("อื่นๆ",true) ||
+                        it.binding.nationItem.title.equals("Others",true)){
+
+                    val passcode = Intent()
+                    passcode.putExtra(KEYPREFER.PASSCODE,"change")
+                    startActivity(passcode.setClass(this@GenderActivity,PassCodeActivity::class.java))
+                    finish()
+
+
+                }else {
+                    if (it.binding.nationItem.title.equals("thai", true) ||
+                            it.binding.nationItem.title.equals("ไทย", true)) {
+                        data.putExtra("isThai", true)
+                        d { "isThai" }
+                    }
+                    startActivity(data.setClass(this@GenderActivity, UniqueIdActivity::class.java))
+                    finish()
                 }
-                startActivity(data.setClass(this@GenderActivity,UniqueIdActivity::class.java))
-                finish()
                 //update nation with user id
                 //getUserID(it.binding.nationItem.id.toString())
             }
@@ -240,6 +251,7 @@ class GenderActivity : AppCompatActivity(),ViewModel.MainViewModel.RiskQInterfac
 
             }
         }
+        nationList.sortBy { it.id }
         rv_gender.adapter = NationAdapter(nationList,false)
 
 

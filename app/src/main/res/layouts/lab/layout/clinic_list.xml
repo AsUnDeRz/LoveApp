@@ -41,8 +41,9 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:background="@android:color/transparent"
-            android:hint="Search..."
-            android:maxLines="1" />
+            android:hint="@string/searchlocation"
+            android:maxLines="1"
+            android:paddingStart="8dp" />
         <View
             android:id="@+id/btn_clear"
             android:layout_width="60dp"

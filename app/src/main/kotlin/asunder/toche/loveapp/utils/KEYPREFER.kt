@@ -54,4 +54,6 @@ object KEYPREFER{
     val GAME ="game"
     val KNOWLEDGE = "knowledge"
     val FORGOT ="http://www.loveapponline.com/forgot-password"
+
+    val isChangeLanguage ="isChangeLanguage"
 }

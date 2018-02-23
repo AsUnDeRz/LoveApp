@@ -35,13 +35,13 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title_app.text = "SETTING"
+        title_app.text = resources.getString(R.string.settings)
 
         PushDownAnim.setOnTouchPushDownAnim(btn_general)
         btn_general.setOnClickListener {
             val data =Intent()
             data.putExtra("data",KEYPREFER.GENERAL)
-            activity.startActivity(data.setClass(activity,NewSetting::class.java))
+            activity.startActivityForResult(data.setClass(activity,NewSetting::class.java),154)
         }
 
         PushDownAnim.setOnTouchPushDownAnim(btn_reminder)
@@ -91,5 +91,6 @@ class SettingFragment : Fragment() {
     override fun onResume() {
         super.onResume()
     }
+
 
 }

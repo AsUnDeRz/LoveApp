@@ -1,35 +1,24 @@
 package asunder.toche.loveapp
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v4.view.ViewPager
-import android.widget.Toast
-import asunder.toche.loveapp.R
+import android.support.v7.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_main.*
 import view.custom_view.CustomViewpager
-import android.content.Intent
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableList
-import android.preference.PreferenceManager
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.tapadoo.alerter.Alerter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.lab.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
+import android.support.v4.app.ActivityCompat.finishAfterTransition
+
+
 
 
 class ActivityMain : AppCompatActivity() {
@@ -43,10 +32,13 @@ class ActivityMain : AppCompatActivity() {
 
     }
 
+    lateinit var prefer :SharedPreferences
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
             d{"onCreate"}
+            prefer = PreferenceManager.getDefaultSharedPreferences(this@ActivityMain)
             vp_main = findViewById(R.id.vp_main_fragment)
             bnve = findViewById(R.id.bottom_nav)
             setUpBottomBar()
@@ -189,6 +181,21 @@ class ActivityMain : AppCompatActivity() {
         }
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 154){
+            if(prefer.getBoolean(KEYPREFER.isChangeLanguage,false)) {
+                val i = baseContext.packageManager
+                        .getLaunchIntentForPackage(baseContext.packageName)
+                i!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(i)
+                ActivityCompat.finishAfterTransition(this@ActivityMain)
+            }
+
+        }
+
+    }
 
 
 

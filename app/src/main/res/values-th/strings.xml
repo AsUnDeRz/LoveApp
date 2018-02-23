@@ -92,11 +92,11 @@
     <string name="playmoregetmore">เล่นอีกได้คะแนนอีก</string>
     <string name="learnmoregetmore">อ่านเพิ่มได้คะแนนเพิ่ม</string>
     <string name="learns">เรียนรู้</string>
-    <string name="games">เกมส์</string>
+    <string name="games">เกม</string>
     <string name="welldone">ทำได้ดี!</string>
     <string name="uhaveread">คุณได้อ่านบทความ</string>
     <string name="earn">และรับ</string>
-    <string name="firsttime">ยินดีต้อนรับสู่ LoveApp</string>
+    <string name="firsttime">LoveApp</string>
     <string name="timetotakepill">เวลาทานยา</string>
     <string name="hintfirstpage">เรียนรู้เกี่ยวกับเฮชไอวี ค้นหาสถานที่ให้บริการตรวจและรักษา และตั้งเครื่องช่วยเตือนความจำส่วนตัวของคุณ</string>
 
@@ -156,7 +156,11 @@
     <string name="title_nearby">สถานบริการ\nใกล้เคียง</string>
     <string name="title_iam">ส่วนตัว</string>
     <string name="title_riskmeter">RISK METER</string>
-    <string name="title_learnandgame">ความรู้และเกมส์</string>
+    <string name="title_learnandgame">ความรู้และเกม</string>
+    <string name="searchlocation">ค้นหาสถานบริการ</string>
+    <string name="nationality">สัญชาติ</string>
+
+    <string name="settings">ตั้งค่า</string>
 
 
 

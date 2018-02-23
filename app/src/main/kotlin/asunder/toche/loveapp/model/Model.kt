@@ -286,7 +286,7 @@ object Model{
             return dateString
         }
         fun getTimeHiv():String{
-            val formatter = SimpleDateFormat("dd/MM/yy")
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
             val dateString = formatter.format(Date(date))
             return dateString
         }

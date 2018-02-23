@@ -107,9 +107,9 @@
     <string name="getstarted">Get Started</string>
     <string name="security">Security</string>
     <string name="securitytext">Secure access to your privacy on LoveApp with Passcode Lock and Touch ID</string>
-    <string name="pillremindertext">Never miss out on any appointments by your own personal reminders</string>
+    <string name="pillremindertext">Never miss out on any appointments\nby your own personal reminders</string>
     <string name="nearby">Nearby service availability</string>
-    <string name="nearbytext">Search for nearby HIV-related health service availability</string>
+    <string name="nearbytext">Search for nearby HIV-related\nhealth service availability</string>
     <string name="hivtest">HIV Test \nTest apointment</string>
     <string name="popupredeempoint">กรุณากรอกข้อมูล ให้ครบก่อน ถึงแลกของรางวัลได้</string>
     <string name="next">Next</string>
@@ -153,9 +153,14 @@
     <string name="aceeptterm">Accept Terms &amp; Conditions</string>
 
     <string name="title_nearby">NEARBY\nPLACE</string>
-    <string name="title_iam">I AM</string>
+    <string name="title_iam">PRIVACY</string>
     <string name="title_riskmeter">RISK METER</string>
     <string name="title_learnandgame">LEARNS\nAND GAMES</string>
+    <string name="searchlocation">Enter location</string>
+    <string name="nationality">Nationality</string>
+
+    <string name="settings">SETTING</string>
+
 
 
 

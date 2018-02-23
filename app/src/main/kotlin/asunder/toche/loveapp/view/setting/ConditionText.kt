@@ -1,5 +1,7 @@
 package asunder.toche.loveapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -24,14 +26,22 @@ class ConditionText:AppCompatActivity(){
             "term" -> {
                 title_condition.text = getString(R.string.conditiontitle)
                 txt_infomation.text = DataSimple.textCondition
+                txt_web.visibility = View.VISIBLE
+                txt_web.setOnClickListener {
+                    sendEmail(txt_web.text.toString())
+                }
             }
             "policy" ->{
                 title_condition.text = getString(R.string.newpolicy)
                 txt_infomation.text = DataSimple.textPrivacy
+                txt_web.visibility = View.GONE
+
             }
             "about" ->{
                 title_condition.text = getString(R.string.aboutlove)
                 txt_infomation.text = Utils(this@ConditionText).txtLocale(DataSimple.textAboutTh,DataSimple.textAboutEn)
+                txt_web.visibility = View.GONE
+
             }
         }
 
@@ -46,5 +56,12 @@ class ConditionText:AppCompatActivity(){
         btn_back.setOnClickListener {
             finish()
         }
+    }
+
+    fun sendEmail(email:String?){
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        startActivity(Intent.createChooser(intent, "Email via..."))
     }
 }

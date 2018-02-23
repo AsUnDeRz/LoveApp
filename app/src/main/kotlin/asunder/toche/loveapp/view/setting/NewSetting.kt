@@ -33,17 +33,29 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
     override fun onBackPressed() {
         super.onBackPressed()
         if(lang != "") {
-            setLanguage(lang)
-            LocalUtil.onAttach(applicationContext, lang)
-            startActivity(Intent().setClass(this@NewSetting,ActivityMain::class.java))
-            ActivityMain.vp_main.currentItem = 0
-            ActivityMain.bnve.currentItem =0
-        }
+            if(currentLang == lang){
+                val editor = prefer.edit()
+                editor.putBoolean(KEYPREFER.isChangeLanguage,false)
+                editor.apply()
+                finish()
+            }else {
+                setLanguage(lang)
+                val editor = prefer.edit()
+                editor.putBoolean(KEYPREFER.isChangeLanguage,true)
+                editor.apply()
+                LocalUtil.onAttach(applicationContext, lang)
+                ActivityMain.bnve.currentItem = 0
+                ActivityMain.vp_main.currentItem = 0
+                finish()
+            }
+        }else{
         finish()
+        }
     }
 
     lateinit var localizationDelegate: LocalDelegate
     var lang =""
+    var currentLang =""
     lateinit var utils:Utils
     lateinit var prefer:SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,9 +101,11 @@ class NewSetting: LocalizationActivity(), OnLocaleChange {
         if(prefer.getString(KEYPREFER.language, locale) == "th"){
             switch_lang.checkedTogglePosition = 0
             lang ="th"
+            currentLang ="th"
         }else{
             switch_lang.checkedTogglePosition = 1
             lang="en"
+            currentLang = "en"
         }
         switch_lang.setOnToggleSwitchChangeListener { position, isChecked ->
             when(position){

@@ -3,35 +3,32 @@ package asunder.toche.loveapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.ObservableArrayList
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.Html
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.util.Base64
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import asunder.toche.loveapp.R
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.github.ajalt.timberkt.Timber.d
+import com.tapadoo.alerter.Alerter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.account_setting.*
 import kotlinx.android.synthetic.main.header_logo_blue_back.*
-import android.R.array
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import android.support.v4.content.ContextCompat
-import android.text.TextUtils
-import android.util.Base64
-import android.view.View
-import android.widget.Toast
-import com.afollestad.materialdialogs.MaterialDialog
-import com.tapadoo.alerter.Alerter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.regex.Pattern
 
 
 /**
@@ -55,6 +52,9 @@ class AccountSettingActivity: AppCompatActivity() {
 
     fun unsubscribe() { compoSub.dispose() }
 
+    var nations = ObservableArrayList<Model.National>()
+    var nationID =""
+    var nationTitle = ObservableArrayList<String>()
     var provinces = ObservableArrayList<Model.Province>()
     var provinID=""
     val provinTitle = ObservableArrayList<String>()
@@ -131,8 +131,9 @@ class AccountSettingActivity: AppCompatActivity() {
                 .load(R.drawable.bg_white)
                 .into(bg_root)
         txt_title.text = "SETTING"
-        edt_phone.typeface = MyApp.typeFace.heavy
-        edt_mcode.typeface = MyApp.typeFace.heavy
+        edt_nation.typeface = MyApp.typeFace.heavy
+        //edt_phone.typeface = MyApp.typeFace.heavy
+        //edt_mcode.typeface = MyApp.typeFace.heavy
         //edt_fcode.typeface = MyApp.typeFace.heavy
         edt_email.typeface = MyApp.typeFace.heavy
         edt_password.typeface = MyApp.typeFace.heavy
@@ -176,6 +177,13 @@ class AccountSettingActivity: AppCompatActivity() {
         txt_hiv_status.setOnClickListener {
             showStatus()
         }
+        edt_nation.setOnClickListener { view ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            showNation()
+        }
+        edt_nation.isFocusableInTouchMode = false
+        edt_nation.isFocusable = false
         edt_province.isFocusableInTouchMode = false
         edt_province.isFocusable =false
         edt_work.isFocusableInTouchMode = false
@@ -198,6 +206,7 @@ class AccountSettingActivity: AppCompatActivity() {
             }
         }
 
+        setPasswordListener()
 
     }
 
@@ -295,6 +304,7 @@ class AccountSettingActivity: AppCompatActivity() {
                                 setDataUser(dataUser[0])
                                 d { "check response [" + dataUser.size + "]" }
                                 loadJob()
+                                loadNation()
                                 if(appdb.getProvince().size != 0){
                                     var Title = ""
                                     val provin = ObservableArrayList<Model.Province>().apply {
@@ -321,6 +331,40 @@ class AccountSettingActivity: AppCompatActivity() {
             )
         }
 
+    fun loadNation(){
+        if(appdb.getNations().isNotEmpty()){
+            var title=""
+            val rawData = appdb.getNations()
+            rawData.sortBy { it.national_id }
+            rawData.forEach {
+                nationTitle.add(utils.txtLocale(it.nationality_th, it.nationality_eng))
+                nations.add(Model.National(it.national_id.toLong(), utils.txtLocale(it.nationality_th, it.nationality_eng)))
+                if(it.national_id == dataUser[0].national_id){
+                    title = utils.txtLocale(it.nationality_th, it.nationality_eng)
+                }
+            }
+            edt_nation.setText(title)
+
+        }
+
+    }
+
+    fun showNation(){
+        MaterialDialog.Builder(this)
+                .typeface(utils.medium,utils.medium)
+                .title(getString(R.string.nationtitle))
+                .items(nationTitle)
+                .itemsCallback({ dialog, view, which, text ->
+                    edt_nation.setText(text)
+                    d{"select nation [$text]"}
+                    nationID = nations[which].id.toString()
+                    d{ """check nationID [$nationID] [${nations[which]}]""" }
+                })
+                .positiveText(android.R.string.cancel)
+                .show()
+
+    }
+
     fun setDataUser(data:Model.User){
         d{"Birth in user =["+data.birth+"]"}
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -332,20 +376,22 @@ class AccountSettingActivity: AppCompatActivity() {
             mixUnique = data.first_name + data.first_surname + formatUni.format(date)
         }
 
-        edt_phone.setText(if(data.phone != null){data.phone!!}else{""})
-        edt_mcode.setText(if(data.user_id != null){data.user_id}else{""})
+        //edt_phone.setText(if(data.phone != null){data.phone!!}else{""})
+        //edt_mcode.setText(if(data.user_id != null){data.user_id}else{""})
         //edt_fcode.setText(data.friend_id)
-        edt_email.setText(if(data.email != null){data.email!!}else{""})
-        edt_password.setText(if(data.password != null){data.password!!}else{""})
+        edt_email.setText(data.email ?: "")
+        edt_password.setText(if(data.password != null){
+            Base64.decode(data.password.toByteArray(),Base64.DEFAULT).toString() }else{""})
         edt_unique.setText(mixUnique)
         //edt_work.setText(if(data.job != null){data.job!!}else{""})
         //edt_number_id.setText(if(data.iden_id != null){data.iden_id!!}else{""})
         fname = if(data.first_name != null){data.first_surname!!}else{""}
-        lname = if(data.first_surname != null){data.first_surname!!}else{""}
+        lname = data.first_surname ?: ""
         birth = if(data.birth != null){formatSend.format(date)}else{""}
-        provinID = if(data.province != null){data.province!!}else{""}
-        jobID = if(data.job != null){data.job!!}else{""}
-        statusID = if(data.status_id != null){data.status_id!!}else{""}
+        provinID = data.province ?: ""
+        jobID = data.job ?: ""
+        statusID = data.status_id ?: ""
+        nationID = data.national_id ?: ""
         if(data.iden_id != null){
             txt_number_id.visibility = View.GONE
             edt_number_id.visibility = View.GONE
@@ -403,6 +449,7 @@ class AccountSettingActivity: AppCompatActivity() {
     fun validate() : Boolean{
         val emailPattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
         val alter = getString(R.string.alteraccupdate)
+        /*
         if(TextUtils.isEmpty(edt_phone.editableText.toString())){
             //edt_phone.error = alter
             return false
@@ -411,6 +458,7 @@ class AccountSettingActivity: AppCompatActivity() {
             //edt_mcode.error = alter
             return false
         }
+        */
         if(TextUtils.isEmpty(edt_email.editableText.toString())){
             //edt_email.error = alter
             return false
@@ -431,6 +479,9 @@ class AccountSettingActivity: AppCompatActivity() {
             //edt_work.error = alter
             return false
         }
+        if(TextUtils.isEmpty(edt_nation.editableText.toString())){
+            return false
+        }
         /*
         if(TextUtils.isEmpty(edt_number_id.editableText.toString())){
             edt_number_id.error = alter
@@ -449,18 +500,20 @@ class AccountSettingActivity: AppCompatActivity() {
         //update edt_fcode.editableText.toString()
 
         var user = Model.User(data.user_id,data.gender_id,data.name, fname,
-                lname,statusID,null,edt_phone.editableText.toString(),
+                lname,statusID,null,data.phone,
                 edt_email.editableText.toString(),edt_password.editableText.toString(),provinID,jobID,
-                if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point,"","","",data.national_id)
+                if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point,"","","",nationID)
 
 
         if (prefer.getString(KEYPREFER.UserId, "") != "") {
             d { " user_id[" + prefer.getString(KEYPREFER.UserId, "") + "]" }
             manageSub(
                     mService.UpdateUser(data.user_id,data.gender_id,null, fname,
-                            lname,statusID,null,edt_phone.editableText.toString(),
-                            Base64.encodeToString(edt_email.editableText.toString().toByteArray(), Base64.DEFAULT),Base64.encodeToString(edt_password.editableText.toString().toByteArray(),Base64.DEFAULT),provinID,jobID,
-                            if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point, data.national_id)
+                            lname,statusID,null,data.phone,
+                            Base64.encodeToString(edt_email.editableText.toString().toByteArray(), Base64.DEFAULT),
+                            Base64.encodeToString(edt_password.editableText.toString().toByteArray(),Base64.DEFAULT)
+                            ,provinID,jobID,
+                            if(edt_number_id.text.toString().isNotEmpty()){edt_number_id.text.toString()}else{null}, birth,data.point, nationID)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ c -> run {
@@ -523,6 +576,29 @@ class AccountSettingActivity: AppCompatActivity() {
 
 
 
+    }
+
+
+    fun setPasswordListener(){
+        edt_password.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!validatePassword(s)){
+                    edt_password.error = Html.fromHtml("<font color='red'>กรุณากรอกรหัสผ่านให้ถูกต้อง</font>")
+
+                }
+            }
+        })
+    }
+
+    fun validatePassword(s: CharSequence?) : Boolean{
+        val passwordPattern = Pattern.compile( "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$]).{6,12})")
+        return passwordPattern.matcher(s).matches()
     }
 
     fun showPopup(){

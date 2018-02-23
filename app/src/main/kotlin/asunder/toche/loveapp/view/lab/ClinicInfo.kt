@@ -108,6 +108,10 @@ class ClinicInfo:AppCompatActivity(){
             */
         }
 
+        txt_web.setOnClickListener {
+            sendEmail(content?.email)
+        }
+
 
 
         btn_booknow.setOnClickListener {
@@ -127,6 +131,16 @@ class ClinicInfo:AppCompatActivity(){
 
 
 
+    }
+
+    fun sendEmail(email:String?){
+
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        //intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+
+        startActivity(Intent.createChooser(intent, "Email via..."))
     }
 
     fun trackPlace(placeId:String){

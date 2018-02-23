@@ -53,7 +53,12 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
         super.onBackPressed()
         fname = edt_fname.text.toString().toUpperCase()
         lname = edt_lname.text.toString().toUpperCase()
-        val uniID = fname+lname+"$day$m$y"
+        val txtDay = if(day >=10){day}else{ "0"+day}
+        if(y < 2200){
+            y + 543
+        }
+        val cutYear = y.toString().substring(2)
+        val uniID = fname+lname+"$txtDay$m$cutYear"
         d{"Check uniID before finish $uniID"}
         AccountSettingActivity.setUnique(uniID,y,m,day,fname,lname)
         finish()
@@ -221,7 +226,7 @@ class UniqueIdActivity: AppCompatActivity() ,com.layernet.thaidatetimepicker.dat
         var isthai=0
         when(hasTh){
             "th" -> {isthai=543}
-            "en" -> {isthai=0}
+            "en" -> {isthai=543}
         }
         val c = Calendar.getInstance()
         val mount = c.get(Calendar.MONTH)

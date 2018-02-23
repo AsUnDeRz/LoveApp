@@ -134,7 +134,7 @@ class IamFragment : Fragment() {
         when(preference.getInt(KEYPREFER.HIVSTAT,0)){
             KEYPREFER.POSITIVE -> {
                 labresult.inflate()
-                btn_negative.visibility = View.GONE
+                btn_negative.visibility = View.VISIBLE
             }
             KEYPREFER.NEGATIVE -> {
                 labresult.visibility = View.GONE

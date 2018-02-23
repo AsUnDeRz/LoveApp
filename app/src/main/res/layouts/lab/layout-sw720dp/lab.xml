@@ -53,6 +53,7 @@
             android:layout_marginLeft="200dp"
             android:layout_marginRight="200dp"
             android:background="@android:color/transparent"
+            android:hint="@string/searchlocation"
             android:maxLines="1"
             android:paddingStart="20dp"
             android:textSize="24sp" />

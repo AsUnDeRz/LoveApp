@@ -78,6 +78,9 @@ class MyApp:Application(){
         super.onCreate()
         //utils typeface
         typeFace = Utils(applicationContext)
+        if(asunder.toche.loveapp.BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+        }
         //Timber.plant(Timber.DebugTree())
 
 

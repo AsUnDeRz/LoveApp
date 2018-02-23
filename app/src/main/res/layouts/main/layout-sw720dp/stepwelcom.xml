@@ -51,6 +51,7 @@
                         android:id="@+id/txt_infomation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:lineSpacingExtra="8dp"
                         android:text="Welcome to"
                         android:textColor="@color/colorPrimary"
@@ -62,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="20dp"
+                        android:gravity="center"
                         android:lineSpacingExtra="5dp"
                         android:text="asdfadsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasjd;kflajsdfl;kjqweoiruqwekfjasd"
                         android:textSize="24sp" />

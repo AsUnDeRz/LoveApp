@@ -28,7 +28,187 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp">
 
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_unique_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/uid"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
 
+            <EditText
+                android:id="@+id/edt_unique"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/fill_box"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edt_email"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/email"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edt_password"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/password"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edt_province"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="@string/province"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edt_province"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/fill_box"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edt_nation"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_nation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="@string/nationality"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edt_nation"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/fill_box"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edt_work"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_number_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/idenid"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/edt_number_id"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="number"
+                android:maxLength="13"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/work"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edt_work"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/fill_box"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_title_hiv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="@string/hivstatus"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <view.custom_view.TextViewHeavy
+                android:id="@+id/txt_hiv_status"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button_box"
+                android:gravity="left|center_vertical"
+                android:paddingStart="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <!--
             <view.custom_view.TextViewHeavy
                 android:id="@+id/txt_phone"
                 android:layout_width="match_parent"
@@ -50,7 +230,6 @@
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
-            <!-- 2 box in 1 line -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,7 +347,6 @@
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
-            <!-- 2 box in 1 line -->
             <LinearLayout
                 android:id="@+id/title_2box"
                 android:layout_width="match_parent"
@@ -304,6 +482,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
+-->
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"

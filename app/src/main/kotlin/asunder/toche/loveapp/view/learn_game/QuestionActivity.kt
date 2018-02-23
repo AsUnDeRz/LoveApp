@@ -187,7 +187,7 @@ class QuestionActivity: AppCompatActivity() {
 
 
     fun loadYesNoQuestion(){
-        d{"check id ["+content+"]"}
+        d{ "check id [$content]" }
         manageSub(
                 service.getYesNoQuestion(content)
                         .subscribeOn(Schedulers.io())

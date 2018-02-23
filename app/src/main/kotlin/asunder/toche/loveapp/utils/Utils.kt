@@ -1,32 +1,20 @@
 package asunder.toche.loveapp
 
 import android.content.Context
-import android.content.IntentFilter
 import android.databinding.ObservableArrayList
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Typeface
-import com.github.ajalt.timberkt.Timber
-import com.github.ajalt.timberkt.Timber.d
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import android.text.InputFilter
+import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
-import android.text.SpannableString
-import android.text.InputFilter
+import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.maps.model.LatLng
-import com.grum.geocalc.Coordinate
 import com.grum.geocalc.DegreeCoordinate
 import com.grum.geocalc.EarthCalc
 import com.grum.geocalc.Point
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
