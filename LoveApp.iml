@@ -51,9 +51,17 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="kotlin-stdlib-jre8-1.2.10" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="kotlin-stdlib-jre7-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="kotlin-stdlib-jdk8-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="kotlin-stdlib-jdk7-1.2.10" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="kotlin-stdlib-1.2.10" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="annotations-13.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="kotlin-stdlib-jdk8-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="kotlin-stdlib-jdk7-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="kotlin-stdlib-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="annotations-13.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="kotlin-stdlib-jdk8-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="kotlin-stdlib-jdk7-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="kotlin-stdlib-1.2.10" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="annotations-13.0" level="project" />
   </component>
 </module>

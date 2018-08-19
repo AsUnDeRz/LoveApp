@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "278997349823",
+    "firebase_url": "https://loveapp-18a25.firebaseio.com",
+    "project_id": "loveapp-18a25",
+    "storage_bucket": "loveapp-18a25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278997349823:android:b88a541838472373",
+        "android_client_info": {
+          "package_name": "com.loveapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278997349823-1gvppvtackafn1ott2ihfebrhemc748g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRrOfwRzFUuf-16IN6g3nVx4PmWbU3__E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
